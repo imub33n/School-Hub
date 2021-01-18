@@ -1,6 +1,7 @@
 package com.example.schoolhub;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class InformationSchoolFragment extends Fragment implements OnMapReadyCallback  {
 
@@ -29,7 +31,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
             R.drawable.c
     };
     SlideAdapter adapter;
-
+    Button ModellButton;
     private MapView mMapView;
 
 
@@ -40,7 +42,14 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
         View root = inflater.inflate(R.layout.fragment_information_school, container, false);
 
         viewPager = (ViewPager2) root.findViewById(R.id.viewPagerSlider);
-
+        ModellButton = (Button) root.findViewById(R.id.view3dModellButton);
+        ModellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent( getActivity().getApplicationContext() , ARModel.class);
+                startActivity(it);
+            }
+        });
         adapter= new SlideAdapter(lst_images);
 
 //        viewPager.setClipToPadding(false);

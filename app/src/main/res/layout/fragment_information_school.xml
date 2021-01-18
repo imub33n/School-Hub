@@ -98,17 +98,19 @@
                 android:textAllCaps="true"
                 android:textColor="@color/ic_launcher_background"
                 android:textStyle="bold" />
+
             <Button
                 android:id="@+id/view3dModellButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_margin="20dp"
                 android:layout_marginEnd="72dp"
                 android:background="@drawable/tab_bar_bg"
                 android:drawableLeft="@drawable/model3d"
                 android:padding="10dp"
-                android:layout_gravity="end"
-                android:text="   View 3D Model"
+                android:onClick="arOnClick"
+                android:text="  View AR Model"
                 android:textColor="#FFFFFF" />
 
             <com.google.android.gms.maps.MapView
