@@ -44,28 +44,36 @@
                     android:orientation="horizontal">
 
                     <RadioGroup
+                        android:id="@+id/signupRadioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/radioButton"
+                            android:id="@+id/radioButtonUpAdmin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Admin" />
 
                         <RadioButton
-                            android:id="@+id/radioButton9"
+                            android:id="@+id/radioButtonUpTeacher"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teacher" />
+
+                        <RadioButton
+                            android:id="@+id/radioButtonUpParent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Parent" />
 
                         <RadioButton
-                            android:id="@+id/radioButton10"
+                            android:id="@+id/radioButtonUpStudent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Student" />
+
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -207,6 +215,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         android:paddingLeft="60dp"
         android:paddingRight="60dp">
@@ -221,6 +230,7 @@
             android:gravity="center"
             android:letterSpacing="0.2"
             android:padding="16dp"
+            android:onClick="createAccount"
             android:text="Signup"
             android:textColor="#d9e5f3"
             android:textStyle="bold" />

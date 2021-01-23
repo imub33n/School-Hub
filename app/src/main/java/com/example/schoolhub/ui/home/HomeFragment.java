@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.schoolhub.R;
 
 public class HomeFragment extends Fragment {
-
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {

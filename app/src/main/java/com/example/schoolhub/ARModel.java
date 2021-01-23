@@ -28,6 +28,7 @@ public class ARModel extends AppCompatActivity {
         setUpModel();
         setUpPlane();
     }
+    //halo
     private void setUpModel() {
         ModelRenderable.builder()
                 .setSource(this,

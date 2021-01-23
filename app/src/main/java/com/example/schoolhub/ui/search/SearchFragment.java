@@ -2,6 +2,7 @@ package com.example.schoolhub.ui.search;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -58,8 +60,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
 
         return root;
     }
-
-
+    
     @Override
     public void onMapReady(GoogleMap googleMap) {
 //        googleMap.addMarker(new MarkerOptions().position(new LatLng(33.6376464, 73.1467503)).title("Current Location"));
@@ -68,7 +69,8 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         googleMap.setMyLocationEnabled(true);
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(2));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(5));
+
     }
 
     @Override

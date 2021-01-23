@@ -1,48 +1,51 @@
 package com.example.schoolhub;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.schoolhub.data.LoginResult;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignIn extends AppCompatActivity {
-    private static final String TAG = "Login Activity";
-    FirebaseDatabase database;
-    DatabaseReference users;
+
     EditText password,email;
-    TextView sup, user;
+    TextView sup;
     Button lin;
-    FirebaseAuth mAuth;
-    Boolean emailChk;
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+
+    public static String BASE_URL = "http://192.168.10.5:8080/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        //DataBase
-        database= FirebaseDatabase.getInstance();
-        users =database.getReference("Users");
+
         //References
         lin = (Button) findViewById(R.id.loginBsi);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         sup = (TextView) findViewById(R.id.s_up);
-        user = (TextView) findViewById(R.id.signInAs);
-        user.setText("Signing In as "+UserSignIn.User);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
         sup.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -67,34 +70,39 @@ public class SignIn extends AppCompatActivity {
         }else if((password.getText().toString()).isEmpty()){
             Toast.makeText(this, "!!Please write your password!!", Toast.LENGTH_SHORT).show();
         }else{
-            try {
-                mAuth = FirebaseAuth.getInstance();
-                mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    VerifyEmailAddress();
-                                } else {
-                                    Toast.makeText( getApplicationContext() , task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            } catch (Exception e){
-                Log.e(TAG, e.getMessage());
+            HashMap<String, String> map = new HashMap<>();
+
+            map.put("email", email.getText().toString());
+            map.put("password", password.getText().toString());
+            try{
+                Call<LoginResult> call = retrofitInterface.executeLogin(map);
+                call.enqueue(new Callback<LoginResult>() {
+                    @Override
+                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+
+                        if (response.code() == 200) {
+                            LoginResult result = response.body();
+                            Toast.makeText(SignIn.this, result.getUserID(), Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 401) {
+                            Toast.makeText(SignIn.this, "Wrong Credentials",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 500) {
+                            Toast.makeText(SignIn.this, "Email error",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<LoginResult> call, Throwable t) {
+                        Toast.makeText(SignIn.this, t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }catch(Exception ex){
+                Toast.makeText(SignIn.this, "Retrofit not working ", Toast.LENGTH_LONG).show();
             }
-        }
-    }
-    private void VerifyEmailAddress(){
-        FirebaseUser user=mAuth.getCurrentUser();
-        emailChk=user.isEmailVerified();
-        if(emailChk){
-            Intent it = new Intent( getApplicationContext() ,HomePanel.class);
-            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK  );
-            startActivity(it);
-        }else{
-            Toast.makeText(this, "!!Please verify your Account!!", Toast.LENGTH_SHORT).show();
-            mAuth.signOut();
+
+
+
         }
     }
 }
