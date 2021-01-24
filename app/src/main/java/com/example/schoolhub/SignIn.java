@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.ui.home.HomeFragment;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
 
@@ -25,11 +27,12 @@ public class SignIn extends AppCompatActivity {
     EditText password,email;
     TextView sup;
     Button lin;
+    public static String userName;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 
     public static String BASE_URL = "http://192.168.10.5:8080/";
-
+//InetAddress.getLocalHost().getHostAddress()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class SignIn extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         sup = (TextView) findViewById(R.id.s_up);
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -59,7 +63,6 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 allowingUserToLogin();
-
             }
         });
     }
@@ -82,6 +85,9 @@ public class SignIn extends AppCompatActivity {
 
                         if (response.code() == 200) {
                             LoginResult result = response.body();
+                            userName=result.getUsername();
+                            Intent it = new Intent( getApplicationContext() , HomePanel.class);
+                            startActivity(it);
                             Toast.makeText(SignIn.this, result.getUserID(), Toast.LENGTH_LONG).show();
                         } else if (response.code() == 401) {
                             Toast.makeText(SignIn.this, "Wrong Credentials",

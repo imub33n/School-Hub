@@ -12,6 +12,7 @@
     <string name="menu_search">Search School</string>
     <string name="menu_statistics">Statistics</string>
     <string name="menu_inbox">Inbox</string>
+    <string name="menu_live_stream">Live Stream</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

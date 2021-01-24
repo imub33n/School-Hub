@@ -27,4 +27,9 @@
         android:name="com.example.schoolhub.ui.inbox.InboxFragment"
         android:label="@string/menu_inbox"
         tools:layout="@layout/fragment_inbox" />
+    <fragment
+        android:id="@+id/nav_live_stream"
+        android:name="com.example.schoolhub.ui.liveStream.LiveStreamFragment"
+        android:label="@string/menu_live_stream"
+        tools:layout="@layout/fragment_live_stream" />
 </navigation>

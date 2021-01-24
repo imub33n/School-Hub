@@ -20,5 +20,9 @@
             android:id="@+id/nav_inbox"
             android:icon="@drawable/ic_baseline_message"
             android:title="@string/menu_inbox" />
+        <item
+            android:id="@+id/nav_live_stream"
+            android:icon="@drawable/ic_baseline_live_stream"
+            android:title="@string/menu_live_stream" />
     </group>
 </menu>

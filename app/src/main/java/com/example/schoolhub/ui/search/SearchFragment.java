@@ -47,13 +47,25 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 View view = getLayoutInflater().inflate(R.layout.fragment_filters, null);
-
                 BottomSheetDialog dialog = new BottomSheetDialog(getContext());
                 dialog.setContentView(view);
                 dialog.show();
             }
         });
-
+        /*
+        <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:iconifiedByDefault="false"
+        android:paddingEnd="20dp"
+        android:queryHint="Search school here.."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+         */
         mMapView = root.findViewById(R.id.mapView2);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);

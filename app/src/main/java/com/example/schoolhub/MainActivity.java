@@ -7,20 +7,22 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.schoolhub.ui.home.HomeFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Intent it = new Intent( getApplicationContext() ,SchoolDetails.class);
+//        Intent it = new Intent( getApplicationContext() , HomePanel.class);
 //        startActivity(it);
 
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(getApplicationContext(), SignIn.class);
+                Intent intent= new Intent(getApplicationContext(), LandingScreen.class);
                 startActivity(intent);
             }
         }, 2000);//timer set for 2 seconds
