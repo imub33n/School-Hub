@@ -24,16 +24,12 @@ public class SignUp extends AppCompatActivity {
     EditText email, phoneNo, password, userName;
     TextView lin;
     Button sup;
-    private String user;
+
     private RadioGroup radioGroup;
     private RadioButton radioButton;
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-//    private String BASE_URL = "http://192.168.8.104:8080/";
-//    FirebaseDatabase database;
-//    DatabaseReference users;
-//    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

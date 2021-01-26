@@ -14,6 +14,8 @@ import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -27,11 +29,11 @@ public class SignIn extends AppCompatActivity {
     EditText password,email;
     TextView sup;
     Button lin;
-    public static String userName;
+    public static String userName,userID;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 
-    public static String BASE_URL = "http://192.168.10.5:8080/";
+    public static String BASE_URL = "http://192.168.10.9:8080/";
 //InetAddress.getLocalHost().getHostAddress()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class SignIn extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         sup = (TextView) findViewById(R.id.s_up);
 
+        //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -85,6 +88,7 @@ public class SignIn extends AppCompatActivity {
 
                         if (response.code() == 200) {
                             LoginResult result = response.body();
+                            userID=result.getUserID();
                             userName=result.getUsername();
                             Intent it = new Intent( getApplicationContext() , HomePanel.class);
                             startActivity(it);

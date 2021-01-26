@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/editTextTextMultiLine"
+                    android:id="@+id/postEditText"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:ems="10"
@@ -64,32 +64,27 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/ic_menu_gallery"
-                            app:tint="#fff" />
-
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/uploadImageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:text="Upload photo"
+                            android:drawableTint="#fff"
+                            android:drawableLeft="@drawable/ic_menu_gallery"
+                            android:text="  Upload photo"
                             android:textColor="#fff" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/postButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -150,7 +145,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/userNamePost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -159,10 +154,9 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/timePost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginLeft="5dp"
                             android:text="Time here"
                             android:textColor="#fff"
@@ -171,7 +165,7 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/imagePost"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     app:srcCompat="@drawable/lines"
@@ -183,7 +177,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/likeButtonPost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
