@@ -2,6 +2,7 @@ package com.example.schoolhub.ui.home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,26 +20,43 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.schoolhub.HomePanel;
+import com.example.schoolhub.PostViewAdapter;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.SignUp;
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -52,9 +70,9 @@ import static android.content.ContentValues.TAG;
 import static java.lang.Thread.sleep;
 
 public class HomeFragment extends Fragment {
-
+//recyclerView.getAdapter().notifyDataSetChanged();
     public String uploadedImageURL;
-
+    String userIDPost,userNamePost, textPost, timePost, imagePost;
     private HomeViewModel homeViewModel;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -62,13 +80,14 @@ public class HomeFragment extends Fragment {
     TextView postButton,uploadImageButton;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
-    public String waitHere="go";
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     //Firebase
     FirebaseStorage storage;
     StorageReference storageReference;
-
-
+    //DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("images");
+    //recyclerview
+    List<PostResult> resource;
+    PostViewAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
 
         homeViewModel =ViewModelProviders.of(this).get(HomeViewModel.class);
@@ -80,8 +99,50 @@ public class HomeFragment extends Fragment {
 //backend
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+//recycler
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.postView);
+        //PostViewAdapter adapter = new PostViewAdapter(resource);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerView.setAdapter(adapter);
 
+//get shitpostings
+        //retrofit
+        retrofit = new Retrofit.Builder()
+                .baseUrl(SignIn.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        Call<List<PostResult>> call = retrofitInterface.doGetListResources();
+        call.enqueue(new Callback<List<PostResult>>() {
+            @Override
+            public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
+                if (response.code() == 200) {
+                    Log.d("TAG",response.code()+"");
+                    String displayResponse = "";
+                    resource =  response.body();
+                    //Toast.makeText(getContext(),resource.toString(),Toast.LENGTH_SHORT).show();
+                    adapter = new PostViewAdapter(resource,getContext());
+                    recyclerView.setAdapter(adapter);
+
+//                    for(int i=0;i<resource.size();i++){
+//                        System.out.println(resource.get(i).getTime());
+//                    }
+//                    Toast.makeText(getContext(), displayResponse, Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<PostResult>> call, Throwable t) {
+
+                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+        //gettingPosts();
 
         uploadImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,16 +169,15 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        //retrofit
-        retrofit = new Retrofit.Builder()
-                .baseUrl(SignIn.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         return root;
     }
+
+    private void gettingPosts() {
+
+
+    }
+
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
