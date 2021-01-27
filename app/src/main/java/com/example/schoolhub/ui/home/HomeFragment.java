@@ -130,7 +130,6 @@ public class HomeFragment extends Fragment {
 //                    for(int i=0;i<resource.size();i++){
 //                        System.out.println(resource.get(i).getTime());
 //                    }
-//                    Toast.makeText(getContext(), displayResponse, Toast.LENGTH_LONG).show();
                 }else {
                     Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
                 }

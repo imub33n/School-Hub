@@ -17,12 +17,14 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.module.AppGlideModule;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,12 +34,16 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
-    List<PostResult> resource;
+    List<PostResult> resourcePost;
+    List<Comment> resourceComment;
     Context context;
+    CommentAdapter commentAdapter;
+    RecyclerView recyclerViewCmnt;
     FirebaseStorage storage= FirebaseStorage.getInstance();
-    StorageReference storageReference= storage.getReference();
+    //StorageReference storageReference= storage.getReference();
     public PostViewAdapter(List<PostResult> postLists, Context context) {
-        this.resource = postLists;
+        this.resourcePost = postLists;
+
         this.context = context;
     }
     @Override
@@ -53,7 +59,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     public void onBindViewHolder(@NonNull PostViewAdapter.ViewHolder holder, int position) {
         //ImageList imageList=imageLists.get(position);
         //holder.tvname.setText(imageList.getName());
-        PostResult postResult=resource.get(position);
+        PostResult postResult=resourcePost.get(position);
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
@@ -86,6 +92,11 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                 }
             });
         }
+        if(!(postResult.getComments().isEmpty())){
+            this.resourceComment= postResult.getComments();
+            recyclerViewCmnt.setAdapter(commentAdapter);
+        }
+
 
 //        GlideApp.with(context)
 //                .load("http://via.placeholder.com/300.png")
@@ -107,7 +118,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return resource.size();
+        return resourcePost.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -121,6 +132,10 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             this.timePost = itemView.findViewById(R.id.timePost);
             this.postTextData = itemView.findViewById(R.id.postTextData);
             this.imagePost = itemView.findViewById(R.id.imagePost);
+            recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
+            recyclerViewCmnt.setHasFixedSize(true);
+            recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));
+            commentAdapter = new CommentAdapter(resourceComment,context);
             //linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }

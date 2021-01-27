@@ -25,7 +25,7 @@ public class PostResult {
     private String time;
     @SerializedName("comments")
     @Expose
-    private List<Object> comments;
+    private List<Comment> comments;
     @SerializedName("image")
     @Expose
     private String image;
@@ -70,11 +70,11 @@ public class PostResult {
         this.time = time;
     }
 
-    public List<Object> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Object> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
