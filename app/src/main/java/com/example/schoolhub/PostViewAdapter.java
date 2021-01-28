@@ -3,9 +3,11 @@ package com.example.schoolhub;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +33,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.ContentValues.TAG;
 
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     List<PostResult> resourcePost;
@@ -40,19 +52,18 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     CommentAdapter commentAdapter;
     RecyclerView recyclerViewCmnt;
     FirebaseStorage storage= FirebaseStorage.getInstance();
-    //StorageReference storageReference= storage.getReference();
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+
     public PostViewAdapter(List<PostResult> postLists, Context context) {
         this.resourcePost = postLists;
-
         this.context = context;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-//        View listItem= layoutInflater.inflate(R.layout.post_body, parent, false);
-//        ViewHolder viewHolder = new ViewHolder(listItem);
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.post_body,parent,false);
-        return new ViewHolder(v);
+        ViewHolder viewHolder = new ViewHolder(v);
+        return viewHolder;
     }
 
     @Override
@@ -64,7 +75,6 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
         if(postResult.getImage()!=null){
-
             StorageReference storageRef = storage.getReferenceFromUrl(postResult.getImage());
             storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -78,7 +88,6 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                             .error(R.drawable.a)
                             //.apply(new RequestOptions().override(1000, 500))
                             .into(holder.imagePost);
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -94,9 +103,44 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         }
         if(!(postResult.getComments().isEmpty())){
             this.resourceComment= postResult.getComments();
+            commentAdapter = new CommentAdapter(resourceComment,context);
             recyclerViewCmnt.setAdapter(commentAdapter);
         }
+        holder.commentSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, postResult.getId(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "postResult.getId()", Toast.LENGTH_LONG).show();
+                HashMap<String, String> maped = new HashMap<>();
+                maped.put("username", SignIn.userName);
+                maped.put("text", holder.commentSendText.getText().toString());
+                HashMap<String,HashMap<String, String>> map = new HashMap<>();
 
+//                comment.add(new Comment(SignIn.userName,holder.commentSendText.getText().toString()));
+
+                map.put("comments",maped);
+//                map.put("username", SignIn.userName);
+//                map.put("text", holder.commentSendText.getText().toString());
+
+                //Comment comment= new Comment(SignIn.userName,"supumf");
+                Call<PostResult> call =retrofitInterface.putComment(postResult.getId(),map);
+
+                call.enqueue(new Callback<PostResult>() {
+                    @Override
+                    public void onResponse(Call<PostResult> call, Response<PostResult> response) {
+                        if(!response.isSuccessful()){
+                            Log.d(TAG, "onResponse comment retrofit: "+response.code());
+                            return;
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<PostResult> call, Throwable t) {
+                        Toast.makeText(context, " some error in comment patch request : "+t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
 
 //        GlideApp.with(context)
 //                .load("http://via.placeholder.com/300.png")
@@ -124,19 +168,30 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView userNamePost,timePost,postTextData;
-        public ImageView imagePost;
-        public LinearLayout linearLayout;
+        public ImageView imagePost,commentSendButton;
+        public EditText commentSendText;
+        //public LinearLayout linearLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.userNamePost = itemView.findViewById(R.id.userNamePost);
             this.timePost = itemView.findViewById(R.id.timePost);
             this.postTextData = itemView.findViewById(R.id.postTextData);
             this.imagePost = itemView.findViewById(R.id.imagePost);
+            this.commentSendText = itemView.findViewById(R.id.commentSendText);
+            this.commentSendButton = itemView.findViewById(R.id.commentSendButton);
+
             recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
             recyclerViewCmnt.setHasFixedSize(true);
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));
-            commentAdapter = new CommentAdapter(resourceComment,context);
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(SignIn.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            retrofitInterface = retrofit.create(RetrofitInterface.class);
             //linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }
+
 }

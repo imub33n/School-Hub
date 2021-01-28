@@ -11,6 +11,12 @@ public class Comment {
     @Expose
     private String text;
 
+
+    public Comment(String username, String text) {
+        this.username = username;
+        this.text = text;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -119,13 +119,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/postLinearLayout">
 
                 <EditText
-                    android:id="@+id/commentEditText"
+                    android:id="@+id/commentSendText"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:hint="Write a comment"
+                    android:hint="Write a comment.."
                     android:inputType="textMultiLine"
                     android:textColor="#fff"
                     android:textColorHint="#BFFFFFFF"
@@ -133,6 +133,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/commentSendButton"
                     android:src="@drawable/send_icon"
                     android:layout_margin="5dp"
                     app:tint="#fff" />

@@ -1,6 +1,7 @@
 package com.example.schoolhub;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.PostResult;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     List<Comment> resourceComment;
     Context context;
-    public CommentAdapter(List<Comment> resource, Context context) {
-        this.resourceComment=resource;
+    public CommentAdapter(List<Comment> res, Context context) {
+        Log.d(TAG, "CommentAdapter: "+res.size());
+        this.resourceComment=res;
+
         this.context = context;
     }
 
     @NonNull
     @Override
     public CommentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.post_body,parent,false);
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_body,parent,false);
         return new CommentAdapter.ViewHolder(v);
         //return null;
     }
@@ -33,6 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         Comment comments=resourceComment.get(position);
+
         holder.userNameComment.setText(comments.getUsername());
         holder.textComment.setText(comments.getText());
     }
