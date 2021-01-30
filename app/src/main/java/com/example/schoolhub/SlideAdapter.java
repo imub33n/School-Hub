@@ -41,11 +41,5 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
 
         }
     }
-//    private Runnable runnable = new Runnable() {
-//        @Override
-//        public void run() {
-//
-//        }
-//    };
 
 }

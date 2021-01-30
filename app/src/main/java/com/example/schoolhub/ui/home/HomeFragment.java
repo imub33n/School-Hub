@@ -126,7 +126,6 @@ public class HomeFragment extends Fragment {
                     //Toast.makeText(getContext(),resource.toString(),Toast.LENGTH_SHORT).show();
                     adapter = new PostViewAdapter(resource,getContext());
                     recyclerView.setAdapter(adapter);
-
 //                    for(int i=0;i<resource.size();i++){
 //                        System.out.println(resource.get(i).getTime());
 //                    }

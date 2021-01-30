@@ -39,7 +39,7 @@
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#454545"
+                app:cardBackgroundColor="#EAEAEA"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +67,8 @@
                             android:gravity="start|top"
                             android:hint="Write your status here..."
                             android:inputType="textMultiLine"
-                            android:textColor="#fff"
-                            android:textColorHint="#BFFFFFFF"
+                            android:textColor="#000"
+                            android:textColorHint="#BF000000"
                             android:textSize="12sp" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,10 +89,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
-                                    android:drawableTint="#fff"
+                                    android:drawableTint="#000"
                                     android:drawableLeft="@drawable/ic_menu_gallery"
                                     android:text="  Upload photo"
-                                    android:textColor="#fff" />
+                                    android:textColor="#000" />
                             </LinearLayout>
 
                             <TextView
@@ -101,7 +101,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:text="Post"
-                                android:textColor="#fff"
+                                android:textColor="#000"
                                 android:textStyle="bold"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

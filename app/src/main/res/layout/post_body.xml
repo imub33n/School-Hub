@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        app:cardBackgroundColor="@color/ic_launcher_background"
+        app:cardBackgroundColor="#EAEAEA"
         app:cardCornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.619"
@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Name Here"
-                            android:textColor="#fff"
+                            android:textColor="#000"
                             android:textStyle="bold" />
 
                         <TextView
@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="Time here"
-                            android:textColor="#fff"
+                            android:textColor="#000"
                             android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="Post text"
-                    android:textColor="#fff" />
+                    android:textColor="#000" />
 
                 <ImageView
                     android:id="@+id/imagePost"
@@ -96,14 +96,14 @@
                         android:padding="5dp"
                         android:layout_margin="5dp"
                         android:text="Like"
-                        android:textColor="#fff"
+                        android:textColor="#000"
                         android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#bfffffff"
+                android:background="#bf000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/postLinearLayout"/>
@@ -127,8 +127,8 @@
                     android:gravity="start"
                     android:hint="Write a comment.."
                     android:inputType="textMultiLine"
-                    android:textColor="#fff"
-                    android:textColorHint="#BFFFFFFF"
+                    android:textColor="#000"
+                    android:textColorHint="#BF000000"
                     android:textSize="12sp" />
                 <ImageView
                     android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                     android:id="@+id/commentSendButton"
                     android:src="@drawable/send_icon"
                     android:layout_margin="5dp"
-                    app:tint="#fff" />
+                    app:tint="#000" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

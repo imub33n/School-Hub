@@ -5,15 +5,9 @@
     android:id="@+id/linearLayoutComment"
     android:orientation="vertical"
 
-    android:background="@color/ic_launcher_background"
+    android:background="#EAEAEA"
     android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#66FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postLinearLayout"/>
+
     <LinearLayout
         android:id="@+id/commentLinearLayout"
         android:layout_width="match_parent"
@@ -34,6 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/bg_comment"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:padding="5dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/userNameComment"
@@ -43,19 +43,18 @@
                 android:layout_marginLeft="5dp"
                 android:text="Name Here"
                 android:textSize="12dp"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/textComment"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
                 android:gravity="start|top"
                 android:hint="Comment here..."
                 android:inputType="textMultiLine"
-                android:textColor="#fff"
-                android:textColorHint="#BFFFFFFF"
+                android:textColor="#000"
+                android:textColorHint="#BF000000"
                 android:textSize="12sp" />
         </LinearLayout>
 

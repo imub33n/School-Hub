@@ -100,11 +100,13 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                             .into(holder.imagePost);
                 }
             });
+        }else{
         }
         if(!(postResult.getComments().isEmpty())){
             this.resourceComment= postResult.getComments();
             commentAdapter = new CommentAdapter(resourceComment,context);
             recyclerViewCmnt.setAdapter(commentAdapter);
+        }else{
         }
         holder.commentSendButton.setOnClickListener(new View.OnClickListener() {
             @Override

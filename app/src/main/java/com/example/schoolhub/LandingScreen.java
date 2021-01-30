@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.schoolhub.data.SchoolsLandingModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -22,9 +24,25 @@ import java.util.List;
 
 public class LandingScreen extends AppCompatActivity {
 
-    ViewPager2 viewPager;
-    public int[] lst_images = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.a, R.drawable.b, R.drawable.c};
+    ViewPager2 viewPager,viewPagerLanding;
+    public int[] lst_images = {R.drawable.a,
+            R.drawable.b,
+            R.drawable.c,
+            R.drawable.a,
+            R.drawable.b,
+            R.drawable.c};
+//    Integer[] colors = null;
+//    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+
+    ArrayList<SchoolsLandingModel> models = new ArrayList<>();
+
+//        models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
+//        models.add(new SchoolsLandingModel(R.drawable.b, "Sticker", "Sticker is a type of label"));
+//        models.add(new SchoolsLandingModel(R.drawable.c, "Poster", "Poster is any piece of printed"));
+//        models.add(new SchoolsLandingModel(R.drawable.a, "Namecard", "Business cards are cards"));
+
     SlideAdapter adapter;
+    AdapterLanding adapterLanding;
     Handler sliderHandler= new Handler();
 
     @Override
@@ -35,7 +53,20 @@ public class LandingScreen extends AppCompatActivity {
         viewPager = (ViewPager2) findViewById(R.id.viewPagerSliderLandingPage);
         adapter= new SlideAdapter(lst_images);
         viewPager.setAdapter(adapter);
+        //landing view pager
+        viewPagerLanding = (ViewPager2) findViewById(R.id.schoolsSliderLandingPage);
+        adapterLanding= new AdapterLanding(models,this);
+        viewPagerLanding.setAdapter(adapterLanding);
+        viewPagerLanding.setPadding(130, 0, 130, 0);
 
+//        viewPagerLanding.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//
+//            }
+//        });
+        //sliderAdapter
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
         viewPager.setOffscreenPageLimit(3);
@@ -58,12 +89,11 @@ public class LandingScreen extends AppCompatActivity {
                 super.onPageSelected(position);
                 sliderHandler.removeCallbacks(sliderRunnable);
                 sliderHandler.postDelayed(sliderRunnable,3000);//oh yas 3 sec delay
-                if(viewPager.getCurrentItem()==3){
-                    viewPager.setCurrentItem(1);
+                if(viewPager.getCurrentItem()==5){
+                    viewPager.setCurrentItem(0);
                 }
             }
         });
-
     }
 
     public void openSearchFragment(View view) {
