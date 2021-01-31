@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".LandingScreen">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarLandingPage"
         android:layout_width="match_parent"
@@ -19,10 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/logoTitleBar"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/shublogoff313b"
             app:tint="#ff313b" />
@@ -30,12 +29,12 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:fontFamily="@font/ubuntu_medium"
+            android:textSize="20sp"
+            android:textAllCaps="true"
             android:text="School Hub"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textAllCaps="true"
             android:textColor="#ff313b"
-            android:textSize="20sp"
             android:textStyle="normal" />
         <TextView
             android:layout_width="wrap_content"
@@ -51,50 +50,91 @@
             android:textSize="12sp" />
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/searchTextLandingPage"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittextbg"
+        android:hint="⌕ Search School here..."
+        android:onClick="openSearchFragment"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLandingPage" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarLandingPage"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/searchTextLandingPage">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/searchTextLandingPage"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@drawable/edittextbg"
-                android:hint="⌕ Search School here..."
-                android:onClick="openSearchFragment"
-                android:textAlignment="center"
-                android:textSize="16dp" />
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerSliderLandingPage"
                 android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:layout_height="250dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                />
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/schoolsSliderLandingPage"
+                android:paddingRight="15dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:foregroundGravity="center"
-                android:overScrollMode="never"
-                android:clipToPadding="false"
-                android:padding="10dp"
-                android:layout_height="250dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/topRatedSkols"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:text="Top Rated Schools"
+                    android:textAllCaps="true"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/schoolsSliderLandingPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/skolHubRecommendations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:text="School Hub Recommendations"
+                    android:textAllCaps="true"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/schoolsSliderLandingPage2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

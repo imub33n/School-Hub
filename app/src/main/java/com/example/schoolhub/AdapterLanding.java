@@ -22,8 +22,7 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
     public AdapterLanding(ArrayList<SchoolsLandingModel> models, Context context) {
         this.models = models;
         this.context = context;
-        this.models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
-        this.models.add(new SchoolsLandingModel(R.drawable.b, "Sticker", "Sticker is a type of label"));
+
     }
     @NonNull
     @Override
@@ -57,3 +56,12 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
         }
     }
 }
+//<androidx.viewpager2.widget.ViewPager2
+//        android:id="@+id/schoolsSliderLandingPage"
+//        android:layout_width="match_parent"
+//        android:layout_height="wrap_content"
+//        android:padding="10dp"
+//        android:paddingLeft="15dp"
+//        android:paddingRight="80dp"
+//        android:orientation="horizontal"
+//        />

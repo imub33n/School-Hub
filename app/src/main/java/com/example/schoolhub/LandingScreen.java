@@ -3,6 +3,8 @@ package com.example.schoolhub;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -24,23 +26,17 @@ import java.util.List;
 
 public class LandingScreen extends AppCompatActivity {
 
-    ViewPager2 viewPager,viewPagerLanding;
+    ViewPager2 viewPager;
+    RecyclerView recyclerViewLanding,recyclerViewLanding2;
+    LinearLayoutManager HorizontalLayout;
     public int[] lst_images = {R.drawable.a,
             R.drawable.b,
             R.drawable.c,
             R.drawable.a,
             R.drawable.b,
             R.drawable.c};
-//    Integer[] colors = null;
-//    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-
     ArrayList<SchoolsLandingModel> models = new ArrayList<>();
-
-//        models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
-//        models.add(new SchoolsLandingModel(R.drawable.b, "Sticker", "Sticker is a type of label"));
-//        models.add(new SchoolsLandingModel(R.drawable.c, "Poster", "Poster is any piece of printed"));
-//        models.add(new SchoolsLandingModel(R.drawable.a, "Namecard", "Business cards are cards"));
-
+    ArrayList<SchoolsLandingModel> models2 = new ArrayList<>();
     SlideAdapter adapter;
     AdapterLanding adapterLanding;
     Handler sliderHandler= new Handler();
@@ -54,22 +50,30 @@ public class LandingScreen extends AppCompatActivity {
         adapter= new SlideAdapter(lst_images);
         viewPager.setAdapter(adapter);
         //landing view pager
-        viewPagerLanding = (ViewPager2) findViewById(R.id.schoolsSliderLandingPage);
-        adapterLanding= new AdapterLanding(models,this);
-        viewPagerLanding.setAdapter(adapterLanding);
-        viewPagerLanding.setPadding(130, 0, 130, 0);
 
-//        viewPagerLanding.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                super.onPageSelected(position);
-//
-//            }
-//        });
+        recyclerViewLanding = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage);
+        recyclerViewLanding.setHasFixedSize(true);
+        recyclerViewLanding.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        this.models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
+        this.models.add(new SchoolsLandingModel(R.drawable.b, "Sticker", "Sticker is a type of label"));
+        this.models.add(new SchoolsLandingModel(R.drawable.c, "Poster", "Poster is any piece of printed"));
+        this.models.add(new SchoolsLandingModel(R.drawable.a, "Namecard", "Business cards are cards"));
+        adapterLanding = new AdapterLanding(models,this);
+        recyclerViewLanding.setAdapter(adapterLanding);
+        //2
+        recyclerViewLanding2 = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage2);
+        recyclerViewLanding2.setHasFixedSize(true);
+        recyclerViewLanding2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        this.models2.add( new SchoolsLandingModel(R.drawable.b, "Brochure2", "Brochure is an informative ") );
+        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Sticker2", "Sticker is a type of label"));
+        this.models2.add(new SchoolsLandingModel(R.drawable.c, "Poster2", "Poster is any piece of printed"));
+        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Namecard2", "Business cards are cards"));
+        adapterLanding = new AdapterLanding(models2,this);
+        recyclerViewLanding2.setAdapter(adapterLanding);
         //sliderAdapter
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();

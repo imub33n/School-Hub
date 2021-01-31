@@ -18,11 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LandingScreen">
-        </activity>
+        <activity android:name=".AddingSchoolStep3"></activity>
+        <activity android:name=".AddingSchoolStep2" />
+        <activity android:name=".AddingSchool" />
+        <activity android:name=".LandingScreen" />
         <activity android:name=".ARModel" />
         <activity android:name=".SignIn" />
         <activity android:name=".UserSignIn" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
