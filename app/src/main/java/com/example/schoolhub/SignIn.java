@@ -33,7 +33,7 @@ public class SignIn extends AppCompatActivity {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 
-    public static String BASE_URL = "http://192.168.100.217:8080/";
+    public static String BASE_URL = "http://192.168.10.4:8080/";
 //InetAddress.getLocalHost().getHostAddress()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class SignIn extends AppCompatActivity {
                             LoginResult result = response.body();
                             userID=result.getUserID();
                             userName=result.getUsername();
-                            Intent it = new Intent( getApplicationContext() , HomePanel.class);
+                            Intent it = new Intent( getApplicationContext() , AddingSchool.class);
                             startActivity(it);
                             Toast.makeText(SignIn.this, result.getUserID(), Toast.LENGTH_LONG).show();
                         } else if (response.code() == 401) {

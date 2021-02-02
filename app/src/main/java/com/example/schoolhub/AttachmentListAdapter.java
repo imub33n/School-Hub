@@ -1,6 +1,8 @@
 package com.example.schoolhub;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.data.AttachmentListData;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAdapter.AttachmentListViewHolder> {
-    public ArrayList<AttachmentListData> newAttachmentList;
+    public static ArrayList<AttachmentListData> newAttachmentList;
     public Activity mActivity;
 
 
@@ -36,8 +39,6 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
         return holder;
     }
 
-
-
     @Override
     public void onBindViewHolder(final AttachmentListViewHolder holder, int position) {
         holder.attachedImageName.setText((newAttachmentList.get(position).getImageName()));
@@ -51,11 +52,6 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
                     .thumbnail(Glide.with(mActivity).load(R.drawable.ic_image_loading))
                     .error(R.drawable.a)
                     .into(holder.attachedImageId);
-//            Picasso.with(mActivity)
-//                    .load(userImage)
-//                    .placeholder(R.drawable.ic_image_loading)
-//                    .fit().centerCrop()
-//                    .into( holder.attachedImageId);
         }
     }
 
@@ -67,7 +63,7 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
     class AttachmentListViewHolder extends RecyclerView.ViewHolder {
         ImageView attachedImageId,cancelAttachment;
         TextView attachedImageName;
-
+        FloatingActionButton floatingNextButton2;
 
 
         public AttachmentListViewHolder(View view, final Activity activity, ArrayList<AttachmentListData> attachmentList) {
@@ -75,15 +71,25 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
             attachedImageId= view.findViewById(R.id.attachedImageId);
             attachedImageName= view.findViewById(R.id.attachedImageName);
             cancelAttachment= view.findViewById(R.id.cancelAttachment);
+            floatingNextButton2= view.findViewById(R.id.floatingNextButton2);
             cancelAttachment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-
                     attachmentList.remove(pos);
                     notifyDataSetChanged();
                 }
             });
+//            floatingNextButton2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "onClick: "+attachmentList);
+//                    Intent intent = new Intent(activity,AddingSchoolStep3.class );
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                    activity.startActivity(intent);
+//                }
+//            });
+
         }
     }
 }

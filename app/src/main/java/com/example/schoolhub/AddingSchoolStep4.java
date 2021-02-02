@@ -34,10 +34,7 @@ import java.util.Locale;
 public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener {
     private MapView mMapView;
     private GoogleMap googleMap;
-    private static String lat, lng;
-    Criteria criteria;
-    Geocoder geo;
-    Marker marker;
+    public static String lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +46,6 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         mMapView = findViewById(R.id.mapViewSchoolLocation);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(bestProvider);
-        if (location != null) {
-            onLocationChanged(location);
-        }
-        locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
 
     }
     @Override
@@ -74,17 +59,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         }
         googleMap.setMyLocationEnabled(true);
         googleMap.setOnMapClickListener(this);
-        geo = new Geocoder(this, Locale.getDefault());
 
-//        CameraPosition newCamPos = new CameraPosition(new LatLng(lat,lng),
-//                15.5f,
-//                googleMap.getCameraPosition().tilt, //use old tilt
-//                googleMap.getCameraPosition().bearing); //use old bearing
-//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCamPos), 4000, null);
-
-        //googleMap.setOnMapLongClickListener(this);
-
-        //googleMap.animateCamera(CameraUpdateFactory.zoomTo(3));
+//        googleMap.animateCamera(CameraUpdateFactory.zoomTo(3));
     }
     @Override
     public void onPause() {

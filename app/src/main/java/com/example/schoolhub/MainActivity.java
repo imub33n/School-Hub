@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent it = new Intent( getApplicationContext() , AddingSchoolStep4.class);
+        Intent it = new Intent( getApplicationContext() , AddingSchoolStep3.class);
         startActivity(it);
 
 //        final Handler handler = new Handler(Looper.getMainLooper());

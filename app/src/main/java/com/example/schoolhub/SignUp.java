@@ -39,9 +39,7 @@ public class SignUp extends AppCompatActivity {
                 .baseUrl(SignIn.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
         //
         sup = (Button) findViewById(R.id.s_up);
         lin = (TextView) findViewById(R.id.loginBsi);

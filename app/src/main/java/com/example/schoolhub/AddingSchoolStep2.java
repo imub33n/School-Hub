@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.example.schoolhub.data.AttachmentListData;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 import java.util.ArrayList;
+import static android.content.ContentValues.TAG;
 
 public class AddingSchoolStep2 extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 101;
@@ -40,9 +42,18 @@ public class AddingSchoolStep2 extends AppCompatActivity {
     }
 
     public void nextStep2(View view) {
-        Intent intent = new Intent(getApplicationContext(),AddingSchoolStep3.class );
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+        //Toast.makeText(this,AttachmentListAdapter.newAttachmentList.size(),Toast.LENGTH_LONG).show();
+        Log.d(TAG, "nextStep2:_________________________ "+newAttachmentList.size());
+        if(newAttachmentList.size()<3){
+            Toast.makeText(this,"Please select at least 3 photos+video",Toast.LENGTH_LONG).show();
+        }else if(newAttachmentList.size()>20){
+            Toast.makeText(this,"Please select at most 20 photos+video",Toast.LENGTH_LONG).show();
+        }else{
+            Intent intent = new Intent(getApplicationContext(),AddingSchoolStep3.class );
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+        }
+
     }
 
     public void selectPhotos(View view) {
