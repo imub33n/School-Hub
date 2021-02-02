@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ticketNumberCardView"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    card_view:cardBackgroundColor="#fff"
+    card_view:cardCornerRadius="2dp"
+    android:layout_margin="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/attachedImageId"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/attachedImageName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/attachedImageId"
+            android:layout_toLeftOf="@id/cancelAttachment"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="The notes on the new age cloud system"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:id="@+id/cancelAttachment"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

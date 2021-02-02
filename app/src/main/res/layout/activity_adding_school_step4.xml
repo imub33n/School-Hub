@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EAEAEA"
     android:layout_height="match_parent"
-    tools:context=".AddingSchoolStep2">
+    android:background="#EAEAEA"
+    tools:context=".AddingSchoolStep4">
     <TextView
         android:id="@+id/addingSkol"
         android:layout_width="match_parent"
@@ -21,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.kofigyan.stateprogressbar.StateProgressBar
         android:id="@+id/your_state_progress_bar_id"
         android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
         app:spb_animateToCurrentProgressState="false"
         app:spb_checkStateCompleted="true"
         app:spb_currentStateDescriptionColor="@color/StepProcessColor"
-        app:spb_currentStateNumber="two"
+        app:spb_currentStateNumber="four"
         app:spb_maxStateNumber="four"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateDescriptionColor="#808080"
@@ -41,7 +42,7 @@
         app:spb_stateNumberForegroundColor="#eeeeee" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutPhotosVideos"
+        android:id="@+id/linearLayoutMapMarker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -52,14 +53,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
 
-
         <TextView
             android:id="@+id/headingPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:letterSpacing="0.1"
-            android:text="Photos/Videos"
+            android:text="Mark Location on Map"
             android:textColor="#000"
             android:textSize="16sp" />
 
@@ -68,47 +68,24 @@
             android:layout_height="1.5dp"
             android:background="#EAEAEA"
             android:orientation="vertical" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <TextView
-                android:id="@+id/uploadPhotos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:onClick="selectPhotos"
-                android:drawableTint="#000"
-                android:drawableLeft="@drawable/ic_menu_gallery"
-                android:text="  Upload Photos"
-                android:textColor="#000" />
-            <TextView
-                android:id="@+id/uploadVideos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:onClick="uploadVideo"
-                android:drawableTint="#000"
-                android:drawableLeft="@drawable/video"
-                android:text="  Upload Video"
-                android:textColor="#000" />
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newAttachmentList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_newattachment_list"/>
-    </LinearLayout>
 
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapViewSchoolLocation"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textViewDescriptionMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="Mark your school location on map"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutMapMarker" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingNextButton2"
+        android:id="@+id/floatingNextButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -118,19 +95,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
-        android:onClick="nextStep2"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/next"
+        android:onClick="nextStep4"
+        app:srcCompat="@drawable/shublogobnw"
         android:contentDescription="Next Button"/>
-    <TextView
-        android:id="@+id/textViewDescriptionPhotosVideos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Select photos and videos of your school."
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPhotosVideos" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton2"
         android:layout_width="wrap_content"
@@ -143,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        android:onClick="backStep2"
+        android:onClick="backStep4"
         app:srcCompat="@drawable/back2"
         android:contentDescription="Back Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

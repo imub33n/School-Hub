@@ -6,23 +6,37 @@
     android:layout_height="match_parent"
     android:background="#EAEAEA"
     tools:context=".AddingSchoolStep3">
-
+    <TextView
+        android:id="@+id/addingSkol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:paddingLeft="10dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:text="Adding School"
+        android:textAlignment="viewStart"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <com.kofigyan.stateprogressbar.StateProgressBar
-        android:id="@+id/your_state_progress_bar_id_3"
+        android:id="@+id/your_state_progress_bar_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addingSkol"
         app:spb_animateToCurrentProgressState="false"
         app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="#009688"
+        app:spb_currentStateDescriptionColor="@color/StepProcessColor"
         app:spb_currentStateNumber="three"
         app:spb_maxStateNumber="four"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="#009688"
+        app:spb_stateForegroundColor="@color/StepProcessColor"
         app:spb_stateNumberBackgroundColor="#808080"
         app:spb_stateNumberForegroundColor="#eeeeee" />
 
@@ -36,7 +50,7 @@
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id_3">
+        app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
 
 
         <TextView
@@ -893,9 +907,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="nextStep3"
         app:srcCompat="@drawable/next"
         android:contentDescription="Next Button"/>
-
+    <TextView
+        android:id="@+id/textViewDescriptionFee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="Write classes number in from and to section and enter fee data.(i.e.1-5)"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutFee" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton3"
         android:layout_width="wrap_content"

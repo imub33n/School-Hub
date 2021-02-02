@@ -16,11 +16,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class InformationSchoolFragment extends Fragment implements OnMapReadyCallback  {
 
@@ -33,7 +37,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
     SlideAdapter adapter;
     Button ModellButton;
     private MapView mMapView;
-
+    GoogleMap googleMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,15 +56,20 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
         });
         adapter= new SlideAdapter(lst_images);
 
-//        viewPager.setClipToPadding(false);
-//        viewPager.setClipChildren(false);
-//        viewPager.setOffscreenPageLimit(3);
         viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
         viewPager.setAdapter(adapter);
-
+//        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng point) {
+//                MarkerOptions marker = new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("New Marker");
+//                googleMap.addMarker(marker);
+////                googleMap.clear();
+////                googleMap.addMarker(new MarkerOptions().position(point));
+//                System.out.println(point.latitude+"---"+ point.longitude);
+//            }
+//        });
         mMapView=root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.getMapAsync(this);
 
         return root;
@@ -68,6 +77,20 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        this.googleMap=googleMap;
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Toast.makeText(getActivity(), "Infowindow clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Toast.makeText(getActivity(), "Marker Clicked", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
