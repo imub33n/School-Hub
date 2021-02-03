@@ -20,19 +20,20 @@ public class AddingSchoolStep3 extends AppCompatActivity {
             AddFee,AddFee2,AddFee3,TutionFee,TutionFee2,TutionFee3,ExamFee,ExamFee2,ExamFee3,
             sports,sports2,sports3,lab,lab2,lab3,library,library2,library3,totalAddFee,totalAddFee2,
             totalAddFee3,monthlyFee,monthlyFee2,monthlyFee3,others,others2,others3;
-    String To_From,To_From2,To_From3;
+    public static String To_From,To_From2,To_From3;
     public static int iAddFee,iAddFee2,iAddFee3,iTutionFee,iTutionFee2,iTutionFee3,iExamFee,iExamFee2,iExamFee3,
             isports,isports2,isports3,ilab,ilab2,ilab3,ilibrary,ilibrary2,ilibrary3,itotalAddFee,itotalAddFee2,
             itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
-    int progress=0;
+    public static int progress=0;
+    public static boolean step1=false,step2=false,step3=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_school_step3);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
-        stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
-        stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
+//        stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
+//        stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
 
         To= findViewById(R.id.To);
         From=findViewById(R.id.From);
@@ -86,8 +87,8 @@ public class AddingSchoolStep3 extends AppCompatActivity {
                     Toast.makeText(this,"Please fill both to and from section or none",Toast.LENGTH_LONG).show();
                 }else{
                     progress++;
-
-                    To_From=To.getText().toString()+"-"+From.getText().toString();
+                    step1=true;
+                    To_From=From.getText().toString()+"-"+To.getText().toString();
                     iAddFee=Integer.parseInt(AddFee.getText().toString());
                     iExamFee=Integer.parseInt(ExamFee.getText().toString());
                     ilab=Integer.parseInt(lab.getText().toString());
@@ -106,8 +107,8 @@ public class AddingSchoolStep3 extends AppCompatActivity {
                     Toast.makeText(this,"Please fill both to and from section or none",Toast.LENGTH_LONG).show();
                 }else{
                     progress++;
-
-                    To_From2=To2.getText().toString()+"-"+From2.getText().toString();
+                    step2=true;
+                    To_From2=From2.getText().toString()+"-"+To2.getText().toString();
                     iAddFee2=Integer.parseInt(AddFee2.getText().toString());
                     iExamFee2=Integer.parseInt(ExamFee2.getText().toString());
                     ilab2=Integer.parseInt(lab2.getText().toString());
@@ -126,8 +127,8 @@ public class AddingSchoolStep3 extends AppCompatActivity {
                     Toast.makeText(this,"Please fill both to and from section or none",Toast.LENGTH_LONG).show();
                 }else{
                     progress++;
-
-                    To_From3=To3.getText().toString()+"-"+From3.getText().toString();
+                    step3=true;
+                    To_From3=From3.getText().toString()+"-"+To3.getText().toString();
                     iAddFee3=Integer.parseInt(AddFee3.getText().toString());
                     iExamFee3=Integer.parseInt(ExamFee3.getText().toString());
                     ilab3=Integer.parseInt(lab3.getText().toString());

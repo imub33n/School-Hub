@@ -15,11 +15,12 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchool extends AppCompatActivity {
     public static String[] descriptionData = {"General\nInfo", "Photos/\nVideos", "Fee\nDescription", "Mark\nLocation"};
-    EditText schoolName,schoolEmail,schoolPhoneNo,schoolZip,schoolAbout;
+    EditText schoolName,schoolEmail,schoolPhoneNo,schoolZip,schoolAbout,schoolAddress;
     RadioGroup radioGroupSkolType,radioGroupEducationType;
     RadioButton radioButtonSkolType,radioButtonEducationType;
     CheckBox checkBoxPrimary,checkBoxMiddle,checkBoxHigher;
-    public static String schoolNames,schoolEmails,schoolPhoneNos,schoolAbouts,SkolType,EducationType,EducationLevel;
+    public static String schoolNames,schoolEmails,schoolAddresss,schoolPhoneNos,schoolAbouts,SkolType,EducationType;
+    public static String EducationLevel="";
     public static int schoolZipi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class AddingSchool extends AppCompatActivity {
         schoolPhoneNo= findViewById(R.id.schoolPhoneNo);
         schoolZip= findViewById(R.id.schoolZip);
         schoolAbout= findViewById(R.id.schoolAbout);
+        schoolAddress= findViewById(R.id.schoolAddress);
         checkBoxPrimary = findViewById(R.id.checkBoxPrimary);
         checkBoxMiddle = findViewById(R.id.checkBoxMiddle);
         checkBoxHigher = findViewById(R.id.checkBoxHigher);
@@ -61,6 +63,8 @@ public class AddingSchool extends AppCompatActivity {
             Toast.makeText(this,"Fill About School section", Toast.LENGTH_SHORT).show();
         }else if(schoolZip.getText().toString().isEmpty()){
             Toast.makeText(this,"Write zip code for school", Toast.LENGTH_SHORT).show();
+        }else if(schoolAddress.getText().toString().isEmpty()){
+            Toast.makeText(this,"Write school address", Toast.LENGTH_SHORT).show();
         }else if(radioGroupSkolType.getCheckedRadioButtonId()==-1){
             Toast.makeText(getApplicationContext(), "Select type of students enrolled", Toast.LENGTH_SHORT).show();
         }else if(!(checkBoxPrimary.isChecked()||checkBoxMiddle.isChecked()||checkBoxHigher.isChecked())){
@@ -71,10 +75,20 @@ public class AddingSchool extends AppCompatActivity {
             schoolNames=schoolName.getText().toString();
             schoolPhoneNos=schoolPhoneNo.getText().toString();
             schoolEmails=schoolEmail.getText().toString();
+            schoolZipi=Integer.parseInt(schoolZip.getText().toString());
             schoolAbouts=schoolAbout.getText().toString();
+            schoolAddresss=schoolAddress.getText().toString();
             SkolType =radioButtonSkolType.getText().toString();
             EducationType=radioButtonEducationType.getText().toString();
-            EducationLevel.concat(checkBoxPrimary.getText().toString());
+            if(checkBoxPrimary.isChecked()){
+                EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
+            }
+            if(checkBoxMiddle.isChecked()){
+                EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
+            }
+            if(checkBoxHigher.isChecked()){
+                EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
+            }
             Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);

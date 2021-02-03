@@ -229,6 +229,7 @@ public class HomeFragment extends Fragment {
             }
         }
     }
+
     private void uploadImage() {
         if(filePath != null)
         {

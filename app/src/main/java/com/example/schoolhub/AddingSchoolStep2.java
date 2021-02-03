@@ -23,7 +23,7 @@ import static android.content.ContentValues.TAG;
 public class AddingSchoolStep2 extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 101;
     RecyclerView newAttachmentListView;
-    private ArrayList<AttachmentListData> newAttachmentList = new ArrayList<>();
+    public static ArrayList<AttachmentListData> newAttachmentList = new ArrayList<>();
     AttachmentListAdapter attachmentListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

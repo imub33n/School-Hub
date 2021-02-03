@@ -12,6 +12,9 @@ public class SchoolData {
     @SerializedName("schoolName")
     @Expose
     private String schoolName;
+    @SerializedName("schoolEmail")
+    @Expose
+    private String schoolEmail;
     @SerializedName("schoolAddress")
     @Expose
     private String schoolAddress;
@@ -68,6 +71,14 @@ public class SchoolData {
 
     public void setSchoolAddress(String schoolAddress) {
         this.schoolAddress = schoolAddress;
+    }
+
+    public String getSchoolEmail() {
+        return schoolEmail;
+    }
+
+    public void setSchoolEmail(String schoolEmail) {
+        this.schoolEmail = schoolEmail;
     }
 
     public String getContactNumber() {

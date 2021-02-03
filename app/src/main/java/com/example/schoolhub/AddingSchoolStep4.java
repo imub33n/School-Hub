@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,13 +14,19 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.schoolhub.data.FeeStructure;
+import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.PostResult;
+import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
+import com.example.schoolhub.data.Video;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -30,6 +37,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 import java.io.IOException;
@@ -37,6 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +65,19 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     SchoolData schoolData = new SchoolData();
-    //List<SchoolData> skol;
+    SchoolCoordinates schoolCoordinates= new SchoolCoordinates();
+    List<FeeStructure> feeStructures = new ArrayList<>();
+    FeeStructure feeStructure= new FeeStructure();
+    FeeStructure feeStructure2= new FeeStructure();
+    FeeStructure feeStructure3= new FeeStructure();
+    List<Image> images= new ArrayList<>();
+    Image image = new Image();
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
+    List<Video> videos= new ArrayList<>();
+    Video video= new Video();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +89,9 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         mMapView = findViewById(R.id.mapViewSchoolLocation);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
+        //firebase
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(SignIn.BASE_URL)
@@ -70,6 +99,12 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+//        for(int i=0;i<AddingSchoolStep2.newAttachmentList.size();i++){
+//            Image image = new Image();
+//            image.setPath(AddingSchoolStep2.newAttachmentList.get(i).getImageID());
+//            images.add(i,image);
+//            //images.add(0,image.setPath(AddingSchoolStep2.newAttachmentList.get(0).getImageID()));
+//        }
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -132,41 +167,140 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         lat= String.valueOf(latLng.latitude);
         lng= String.valueOf(latLng.longitude);
         googleMap.addMarker(new MarkerOptions().position(latLng).title("lat="+lat+", lng="+lng).draggable(true));
-        Toast.makeText(this, "Lat " + lat + " " + "Long " +lng, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Lat " + lat + " " + "Long " +lng, Toast.LENGTH_LONG).show();
+
+        schoolCoordinates.setLatitude(lat);
+        schoolCoordinates.setLongitude(lng);
     }
 
     public void nextStep4(View view) {
         if(lat==null||lat.isEmpty()){
-            Toast.makeText(this, "Please select a location on map to continue", Toast.LENGTH_LONG).show();
-        }else{
-           //skol = new ArrayList<>();
-            schoolData.setAdminID("11223344");
-            schoolData.setSchoolName("Comsats Public School");
-            schoolData.setSchoolAddress("Tarlai, Islamabad");
-            schoolData.setAboutSchool("Lumber 1 skol in town");
-            schoolData.setZipCode(4214);
-            schoolData.setContactNumber("090078601");
-            schoolData.setEducationLevel("elevel");
-            schoolData.setEducationType("etype");
-            schoolData.setSchoolType("sType");
-            schoolData.setFeeStructure();
-            Call<Void> call = retrofitInterface.createSchool(schoolData);
-            call.enqueue(new Callback<Void>() {
-                             @Override
-                             public void onResponse(Call<Void> call, Response<Void> response) {
-
-                             }
-                             @Override
-                             public void onFailure(Call<Void> call, Throwable t) {
-
-                             }
-
-                         });
-            Intent it = new Intent( getApplicationContext() , AddingSchoolCompleted.class);
-            it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(it);
-
+            Toast.makeText(this,"Please select a location on map to continue", Toast.LENGTH_LONG).show();
+        }else {
+            //skol = new ArrayList<>();
+            uploadImage();
         }
+    }
+    private void uploadImage() {
+        for(int i=0;i<AddingSchoolStep2.newAttachmentList.size();i++) {
+//            Image image = new Image();
+            //convert string to uri
+            Uri filePath = Uri.parse(AddingSchoolStep2.newAttachmentList.get(i).getImageID());
+            //Toast.makeText(this,AddingSchoolStep2.newAttachmentList.get(i).getImageID(), Toast.LENGTH_LONG).show();
+            if (filePath != null) {
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                //Toast.makeText(getApplicationContext(), "Uploading Photos...", Toast.LENGTH_SHORT).show();
+                progressDialog.show();
+                StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+                int finalI1 = i;
+                ref.putFile(filePath)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                progressDialog.dismiss();
+                                //Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri yoru) {
+                                        image.setPath(yoru.toString());
+                                        images.add(image);
+                                        if((AddingSchoolStep2.newAttachmentList.size()-1)== finalI1){
+                                            schoolData.setAdminID("12634354");
+                                            schoolData.setSchoolName(AddingSchool.schoolNames);
+                                            schoolData.setSchoolAddress(AddingSchool.schoolAddresss);
+                                            schoolData.setAboutSchool(AddingSchool.schoolAbouts);
+                                            schoolData.setZipCode(AddingSchool.schoolZipi);
+                                            schoolData.setContactNumber(AddingSchool.schoolPhoneNos);
+                                            schoolData.setEducationLevel(AddingSchool.EducationLevel);
+                                            schoolData.setEducationType(AddingSchool.EducationType);
+                                            schoolData.setSchoolType(AddingSchool.SkolType);
+                                            schoolData.setSchoolCoordinates(schoolCoordinates);
+                                            if(AddingSchoolStep3.step1){
+                                                feeStructure.setGroup(AddingSchoolStep3.To_From);
+                                                feeStructure.setAdmissionFee(AddingSchoolStep3.iAddFee);
+                                                feeStructure.setExamFee(AddingSchoolStep3.iExamFee);
+                                                feeStructure.setLabFee(AddingSchoolStep3.ilab);
+                                                feeStructure.setMonthlyFee(AddingSchoolStep3.imonthlyFee);
+                                                feeStructure.setLibraryFee(AddingSchoolStep3.ilibrary);
+                                                feeStructure.setOthersFee(AddingSchoolStep3.iothers);
+                                                feeStructure.setSportsFee(AddingSchoolStep3.isports);
+                                                feeStructure.setTotalAdmissionFee(AddingSchoolStep3.itotalAddFee);
+                                                feeStructure.setTutionFee(AddingSchoolStep3.iTutionFee);
+                                                feeStructures.add(feeStructure);
+                                                schoolData.setFeeStructure(feeStructures);
+                                            }else if(AddingSchoolStep3.step2){
+                                                feeStructure2.setGroup(AddingSchoolStep3.To_From2);
+                                                feeStructure2.setAdmissionFee(AddingSchoolStep3.iAddFee2);
+                                                feeStructure2.setExamFee(AddingSchoolStep3.iExamFee2);
+                                                feeStructure2.setLabFee(AddingSchoolStep3.ilab2);
+                                                feeStructure2.setMonthlyFee(AddingSchoolStep3.imonthlyFee2);
+                                                feeStructure2.setLibraryFee(AddingSchoolStep3.ilibrary2);
+                                                feeStructure2.setOthersFee(AddingSchoolStep3.iothers2);
+                                                feeStructure2.setSportsFee(AddingSchoolStep3.isports2);
+                                                feeStructure2.setTotalAdmissionFee(AddingSchoolStep3.itotalAddFee2);
+                                                feeStructure2.setTutionFee(AddingSchoolStep3.iTutionFee2);
+                                                feeStructures.add(feeStructure2);
+                                                schoolData.setFeeStructure(feeStructures);
+                                            }else if(AddingSchoolStep3.step3){
+                                                feeStructure3.setGroup(AddingSchoolStep3.To_From3);
+                                                feeStructure3.setAdmissionFee(AddingSchoolStep3.iAddFee3);
+                                                feeStructure3.setExamFee(AddingSchoolStep3.iExamFee3);
+                                                feeStructure3.setLabFee(AddingSchoolStep3.ilab3);
+                                                feeStructure3.setMonthlyFee(AddingSchoolStep3.imonthlyFee3);
+                                                feeStructure3.setLibraryFee(AddingSchoolStep3.ilibrary3);
+                                                feeStructure3.setOthersFee(AddingSchoolStep3.iothers3);
+                                                feeStructure3.setSportsFee(AddingSchoolStep3.isports3);
+                                                feeStructure3.setTotalAdmissionFee(AddingSchoolStep3.itotalAddFee3);
+                                                feeStructure3.setTutionFee(AddingSchoolStep3.iTutionFee3);
+                                                feeStructures.add(feeStructure3);
+                                                schoolData.setFeeStructure(feeStructures);
+                                            }
+                                            schoolData.setImages(images);
+                                            video.setPath("ye video ka path ha, okay?");
+                                            videos.add(video);
+                                            schoolData.setVideos(videos);
 
+                                            Call<Void> call = retrofitInterface.createSchool(schoolData);
+                                            call.enqueue(new Callback<Void>() {
+                                                @Override
+                                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                                    if(response.code()==201){
+                                                        Toast.makeText(getApplicationContext(),"Halo "+response.code(), Toast.LENGTH_LONG).show();
+                                                        Intent it = new Intent( getApplicationContext() , AddingSchoolCompleted.class);
+                                                        it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                        startActivity(it);
+                                                    }else{
+                                                        Toast.makeText(getApplicationContext(),"Skol not added! "+response.code(), Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                                @Override
+                                                public void onFailure(Call<Void> call, Throwable t) {
+                                                    Toast.makeText(getApplicationContext(),"Error: "+t, Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                        .getTotalByteCount());
+                                //Toast.makeText(getApplicationContext(),"Uploaded " + (int) progress + "%" , Toast.LENGTH_SHORT).show();
+                                progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                            }
+                        });
+            }
+        }
     }
 }
