@@ -40,885 +40,1029 @@
         app:spb_stateNumberBackgroundColor="#808080"
         app:spb_stateNumberForegroundColor="#eeeeee" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutFee"
+    <ScrollView
+        android:id="@+id/scrolViewTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/bg_usage_rounded_corner"
-        android:orientation="vertical"
-        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
 
-
-        <TextView
-            android:id="@+id/headingFee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:letterSpacing="0.1"
-            android:text="Fee Structure"
-            android:textColor="#000"
-            android:textSize="16sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="#EAEAEA"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
             <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:id="@+id/linearLayoutFee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/bg_usage_rounded_corner"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingBottom="8dp">
+
 
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Description"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:id="@+id/headingFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:letterSpacing="0.1"
+                    android:text="Fee Structure"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1.5dp"
                     android:background="#EAEAEA"
                     android:orientation="vertical">
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Admission fee"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Tution Fee"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Exam fee"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Sports"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Lab"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView55"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Library"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView56"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Total Admission Fee"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#EAEAEA"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView66"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="#F2262626"
-                    android:gravity="center"
-                    android:text="Monthly fee"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                android:paddingLeft="0.05dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <LinearLayout
+                        android:id="@+id/linearLayout3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/textView67"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:id="@+id/textView"
+                            android:layout_width="100dp"
+                            android:layout_height="80dp"
                             android:background="#F2262626"
                             android:gravity="center"
-                            android:text="Grade"
+                            android:text="Description"
                             android:textAllCaps="true"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0.05dp"
+                            android:layout_height="0.5dp"
                             android:background="#EAEAEA"
                             android:orientation="vertical">
 
                         </LinearLayout>
 
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Admission fee"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
                         <LinearLayout
-                            android:id="@+id/columnClassesSpace"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/columnClasses"
-                                android:layout_width="100dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:background="#F2262626"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <EditText
-                                        android:id="@+id/textViewFrom"
-                                        android:layout_width="45dp"
-                                        android:layout_height="50dp"
-                                        android:gravity="center"
-                                        android:hint="From"
-                                        android:textAllCaps="true"
-                                        android:textColor="#FFFFFF"
-                                        android:textColorHint="#78FFFFFF"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="10dp"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:text="-"
-                                        android:textColor="#fff" />
-
-                                    <EditText
-                                        android:id="@+id/textViewTo"
-                                        android:layout_width="45dp"
-                                        android:layout_height="50dp"
-                                        android:gravity="center"
-                                        android:hint="To"
-                                        android:textAllCaps="true"
-                                        android:textColor="#FFFFFF"
-                                        android:textColorHint="#78FFFFFF"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView69"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView70"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView71"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView72"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView73"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView74"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView75"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView76"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/columnClasses2"
-                                android:layout_width="100dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:background="#F2262626"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <EditText
-                                        android:id="@+id/textViewFrom2"
-                                        android:layout_width="45dp"
-                                        android:layout_height="50dp"
-                                        android:gravity="center"
-                                        android:hint="From"
-                                        android:textAllCaps="true"
-                                        android:textColor="#FFFFFF"
-                                        android:textColorHint="#78FFFFFF"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="10dp"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:text="-"
-                                        android:textColor="#fff" />
-
-                                    <EditText
-                                        android:id="@+id/textViewTo2"
-                                        android:layout_width="45dp"
-                                        android:layout_height="50dp"
-                                        android:gravity="center"
-                                        android:hint="To"
-                                        android:textAllCaps="true"
-                                        android:textColor="#FFFFFF"
-                                        android:textColorHint="#78FFFFFF"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView692"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView702"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView712"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView722"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView732"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView742"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView752"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView762"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/columnClasses3"
-                                android:layout_width="100dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:background="#F2262626"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <EditText
-                                        android:id="@+id/textViewFrom3"
-                                        android:layout_width="45dp"
-                                        android:layout_height="50dp"
-                                        android:gravity="center"
-                                        android:hint="From"
-                                        android:textAllCaps="true"
-                                        android:textColor="#FFFFFF"
-                                        android:textColorHint="#78FFFFFF"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="10dp"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:text="-"
-                                        android:textColor="#fff" />
-
-                                    <EditText
-                                        android:id="@+id/textViewTo3"
-                                        android:layout_width="45dp"
-                                        android:layout_height="50dp"
-                                        android:gravity="center"
-                                        android:hint="To"
-                                        android:textAllCaps="true"
-                                        android:textColor="#FFFFFF"
-                                        android:textColorHint="#78FFFFFF"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView693"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView703"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView713"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView723"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView733"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView743"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView753"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:layout_weight="1"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                                <EditText
-                                    android:id="@+id/textView763"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:gravity="center"
-                                    android:hint="@string/feeTextHint"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Tution Fee"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Exam fee"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Sports"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Lab"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView55"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Library"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView56"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Total Admission Fee"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView66"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Monthly fee"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#EAEAEA"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView69"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="#F2262626"
+                            android:gravity="center"
+                            android:text="Others"
+                            android:textAllCaps="true"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
                     </LinearLayout>
-                </HorizontalScrollView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="0.05dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView67"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:background="#F2262626"
+                                    android:gravity="center"
+                                    android:text="Grade"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFFFFF"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.05dp"
+                                    android:background="#EAEAEA"
+                                    android:orientation="vertical"></LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/columnClassesSpace"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:id="@+id/columnClasses"
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:background="#F2262626"
+                                            android:gravity="center"
+                                            android:orientation="horizontal">
+
+                                            <EditText
+                                                android:id="@+id/From"
+                                                android:layout_width="45dp"
+                                                android:layout_height="50dp"
+                                                android:gravity="center"
+                                                android:hint="From"
+                                                android:textAllCaps="true"
+                                                android:textColor="#FFFFFF"
+                                                android:textColorHint="#78FFFFFF"
+                                                android:textSize="12sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="10dp"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:text="-"
+                                                android:textColor="#fff" />
+
+                                            <EditText
+                                                android:id="@+id/To"
+                                                android:layout_width="45dp"
+                                                android:layout_height="50dp"
+                                                android:gravity="center"
+                                                android:hint="To"
+                                                android:textAllCaps="true"
+                                                android:textColor="#FFFFFF"
+                                                android:textColorHint="#78FFFFFF"
+                                                android:textSize="12sp"
+                                                android:textStyle="bold" />
+                                        </LinearLayout>
+
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/AddFee"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/TutionFee"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/ExamFee"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/sports"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/lab"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/library"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/totalAddFee"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/monthlyFee"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.5dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/others"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/columnClasses2"
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:background="#F2262626"
+                                            android:gravity="center"
+                                            android:orientation="horizontal">
+
+                                            <EditText
+                                                android:id="@+id/From2"
+                                                android:layout_width="45dp"
+                                                android:layout_height="50dp"
+                                                android:gravity="center"
+                                                android:hint="From"
+                                                android:textAllCaps="true"
+                                                android:textColor="#FFFFFF"
+                                                android:textColorHint="#78FFFFFF"
+                                                android:textSize="12sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="10dp"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:text="-"
+                                                android:textColor="#fff" />
+
+                                            <EditText
+                                                android:id="@+id/To2"
+                                                android:layout_width="45dp"
+                                                android:layout_height="50dp"
+                                                android:gravity="center"
+                                                android:hint="To"
+                                                android:textAllCaps="true"
+                                                android:textColor="#FFFFFF"
+                                                android:textColorHint="#78FFFFFF"
+                                                android:textSize="12sp"
+                                                android:textStyle="bold" />
+                                        </LinearLayout>
+
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/AddFee2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/TutionFee2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/ExamFee2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/sports2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/lab2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/library2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/totalAddFee2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/monthlyFee2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.5dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/others2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/columnClasses3"
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:background="#F2262626"
+                                            android:gravity="center"
+                                            android:orientation="horizontal">
+
+                                            <EditText
+                                                android:id="@+id/From3"
+                                                android:layout_width="45dp"
+                                                android:layout_height="50dp"
+                                                android:gravity="center"
+                                                android:hint="From"
+                                                android:textAllCaps="true"
+                                                android:textColor="#FFFFFF"
+                                                android:textColorHint="#78FFFFFF"
+                                                android:textSize="12sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="10dp"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:text="-"
+                                                android:textColor="#fff" />
+
+                                            <EditText
+                                                android:id="@+id/To3"
+                                                android:layout_width="45dp"
+                                                android:layout_height="50dp"
+                                                android:gravity="center"
+                                                android:hint="To"
+                                                android:textAllCaps="true"
+                                                android:textColor="#FFFFFF"
+                                                android:textColorHint="#78FFFFFF"
+                                                android:textSize="12sp"
+                                                android:textStyle="bold" />
+                                        </LinearLayout>
+
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/AddFee3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/TutionFee3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/ExamFee3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/sports3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/lab3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/library3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/totalAddFee3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.05dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/monthlyFee3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0.5dp"
+                                            android:layout_weight="1"
+                                            android:background="#EAEAEA"
+                                            android:orientation="vertical">
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/others3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:gravity="center"
+                                            android:hint="@string/feeTextHint"
+                                            android:inputType="number"
+                                            android:text="0"
+                                            android:textAllCaps="true"
+                                            android:textColor="#000"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewDescriptionFee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="Write classes number in To and From section and enter fee data.(i.e.1-5). Columns with To and From sections filled will be saved only. Put 0 for empty fields!"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingNextButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:clickable="true"
         android:backgroundTint="#fff"
+        android:clickable="true"
+        android:contentDescription="Next Button"
+        android:onClick="nextStep3"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
-        android:onClick="nextStep3"
-        app:srcCompat="@drawable/next"
-        android:contentDescription="Next Button"/>
-    <TextView
-        android:id="@+id/textViewDescriptionFee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Write classes number in from and to section and enter fee data.(i.e.1-5)"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutFee" />
+        app:srcCompat="@drawable/next" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton3"
         android:layout_width="wrap_content"
