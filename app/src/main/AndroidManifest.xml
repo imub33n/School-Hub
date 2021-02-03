@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".AddingSchoolCompleted"></activity>
+        <activity android:name=".UserProfile" />
         <activity android:name=".AddingSchoolStep4" />
         <activity android:name=".AddingSchoolStep3" />
         <activity android:name=".AddingSchoolStep2" />

@@ -14,17 +14,21 @@ import android.widget.Toast;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchool extends AppCompatActivity {
-    public static String[] descriptionData = {"General Info", "Photos/Videos", "Fee Description", "Mark Location"};
+    public static String[] descriptionData = {"General\nInfo", "Photos/\nVideos", "Fee\nDescription", "Mark\nLocation"};
     EditText schoolName,schoolEmail,schoolPhoneNo,schoolZip,schoolAbout;
     RadioGroup radioGroupSkolType,radioGroupEducationType;
     RadioButton radioButtonSkolType,radioButtonEducationType;
     CheckBox checkBoxPrimary,checkBoxMiddle,checkBoxHigher;
+    public static String schoolNames,schoolEmails,schoolPhoneNos,schoolAbouts,SkolType,EducationType,EducationLevel;
+    public static int schoolZipi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_school);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(descriptionData);
+        stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
+        stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
         schoolName= findViewById(R.id.schoolName);
         schoolEmail= findViewById(R.id.schoolEmail);
         schoolPhoneNo= findViewById(R.id.schoolPhoneNo);
@@ -64,6 +68,13 @@ public class AddingSchool extends AppCompatActivity {
         }else if(radioGroupEducationType.getCheckedRadioButtonId()==-1){
             Toast.makeText(getApplicationContext(), "Select field of education", Toast.LENGTH_SHORT).show();
         }else{
+            schoolNames=schoolName.getText().toString();
+            schoolPhoneNos=schoolPhoneNo.getText().toString();
+            schoolEmails=schoolEmail.getText().toString();
+            schoolAbouts=schoolAbout.getText().toString();
+            SkolType =radioButtonSkolType.getText().toString();
+            EducationType=radioButtonEducationType.getText().toString();
+            EducationLevel.concat(checkBoxPrimary.getText().toString());
             Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);

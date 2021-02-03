@@ -31,7 +31,9 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         setContentView(R.layout.activity_adding_school_step3);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
-        
+        stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
+        stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
+
         To= findViewById(R.id.To);
         From=findViewById(R.id.From);
         To2= findViewById(R.id.To2);

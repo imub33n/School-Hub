@@ -31,6 +31,8 @@ public class AddingSchoolStep2 extends AppCompatActivity {
         setContentView(R.layout.activity_adding_school_step2);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
+        stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
+        stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
         newAttachmentListView = (RecyclerView) findViewById(R.id.newAttachmentList);
 //        uploadPhotosView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
     }

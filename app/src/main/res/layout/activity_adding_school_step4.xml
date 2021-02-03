@@ -97,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         android:onClick="nextStep4"
-        app:srcCompat="@drawable/shublogobnw"
+        app:srcCompat="@drawable/done"
         android:contentDescription="Next Button"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingBackButton2"
