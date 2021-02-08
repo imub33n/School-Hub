@@ -4,29 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePanel">
+    tools:context=".AdminDashboard">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#fff"
-        app:elevation="0dp"
-        android:outlineAmbientShadowColor="#fff"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:background="#EAEAEA">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarAdmin"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/tab_bar_bg"
-            app:titleTextColor="#fff"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
+            android:background="#EAEAEA"
+            app:titleTextColor="#000" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_school" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

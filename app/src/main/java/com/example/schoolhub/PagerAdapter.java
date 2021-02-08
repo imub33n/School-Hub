@@ -10,8 +10,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     private String tabTitles[]= new String[]{
             "Information",
             "Fee Structure",
-            "Faculity",
-            "Academic Info"
+            "Faculty",
+            "Ratings & Reviews"
     };
     public PagerAdapter(@NonNull FragmentManager fm) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -34,11 +34,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new FaculityFragment();
             case 3:
-                return new InformationSchoolFragment();
+                return new ReviewsFragment();
             default:
                 return null;
         }
-
     }
 
     @Override

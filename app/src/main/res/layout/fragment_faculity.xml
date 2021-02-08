@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/ic_launcher_background"
+        app:cardBackgroundColor="#EAEAEA"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.619"
@@ -43,7 +43,8 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="5dp"
-                        android:src="@drawable/me" />
+                        android:src="@drawable/model"
+                        />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -57,7 +58,7 @@
                             android:layout_margin="5dp"
                             android:text="Faculity member Name"
                             android:textAllCaps="true"
-                            android:textColor="#fff"
+                            android:textColor="#000"
                             android:textStyle="bold"
                             android:textSize="16sp"/>
 
@@ -69,7 +70,7 @@
                             android:layout_marginTop="3dp"
                             android:text="Science Department"
                             android:textAllCaps="true"
-                            android:textColor="#fff"
+                            android:textColor="#000"
                             android:textSize="12sp" />
 
                         <TextView
@@ -79,7 +80,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="3dp"
                             android:text="abc@gmail.com"
-                            android:textColor="#fff"
+                            android:textColor="#000"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>

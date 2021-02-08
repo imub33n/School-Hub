@@ -50,7 +50,7 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
                     .load(userImage)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
                     .thumbnail(Glide.with(mActivity).load(R.drawable.ic_image_loading))
-                    .error(R.drawable.a)
+                    .error(R.drawable.ic_image_error)
                     .into(holder.attachedImageId);
         }
     }

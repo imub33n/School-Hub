@@ -29,12 +29,12 @@ public class LandingScreen extends AppCompatActivity {
     ViewPager2 viewPager;
     RecyclerView recyclerViewLanding,recyclerViewLanding2;
     LinearLayoutManager HorizontalLayout;
-    public int[] lst_images = {R.drawable.a,
-            R.drawable.b,
-            R.drawable.c,
-            R.drawable.a,
-            R.drawable.b,
-            R.drawable.c};
+//    public int[] lst_images = {R.drawable.a,____________________________
+//            R.drawable.b,
+//            R.drawable.c,
+//            R.drawable.a,
+//            R.drawable.b,
+//            R.drawable.c};____________________________
     ArrayList<SchoolsLandingModel> models = new ArrayList<>();
     ArrayList<SchoolsLandingModel> models2 = new ArrayList<>();
     SlideAdapter adapter;
@@ -47,8 +47,8 @@ public class LandingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_landing_screen);
         //sliderAdapter
         viewPager = (ViewPager2) findViewById(R.id.viewPagerSliderLandingPage);
-        adapter= new SlideAdapter(lst_images);
-        viewPager.setAdapter(adapter);
+//        adapter= new SlideAdapter(lst_images); ____________________________
+//        viewPager.setAdapter(adapter); ____________________________
         //landing view pager
 
         recyclerViewLanding = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage);

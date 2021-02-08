@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_nav"
+    app:startDestination="@+id/skolDash">
+    <fragment
+        android:id="@+id/skolDash"
+        android:name="com.example.schoolhub.SchoolDetailsDash"
+        android:label="School Dashboard"
+        tools:layout="@layout/fragment_school_details_dash" />
+    <fragment
+        android:id="@+id/liveStream"
+        android:name="com.example.schoolhub.ui.liveStream.LiveStreamFragment"
+        android:label="Live Stream"
+        tools:layout="@layout/fragment_live_stream" />
+    <fragment
+        android:id="@+id/reviewsAndFeedback"
+        android:name="com.example.schoolhub.ReviewsFragment"
+        android:label="Feedback/Reviews"
+        tools:layout="@layout/fragment_reviews" />
+</navigation>

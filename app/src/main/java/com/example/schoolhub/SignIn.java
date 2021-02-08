@@ -4,19 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.ui.home.HomeFragment;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,10 +38,13 @@ public class SignIn extends AppCompatActivity {
     EditText password,email;
     TextView sup;
     Button lin;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
     public static String userName,userID;
+    List<SchoolData> schoolData;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-
+//127.0.0.1
     public static String BASE_URL = "http://192.168.10.4:8080/";
 //InetAddress.getLocalHost().getHostAddress()
     @Override
@@ -71,10 +83,14 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void allowingUserToLogin(){
+        radioGroup = (RadioGroup) findViewById(R.id.signipRadioGroup);
+        radioButton = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
         if((email.getText().toString()).isEmpty()){
             Toast.makeText(this, "!!Please write your email address!!", Toast.LENGTH_SHORT).show();
         }else if((password.getText().toString()).isEmpty()){
             Toast.makeText(this, "!!Please write your password!!", Toast.LENGTH_SHORT).show();
+        }else if(radioGroup.getCheckedRadioButtonId() == -1){
+            Toast.makeText(getApplicationContext(), "Please select Account type!!", Toast.LENGTH_SHORT).show();
         }else{
             HashMap<String, String> map = new HashMap<>();
 
@@ -90,8 +106,42 @@ public class SignIn extends AppCompatActivity {
                             LoginResult result = response.body();
                             userID=result.getUserID();
                             userName=result.getUsername();
-                            Intent it = new Intent( getApplicationContext() , AddingSchool.class);
-                            startActivity(it);
+                            if(radioButton.getText().toString()=="School"){
+                                Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();
+                                call2.enqueue(new Callback<List<SchoolData>>() {
+                                    @Override
+                                    public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
+                                        if (response.code() == 200) {
+                                            Log.d("TAG",response.code()+"");
+                                            schoolData =  response.body();
+                                            boolean checkThis = false;
+                                            //Toast.makeText(getContext(),schoolData.toString(),Toast.LENGTH_SHORT).show();
+                                            for(int i=0;i<schoolData.size();i++){
+                                                String adminIdGet=schoolData.get(i).getAdminID();
+                                                if(Objects.equals(adminIdGet, result.getUserID())){
+                                                    checkThis = true;
+                                                    Intent it = new Intent( getApplicationContext() , SchoolDetailsDash.class);
+                                                    startActivity(it);
+                                                }
+                                            }
+                                            if(!checkThis){
+                                                Intent it = new Intent( getApplicationContext() , AddingSchool.class);
+                                                startActivity(it);
+                                            }
+                                        }else {
+                                            Toast.makeText(getApplicationContext(), "CODE: "+response.code(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<List<SchoolData>> call2, Throwable t) {
+                                        Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }else{
+                                Intent it = new Intent( getApplicationContext() , HomePanel.class);
+                                startActivity(it);
+                            }
+
                             Toast.makeText(SignIn.this, result.getUserID(), Toast.LENGTH_LONG).show();
                         } else if (response.code() == 401) {
                             Toast.makeText(SignIn.this, "Wrong Credentials",

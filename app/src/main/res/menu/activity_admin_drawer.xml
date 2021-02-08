@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/skolDash"
+            android:icon="@drawable/ic_baseline_school_24"
+            android:title="School Dashboard" />
+        <item
+            android:id="@+id/liveStream"
+            android:icon="@drawable/ic_baseline_live_stream"
+            android:title="Live Stream" />
+        <item
+            android:id="@+id/reviewsAndFeedback"
+            android:icon="@drawable/feedback"
+            android:title="Reviews and Feedbacks" />
+    </group>
+</menu>

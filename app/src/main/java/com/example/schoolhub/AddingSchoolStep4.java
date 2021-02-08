@@ -57,7 +57,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+import static android.content.ContentValues.TAG;
 public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private MapView mMapView;
     private GoogleMap googleMap;
@@ -71,7 +71,7 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
     FeeStructure feeStructure2= new FeeStructure();
     FeeStructure feeStructure3= new FeeStructure();
     List<Image> images= new ArrayList<>();
-    Image image = new Image();
+
     FirebaseStorage storage;
     StorageReference storageReference;
 
@@ -117,7 +117,6 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         }
         googleMap.setMyLocationEnabled(true);
         googleMap.setOnMapClickListener(this);
-
 //        googleMap.animateCamera(CameraUpdateFactory.zoomTo(3));
     }
     @Override
@@ -203,14 +202,21 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                 ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri yoru) {
+                                        Image image = new Image();
                                         image.setPath(yoru.toString());
                                         images.add(image);
+                                        schoolData.setImages(images);
+                                        for(int ima=0;ima<schoolData.getImages().size();ima++){
+                                            Log.d(TAG, "__________check if same images_____________: "+schoolData.getImages().get(ima).getPath());
+
+                                        }
                                         if((AddingSchoolStep2.newAttachmentList.size()-1)== finalI1){
-                                            schoolData.setAdminID("12634354");
+                                            schoolData.setAdminID(SignIn.userID);
                                             schoolData.setSchoolName(AddingSchool.schoolNames);
                                             schoolData.setSchoolAddress(AddingSchool.schoolAddresss);
                                             schoolData.setAboutSchool(AddingSchool.schoolAbouts);
                                             schoolData.setZipCode(AddingSchool.schoolZipi);
+                                            schoolData.setSchoolEmail(AddingSchool.schoolEmails);
                                             schoolData.setContactNumber(AddingSchool.schoolPhoneNos);
                                             schoolData.setEducationLevel(AddingSchool.EducationLevel);
                                             schoolData.setEducationType(AddingSchool.EducationType);
@@ -256,8 +262,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 feeStructures.add(feeStructure3);
                                                 schoolData.setFeeStructure(feeStructures);
                                             }
-                                            schoolData.setImages(images);
-                                            video.setPath("ye video ka path ha, okay?");
+
+                                            video.setPath("G ye video ka path ha, okay?");
                                             videos.add(video);
                                             schoolData.setVideos(videos);
 

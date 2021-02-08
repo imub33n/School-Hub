@@ -26,7 +26,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/descriptionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -60,34 +60,34 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/group1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="1-5"
+                        android:text="_-_"
                         android:textAllCaps="true"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/group2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="6-8"
+                        android:text="_-_"
                         android:textAllCaps="true"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView29"
+                        android:id="@+id/group3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:gravity="center"
-                        android:text="9-10"
+                        android:text="_-_"
                         android:textAllCaps="true"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
@@ -114,34 +114,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/tAddFee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView31"
+                android:id="@+id/tAddFee2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView32"
+                android:id="@+id/tAddFee3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
@@ -166,34 +166,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/tTutionFee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView35"
+                android:id="@+id/tTutionFee2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView36"
+                android:id="@+id/tTutionFee3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
@@ -218,34 +218,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView37"
+                android:id="@+id/tExamFee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/tExamFee2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/tExamFee3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
@@ -258,7 +258,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/adfdsf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -270,34 +270,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/tSport"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/tSport2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/tSport3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
@@ -322,34 +322,34 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView43"
+                android:id="@+id/tLab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView44"
+                android:id="@+id/tLab2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView45"
+                android:id="@+id/tLab3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
@@ -374,39 +374,38 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView46"
+                android:id="@+id/tLibrary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView47"
+                android:id="@+id/tLibrary2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView48"
+                android:id="@+id/tLibrary3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -414,51 +413,50 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/textView201"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#F2262626"
                 android:gravity="center"
-                android:text="Total Admission Fee"
+                android:text="Others"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView49"
+                android:id="@+id/tOther"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView50"
+                android:id="@+id/tOther2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView51"
+                android:id="@+id/tOther3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -478,34 +476,85 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView52"
+                android:id="@+id/tMonthly"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView53"
+                android:id="@+id/tMonthly2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView54"
+                android:id="@+id/tMonthly3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="----"
+                android:text="@string/feeTextHint"
+                android:textAllCaps="true"
+                android:textColor="#000"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#F2262626"
+                android:gravity="center"
+                android:text="Total Admission Fee"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tTotalAddFee"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/feeTextHint"
+                android:textAllCaps="true"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tTotalAddFee2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/feeTextHint"
+                android:textAllCaps="true"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tTotalAddFee3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/feeTextHint"
                 android:textAllCaps="true"
                 android:textColor="#000"
                 android:textStyle="bold" />
