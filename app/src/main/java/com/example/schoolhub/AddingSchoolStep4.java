@@ -235,7 +235,7 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 feeStructure.setTutionFee(AddingSchoolStep3.iTutionFee);
                                                 feeStructures.add(feeStructure);
                                                 schoolData.setFeeStructure(feeStructures);
-                                            }else if(AddingSchoolStep3.step2){
+                                            }if(AddingSchoolStep3.step2){
                                                 feeStructure2.setGroup(AddingSchoolStep3.To_From2);
                                                 feeStructure2.setAdmissionFee(AddingSchoolStep3.iAddFee2);
                                                 feeStructure2.setExamFee(AddingSchoolStep3.iExamFee2);
@@ -248,7 +248,7 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 feeStructure2.setTutionFee(AddingSchoolStep3.iTutionFee2);
                                                 feeStructures.add(feeStructure2);
                                                 schoolData.setFeeStructure(feeStructures);
-                                            }else if(AddingSchoolStep3.step3){
+                                            }if(AddingSchoolStep3.step3){
                                                 feeStructure3.setGroup(AddingSchoolStep3.To_From3);
                                                 feeStructure3.setAdmissionFee(AddingSchoolStep3.iAddFee3);
                                                 feeStructure3.setExamFee(AddingSchoolStep3.iExamFee3);

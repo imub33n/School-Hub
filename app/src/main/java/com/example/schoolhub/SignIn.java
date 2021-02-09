@@ -45,7 +45,7 @@ public class SignIn extends AppCompatActivity {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 //127.0.0.1
-    public static String BASE_URL = "http://192.168.10.4:8080/";
+    public static String BASE_URL = "http://192.168.10.10:8080/";
 //InetAddress.getLocalHost().getHostAddress()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class SignIn extends AppCompatActivity {
                             LoginResult result = response.body();
                             userID=result.getUserID();
                             userName=result.getUsername();
-                            if(radioButton.getText().toString()=="School"){
+                            if(Objects.equals(radioButton.getText().toString(),"School")){
                                 Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();
                                 call2.enqueue(new Callback<List<SchoolData>>() {
                                     @Override
@@ -120,7 +120,7 @@ public class SignIn extends AppCompatActivity {
                                                 String adminIdGet=schoolData.get(i).getAdminID();
                                                 if(Objects.equals(adminIdGet, result.getUserID())){
                                                     checkThis = true;
-                                                    Intent it = new Intent( getApplicationContext() , SchoolDetailsDash.class);
+                                                    Intent it = new Intent( getApplicationContext() , AdminDashboard.class);
                                                     startActivity(it);
                                                 }
                                             }
