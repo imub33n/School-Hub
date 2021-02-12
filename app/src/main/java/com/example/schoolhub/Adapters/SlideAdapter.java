@@ -1,9 +1,8 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Adapters;
 
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.schoolhub.R;
 import com.example.schoolhub.data.Image;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
-import static android.content.ContentValues.TAG;
+
 public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> {
     //int []images;
     List<Image> images= new ArrayList<>();

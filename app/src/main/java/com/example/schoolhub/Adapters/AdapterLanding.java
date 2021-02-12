@@ -1,4 +1,4 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.schoolhub.R;
 import com.example.schoolhub.data.SchoolsLandingModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHolder>{
     private ArrayList<SchoolsLandingModel> models= new ArrayList<>();

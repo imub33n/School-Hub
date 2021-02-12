@@ -9,14 +9,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EAEAEA">
+        android:background="#43425d">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarAdmin"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#EAEAEA"
-            app:titleTextColor="#000" />
+            android:background="#43425d"
+            app:titleTextColor="#fff" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_school" />

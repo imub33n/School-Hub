@@ -1,19 +1,17 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.schoolhub.R;
 import com.example.schoolhub.data.AttachmentListData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

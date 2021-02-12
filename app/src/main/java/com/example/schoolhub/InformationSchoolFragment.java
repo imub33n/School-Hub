@@ -3,35 +3,22 @@ package com.example.schoolhub;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
-import android.os.PersistableBundle;
+
 import android.util.Log;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.schoolhub.data.FeeStructure;
-import com.example.schoolhub.data.Image;
-import com.example.schoolhub.data.SchoolCoordinates;
+import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.SchoolData;
-import com.example.schoolhub.data.Video;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,7 +27,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,8 +35,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.ContentValues.TAG;
 
 public class InformationSchoolFragment extends Fragment implements OnMapReadyCallback  {
     //retrofit

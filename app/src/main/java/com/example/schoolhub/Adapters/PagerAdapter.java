@@ -1,10 +1,15 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.example.schoolhub.FaculityFragment;
+import com.example.schoolhub.FeeStructureFragment;
+import com.example.schoolhub.InformationSchoolFragment;
+import com.example.schoolhub.ReviewsFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private String tabTitles[]= new String[]{

@@ -5,9 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/skolDashMain"
+            android:icon="@drawable/ic_baseline_menu_24"
+            android:title="Dashboard" />
+        <item
             android:id="@+id/skolDash"
             android:icon="@drawable/ic_baseline_school_24"
-            android:title="School Dashboard" />
+            android:title="View School" />
         <item
             android:id="@+id/liveStream"
             android:icon="@drawable/ic_baseline_live_stream"

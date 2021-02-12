@@ -94,7 +94,6 @@ public class FeeStructureFragment extends Fragment {
                             feeStructure=schoolData.get(i).getFeeStructure();
                             //putting data
                             if(feeStructure.size()==1){
-                                Log.d("TAG",response.code()+"____________f__________");
                                 group1();
                                 group1.setLayoutParams(
                                         new LinearLayout.LayoutParams(

@@ -5,12 +5,6 @@
         android:id="@+id/action_notification"
         android:title="Notification"
         app:showAsAction="always"
-        android:icon="@drawable/notification_black"
-        />
-    <item
-        android:id="@+id/action_settings"
-        android:title="Edit"
-        app:showAsAction="always"
-        android:icon="@drawable/edit_black"
+        android:icon="@drawable/noti"
         />
 </menu>

@@ -26,14 +26,13 @@ public class AddingSchoolStep3 extends AppCompatActivity {
             itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
     public static int progress=0;
     public static boolean step1=false,step2=false,step3=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_school_step3);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
-//        stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
-//        stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
 
         To= findViewById(R.id.To);
         From=findViewById(R.id.From);

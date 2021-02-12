@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.schoolhub.Adapters.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class SchoolDetails extends AppCompatActivity {

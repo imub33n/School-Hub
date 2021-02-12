@@ -5,48 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
-    tools:context=".AddingSchoolStep3">
-    <TextView
-        android:id="@+id/addingSkol"
+    tools:context=".EditSchoolFeeStructure">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarEditSchool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:paddingLeft="10dp"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:text="Adding School"
-        android:textAlignment="viewStart"
-        android:textColor="@color/ic_launcher_background"
-        android:textSize="25sp"
+        android:background="#43425d"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="#fff"
+        app:title="Edit Fee Structure"
+        app:layout_scrollFlags="scroll|snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <com.kofigyan.stateprogressbar.StateProgressBar
-        android:id="@+id/your_state_progress_bar_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addingSkol"
-        app:spb_animateToCurrentProgressState="false"
-        app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="@color/StepProcessColor"
-        app:spb_currentStateNumber="three"
-        app:spb_maxStateNumber="four"
-        app:spb_stateBackgroundColor="#BDBDBD"
-        app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="@color/StepProcessColor"
-        app:spb_stateNumberBackgroundColor="#808080"
-        app:spb_stateNumberForegroundColor="#eeeeee" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back"/>
     <ScrollView
         android:id="@+id/scrolViewTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
+        app:layout_constraintTop_toBottomOf="@id/toolbarEditSchool">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,11 +78,11 @@
                             android:id="@+id/textView"
                             android:layout_width="100dp"
                             android:layout_height="80dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Description"
                             android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#fff"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -117,7 +97,7 @@
                             android:id="@+id/textView2"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Admission fee"
                             android:textAllCaps="true"
@@ -136,7 +116,7 @@
                             android:id="@+id/textView3"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Tution Fee"
                             android:textAllCaps="true"
@@ -155,7 +135,7 @@
                             android:id="@+id/textView4"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Exam fee"
                             android:textAllCaps="true"
@@ -174,7 +154,7 @@
                             android:id="@+id/textView5"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Sports"
                             android:textAllCaps="true"
@@ -193,7 +173,7 @@
                             android:id="@+id/textView6"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Lab"
                             android:textAllCaps="true"
@@ -212,7 +192,7 @@
                             android:id="@+id/textView55"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Library"
                             android:textAllCaps="true"
@@ -231,7 +211,7 @@
                             android:id="@+id/textView56"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Total Admission Fee"
                             android:textAllCaps="true"
@@ -250,7 +230,7 @@
                             android:id="@+id/textView66"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Monthly fee"
                             android:textAllCaps="true"
@@ -269,7 +249,7 @@
                             android:id="@+id/textView69"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:background="#F2262626"
+                            android:background="@color/table_color"
                             android:gravity="center"
                             android:text="Others"
                             android:textAllCaps="true"
@@ -300,7 +280,7 @@
                                     android:id="@+id/textView67"
                                     android:layout_width="match_parent"
                                     android:layout_height="30dp"
-                                    android:background="#F2262626"
+                                    android:background="@color/table_color"
                                     android:gravity="center"
                                     android:text="Grade"
                                     android:textAllCaps="true"
@@ -328,7 +308,7 @@
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
-                                            android:background="#F2262626"
+                                            android:background="@color/table_color"
                                             android:gravity="center"
                                             android:orientation="horizontal">
 
@@ -577,7 +557,7 @@
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
-                                            android:background="#F2262626"
+                                            android:background="@color/table_color"
                                             android:gravity="center"
                                             android:orientation="horizontal">
 
@@ -826,7 +806,7 @@
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
-                                            android:background="#F2262626"
+                                            android:background="@color/table_color"
                                             android:gravity="center"
                                             android:orientation="horizontal">
 
@@ -1005,7 +985,9 @@
                                             android:layout_weight="1"
                                             android:background="#EAEAEA"
                                             android:orientation="vertical">
+
                                         </LinearLayout>
+
                                         <EditText
                                             android:id="@+id/totalAddFee3"
                                             android:layout_width="match_parent"
@@ -1018,13 +1000,16 @@
                                             android:textAllCaps="true"
                                             android:textColor="#000"
                                             android:textStyle="bold" />
+
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="0.05dp"
                                             android:layout_weight="1"
                                             android:background="#EAEAEA"
                                             android:orientation="vertical">
+
                                         </LinearLayout>
+
                                         <EditText
                                             android:id="@+id/monthlyFee3"
                                             android:layout_width="match_parent"
@@ -1037,13 +1022,16 @@
                                             android:textAllCaps="true"
                                             android:textColor="#000"
                                             android:textStyle="bold" />
+
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="0.5dp"
                                             android:layout_weight="1"
                                             android:background="#EAEAEA"
                                             android:orientation="vertical">
+
                                         </LinearLayout>
+
                                         <EditText
                                             android:id="@+id/others3"
                                             android:layout_width="match_parent"
@@ -1062,6 +1050,28 @@
                         </HorizontalScrollView>
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:backgroundTint="#EAEAEA"
+                        android:text="Cancel"
+                        android:textColor="#000"
+                        />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:backgroundTint="#EAEAEA"
+                        android:text="Update"
+                        android:textColor="#000"
+                        />
+                </LinearLayout>
             </LinearLayout>
             <TextView
                 android:id="@+id/textViewDescriptionFee"
@@ -1072,37 +1082,6 @@
                 android:text="Write classes number in To and From section and enter fee data.(i.e.1-5). Columns with To and From sections filled will be saved only. Put 0 for empty fields!"
                 android:textSize="12sp" />
         </LinearLayout>
+
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingNextButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#fff"
-        android:clickable="true"
-        android:contentDescription="Next Button"
-        android:onClick="nextStep3"
-        app:borderWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/next" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingBackButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#fff"
-        android:clickable="true"
-        app:borderWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/back2"
-        android:onClick="backStep3"
-        android:contentDescription="Back Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

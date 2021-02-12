@@ -1,7 +1,6 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,23 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.module.AppGlideModule;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
+import com.example.schoolhub.R;
+import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.SignIn;
 import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,7 +28,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,31 +69,33 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
         if(postResult.getImage()!=null){
-            StorageReference storageRef = storage.getReferenceFromUrl(postResult.getImage());
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(context)
-                            .load(uri)
-                            //.fitCenter()
-                            //.dontAnimate()
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
-                            .error(R.drawable.a)
-                            //.apply(new RequestOptions().override(1000, 500))
-                            .into(holder.imagePost);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
-                    Glide.with(context)
-                            .load(R.drawable.ic_image_error)
-                            .fitCenter()
-                            .into(holder.imagePost);
-                }
-            });
+            if(!(postResult.getImage().isEmpty())){
+                StorageReference storageRef = storage.getReferenceFromUrl(postResult.getImage());
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(context)
+                                .load(uri)
+                                //.fitCenter()
+                                //.dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                                .error(R.drawable.a)
+                                //.apply(new RequestOptions().override(1000, 500))
+                                .into(holder.imagePost);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
+                        Glide.with(context)
+                                .load(R.drawable.ic_image_error)
+                                .fitCenter()
+                                .into(holder.imagePost);
+                    }
+                });
+            }
         }else{
         }
         if(!(postResult.getComments().isEmpty())){
@@ -111,7 +107,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.commentSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, postResult.getId(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, postResult.getId(), Toast.LENGTH_LONG).show();
                 //Toast.makeText(context, "postResult.getId()", Toast.LENGTH_LONG).show();
                 HashMap<String, String> maped = new HashMap<>();
                 maped.put("username", SignIn.userName);

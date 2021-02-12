@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/admin_nav"
-    app:startDestination="@+id/skolDash">
+    app:startDestination="@+id/skolDashMain">
+    <fragment
+        android:id="@+id/skolDashMain"
+        android:name="com.example.schoolhub.AdminDashMainPage"
+        android:label="School Dashboard"
+        tools:layout="@layout/fragment_school_details_dash" />
     <fragment
         android:id="@+id/skolDash"
         android:name="com.example.schoolhub.SchoolDetailsDash"
-        android:label="School Dashboard"
+        android:label="View School"
         tools:layout="@layout/fragment_school_details_dash" />
     <fragment
         android:id="@+id/liveStream"

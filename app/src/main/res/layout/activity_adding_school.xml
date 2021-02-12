@@ -243,19 +243,22 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:layout_gravity="top"
                 android:src="@drawable/description"
                 app:tint="#000"/>
+
             <EditText
                 android:id="@+id/schoolAbout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
                 android:background="#00000000"
                 android:focusable="true"
+                android:ems="10"
+                android:gravity="left|top"
                 android:focusedByDefault="true"
                 android:hint="About School"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:letterSpacing="0.1"
                 android:textColor="#000"
                 android:textColorHint="#77000000"

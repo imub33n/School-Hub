@@ -1,4 +1,4 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,10 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.schoolhub.R;
 import com.example.schoolhub.data.Comment;
-import com.example.schoolhub.data.PostResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;

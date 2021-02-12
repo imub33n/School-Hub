@@ -10,11 +10,11 @@
         android:id="@+id/toolbarEditSchool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ic_launcher_background"
+        android:background="#43425d"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:titleTextColor="#fff"
-        app:title="Edit School"
+        app:title="Edit General Information"
         app:layout_scrollFlags="scroll|snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,482 +25,401 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="#EAEAEA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarEditSchool">
-
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="@drawable/bg_usage_rounded_corner"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
-
-            <TextView
-                android:id="@+id/headinggeneral"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:letterSpacing="0.1"
-                android:text="General"
-                android:textColor="#000"
-                android:textSize="16sp" />
-
+            android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/separator"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-
-            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/shublogobnw" />
-
-                <EditText
-                    android:id="@+id/schoolName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="#00000000"
-                    android:focusable="true"
-                    android:focusedByDefault="true"
-                    android:hint="School Name"
-                    android:inputType="text"
-                    android:letterSpacing="0.1"
-                    android:textColor="#000"
-                    android:textColorHint="#77000000"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/email_art"
-                    app:tint="#000" />
-
-                <EditText
-                    android:id="@+id/schoolEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="#00000000"
-                    android:hint="School Email Address"
-                    android:inputType="text"
-                    android:letterSpacing="0.1"
-                    android:textColor="#000000"
-                    android:textColorHint="#78000000"
-                    android:textSize="16dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/phone"
-                    app:tint="@color/ic_launcher_background" />
-
-                <EditText
-                    android:id="@+id/schoolPhoneNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="#00000000"
-                    android:hint="School Contact Number"
-                    android:inputType="number|phone"
-                    android:letterSpacing="0.1"
-                    android:textColor="#000000"
-                    android:textColorHint="#78000000"
-                    android:textSize="16dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/address"
-                    app:tint="#000" />
-
-                <EditText
-                    android:id="@+id/schoolAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="#00000000"
-                    android:hint="School Address"
-                    android:inputType="text"
-                    android:letterSpacing="0.1"
-                    android:textColor="#000000"
-                    android:textColorHint="#78000000"
-                    android:textSize="16dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_code_24"
-                    app:tint="#000"/>
-                <EditText
-                    android:id="@+id/schoolZip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="#00000000"
-                    android:focusable="true"
-                    android:focusedByDefault="true"
-                    android:hint="Zip Code"
-                    android:inputType="number"
-                    android:letterSpacing="0.1"
-                    android:textColor="#000"
-                    android:textColorHint="#77000000"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/description"
-                    app:tint="#000"/>
-                <EditText
-                    android:id="@+id/schoolAbout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="#00000000"
-                    android:focusable="true"
-                    android:focusedByDefault="true"
-                    android:hint="About School"
-                    android:inputType="text"
-                    android:letterSpacing="0.1"
-                    android:textColor="#000"
-                    android:textColorHint="#77000000"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/textView61"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="2dp"
-                    android:text="School Type"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroupSkolType"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Co-Education"
-                        android:textColor="#000000" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Boys"
-                        android:textColor="#000000" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Girls"
-                        android:textColor="#000000" />
-
-                </RadioGroup>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/textView62"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="2dp"
-                    android:text="Education Level"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Primary" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxMiddle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Middle" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxHigher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Higher" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/textView63"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="2dp"
-                    android:text="Education Type"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroupEducationType"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-                    <RadioButton
-                        android:id="@+id/radioButton7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Arts"
-                        android:textColor="#000000" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Science"
-                        android:textColor="#000000" />
-                    <RadioButton
-                        android:id="@+id/radioButton9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Both"
-                        android:textColor="#000000" />
-                </RadioGroup>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <TextView
-                android:id="@+id/headingPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:letterSpacing="0.1"
-                android:text="Photos/Videos"
-                android:textColor="#000"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
+                android:background="@drawable/bg_usage_rounded_corner"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:id="@+id/uploadPhotos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:onClick="selectPhotos"
-                    android:drawableTint="#000"
-                    android:drawableLeft="@drawable/ic_menu_gallery"
-                    android:text="  Select Photos"
-                    android:textColor="#000" />
-                <TextView
-                    android:id="@+id/uploadVideos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:onClick="uploadVideo"
-                    android:drawableTint="#000"
-                    android:drawableLeft="@drawable/video"
-                    android:text="  Select Video"
-                    android:textColor="#000" />
-            </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/videoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/attachedImageId"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel"
-                    android:layout_centerVertical="true"/>
+                app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
 
                 <TextView
-                    android:id="@+id/videoName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/attachedImageId"
-                    android:layout_toLeftOf="@id/cancelAttachment"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:text="The notes on the new age cloud system"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel"
-                    android:id="@+id/cancelAttachment"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/newAttachmentList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_newattachment_list"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-                <TextView
-                    android:id="@+id/headingFee"
+                    android:id="@+id/headinggeneral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:letterSpacing="0.1"
-                    android:text="Fee Structure"
+                    android:text="General"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/shublogobnw" />
+
+                    <EditText
+                        android:id="@+id/schoolName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="#00000000"
+                        android:focusable="true"
+                        android:focusedByDefault="true"
+                        android:hint="School Name"
+                        android:inputType="text"
+                        android:letterSpacing="0.1"
+                        android:textColor="#000"
+                        android:textColorHint="#77000000"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/email_art"
+                        app:tint="#000" />
+
+                    <EditText
+                        android:id="@+id/schoolEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="#00000000"
+                        android:hint="School Email Address"
+                        android:inputType="text"
+                        android:letterSpacing="0.1"
+                        android:textColor="#000000"
+                        android:textColorHint="#78000000"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/phone"
+                        app:tint="@color/ic_launcher_background" />
+
+                    <EditText
+                        android:id="@+id/schoolPhoneNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="#00000000"
+                        android:hint="School Contact Number"
+                        android:inputType="number|phone"
+                        android:letterSpacing="0.1"
+                        android:textColor="#000000"
+                        android:textColorHint="#78000000"
+                        android:textSize="16dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/address"
+                        app:tint="#000" />
+
+                    <EditText
+                        android:id="@+id/schoolAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="#00000000"
+                        android:hint="School Address"
+                        android:inputType="text"
+                        android:letterSpacing="0.1"
+                        android:textColor="#000000"
+                        android:textColorHint="#78000000"
+                        android:textSize="16dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_code_24"
+                        app:tint="#000"/>
+                    <EditText
+                        android:id="@+id/schoolZip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="#00000000"
+                        android:focusable="true"
+                        android:focusedByDefault="true"
+                        android:hint="Zip Code"
+                        android:inputType="number"
+                        android:letterSpacing="0.1"
+                        android:textColor="#000"
+                        android:textColorHint="#77000000"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="top"
+                        android:src="@drawable/description"
+                        app:tint="#000"/>
+
+                    <EditText
+                        android:id="@+id/schoolAbout"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="#00000000"
+                        android:focusable="true"
+                        android:ems="10"
+                        android:gravity="left|top"
+                        android:focusedByDefault="true"
+                        android:hint="Write few lines about school..."
+                        android:inputType="textMultiLine"
+                        android:letterSpacing="0.1"
+                        android:textColor="#000"
+                        android:textColorHint="#77000000"
+                        android:textSize="15dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/textView61"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="2dp"
+                        android:text="School Type"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupSkolType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <RadioButton
+                            android:id="@+id/radioButton1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Co-Education"
+                            android:textColor="#000000" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Boys"
+                            android:textColor="#000000" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Girls"
+                            android:textColor="#000000" />
+
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/textView62"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="2dp"
+                        android:text="Education Level"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Primary" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMiddle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Middle" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxHigher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Higher" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/textView63"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="2dp"
+                        android:text="Education Type"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupEducationType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+                        <RadioButton
+                            android:id="@+id/radioButton7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Arts"
+                            android:textColor="#000000" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Science"
+                            android:textColor="#000000" />
+                        <RadioButton
+                            android:id="@+id/radioButton9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Both"
+                            android:textColor="#000000" />
+                    </RadioGroup>
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#EAEAEA"
+                    android:orientation="vertical" />
+                <TextView
+                    android:id="@+id/headingPhotoHah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:letterSpacing="0.1"
+                    android:text="Mark Location on Map"
                     android:textColor="#000"
                     android:textSize="16sp" />
 
@@ -508,1025 +427,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
                     android:background="#EAEAEA"
-                    android:orientation="vertical">
+                    android:orientation="vertical" />
 
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapViewSchoolLocation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="400dp" />
 
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="100dp"
-                            android:layout_height="80dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Description"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Admission fee"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Tution Fee"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Exam fee"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Sports"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Lab"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView55"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Library"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView56"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Total Admission Fee"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView66"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Monthly fee"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#EAEAEA"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView69"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="#F2262626"
-                            android:gravity="center"
-                            android:text="Others"
-                            android:textAllCaps="true"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="vertical"
-                        android:paddingLeft="0.05dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <HorizontalScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/textView67"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="30dp"
-                                    android:background="#F2262626"
-                                    android:gravity="center"
-                                    android:text="Grade"
-                                    android:textAllCaps="true"
-                                    android:textColor="#FFFFFF"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.05dp"
-                                    android:background="#EAEAEA"
-                                    android:orientation="vertical"></LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/columnClassesSpace"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:orientation="horizontal">
-
-                                    <LinearLayout
-                                        android:id="@+id/columnClasses"
-                                        android:layout_width="100dp"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:background="#F2262626"
-                                            android:gravity="center"
-                                            android:orientation="horizontal">
-
-                                            <EditText
-                                                android:id="@+id/From"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="From"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-
-                                            <TextView
-                                                android:layout_width="10dp"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="center"
-                                                android:text="-"
-                                                android:textColor="#fff" />
-
-                                            <EditText
-                                                android:id="@+id/To"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="To"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-                                        </LinearLayout>
-
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/AddFee"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/TutionFee"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/ExamFee"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/sports"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/lab"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/library"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/totalAddFee"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/monthlyFee"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.5dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/others"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/columnClasses2"
-                                        android:layout_width="100dp"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:background="#F2262626"
-                                            android:gravity="center"
-                                            android:orientation="horizontal">
-
-                                            <EditText
-                                                android:id="@+id/From2"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="From"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-
-                                            <TextView
-                                                android:layout_width="10dp"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="center"
-                                                android:text="-"
-                                                android:textColor="#fff" />
-
-                                            <EditText
-                                                android:id="@+id/To2"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="To"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-                                        </LinearLayout>
-
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/AddFee2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/TutionFee2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/ExamFee2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/sports2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/lab2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/library2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/totalAddFee2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/monthlyFee2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.5dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/others2"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/columnClasses3"
-                                        android:layout_width="100dp"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:background="#F2262626"
-                                            android:gravity="center"
-                                            android:orientation="horizontal">
-
-                                            <EditText
-                                                android:id="@+id/From3"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="From"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-
-                                            <TextView
-                                                android:layout_width="10dp"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="center"
-                                                android:text="-"
-                                                android:textColor="#fff" />
-
-                                            <EditText
-                                                android:id="@+id/To3"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="To"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-                                        </LinearLayout>
-
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/AddFee3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/TutionFee3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/ExamFee3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/sports3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/lab3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/library3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/totalAddFee3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.05dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/monthlyFee3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.5dp"
-                                            android:layout_weight="1"
-                                            android:background="#EAEAEA"
-                                            android:orientation="vertical">
-
-                                        </LinearLayout>
-
-                                        <EditText
-                                            android:id="@+id/others3"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="50dp"
-                                            android:gravity="center"
-                                            android:hint="@string/feeTextHint"
-                                            android:inputType="number"
-                                            android:maxLength="6"
-                                            android:text="0"
-                                            android:textAllCaps="true"
-                                            android:textColor="#000"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </HorizontalScrollView>
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-            <TextView
-                android:id="@+id/headingPhotoHah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:letterSpacing="0.1"
-                android:text="Mark Location on Map"
-                android:textColor="#000"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="#EAEAEA"
-                android:orientation="vertical" />
-
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapViewSchoolLocation"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_gravity="right"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="#fff"
+                    android:text="Cancel"
+                    android:textColor="#000"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="#fff"
+                    android:text="Update"
+                    android:textColor="#000"
+                    />
+            </LinearLayout>
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

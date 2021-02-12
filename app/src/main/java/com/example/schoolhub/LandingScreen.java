@@ -1,7 +1,6 @@
 package com.example.schoolhub;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +8,6 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -17,12 +15,13 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.schoolhub.Adapters.AdapterLanding;
+import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.SchoolsLandingModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LandingScreen extends AppCompatActivity {
 

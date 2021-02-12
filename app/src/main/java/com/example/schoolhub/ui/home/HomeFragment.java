@@ -2,16 +2,21 @@ package com.example.schoolhub.ui.home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,41 +25,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.schoolhub.HomePanel;
-import com.example.schoolhub.PostViewAdapter;
+import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
-import com.example.schoolhub.SignUp;
-import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -72,12 +62,15 @@ import static java.lang.Thread.sleep;
 public class HomeFragment extends Fragment {
 //recyclerView.getAdapter().notifyDataSetChanged();
     public String uploadedImageURL;
+    public static String nameHomePhoto="";
     String userIDPost,userNamePost, textPost, timePost, imagePost;
     private HomeViewModel homeViewModel;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     EditText postText;
-    TextView postButton,uploadImageButton;
+    ImageView attachedImageId,cancelImage;
+    TextView postButton,uploadImageButton,imageNameHome;
+    RelativeLayout photoHomeLayout;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -96,6 +89,19 @@ public class HomeFragment extends Fragment {
         postText= root.findViewById(R.id.postEditText);
         postButton= root.findViewById(R.id.postButton);
         uploadImageButton= root.findViewById(R.id.uploadImageButton);
+        imageNameHome=root.findViewById(R.id.imageNameHome);
+        attachedImageId=root.findViewById(R.id.attachedImageId);
+        photoHomeLayout=root.findViewById(R.id.photoHomeLayout);
+        cancelImage= root.findViewById(R.id.cancelPhoto);
+        cancelImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageNameHome.setText("");
+                nameHomePhoto="";
+                filePath= Uri.parse("");
+                photoHomeLayout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            }
+        });
 //backend
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -177,11 +183,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-
+        Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        Intent intentImages = new Intent();
+        intentImages.setType("image/*");
+        intentImages.putExtra(Intent.EXTRA_STREAM,uri);
+        intentImages.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intentImages, "Select Picture"), PICK_IMAGE_REQUEST);
     }
     private void postUpload(){
         LocalDateTime now = LocalDateTime.now();
@@ -201,7 +208,7 @@ public class HomeFragment extends Fragment {
                 if (response.code() == 200) {
                     Toast.makeText(getContext(), "Post Successful", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getContext(), "Post else", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Post else"+response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -218,15 +225,34 @@ public class HomeFragment extends Fragment {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null )
         {
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
-                Toast.makeText(getContext(), "Photo Selected Click Post to Upload", Toast.LENGTH_SHORT).show();
+            if (data.getData() != null) {
+                filePath = data.getData();
+                Cursor returnCursor = getContext().getContentResolver().query(filePath, null, null, null, null);
+                int nameHomeIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+                nameHomePhoto=returnCursor.getString(nameHomeIndex);
+                imageNameHome.setText(nameHomePhoto);
+                photoHomeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                String photoUri= String.valueOf(filePath);
+                if (photoUri.isEmpty()||photoUri.equals(null)||photoUri.equals("")) {
+
+                } else {
+                    Glide.with(this)
+                            .load(filePath)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                            .thumbnail(Glide.with(this).load(R.drawable.ic_image_loading))
+                            .error(R.drawable.ic_image_error)
+                            .into(attachedImageId);
+                }
             }
-            catch (IOException e)
-            {
-                Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
+//                Toast.makeText(getContext(), "Photo Selected Click Post to Upload", Toast.LENGTH_SHORT).show();
+//            }
+//            catch (IOException e)
+//            {
+//                Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 

@@ -9,11 +9,27 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.schoolhub.Adapters.SlideAdapter;
+import com.example.schoolhub.data.SchoolData;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdminDashboard extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -30,12 +46,13 @@ public class AdminDashboard extends AppCompatActivity {
         //View headerView = navigationView.getHeaderView(0);__________
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.skolDash, R.id.liveStream)
+                R.id.skolDashMain, R.id.skolDash, R.id.liveStream)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment2);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override

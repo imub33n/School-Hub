@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditSchool"></activity>
+        <activity android:name=".EditSchoolFeeStructure"></activity>
+        <activity android:name=".EditSchoolPhotos" />
+        <activity android:name=".EditSchool" />
         <activity android:name=".AddingSchoolStep2_3" />
         <activity android:name=".AdminDashboard" />
         <activity android:name=".AddingSchoolCompleted" />

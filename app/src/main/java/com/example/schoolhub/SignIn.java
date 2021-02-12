@@ -96,6 +96,7 @@ public class SignIn extends AppCompatActivity {
 
             map.put("email", email.getText().toString());
             map.put("password", password.getText().toString());
+            map.put("type",radioButton.getText().toString());
             try{
                 Call<LoginResult> call = retrofitInterface.executeLogin(map);
                 call.enqueue(new Callback<LoginResult>() {

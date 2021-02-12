@@ -1,6 +1,7 @@
 package com.example.schoolhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,33 +24,36 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.Adapters.AttachmentListAdapter;
 import com.example.schoolhub.data.AttachmentListData;
-import com.kofigyan.stateprogressbar.StateProgressBar;
 
 import java.util.ArrayList;
+
 import static android.content.ContentValues.TAG;
 
-public class AddingSchoolStep2 extends AppCompatActivity {
+public class EditSchoolPhotos extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 101;
     private static final int PICK_Video_FROM_GALLERY = 11;
-    RecyclerView newAttachmentListView;
+    //RecyclerView newAttachmentListView;
     public static ArrayList<AttachmentListData> newAttachmentList = new ArrayList<>();
-    public static String nameVideo,videoUri="";
+    public static String nameVideo,videoUri="",namePhoto,photoUri="";
     AttachmentListAdapter attachmentListAdapter;
-    TextView videoName;
-    ImageView attachedVideoId,cancelVideo;
-    RelativeLayout videoLayout;
-
+    TextView videoName,photoName;
+    ImageView attachedVideoId,cancelVideo,attachedPhotoId,cancelPhoto;
+    RelativeLayout videoLayout,photoLayout;
+    public Toolbar toolbarEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adding_school_step2);
-        StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
-        stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
+        setContentView(R.layout.activity_edit_school_photos);
+        toolbarEdit = (Toolbar) findViewById(R.id.toolbarEditSchool);
         videoLayout= findViewById(R.id.videoLayout);
         videoName=findViewById(R.id.videoName);
         attachedVideoId=findViewById(R.id.attachedImageId);
         cancelVideo= findViewById(R.id.cancelAttachment);
-        newAttachmentListView = (RecyclerView) findViewById(R.id.newAttachmentList);
+        photoLayout= findViewById(R.id.photoLayout);
+        photoName=findViewById(R.id.photoName);
+        attachedPhotoId=findViewById(R.id.attachedPhotoId);
+        cancelPhoto= findViewById(R.id.cancelPhotoAttachment);
+        //newAttachmentListView = (RecyclerView) findViewById(R.id.newAttachmentList);
         cancelVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,16 +63,25 @@ public class AddingSchoolStep2 extends AppCompatActivity {
                 videoLayout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
             }
         });
+        cancelPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoName.setText("");
+                namePhoto="";
+                photoUri="";
+                photoLayout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            }
+        });
+        toolbarEdit.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
     }
 
-    public void backStep2(View view) {
-        Intent intent = new Intent(getApplicationContext(),AddingSchool.class );
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-    }
-
-    public void nextStep2(View view) {
-        //Toast.makeText(this,AttachmentListAdapter.newAttachmentList.size(),Toast.LENGTH_LONG).show();
+    public void updatePhotos(View view) {
         Log.d(TAG, "nextStep2:_________________________ "+newAttachmentList.size());
         if(newAttachmentList.size()<3){
             Toast.makeText(this,"Please select at least 3 photos+video",Toast.LENGTH_LONG).show();
@@ -77,11 +90,10 @@ public class AddingSchoolStep2 extends AppCompatActivity {
         }else if(videoUri==""){
             Toast.makeText(this,"Please select a video",Toast.LENGTH_LONG).show();
         }else{
-            Intent intent = new Intent(getApplicationContext(),AddingSchoolStep3.class );
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(),AddingSchoolStep3.class );
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            startActivity(intent);
         }
-
     }
     public void uploadVideo(View view) {
         Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
@@ -95,9 +107,7 @@ public class AddingSchoolStep2 extends AppCompatActivity {
         Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         Intent intent = new Intent();
         intent.setType("image/*");
-        //intent.setType("*/*");
         intent.putExtra(Intent.EXTRA_STREAM,uri);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY);
         //intent.getClipData().getItemAt(0);
@@ -130,47 +140,27 @@ public class AddingSchoolStep2 extends AppCompatActivity {
         }
         //for photos
         if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
-            if (data.getClipData() != null) {
-                int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
-                for (int i = 0; i < count; i++) {
-                    Uri returnUri = data.getClipData().getItemAt(i).getUri();
-                    Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
-                    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-                    returnCursor.moveToFirst();
-                    System.out.println("PIYUSH NAME IS" + returnCursor.getString(nameIndex));
-                    System.out.println("PIYUSH SIZE IS" + Long.toString(returnCursor.getLong(sizeIndex)));
-                    AttachmentListData attachmentListData = new AttachmentListData();
-                    attachmentListData.setImageName(returnCursor.getString(nameIndex));
-                    attachmentListData.setImageID(returnUri.toString());
-                    newAttachmentList.add(attachmentListData);
-                }
-
-            } else if (data.getData() != null) {
+            if (data.getData() != null) {
                 Uri returnUri = data.getData();
-
-                Cursor returnCursor =
-                        getContentResolver().query(returnUri, null, null, null, null);
+                Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
                 int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                 int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
                 returnCursor.moveToFirst();
-                System.out.println("PIYUSH NAME IS" + returnCursor.getString(nameIndex));
-                System.out.println("PIYUSH SIZE IS" + Long.toString(returnCursor.getLong(sizeIndex)));
-                AttachmentListData attachmentListData = new AttachmentListData();
-                attachmentListData.setImageName(returnCursor.getString(nameIndex));
-                attachmentListData.setImageID(returnUri.toString());
-                newAttachmentList.add(attachmentListData);
+                namePhoto=returnCursor.getString(nameIndex);
+                photoUri= returnUri.toString();
+                photoName.setText(namePhoto);
+                photoLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                if (photoUri.isEmpty()||photoUri.equals(null)||photoUri.equals("")) {
+
+                } else {
+                    Glide.with(this)
+                            .load(returnUri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                            .thumbnail(Glide.with(this).load(R.drawable.ic_image_loading))
+                            .error(R.drawable.ic_image_error)
+                            .into(attachedPhotoId);
+                }
             }
-            generateNewAttachmentList(newAttachmentList);
         }
     }
-    private void generateNewAttachmentList(ArrayList<AttachmentListData> newAttachmentList) {
-        newAttachmentListView.setHasFixedSize(true);
-        LinearLayoutManager MyLayoutManager = new LinearLayoutManager(this);
-        MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        newAttachmentListView.setLayoutManager(MyLayoutManager);
-        attachmentListAdapter = new AttachmentListAdapter(newAttachmentList, this);
-        newAttachmentListView.setAdapter(attachmentListAdapter);
-    }
-
 }
