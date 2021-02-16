@@ -82,9 +82,9 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
         tAddress=root.findViewById(R.id.tAddress);
         tZip=root.findViewById(R.id.tZip);
         tAbout=root.findViewById(R.id.tAbout);
-        tSchoolType=root.findViewById(R.id.tSchoolType);
-        tEducationLevel=root.findViewById(R.id.tEducationLevel);
-        tCourseType=root.findViewById(R.id.tCourseType);
+//        tSchoolType=root.findViewById(R.id.tSchoolType);
+//        tEducationLevel=root.findViewById(R.id.tEducationLevel);
+//        tCourseType=root.findViewById(R.id.tCourseType);
 
         //retrofit
         retrofit = new Retrofit.Builder()
@@ -124,14 +124,14 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
 //                            Log.d(TAG, "onResponse:____________________lng__'"+schoolData.get(i).getSchoolCoordinates().getLongitude()+"'");
                             //putting data
                             schoolName.setText(thisSchoolData.getSchoolName());
-                            tSchoolType.setText(thisSchoolData.getSchoolType());
+                            //tSchoolType.setText(thisSchoolData.getSchoolType());
                             tAbout.setText(thisSchoolData.getAboutSchool());
-                            tAddress.setText(thisSchoolData.getSchoolAddress());
                             tEmail.setText(thisSchoolData.getSchoolEmail());
                             tContact.setText(thisSchoolData.getContactNumber());
+                            tAddress.setText(thisSchoolData.getSchoolAddress());
                             tZip.setText(thisSchoolData.getZipCode().toString());
-                            tEducationLevel.setText(thisSchoolData.getEducationLevel());
-                            tCourseType.setText(thisSchoolData.getEducationType());
+//                            tEducationLevel.setText(thisSchoolData.getEducationLevel());
+//                            tCourseType.setText(thisSchoolData.getEducationType());
                         }
                     }
                 }else {

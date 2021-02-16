@@ -1,4 +1,4 @@
-package com.example.schoolhub;
+package com.example.schoolhub.AddingSchool;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.schoolhub.R;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchool extends AppCompatActivity {

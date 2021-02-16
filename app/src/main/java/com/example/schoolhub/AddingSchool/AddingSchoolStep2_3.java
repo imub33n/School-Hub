@@ -1,18 +1,13 @@
-package com.example.schoolhub;
+package com.example.schoolhub.AddingSchool;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.schoolhub.R;
 import com.kofigyan.stateprogressbar.StateProgressBar;
-
-import java.util.List;
 
 public class AddingSchoolStep2_3 extends AppCompatActivity {
 

@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EAEAEA"
     tools:context=".InformationSchoolFragment" >
 
     <ScrollView
@@ -36,213 +37,19 @@
                 android:textColor="@color/ic_launcher_background"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewContact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="Contact Number :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tContact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="Email :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="Address :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewZip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="Zip Code :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tZip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewAbout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="About :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/tAbout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:textAlignment="viewStart"
                     android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewSchoolType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="School Type :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tSchoolType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewEducationLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="Education Level :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tEducationLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewCourseType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="10dp"
-                    android:text="Course Type :"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tCourseType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="true"
+                    android:textSize="20sp"
                     android:textColor="@color/ic_launcher_background"
                     />
             </LinearLayout>
@@ -251,19 +58,122 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_marginEnd="72dp"
                 android:drawableLeft="@drawable/model3d"
                 android:padding="10dp"
+                android:hapticFeedbackEnabled="true"
                 android:onClick="arOnClick"
                 android:text="  View AR Model"
                 android:textColor="#FFFFFF" />
-
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="500dp" />
-
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_usage_rounded_corner"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="School Details"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textColor="@color/ic_launcher_background"
+                    android:textStyle="bold" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:elevation="2dp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@drawable/bg_usage_rounded_corner">
+                        <TextView
+                            android:id="@+id/tAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="true"
+                            android:textColor="@color/ic_launcher_background"
+                            />
+                        <TextView
+                            android:id="@+id/tZip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="true"
+                            android:textColor="@color/ic_launcher_background"
+                            />
+                    </LinearLayout>
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/textViewContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:paddingLeft="10dp"
+                        android:text="Contact Number :"
+                        android:src="@drawable/phone"
+                        />
+                    <TextView
+                        android:id="@+id/tContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="true"
+                        android:textColor="@color/ic_launcher_background"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/textViewEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:paddingLeft="10dp"
+                        android:text="Contact Number :"
+                        android:src="@drawable/email_art"
+                         />
+                    <TextView
+                        android:id="@+id/tEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="true"
+                        android:textColor="@color/ic_launcher_background"
+                        />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

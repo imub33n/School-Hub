@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#EAEAEA"
     android:layout_height="match_parent"
-    tools:context=".AddingSchoolStep2_3">
+    tools:context=".AddingSchool.AddingSchoolStep2_3">
     <TextView
         android:id="@+id/addingSkol"
         android:layout_width="match_parent"

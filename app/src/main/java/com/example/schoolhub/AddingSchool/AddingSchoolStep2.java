@@ -1,4 +1,4 @@
-package com.example.schoolhub;
+package com.example.schoolhub.AddingSchool;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.Adapters.AttachmentListAdapter;
+import com.example.schoolhub.R;
 import com.example.schoolhub.data.AttachmentListData;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 

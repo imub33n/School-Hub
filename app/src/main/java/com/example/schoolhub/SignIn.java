@@ -13,16 +13,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.schoolhub.AddingSchool.AddingSchool;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.SchoolData;
-import com.example.schoolhub.ui.home.HomeFragment;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.navigation.NavigationView;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +39,7 @@ public class SignIn extends AppCompatActivity {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 //127.0.0.1
-    public static String BASE_URL = "http://192.168.10.10:8080/";
+    public static String BASE_URL = "http://10.113.61.179:8080/";
 //InetAddress.getLocalHost().getHostAddress()
     @Override
     protected void onCreate(Bundle savedInstanceState) {

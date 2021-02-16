@@ -33,6 +33,7 @@ public class AdminDashMainPage extends Fragment {
     String adminIdGet;
     Intent intent;
     CardView editGeneralCard,editPhotosCard,editFeeCard,editAcademicCard,editRequestCard;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,7 +67,6 @@ public class AdminDashMainPage extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     intent = new Intent(getContext(),EditSchool.class );
-                                    //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     startActivity(intent);
                                 }
                             });
@@ -87,15 +87,15 @@ public class AdminDashMainPage extends Fragment {
                             editRequestCard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                intent = new Intent(getContext(),RequestsForSchoolAdmin.class );
-//                startActivity(intent);
+//                                    intent = new Intent(getContext(),RequestsForSchoolAdmin.class );
+//                                    startActivity(intent);
                                 }
                             });
                             editAcademicCard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                intent = new Intent(getContext(),AcademicInfo.class );
-//                startActivity(intent);
+//                                    intent = new Intent(getContext(),EditAcademicInfo.class );
+//                                    startActivity(intent);
                                 }
                             });
                         }
@@ -110,8 +110,6 @@ public class AdminDashMainPage extends Fragment {
                 Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
             }
         });
-
         return root;
     }
-
 }

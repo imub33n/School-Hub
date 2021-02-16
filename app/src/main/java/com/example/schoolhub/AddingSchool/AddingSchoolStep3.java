@@ -1,18 +1,14 @@
-package com.example.schoolhub;
+package com.example.schoolhub.AddingSchool;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.schoolhub.R;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchoolStep3 extends AppCompatActivity {
@@ -85,6 +81,7 @@ public class AddingSchoolStep3 extends AppCompatActivity {
                 if(To.getText().toString().isEmpty()||From.getText().toString().isEmpty()){
                     Toast.makeText(this,"Please fill both to and from section or none",Toast.LENGTH_LONG).show();
                 }else{
+                    
                     progress++;
                     step1=true;
                     To_From=From.getText().toString()+"-"+To.getText().toString();

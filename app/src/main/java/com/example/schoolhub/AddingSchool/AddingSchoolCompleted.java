@@ -1,9 +1,10 @@
-package com.example.schoolhub;
+package com.example.schoolhub.AddingSchool;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.schoolhub.R;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchoolCompleted extends AppCompatActivity {
