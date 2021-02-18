@@ -8,6 +8,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -52,7 +54,7 @@ public class AdminDashboard extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment2);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
+        toolbar.getNavigationIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.ADD);
     }
 
     @Override

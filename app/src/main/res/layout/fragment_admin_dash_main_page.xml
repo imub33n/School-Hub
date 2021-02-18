@@ -52,20 +52,19 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/generalpic" />
+                        android:padding="30dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/information" />
 
-                    <!--                <TextView-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_gravity="bottom|center"-->
-                    <!--                    android:layout_margin="5dp"-->
-                    <!--                    android:gravity="center"-->
-                    <!--                    android:text="Edit General Information"-->
-                    <!--                    android:textColor="#FFFFFF"-->
-                    <!--                    android:textSize="15dp"-->
-                    <!--                    android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:text="General Information"
+                        android:textColor="#000"
+                        android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/editFeeCard"
@@ -80,20 +79,20 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/feepic" />
+                        android:padding="30dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/fee" />
 
-                    <!--                <TextView-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_gravity="bottom|center"-->
-                    <!--                    android:layout_margin="5dp"-->
-                    <!--                    android:gravity="center"-->
-                    <!--                    android:text="Edit Fee Structure"-->
-                    <!--                    android:textColor="#FFFFFF"-->
-                    <!--                    android:textSize="15dp"-->
-                    <!--                    android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:text="Fee Structure"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                         />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
             <LinearLayout
@@ -113,20 +112,19 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/photoeditpic" />
+                        android:padding="30dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/picture" />
 
-                    <!--                <TextView-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_gravity="bottom|center"-->
-                    <!--                    android:layout_margin="5dp"-->
-                    <!--                    android:gravity="center"-->
-                    <!--                    android:text="Edit Photos/Video"-->
-                    <!--                    android:textColor="#FFFFFF"-->
-                    <!--                    android:textSize="15dp"-->
-                    <!--                    android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:text="Photos/Video"
+                        android:textColor="#000"
+                        android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/editAcademicCard"
@@ -141,20 +139,19 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/academiapic" />
+                        android:padding="30dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/picture" />
 
-                    <!--                <TextView-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_gravity="bottom|center"-->
-                    <!--                    android:layout_margin="5dp"-->
-                    <!--                    android:gravity="center"-->
-                    <!--                    android:text="Edit Academic Info"-->
-                    <!--                    android:textColor="#FFFFFF"-->
-                    <!--                    android:textSize="15dp"-->
-                    <!--                    android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:text="Academic Info"
+                        android:textColor="#000"
+                        android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
             <androidx.cardview.widget.CardView
@@ -170,20 +167,19 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/requestpic" />
+                    android:padding="30dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/request" />
 
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_gravity="bottom|center"-->
-                <!--                    android:layout_margin="5dp"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:text="Requests"-->
-                <!--                    android:textColor="#FFFFFF"-->
-                <!--                    android:textSize="15dp"-->
-                <!--                    android:textStyle="bold" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="Faculty"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

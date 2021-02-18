@@ -41,7 +41,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
-    static String adminId="602231442d72da3314e30809";
+    static String adminId="121323";
     String adminIdGet;
 
     public static SchoolData thisSchoolData=new SchoolData();

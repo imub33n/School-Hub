@@ -58,8 +58,8 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
     public static String EducationLevel="";
 
     List<SchoolData> UpdatedSchoolData;
-    SchoolData updateSchoolData;
-    SchoolCoordinates schoolCoordinates;
+    SchoolData updateSchoolData= new SchoolData();
+    SchoolCoordinates schoolCoordinates= new SchoolCoordinates();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +81,6 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
         radioButtonEducationType1 = (RadioButton) findViewById(R.id.radioButton7);
         radioButtonEducationType2 = (RadioButton) findViewById(R.id.radioButton8);
         radioButtonEducationType3 = (RadioButton) findViewById(R.id.radioButton9);
-        radioGroupSkolType =  findViewById(R.id. radioGroupSkolType);
-        radioGroupEducationType = findViewById(R.id.radioGroupEducationType);
-        radioButtonSkolType = (RadioButton) findViewById(radioGroupSkolType.getCheckedRadioButtonId());
-        radioButtonEducationType = (RadioButton) findViewById(radioGroupEducationType.getCheckedRadioButtonId());
         checkBoxPrimary = findViewById(R.id.checkBoxPrimary);
         checkBoxMiddle = findViewById(R.id.checkBoxMiddle);
         checkBoxHigher = findViewById(R.id.checkBoxHigher);
@@ -206,6 +202,10 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
     }
 
     public void updateSchoolGeneral(View view) {
+        radioGroupSkolType =  findViewById(R.id. radioGroupSkolType);
+        radioGroupEducationType = findViewById(R.id.radioGroupEducationType);
+        radioButtonSkolType = (RadioButton) findViewById(radioGroupSkolType.getCheckedRadioButtonId());
+        radioButtonEducationType = (RadioButton) findViewById(radioGroupEducationType.getCheckedRadioButtonId());
         new AlertDialog.Builder(this)
                 //.setTitle("Updating school information!")
                 .setMessage("Are you sure you want to update ?")
@@ -255,6 +255,9 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
                             updateSchoolData.setSchoolCoordinates(schoolCoordinates);
 
                         }
+                        UpdatedSchoolData.add(updateSchoolData);
+                        // backend connection under this line
+
                     }
                 })
                 .setNegativeButton("Cancel", null)

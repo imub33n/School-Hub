@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here.::Theme.AppCompat.Light.NoActionBar:: -->
         <item name="colorPrimary">#222222</item>
         <item name="colorPrimaryDark">#151515</item>
@@ -14,6 +14,11 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">

@@ -87,8 +87,8 @@ public class AdminDashMainPage extends Fragment {
                             editRequestCard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                                    intent = new Intent(getContext(),RequestsForSchoolAdmin.class );
-//                                    startActivity(intent);
+                                    intent = new Intent(getContext(),RequestsForSchoolAdmin.class );
+                                    startActivity(intent);
                                 }
                             });
                             editAcademicCard.setOnClickListener(new View.OnClickListener() {

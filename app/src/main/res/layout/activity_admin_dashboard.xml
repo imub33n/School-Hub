@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
     tools:context=".AdminDashboard">
     <include
         layout="@layout/app_bar_admin"
@@ -22,5 +21,19 @@
 
         app:itemIconTint="#43425d"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_admin_drawer" />
+        app:menu="@menu/activity_admin_drawer" >
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:drawableLeft="@drawable/logout"
+            android:drawableTint="#000"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            android:text="  LOG OUT"
+            android:textColor="#000"
+            android:textSize="18sp" />
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
