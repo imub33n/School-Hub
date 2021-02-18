@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <uses-feature android:name="android.hardware.camera.ar" />
 
     <application
@@ -18,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RequestsForSchoolAdmin"></activity>
+        <activity android:name=".LiveStreamRequest"></activity>
+        <activity android:name=".RequestsForSchoolAdmin" />
         <activity android:name=".EditAcademicInfo" />
         <activity android:name=".EditSchoolFeeStructure" />
         <activity android:name=".EditSchoolPhotos" />
