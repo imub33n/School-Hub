@@ -25,6 +25,7 @@
             android:layout_margin="10dp"
             android:letterSpacing="0.1"
             android:text="Requests"
+            android:textStyle="bold"
             android:textColor="#000"
             android:textSize="16sp" />
 
@@ -52,7 +53,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My History" />
-
         </com.google.android.material.chip.ChipGroup>
 
         <LinearLayout
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginLeft="10dp"
-                android:backgroundTint="#fff"
+                android:backgroundTint="#EAEAEA"
                 android:letterSpacing="0.1"
                 android:text="Status Here"
                 android:textColor="#000"
