@@ -328,7 +328,8 @@
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:text="Reset"
-                android:textColor="#FF313b" />
+                android:backgroundTint="@color/appDefault"
+                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/button2"
@@ -337,7 +338,8 @@
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:text="Apply"
-                android:textColor="#ff313b" />
+                android:backgroundTint="@color/appDefault"
+                android:textColor="#fff"  />
         </LinearLayout>
 
     </LinearLayout>

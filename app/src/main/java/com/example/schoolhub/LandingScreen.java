@@ -17,17 +17,21 @@ import android.widget.LinearLayout;
 
 import com.example.schoolhub.Adapters.AdapterLanding;
 import com.example.schoolhub.Adapters.SlideAdapter;
+import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.SchoolsLandingModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LandingScreen extends AppCompatActivity {
 
     ViewPager2 viewPager;
     RecyclerView recyclerViewLanding,recyclerViewLanding2;
     LinearLayoutManager HorizontalLayout;
+    List<Image> imagesLanding= new ArrayList<>();
+    Image imageInLanding= new Image();
 //    public int[] lst_images = {R.drawable.a,____________________________
 //            R.drawable.b,
 //            R.drawable.c,
@@ -46,8 +50,13 @@ public class LandingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_landing_screen);
         //sliderAdapter
         viewPager = (ViewPager2) findViewById(R.id.viewPagerSliderLandingPage);
-//        adapter= new SlideAdapter(lst_images); ____________________________
-//        viewPager.setAdapter(adapter); ____________________________
+        imageInLanding.setPath("gs://okay-945dc.appspot.com/images/ysgol_bae_baglan_2159_james_morris_pressimage_2_copy.jpg");
+        imagesLanding.add(imageInLanding);
+        imagesLanding.add(imageInLanding);
+        imagesLanding.add(imageInLanding);
+
+        adapter= new SlideAdapter(imagesLanding,this);
+        viewPager.setAdapter(adapter);
         //landing view pager
 
         recyclerViewLanding = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage);
