@@ -60,7 +60,20 @@
             android:layout_height="0.5dp"
             android:background="#EAEAEA"
             android:orientation="vertical" />
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/startLiveStream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#001DBD"
+                android:clickable="true"
+                android:layout_gravity="right"
+                android:text="Start Live Stream"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Request a Live Stream"
-        android:backgroundTint="#34325D"
+        android:backgroundTint="@color/appDefault"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,11 +23,19 @@ import java.util.Calendar;
 
 public class LiveStreamAdminFragment extends Fragment {
     Button liveRequestButton;
+    TextView startLiveStream;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.fragment_live_stream_admin, container, false);
         liveRequestButton= root.findViewById(R.id.liveRequestButton);
+        startLiveStream= root.findViewById(R.id.startLiveStream);
+        startLiveStream.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         liveRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

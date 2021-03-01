@@ -19,7 +19,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
 
-        app:itemIconTint="#43425d"
+        app:itemIconTint="@color/appDefault"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_admin_drawer" >
 

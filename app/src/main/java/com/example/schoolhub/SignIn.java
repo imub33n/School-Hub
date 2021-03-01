@@ -3,7 +3,9 @@ package com.example.schoolhub;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,14 +40,14 @@ public class SignIn extends AppCompatActivity {
     List<SchoolData> schoolData;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-//127.0.0.1
-    public static String BASE_URL = "http://10.113.61.179:8080/";
-//InetAddress.getLocalHost().getHostAddress()
+
+//    public static String BASE_URL = "http://10.113.61.179:8080/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
+        Toast.makeText(this,MainActivity.BASE_URL,Toast.LENGTH_SHORT).show();
         //References
         lin = (Button) findViewById(R.id.loginBsi);
         email = (EditText) findViewById(R.id.email);
@@ -54,7 +56,7 @@ public class SignIn extends AppCompatActivity {
 
         //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -148,7 +150,7 @@ public class SignIn extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<LoginResult> call, Throwable t) {
-                        Toast.makeText(SignIn.this, t.getMessage(),
+                        Toast.makeText(SignIn.this, t.getMessage()+"ERR",
                                 Toast.LENGTH_LONG).show();
                     }
                 });

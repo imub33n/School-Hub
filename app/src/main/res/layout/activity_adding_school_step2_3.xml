@@ -31,12 +31,12 @@
         app:layout_constraintTop_toBottomOf="@id/addingSkol"
         app:spb_animateToCurrentProgressState="false"
         app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="@color/StepProcessColor"
+        app:spb_currentStateDescriptionColor="@color/appDefault"
         app:spb_currentStateNumber="three"
         app:spb_maxStateNumber="five"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="@color/StepProcessColor"
+        app:spb_stateForegroundColor="@color/appDefault"
         app:spb_stateNumberBackgroundColor="#808080"
         app:spb_stateNumberForegroundColor="#eeeeee" />
 
@@ -51,7 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/your_state_progress_bar_id">
-
 
         <TextView
             android:id="@+id/headingVideo"

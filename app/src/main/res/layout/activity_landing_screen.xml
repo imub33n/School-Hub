@@ -10,7 +10,7 @@
         android:id="@+id/toolbarLandingPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EAEAEA"
+        android:background="@color/appDefault"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_scrollFlags="scroll|enterAlways"
@@ -24,7 +24,7 @@
             android:layout_marginEnd="5dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/shublogoff313b"
-            app:tint="#ff313b" />
+            app:tint="#fff" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -34,7 +34,7 @@
             android:text="School Hub"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textColor="#ff313b"
+            android:textColor="#fff"
             android:textStyle="normal" />
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:layout_gravity="end"
             android:textAllCaps="true"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:textSize="12sp" />
     </androidx.appcompat.widget.Toolbar>
 

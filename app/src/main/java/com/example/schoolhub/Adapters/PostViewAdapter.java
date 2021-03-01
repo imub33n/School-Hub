@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
@@ -183,7 +184,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(SignIn.BASE_URL)
+                    .baseUrl(MainActivity.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

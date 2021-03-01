@@ -41,7 +41,9 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
-    static String adminId="121323";
+    //logged in user id
+    static String adminId=SignIn.userID;
+    //mattching admin
     String adminIdGet;
 
     public static SchoolData thisSchoolData=new SchoolData();
@@ -88,7 +90,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
 
         //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(SignIn.BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -2,21 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_filter_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:orientation="vertical"
     android:paddingTop="8dp"
-    android:id="@+id/search_filter_layout"
     android:paddingBottom="8dp"
-    tools:context=".FiltersFragment"
-    tools:ignore="UnusedAttribute">
+    tools:context=".FiltersFragment">
 
     <LinearLayout
+        android:id="@+id/rootfrag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rootfrag"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableBottom="@drawable/drop_down"
+            android:text="Pull down to close"
+            android:textColor="#000"
+            android:textSize="12sp" />
+
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
@@ -30,163 +39,175 @@
             android:hint="⌕ Search School here..."
             android:inputType="text"
             android:textAlignment="center" />
-        <requestFocus />
-        <TextView
+
+        <LinearLayout
             android:id="@+id/filterHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:padding="2dp"
-            android:text="FILTER BY:"
-            android:textColor="#000"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:background="#000"
-            android:elevation="5dp"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:layout_gravity="right"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView57"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="10dp"
                 android:padding="2dp"
-                android:text="Fee (Pkr)"
-                android:textColor="#000000"
+                android:text="APPLY FILTERS"
+                android:textColor="#000"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edittextbg"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Min"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:textColor="#000000"
-                tools:inputType="number" />
-
-            <TextView
-                android:id="@+id/textView58"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="-"
-                android:textColor="#000000" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edittextbg"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Max"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:textColor="#000000"
-                tools:inputType="number" />
+                android:src="@drawable/drop_down"
+                app:tint="#000" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/filtersLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/textView59"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:padding="2dp"
-                android:text="Distance (km)"
-                android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName5"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#000"
+                android:elevation="5dp" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edittextbg"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Min"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:textColor="#000000"
-                tools:inputType="number" />
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-            <TextView
-                android:id="@+id/textView60"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="-"
-                android:textColor="#000000" />
+                <TextView
+                    android:id="@+id/textView57"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:text="Fee (Pkr)"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName6"
+                <EditText
+                    android:id="@+id/editTextTextPersonName3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittextbg"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Min"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    tools:inputType="number" />
+
+                <TextView
+                    android:id="@+id/textView58"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="-"
+                    android:textColor="#000000" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittextbg"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Max"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    tools:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edittextbg"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Max"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:textColor="#000000"
-                tools:inputType="number" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:text="Distance (km)"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView61"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="2dp"
-                android:text="School Type"
-                android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/editTextTextPersonName5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittextbg"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Min"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    tools:inputType="number" />
 
-            <RadioGroup
+                <TextView
+                    android:id="@+id/textView60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="-"
+                    android:textColor="#000000" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittextbg"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Max"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    tools:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:text="School Type"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/group1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center|start"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -209,37 +230,32 @@
                         android:layout_height="wrap_content"
                         android:text="Girls"
                         android:textColor="#000000" />
-                </LinearLayout>
 
-            </RadioGroup>
-        </LinearLayout>
+                </RadioGroup>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/textView62"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="2dp"
-                android:text="Education Level"
-                android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <RadioGroup
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView62"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:text="Education Level"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/group2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center|start"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -262,37 +278,31 @@
                         android:layout_height="wrap_content"
                         android:text="Higher"
                         android:textColor="#000000" />
-                </LinearLayout>
+                </RadioGroup>
+            </LinearLayout>
 
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/textView63"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="2dp"
-                android:text="Education Type"
-                android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <RadioGroup
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView63"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:text="Education Type"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/group3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center|start"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -308,40 +318,42 @@
                         android:layout_height="wrap_content"
                         android:text="Science"
                         android:textColor="#000000" />
+                </RadioGroup>
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            </RadioGroup>
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#EAEAEA"
+                    android:text="Reset"
+                    android:textColor="@color/appDefault" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/appDefault"
+                    android:text="Search"
+                    android:textColor="#fff" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:text="Reset"
-                android:backgroundTint="@color/appDefault"
-                android:textColor="#fff" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:text="Apply"
-                android:backgroundTint="@color/appDefault"
-                android:textColor="#fff"  />
-        </LinearLayout>
-
+            tools:listitem="@layout/fragment_search_result"/>
     </LinearLayout>
 
 

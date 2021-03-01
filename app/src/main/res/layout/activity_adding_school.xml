@@ -31,12 +31,12 @@
         app:layout_constraintTop_toBottomOf="@id/addingSkol"
         app:spb_animateToCurrentProgressState="false"
         app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="@color/StepProcessColor"
+        app:spb_currentStateDescriptionColor="@color/appDefault"
         app:spb_currentStateNumber="one"
         app:spb_maxStateNumber="four"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="@color/StepProcessColor"
+        app:spb_stateForegroundColor="@color/appDefault"
         app:spb_stateNumberBackgroundColor="#808080"
         app:spb_stateNumberForegroundColor="#eeeeee" />
 

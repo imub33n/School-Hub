@@ -29,7 +29,7 @@ public class AdminDashMainPage extends Fragment {
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
     public static SchoolData yesSchoolData=new SchoolData();
-    static String adminId="121323";
+    static String adminId=SignIn.userID;
     String adminIdGet;
     Intent intent;
     CardView editGeneralCard,editPhotosCard,editFeeCard,editAcademicCard,editRequestCard;
@@ -45,7 +45,7 @@ public class AdminDashMainPage extends Fragment {
         editRequestCard=root.findViewById(R.id.editRequestCard);
         //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(SignIn.BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -55,7 +55,6 @@ public class AdminDashMainPage extends Fragment {
             @Override
             public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
                 if (response.code() == 200) {
-                    Log.d("TAG",response.code()+"");
                     schoolData =  response.body();
                     //Toast.makeText(getContext(),schoolData.toString(),Toast.LENGTH_SHORT).show();
 

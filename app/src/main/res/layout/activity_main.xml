@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/schoolhublogo"
-        app:tint="#ff313b" />
+        app:tint="@color/appDefault" />
 
     <TextView
         android:id="@+id/startPageTitle"
@@ -28,7 +28,7 @@
         android:text="School Hub"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="#ff313b"
+        android:textColor="@color/appDefault"
         android:textSize="40sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"

@@ -187,10 +187,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:backgroundTint="#EAEAEA"
+                android:backgroundTint="@color/appDefault"
                 android:onClick="updatePhotos"
                 android:text="Update"
-                android:textColor="#000"
+                android:textColor="#fff"
                 />
         </LinearLayout>
     </LinearLayout>

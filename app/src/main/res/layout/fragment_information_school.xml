@@ -65,6 +65,7 @@
                 android:hapticFeedbackEnabled="true"
                 android:onClick="arOnClick"
                 android:text="  View AR Model"
+                android:backgroundTint="@color/appDefault"
                 android:textColor="#FFFFFF" />
             <LinearLayout
                 android:id="@+id/linearLayout2"

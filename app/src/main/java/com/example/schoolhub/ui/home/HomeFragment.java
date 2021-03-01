@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.Adapters.PostViewAdapter;
+import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
@@ -115,7 +116,7 @@ public class HomeFragment extends Fragment {
 //get shitpostings
         //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(SignIn.BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

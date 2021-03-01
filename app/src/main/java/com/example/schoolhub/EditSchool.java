@@ -86,7 +86,7 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
         checkBoxHigher = findViewById(R.id.checkBoxHigher);
         //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(SignIn.BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

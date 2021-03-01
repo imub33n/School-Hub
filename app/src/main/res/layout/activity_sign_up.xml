@@ -108,7 +108,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#ff313b"></LinearLayout>
+                android:background="@color/appDefault"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,7 +140,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#ff313b"></LinearLayout>
+                android:background="@color/appDefault"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,7 +172,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#ff313b"></LinearLayout>
+                android:background="@color/appDefault"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -204,7 +204,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#ff313b"></LinearLayout>
+                android:background="@color/appDefault"></LinearLayout>
 
 
         </LinearLayout>
@@ -226,7 +226,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="50dp"
-            android:backgroundTint="#ff313b"
+            android:backgroundTint="@color/appDefault"
             android:gravity="center"
             android:letterSpacing="0.2"
             android:padding="16dp"
@@ -255,7 +255,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/schoolhublogo"
-            app:tint="#ff313b" />
+            app:tint="@color/appDefault" />
     </LinearLayout>
 
 

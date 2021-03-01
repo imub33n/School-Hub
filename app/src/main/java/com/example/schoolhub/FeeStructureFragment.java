@@ -74,7 +74,7 @@ public class FeeStructureFragment extends Fragment {
         description=root.findViewById(R.id.descriptionTitle);
         //retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(SignIn.BASE_URL)
+                .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
