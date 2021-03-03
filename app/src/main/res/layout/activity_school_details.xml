@@ -15,13 +15,11 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:titleTextColor="#fff"
-        app:title="School Name Here"
         app:layout_scrollFlags="scroll|snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back"/>
-
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/toolbar3"
@@ -30,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        app:tabTextColor="#fff"
+        app:tabTextColor="@color/appDefault"
         android:background="#EAEAEA" />
 
     <androidx.viewpager.widget.ViewPager

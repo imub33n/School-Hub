@@ -6,13 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.schoolhub.BarGraphFragment;
-import com.example.schoolhub.PieChartFragment;
+import com.example.schoolhub.Graphs.BarGraphFragment;
+import com.example.schoolhub.Graphs.PieChartFragment;
 
 public class GraphAdapter extends FragmentStatePagerAdapter{
+
     private String tabTitles[]= new String[]{
             "Pie Chart",
-            "Bar Graph"
+            "Bar Graph",
+            "Line Graph"
     };
     public GraphAdapter(@NonNull FragmentManager fm) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -32,6 +34,8 @@ public class GraphAdapter extends FragmentStatePagerAdapter{
                 return new PieChartFragment();
             case 1:
                 return new BarGraphFragment();
+            case 2:
+                return new BarGraphFragment();
             default:
                 return null;
         }
@@ -39,6 +43,6 @@ public class GraphAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

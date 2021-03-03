@@ -1,9 +1,11 @@
 package com.example.schoolhub.ui.statistics;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,24 +13,27 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.schoolhub.Adapters.GraphAdapter;
+import com.example.schoolhub.LandingScreen;
 import com.example.schoolhub.R;
+import com.example.schoolhub.StatisticsResult;
 import com.google.android.material.tabs.TabLayout;
 
 public class StatisticsFragment extends Fragment {
 
-    private StatisticsViewModel statisticsViewModel;
-
+    public Button compareButton;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        statisticsViewModel =
-                ViewModelProviders.of(this).get(StatisticsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
+        compareButton=root.findViewById(R.id.compareButton);
+        compareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent( getContext() , StatisticsResult.class);
+                startActivity(it);
 
-        ViewPager vp = root.findViewById(R.id.viewPagerGraphs);
-        GraphAdapter gA= new GraphAdapter(getFragmentManager());
-        vp.setAdapter(gA);
-        TabLayout tL=root.findViewById(R.id.toolbarGraphs);
-        tL.setupWithViewPager(vp);
+            }
+        });
+
 
         //BarChart
 //        AnyChartView anyChartView = root.findViewById(R.id.any_chart_view);

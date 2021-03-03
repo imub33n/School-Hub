@@ -36,7 +36,7 @@ public class SignIn extends AppCompatActivity {
     Button lin;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    public static String userName,userID;
+    public static String userName,userID="";
     List<SchoolData> schoolData;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;

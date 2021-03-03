@@ -8,11 +8,15 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,18 +24,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolhub.Adapters.AdapterLanding;
-import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.Fee;
 import com.example.schoolhub.data.Image;
-import com.example.schoolhub.data.PostResult;
+import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SchoolsLandingModel;
 import com.example.schoolhub.data.SearchFilters;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -46,21 +51,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 
-public class LandingScreen extends AppCompatActivity {
-    EditText searchEditText;
+public class LandingScreen extends AppCompatActivity implements LocationListener{
+    EditText searchEditText,editTextMin,editTextMax,distanceMax;
     Button search,reset;
-    RadioButton radioButton1,radioButton2,radioButton3;
-    RadioGroup group1,group2,group3;
+    TextView statusSearch;
+    LocationManager locationManager;
+    private RadioButton radioButton1,radioButton2,radioButton3;
+    private RadioGroup group1,group2,group3;
     LinearLayout filterHeading,filtersLayout;
     ViewPager2 viewPager;
     RecyclerView recyclerViewLanding,recyclerViewLanding2;
 
     List<Image> imagesLanding= new ArrayList<>();
     Image imageInLanding= new Image();
-    public Boolean theBoolean =true;
 
+    public Boolean theBoolean =true;
     SearchFilters searchFilters= new SearchFilters();
     Fee fee=new Fee();
+    SearchFilters searchFiltersReset= new SearchFilters();
+    Fee feeReset=new Fee();
+    SchoolCoordinates schoolCoordinates=new SchoolCoordinates();
     List<SchoolData> schoolData;
     SearchResultAdapter searchResultAdapter;
     private Retrofit retrofit;
@@ -76,7 +86,7 @@ public class LandingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_screen);
-
+        getLocation();//___________________________________________
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -142,6 +152,17 @@ public class LandingScreen extends AppCompatActivity {
             }
         });
     }
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this::onLocationChanged);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this::onLocationChanged);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void openSearchFragment(View view) {
         View v = getLayoutInflater().inflate(R.layout.fragment_filters, null);
@@ -160,6 +181,10 @@ public class LandingScreen extends AppCompatActivity {
         searchEditText=v.findViewById(R.id.searchEditText);
         reset=v.findViewById(R.id.button);
         search=v.findViewById(R.id.button2);
+        editTextMin=v.findViewById(R.id.editTextMin);
+        editTextMax=v.findViewById(R.id.editTextMax);
+        statusSearch=v.findViewById(R.id.statusSearch);
+        distanceMax=v.findViewById(R.id.distanceMax);
 
         filterHeading=v.findViewById(R.id.filterHeading);
         filtersLayout=v.findViewById(R.id.filtersLayout);
@@ -181,6 +206,7 @@ public class LandingScreen extends AppCompatActivity {
                 theBoolean=true;
                 LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, 0);
                 recyclerView.setLayoutParams(layoutParams2);
+                statusSearch.setText("");
             }
         });
         filterHeading.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +219,7 @@ public class LandingScreen extends AppCompatActivity {
                     filtersLayout.setLayoutParams(layoutParams);
                     theBoolean = !theBoolean;
                 }else if(!theBoolean){
+                    statusSearch.setText("");
                     filtersLayout.setLayoutParams(layoutParams2);
                     recyclerView.setLayoutParams(layoutParams);
                     theBoolean = !theBoolean;
@@ -205,44 +232,62 @@ public class LandingScreen extends AppCompatActivity {
                 group1.clearCheck();
                 group2.clearCheck();
                 group3.clearCheck();
+                fee=feeReset;
+                searchFilters=searchFiltersReset;
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                radioButton1=v.findViewById(group1.getCheckedRadioButtonId());
-                radioButton2=v.findViewById(group2.getCheckedRadioButtonId());
-                radioButton3=v.findViewById(group3.getCheckedRadioButtonId());
-                //set values to send
-                fee.setMin(10);
-                fee.setMax(10000);
-                searchFilters.setFee(fee);
-                searchFilters.setSchoolType("Co-Education");
-                searchFilters.setEducationLevel("Primary");
-                searchFilters.setEducationType("Science");
-//                if(radioButton1.getText().toString()!=null){
-//                    searchFilters.setSchoolType(radioButton1.getText().toString());
-//                }if(radioButton2.getText().toString()!=null){
-//                    searchFilters.setEducationLevel(radioButton2.getText().toString());
-//                }if(radioButton3.getText().toString()!=null){
-//                    searchFilters.setEducationType(radioButton3.getText().toString());
-//                }
+            public void onClick(View view) {
+                radioButton1 = (RadioButton) v.findViewById(group1.getCheckedRadioButtonId());
+                radioButton2 = (RadioButton) v.findViewById(group2.getCheckedRadioButtonId());
+                radioButton3 = (RadioButton) v.findViewById(group3.getCheckedRadioButtonId());
+                //layouts
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+                filtersLayout.setLayoutParams(layoutParams);
+                LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                recyclerView.setLayoutParams(layoutParams2);
+                theBoolean=false;
+                LinearLayout.LayoutParams layoutParams3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams3.gravity = Gravity.CENTER;
+                statusSearch.setLayoutParams(layoutParams3);
+                if(schoolData!=null){
+                    schoolData.clear();
+                }
+                statusSearch.setText("Searching..");
+                //____________setting values to send
+                if(editTextMin.getText().toString().length()>0){
+                    fee.setMin(Integer.parseInt(editTextMin.getText().toString()));
+                }
+                if(editTextMax.getText().toString().length()>0){
+                    fee.setMax(Integer.parseInt(editTextMax.getText().toString()));
+                }
+                searchFilters.setFee(fee);//_________________________fee
+                if (group1.getCheckedRadioButtonId() != -1){
+                    searchFilters.setSchoolType(radioButton1.getText().toString());//_______________schoolType
+                }if(group2.getCheckedRadioButtonId() != -1){
+                    searchFilters.setEducationLevel(radioButton2.getText().toString());//_______________educationLevel
+                }if(group3.getCheckedRadioButtonId() != -1){
+                    searchFilters.setEducationType(radioButton3.getText().toString());//_______________educationType
+                }if(distanceMax.getText().toString().length()>0){
+                    searchFilters.setDistance(Integer.valueOf(distanceMax.getText().toString()));//_______________distance
+                }
 
                 Call<List<SchoolData>> call = retrofitInterface.searchSchools(searchEditText.getText().toString(),searchFilters);
                 call.enqueue(new Callback<List<SchoolData>>() {
                     @Override
                     public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
-                        Log.d(TAG, "Size: _____________----____"+response.body().size());
+                        Log.d(TAG, "Size: _____________SIZE:__"+ response.body().size());
 
                         if(response.code()==200){
-                            //filter
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
-                            filtersLayout.setLayoutParams(layoutParams);
-                            LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            recyclerView.setLayoutParams(layoutParams2);
-                            theBoolean=false;
                             //
                             schoolData =  response.body();
+                            if(schoolData.size()>0){
+                                statusSearch.setText("");
+                                statusSearch.setLayoutParams(layoutParams);
+                            }else if(schoolData.size()==0){
+                                statusSearch.setText("No School Found");
+                            }
                             searchResultAdapter = new SearchResultAdapter(schoolData,getApplicationContext());
                             recyclerView.setAdapter(searchResultAdapter);
 //                            for(int i=0;i<schoolData.size();i++){
@@ -294,5 +339,13 @@ public class LandingScreen extends AppCompatActivity {
     public void openSignIn(View view) {
         Intent it = new Intent( getApplicationContext() , SignIn.class);
         startActivity(it);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+//        Toast.makeText(getApplicationContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_LONG).show();
+        schoolCoordinates.setLongitude(String.valueOf(location.getLongitude()));
+        schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
+        searchFilters.setSchoolCoordinates(schoolCoordinates);
     }
 }

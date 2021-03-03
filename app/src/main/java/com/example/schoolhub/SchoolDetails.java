@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.schoolhub.Adapters.PagerAdapter;
+import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class SchoolDetails extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class SchoolDetails extends AppCompatActivity {
         vp.setAdapter(pA);
         TabLayout tL=findViewById(R.id.toolbar3);
         tL.setupWithViewPager(vp);
-
+        toolbar.setTitle(SearchResultAdapter.skolNameSearch);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

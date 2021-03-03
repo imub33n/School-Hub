@@ -73,6 +73,12 @@
                 android:text="School Added Successfully!!"
                 android:textColor="#000"
                 android:textSize="18sp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="goHomeSchoolAdded"
+                android:text="Go To Home"
+                android:backgroundTint="@color/appDefault"/>
         </LinearLayout>
 
     </LinearLayout>

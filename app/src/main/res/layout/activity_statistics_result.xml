@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StatisticsResult">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/schoolComparisonNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/appDefault"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="#fff"
+        app:title="School Comparison"
+        app:layout_scrollFlags="scroll|snap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/schoolComparisonNav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/toolbarGraphs"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/appDefault"
+            app:tabSelectedTextColor="#EAEAEA"
+            app:tabIndicatorColor="#EAEAEA"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tabTextColor="#fff" />
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerGraphs"
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDistance"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFee"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fee" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipRating"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating" />
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

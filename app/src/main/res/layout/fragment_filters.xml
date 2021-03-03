@@ -82,6 +82,38 @@
                 android:padding="5dp">
 
                 <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:text="Distance (km)"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/distanceMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittextbg"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Max"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    tools:inputType="number" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
                     android:id="@+id/textView57"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
@@ -94,7 +126,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName3"
+                    android:id="@+id/editTextMin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -102,7 +134,8 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Min"
-                    android:inputType="textPersonName"
+                    android:maxLength="5"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textColor="#000000"
                     tools:inputType="number" />
@@ -117,7 +150,7 @@
                     android:textColor="#000000" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName4"
+                    android:id="@+id/editTextMax"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -125,63 +158,8 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Max"
-                    android:inputType="textPersonName"
-                    android:padding="5dp"
-                    android:textColor="#000000"
-                    tools:inputType="number" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/textView59"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:padding="2dp"
-                    android:text="Distance (km)"
-                    android:textColor="#000000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/editTextTextPersonName5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/edittextbg"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Min"
-                    android:inputType="textPersonName"
-                    android:padding="5dp"
-                    android:textColor="#000000"
-                    tools:inputType="number" />
-
-                <TextView
-                    android:id="@+id/textView60"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:text="-"
-                    android:textColor="#000000" />
-
-                <EditText
-                    android:id="@+id/editTextTextPersonName6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/edittextbg"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Max"
-                    android:inputType="textPersonName"
+                    android:maxLength="6"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textColor="#000000"
                     tools:inputType="number" />
@@ -349,6 +327,15 @@
                     android:textColor="#fff" />
             </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/statusSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text=""
+            android:layout_gravity="center"
+            android:textColor="#000"
+            android:textSize="16dp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchResultRecycleView"
             android:layout_width="match_parent"

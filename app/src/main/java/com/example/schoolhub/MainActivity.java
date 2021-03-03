@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.schoolhub.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.10:8080/";
+    public static String BASE_URL = "http://10.113.51.202:8080/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 //        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
 //        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 //        BASE_URL = "http://"+ip+":8080/";
-        //Toast.makeText(this,ip,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,ip,Toast.LENGTH_SHORT).show();
         Intent it = new Intent( getApplicationContext() , LandingScreen.class);
         startActivity(it);
 

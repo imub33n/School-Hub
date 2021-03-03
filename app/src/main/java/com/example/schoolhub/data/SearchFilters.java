@@ -19,6 +19,9 @@ public class SearchFilters {
     @SerializedName("fee")
     @Expose
     private Fee fee;
+    @SerializedName("currentLocation")
+    @Expose
+    private SchoolCoordinates schoolCoordinates;
 
     public Integer getDistance() {
         return distance;
@@ -60,4 +63,11 @@ public class SearchFilters {
         this.fee = fee;
     }
 
+    public SchoolCoordinates getSchoolCoordinates() {
+        return schoolCoordinates;
+    }
+
+    public void setSchoolCoordinates(SchoolCoordinates schoolCoordinates) {
+        this.schoolCoordinates = schoolCoordinates;
+    }
 }

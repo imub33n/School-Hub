@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.util.Log;
 import android.view.View;
 
+import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.SchoolData;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,7 +43,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
     //logged in user id
-    static String adminId=SignIn.userID;
+    static String adminId;
     //mattching admin
     String adminIdGet;
 
@@ -95,6 +96,12 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+        if(SignIn.userID!=""){
+            adminId=SignIn.userID;
+        }else if(SearchResultAdapter.userIDsearch!=""){
+            adminId=SearchResultAdapter.userIDsearch;
+        }
+
 
         Call<List<SchoolData>> call = retrofitInterface.getSchoolData();
         call.enqueue(new Callback<List<SchoolData>>() {
