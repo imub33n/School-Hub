@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.schoolhub.Graphs.BarGraphFragment;
 import com.example.schoolhub.Graphs.PieChartFragment;
+import com.example.schoolhub.LineGraphFragment;
 
 public class GraphAdapter extends FragmentStatePagerAdapter{
 
@@ -35,7 +36,7 @@ public class GraphAdapter extends FragmentStatePagerAdapter{
             case 1:
                 return new BarGraphFragment();
             case 2:
-                return new BarGraphFragment();
+                return new LineGraphFragment();
             default:
                 return null;
         }

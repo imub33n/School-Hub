@@ -42,7 +42,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerGraphs"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
+            android:layout_height="440dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:padding="5dp"
