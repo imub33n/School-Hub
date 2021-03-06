@@ -1,4 +1,4 @@
-package com.example.schoolhub;
+package com.example.schoolhub.Graphs;
 
 import android.os.Bundle;
 
@@ -20,6 +20,7 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
+import com.example.schoolhub.R;
 
 import java.util.ArrayList;
 import java.util.List;

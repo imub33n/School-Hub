@@ -46,6 +46,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -128,14 +130,10 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
                 if (response.code() == 200) {
                     Log.d("TAG",response.code()+"");
-                    String displayResponse = "";
                     resource =  response.body();
                     //Toast.makeText(getContext(),resource.toString(),Toast.LENGTH_SHORT).show();
                     adapter = new PostViewAdapter(resource,getContext());
                     recyclerView.setAdapter(adapter);
-//                    for(int i=0;i<resource.size();i++){
-//                        System.out.println(resource.get(i).getTime());
-//                    }
                 }else {
                     Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
                 }
@@ -178,11 +176,6 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void gettingPosts() {
-
-
-    }
-
     private void chooseImage() {
         Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         Intent intentImages = new Intent();
@@ -208,8 +201,9 @@ public class HomeFragment extends Fragment {
 
                 if (response.code() == 200) {
                     Toast.makeText(getContext(), "Post Successful", Toast.LENGTH_LONG).show();
+                    adapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getContext(), "Post else"+response.code(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -246,14 +240,6 @@ public class HomeFragment extends Fragment {
                             .into(attachedImageId);
                 }
             }
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
-//                Toast.makeText(getContext(), "Photo Selected Click Post to Upload", Toast.LENGTH_SHORT).show();
-//            }
-//            catch (IOException e)
-//            {
-//                Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
         }
     }
 

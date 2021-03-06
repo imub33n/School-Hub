@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,8 +64,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull PostViewAdapter.ViewHolder holder, int position) {
-        //ImageList imageList=imageLists.get(position);
-        //holder.tvname.setText(imageList.getName());
+
         PostResult postResult=resourcePost.get(position);
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
@@ -78,11 +78,9 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                         Glide.with(context)
                                 .load(uri)
                                 //.fitCenter()
-                                //.dontAnimate()
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
                                 .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
                                 .error(R.drawable.a)
-                                //.apply(new RequestOptions().override(1000, 500))
                                 .into(holder.imagePost);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -108,55 +106,39 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.commentSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context, postResult.getId(), Toast.LENGTH_LONG).show();
-                //Toast.makeText(context, "postResult.getId()", Toast.LENGTH_LONG).show();
-                HashMap<String, String> maped = new HashMap<>();
-                maped.put("username", SignIn.userName);
-                maped.put("text", holder.commentSendText.getText().toString());
-                HashMap<String,HashMap<String, String>> map = new HashMap<>();
+                if(holder.commentSendText.getText().length()>0){
+                    Log.d(TAG, "___________________a____________");
+                    HashMap<String, String> maped = new HashMap<>();
+                    maped.put("username", SignIn.userName);
+                    maped.put("text", holder.commentSendText.getText().toString());
+                    HashMap<String,HashMap<String, String>> map = new HashMap<>();
+                    Log.d(TAG, "___________________b____________"+holder.commentSendText.getText().toString());
+                    map.put("comments",maped);
+                    Call<PostResult> call =retrofitInterface.putComment(postResult.getId(),map);
 
-//                comment.add(new Comment(SignIn.userName,holder.commentSendText.getText().toString()));
+                    call.enqueue(new Callback<PostResult>() {
+                        @Override
+                        public void onResponse(Call<PostResult> call, Response<PostResult> response) {
+                            if(!response.isSuccessful()){
+                                Log.d(TAG, "onResponse comment retrofit: "+response.code());
+                                Log.d(TAG, "___________________c____________");
+                                return;
+                            }
 
-                map.put("comments",maped);
-//                map.put("username", SignIn.userName);
-//                map.put("text", holder.commentSendText.getText().toString());
-
-                //Comment comment= new Comment(SignIn.userName,"supumf");
-                Call<PostResult> call =retrofitInterface.putComment(postResult.getId(),map);
-
-                call.enqueue(new Callback<PostResult>() {
-                    @Override
-                    public void onResponse(Call<PostResult> call, Response<PostResult> response) {
-                        if(!response.isSuccessful()){
-                            Log.d(TAG, "onResponse comment retrofit: "+response.code());
-                            return;
+                            Toast.makeText(context, "Comment Posted.", Toast.LENGTH_LONG).show();
+                            commentAdapter.notifyDataSetChanged();
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<PostResult> call, Throwable t) {
-                        Toast.makeText(context, " some error in comment patch request : "+t.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<PostResult> call, Throwable t) {
+                            Toast.makeText(context, " some error in comment patch request : "+t.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    Toast.makeText(context, "Please write something in comment section.", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
-//        GlideApp.with(context)
-//                .load("http://via.placeholder.com/300.png")
-//                .override(300, 200)
-//                .into(ivImg);
-//        GlideApp.with(holder.itemView.getContext())
-//                .load(pi.getImage_url())
-//                .into(holder.picture);
-//        final PostResult myListData = listdata[position];
-//        holder.userNamePost.setText(listdata[position].getUsername());
-//        holder.postTextData.setText(listdata[position].getText());
-//        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(view.getContext(),"click on item: ",Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
     @Override
@@ -169,7 +151,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         public TextView userNamePost,timePost,postTextData;
         public ImageView imagePost,commentSendButton;
         public EditText commentSendText;
-        //public LinearLayout linearLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.userNamePost = itemView.findViewById(R.id.userNamePost);
@@ -189,7 +171,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                     .build();
 
             retrofitInterface = retrofit.create(RetrofitInterface.class);
-            //linearLayout = itemView.findViewById(R.id.linearLayout);
+
         }
     }
 

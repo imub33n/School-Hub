@@ -7,7 +7,6 @@
     android:elevation="5dp"
     tools:context=".ui.statistics.StatisticsFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="10dp"
-            android:text="- Add Schools to generate Graphs and Reports.\n- Select 2 or more Schools(at most 5) to compare them.\n- Click COMPARE button to get result."
+            android:text="Add 2-5 Schools to compare them."
             android:textAlignment="viewStart"
             android:textColor="#000"
             android:textSize="15sp"
@@ -54,23 +53,60 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/list_compare_schools"
             app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/buttonAddSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/appDefault"
+            android:drawableEnd="@drawable/add_school"
+            android:text="Add School" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:text="Select Filters to apply"
+            android:textAlignment="viewStart"
+            android:textColor="#000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDistance"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFee"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fee" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipRating"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating" />
+        </com.google.android.material.chip.ChipGroup>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonAddSchool"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:backgroundTint="@color/appDefault"
-                android:drawableEnd="@drawable/add_school"
-                android:text="Add Another School" />
 
             <Button
                 android:id="@+id/compareButton"

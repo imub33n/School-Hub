@@ -32,6 +32,7 @@ import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.Fee;
 import com.example.schoolhub.data.Image;
+import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SchoolsLandingModel;
@@ -52,6 +53,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class LandingScreen extends AppCompatActivity implements LocationListener{
+    String jaga="";
+    OnItemClick m;
     EditText searchEditText,editTextMin,editTextMax,distanceMax;
     Button search,reset;
     TextView statusSearch;
@@ -288,7 +291,7 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
                             }else if(schoolData.size()==0){
                                 statusSearch.setText("No School Found");
                             }
-                            searchResultAdapter = new SearchResultAdapter(schoolData,getApplicationContext());
+                            searchResultAdapter = new SearchResultAdapter(jaga,schoolData,getApplicationContext(),m);
                             recyclerView.setAdapter(searchResultAdapter);
 //                            for(int i=0;i<schoolData.size();i++){
 //                                Log.d(TAG, "onResponse:___________________ "+schoolData.get(i).getSchoolName());

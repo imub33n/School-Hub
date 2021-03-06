@@ -4,80 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EAEAEA"
     tools:context=".StatisticsResult">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/schoolComparisonNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/appDefault"
+        android:background="@drawable/tab_bar_bg"
         android:minHeight="?attr/actionBarSize"
+        android:layout_margin="5dp"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#fff"
-        app:title="School Comparison"
-        app:layout_scrollFlags="scroll|snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back"/>
-    <LinearLayout
+        app:layout_scrollFlags="enterAlwaysCollapsed"
+        app:navigationIcon="@drawable/back"
+        app:title="Stats"
+        app:titleTextColor="#fff" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/schoolComparisonNav"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolComparisonNav">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/toolbarGraphs"
+        <LinearLayout
+            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/appDefault"
-            app:tabSelectedTextColor="#EAEAEA"
-            app:tabIndicatorColor="#EAEAEA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:tabTextColor="#fff" />
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPagerGraphs"
-            android:layout_width="match_parent"
-            android:layout_height="440dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+            app:layout_constraintTop_toBottomOf="@id/schoolComparisonNav">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipDistance"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_graph_view_1"
+                android:name="com.example.schoolhub.Graphs.PieChartFragment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Distance" />
+                tools:layout="@layout/fragment_pie_chart" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipFee"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="PieChart!!"
+                    android:layout_weight="1"
+                    android:textColor="@color/appDefault" />
+            </LinearLayout>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_graph_view_2"
+                android:name="com.example.schoolhub.Graphs.BarGraphFragment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fee" />
+                tools:layout="@layout/fragment_bar_graph" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipRating"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bar Graph!!"
+                    android:textColor="@color/appDefault" />
+            </LinearLayout>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_graph_view_3"
+                android:name="com.example.schoolhub.Graphs.LineGraphFragment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rating" />
-        </com.google.android.material.chip.ChipGroup>
+                tools:layout="@layout/fragment_line_graph" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Line Graph!!"
+                    android:textColor="@color/appDefault" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="5dp">
             <TextView
                 android:id="@+id/noSkol"
                 android:layout_width="wrap_content"
@@ -20,6 +20,7 @@
                 android:text="00"
                 android:textSize="18sp"
                 android:textColor="#000"
+                android:textStyle="bold"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:letterSpacing="0.05"/>

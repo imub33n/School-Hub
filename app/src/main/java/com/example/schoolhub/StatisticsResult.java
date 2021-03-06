@@ -16,11 +16,7 @@ public class StatisticsResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics_result);
-        ViewPager vp = findViewById(R.id.viewPagerGraphs);
-        GraphAdapter gA= new GraphAdapter(getSupportFragmentManager());
-        vp.setAdapter(gA);
-        TabLayout tL=findViewById(R.id.toolbarGraphs);
-        tL.setupWithViewPager(vp);
+
 
         schoolComparisonNav=findViewById(R.id.schoolComparisonNav);
         schoolComparisonNav.setNavigationOnClickListener(new View.OnClickListener() {

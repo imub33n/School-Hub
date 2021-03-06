@@ -34,6 +34,7 @@ import com.example.schoolhub.LandingScreen;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.data.Fee;
+import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SearchFilters;
@@ -72,6 +73,8 @@ import static android.content.ContentValues.TAG;
 
 
 public class SearchFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+    String jaga="";
+    OnItemClick m;
     EditText searchEditText,editTextMin,editTextMax,distanceMax;
     Button search,reset;
     TextView statusSearch;
@@ -238,7 +241,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
                                     }else if(schoolData.size()==0){
                                         statusSearch.setText("No School Found");
                                     }
-                                    searchResultAdapter = new SearchResultAdapter(schoolData,getContext());
+                                    searchResultAdapter = new SearchResultAdapter(jaga,schoolData,getContext(),m);
                                     recyclerView.setAdapter(searchResultAdapter);
 //                            for(int i=0;i<schoolData.size();i++){
 //                                Log.d(TAG, "onResponse:___________________ "+schoolData.get(i).getSchoolName());
