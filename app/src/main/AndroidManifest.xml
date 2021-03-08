@@ -11,9 +11,25 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <uses-feature android:name="android.hardware.camera.ar" />
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -23,13 +39,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StatisticsResult"></activity>
-        <activity android:name=".LiveStreamCam" />
-        <activity android:name=".LiveStreamRequest" />
+        <activity android:name=".ui.liveStream.LiveStreamView"></activity>
+        <activity android:name=".StatisticsResult" />
+        <activity android:name=".ui.liveStream.LiveStreamCam" />
+        <activity android:name=".ui.liveStream.LiveStreamRequest" />
         <activity android:name=".RequestsForSchoolAdmin" />
         <activity android:name=".EditAcademicInfo" />
         <activity android:name=".EditSchoolFeeStructure" />

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,8 +70,12 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
-        if(postResult.getImage()!=null){
-            if(!(postResult.getImage().isEmpty())){
+        if(postResult.getImage()==null){
+            //holder.imagePost.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(postResult.getImage().isEmpty()){
+
+            }else{
                 StorageReference storageRef = storage.getReferenceFromUrl(postResult.getImage());
                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -95,13 +100,14 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                     }
                 });
             }
-        }else{
         }
-        if(!(postResult.getComments().isEmpty())){
+        if(postResult.getComments().isEmpty()){
+
+        }else{
             this.resourceComment= postResult.getComments();
             commentAdapter = new CommentAdapter(resourceComment,context);
+            commentAdapter.setHasStableIds(true);
             recyclerViewCmnt.setAdapter(commentAdapter);
-        }else{
         }
         holder.commentSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +132,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                             }
 
                             Toast.makeText(context, "Comment Posted.", Toast.LENGTH_LONG).show();
-                            commentAdapter.notifyDataSetChanged();
+                            //commentAdapter.notifyDataSetChanged();
                         }
                         @Override
                         public void onFailure(Call<PostResult> call, Throwable t) {
@@ -145,6 +151,14 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     public int getItemCount() {
         return resourcePost.size();
     }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -162,7 +176,6 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             this.commentSendButton = itemView.findViewById(R.id.commentSendButton);
 
             recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
-            recyclerViewCmnt.setHasFixedSize(true);
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));
 
             retrofit = new Retrofit.Builder()

@@ -1,2 +1,3 @@
+include ':libbambuser-0.9.22'
 include ':app'
 rootProject.name = "School Hub"

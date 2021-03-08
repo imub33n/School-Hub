@@ -1,0 +1,392 @@
+Changelog for Libbambuser version 0.9.22. What's changed since version 0.9.21
+
+- Raised minimum supported Android version to 19 (Android 4.4).
+- Removed audio encoders which were bundled for older Android versions,
+  simplifying the license documents.
+- Enforced TLSv1.2+ for backend communication, broadcasting and live playback.
+- Enabled TLSv1.2 on Android 4.4 for file uploads in example.
+- Enabled TLSv1.2 on Android 4.4 for API requests in exampleplayer.
+- Avoiding reconnect and giving feedback from Broadcaster when a broadcast
+  is stopped remotely.
+- Fixed that camera startup in the Broadcaster could stall on some devices
+  and app layouts when multitasking rapidly and the screen size and camera
+  preview resolution were identical.
+
+Changelog for Libbambuser version 0.9.21. What's changed since version 0.9.20
+
+- Improvements to smoothness in BroadcastPlayer low-latency playback.
+- Added an optional high-latency live mode in BroadcastPlayer. This mode
+  uses larger buffers to minimize the risk of playback interruptions, with
+  a few seconds higher latency.
+- Fixed that the BroadcastPlayer exposed an inflated latency value during
+  initial buffering. Latency is now only available when playback has started.
+- Fixed that the Broadcaster unintentionally retried opening an unavailable
+  camera repeatedly.
+
+
+Changelog for Libbambuser version 0.9.20. What's changed since version 0.9.19
+
+- Added automatic reconnection in the Broadcaster. If the connection is
+  interrupted, or when switching between 4G and WiFi, the Broadcaster will
+  automatically try to reconnect and continue on the same broadcast.
+- Added BroadcastStatus.RECONNECTING. You may need to update any code which
+  assumes that BroadcastStatus.CAPTURING occurs only once, as the status may
+  temporarily switch to RECONNECTING.
+- Added ConnectionError.RECONNECT_FAILED. This is returned if reconnection
+  doesn't succeed in a reasonable time and the Broadcaster gives up.
+
+
+Changelog for Libbambuser version 0.9.19. What's changed since version 0.9.18
+
+- Compiled with Android SDK 29 and targeting Android API 29 in examples.
+- Added BroadcastPlayer.getBroadcastId() method.
+- Improved Broadcaster adaptive video quality algorithm to prioritize high
+  frame rate and react faster to fluctuations in network speed.
+- Fixed that the Broadcaster unintentionally allowed broadcasting in a paused
+  Activity, which produced an empty broadcast. startBroadcast() and
+  canStartBroadcasting() have been corrected.
+- Documented uses-feature tags in example manifest.
+- Changed the default scaling for SurfaceViewWithAutoAR to crop to fill parent.
+- Added code for conditionally using cropToParent in the player example.
+- Fixed that BroadcastPlayer.getCurrentPosition() could throw exceptions if
+  called when the player was not playing.
+
+
+Changelog for Libbambuser version 0.9.18. What's changed since version 0.9.17
+
+- Improved audio/video synchronization in the Broadcaster.
+- Extended error handling for audio/video encoder errors in the Broadcaster.
+  These are now caught and returned through the onCameraError() callback with
+  a value of ENCODER_ERROR.
+- Improved telemetry in BroadcastPlayer.
+
+
+Changelog for Libbambuser version 0.9.17. What's changed since version 0.9.16
+
+- Added support for getting the current playback position also for live
+  broadcasts in BroadcastPlayer.getCurrentPosition().
+- Added sanity checks for surfaces provided to BroadcastPlayer. The player
+  will only attempt to render video on a valid surface.
+- Fixed screen keep-awake when replaying a completed broadcast on TextureView
+  in BroadcastPlayer.
+- Deprecated Broadcaster.Observer.onBroadcastInfoAvailable() as the old
+  numeric ids are no longer used.
+- Clarified Broadcaster resolution API documentation.
+- Fixed that the BroadcastPlayer could end up buffering at the end of a live
+  broadcast if the player switched video quality at the same time. It should
+  now reach the COMPLETED state as intended.
+
+
+Changelog for Libbambuser version 0.9.16. What's changed since version 0.9.15
+
+- Bundled native binaries for x86 and x86_64. These are mainly useful when
+  testing on the Android emulator. Use abiFilters in your app to choose which
+  architectures to support.
+- Updated examples to include x86 in debug builds and show how to include only
+  ARM binaries in production builds.
+- Updated player example with API request to fetch latest broadcast.
+- Added support for virtual resourceUris in BroadcastPlayer.
+- Improved BroadcastPlayer adaptive buffering logic for smoother playback and
+  more consistent latency, particularly on slow networks.
+- Removed deprecated Broadcaster.setPrivateMode() method.
+- Removed Broadcaster.createChatController() method. An alternative message UI
+  can be found in the bundled example.
+- BroadcastPlayer resets end-to-end latency measurement if broadcast source is
+  changed to a source that doesn't support measurements.
+- Fixed rare exception in BroadcastPlayer on live broadcasts.
+- Fixed rare race condition in BroadcastPlayer where playback would start at
+  the wrong position for a recently ended live broadcast.
+
+
+Changelog for Libbambuser version 0.9.15. What's changed since version 0.9.14
+
+- Added real time metadata from Broadcaster to support end-to-end latency
+  measurements.
+- Added getEndToEndLatency() in BroadcastPlayer and showing latency in the
+  bundled example player app.
+- Improved reliability of adaptive quality switching on live broadcasts
+  in BroadcastPlayer.
+- Fixed aspect ratio on SurfaceViewWithAutoAR if it is set after
+  BroadcastPlayer has started.
+- Fixed that BroadcastPlayer.getCurrentPosition() incorrectly continued
+  increasing after the end of a broadcast in timeshift mode.
+- Improved accuracy of BroadcastPlayer.getCurrentPosition() in timeshift mode.
+- Fixed rare exception when BroadcastPlayer closes a decoder.
+
+Changelog for LibBambuser version 0.9.14. What's changed since version 0.9.13
+
+- Compiled with Android SDK 28 and targeting API 28.
+- Improved Broadcaster status callbacks to avoid unnecessary transitions.
+- Delayed Broadcaster disconnect when stopping broadcast, so any final data
+  packets are more likely to reach the server.
+- Added support for ultra-low latency HLS in the BroadcastPlayer. This format
+  provides Bambuser's signature ultra-low latency, and scales up to an unlimited
+  number of viewers cost-efficiently.
+- Fixed that changes to Broadcaster setMaxLiveResolution() after first broadcast
+  were not properly applied.
+- Fixed erratic memory usage in timeshift mode in BroadcastPlayer.
+
+Changelog for LibBambuser version 0.9.13. What's changed since version 0.9.12
+
+- Removed support for Ant build system deprecated by Google.
+- Compiled with Android SDK 27 and targeting API 27.
+- Added support for talkback mixin.
+- Raised minimum supported Android version to 16 (Android 4.1).
+- Prevents broadcasting during initial construction.
+- Uses HEVC for live broadcasts on devices that support it.
+- Uses new camera API on modern devices that implement full support.
+- Raised default max live broadcast resolution to 720p (was 540p).
+- Raised bitrate/quality of local copy.
+- Improved BroadcastPlayer quality selection on slow networks.
+
+Changelog for LibBambuser version 0.9.12. What's changed since version 0.9.11
+
+- Fixed crash in bundled audio encoder on 32-bit devices.
+
+Changelog for LibBambuser version 0.9.11. What's changed since version 0.9.10
+
+- Compiled with Android SDK 26 and targeting API 26 in examples.
+- Removed old API for broadcasting/uploading using username/password. All apps
+  should use an application-id.
+- Raised default audio quality in Broadcaster to high.
+- Added Broadcaster.setMaxLiveResolution() which can be used to adjust the
+  maximum allowed live video resolution. The default is 960x540. The highest
+  supported value is (currently) 1280x720. Set a lower resolution if you want
+  to conserve bandwidth in your app.
+- Fixed issue where the broadcaster could buffer more audio than intended.
+
+Changelog for LibBambuser version 0.9.10. What's changed since version 0.9.9
+
+- Implemented timeshift mode in BroadcastPlayer using in-house HLS-player.
+  - Added mpegtsdemuxer as submodule and removed local copy of h264crop.
+- Implemented BUFFERING and PAUSED states and flushing in AudioTrackWriter.
+  - Implemented BUFFERING state changes also for live broadcasts in the BroadcastPlayer.
+- Rely on uplink speed test result when choosing initial broadcast quality.
+- Always try-catch when reading camera parameters, even if it worked earlier.
+
+Changelog for LibBambuser version 0.9.9. What's changed since version 0.9.8
+
+- Improved BroadcastPlayer.close() to run quickly and reliably on all Android versions.
+- Modified BroadcastPlayer construction to accept either SurfaceView, TextureView or
+  pure Surface for showing video, and support setting these at any time.
+- If geolocation is enabled in the Broadcaster, the position is now sent every few
+  seconds instead of only once per minute.
+
+Changelog for LibBambuser version 0.9.8. What's changed since version 0.9.7
+
+- Compiled with Android SDK 25 and targeting Android API 25 in examples.
+- Added callbacks for the number of current and total viewers, in both the
+  Broadcaster and BroadcastPlayer classes.
+  - Added a simple viewer count in both the broadcaster and player examples.
+- Made WAKE_LOCK permission optional in the library. It is still recommended,
+  in order to activate high performance wifi locks, but not a requirement.
+- Added canDisableShutterSound() and setCaptureSounds(boolean) in the Broadcaster
+  class. This can be used to disable the default capture sounds if custom
+  sounds are desired.
+- Added setAudioVolume() to BroadcastPlayer, providing individual volume
+  control for each broadcast player instance.
+  - Added a volume slider in the player example.
+- IMPORTANT: Breaking changes in the BroadcastPlayer API:
+  - After the constructor, apps must now call load(), which provides a time
+    window for optional BroadcastPlayer configuration.
+  - Moved AcceptType configuration from constructor to setAcceptType(),
+    which can be used before load().
+
+Changelog for LibBambuser version 0.9.7. What's changed since version 0.9.6
+
+- Updated software fallback video encoder, with fixes for crashes seen on 64bit devices.
+- Compiled with Android SDK 24 and targeting Android API 24 (Nougat) in examples.
+- Enabled hardware accelerated video encoding on all devices with Android 6.0 and newer,
+  instead of only a whitelisted set of devices. Consequently, recording a local copy of
+  a broadcast is available on more devices than before.
+
+
+Changelog for LibBambuser version 0.9.6. What's changed since version 0.9.5
+
+- Optionally limit BroadcastPlayer to play a video only if it is in the expected
+  state (live/archived). By default, the BroadcastPlayer plays broadcasts in any state.
+- Improved BroadcastPlayer to provide smoother playback of live broadcasts over long
+  distances, and make the player less likely to choose a lower video quality than
+  necessary.
+- Removed support for legacy fixed resolution live broadcasting, as automatic
+  resolution switching has proved to work well.
+  - Updated getSupportedResolutions() to expose the higher resolutions supported
+    by automatic resolution switching.
+  - setResolution() now mainly affects the actual camera resolution, and accepts
+    the full list of supported camera resolutions.
+  - useAutomaticResolutionSwitching() is now deprecated. Call setResolution() instead.
+- Added methods for optional uplink speed testing, which can be used to decide
+  whether the end user should be allowed to broadcast or not on the current network.
+  See the documentation for Broadcaster.UplinkSpeedObserver to get started.
+- Added support for fully encrypted broadcasting in the Broadcaster. This is
+  enabled/disabled depending on server configuration.
+
+
+Changelog for LibBambuser version 0.9.5. What's changed since version 0.9.4
+- Remember last auto resolution preset when switching camera or starting
+  a new broadcast, as long as Broadcaster is kept active.
+- Store location in EXIF when taking pictures, if location has been enabled.
+- Compiled native code for arm64-v8a too. Customers may need to update abi filters
+  in gradle.
+- Adjusted talkback audio buffers to avoid choppy audio over long distances.
+- Prefetching data for applicationId in Broadcaster, shaving some time off each
+  call to startBroadcast().
+- Added a method for setting a specific aspect ratio to broadcast
+  (setRotation(int previewRotation, int captureRotation, int aspectWidth, int aspectHeight)),
+  resulting in a cropped camera picture
+
+Changelog for LibBambuser version 0.9.4. What's changed since version 0.9.3
+
+- Raised minimum supported Android API to 15 (Android 4.0.3) and dropped support
+  for old ARMv5/ARMv6 CPUs. The native code is built for ARMv7.
+- Renamed BambuserPlayer to BroadcastPlayer and added support for pause/resume/
+  seek and other methods useful for controlling playback of archived broadcasts.
+- Added a basic example player project which uses the BroadcastPlayer. To test
+  playback, simply insert your applicationId and a resourceURI for a broadcast
+  in the example player code, and build it.
+- Added/updated lots of documentation for the BroadcastPlayer and its states.
+
+
+Changelog for LibBambuser version 0.9.3. What's changed since version 0.9.2
+
+- Added BambuserPlayer class, which handles playback of a provided Bambuser
+  resourceUri, automatically connecting to the right server using the most
+  suitable streaming video format and displaying it on a SurfaceView. Please
+  see BambuserPlayer documentation for full details.
+- Added onBroadcastIdAvailable() callback in Broadcaster.Observer, letting the
+  broadcaster know the unique broadcast id as soon as a broadcast has started.
+- Added a new Broadcaster constructor taking an application id argument, added
+  Broadcaster.startBroadcast() and deprecated the older
+  Broadcaster.startBroadcast(username, password). The new method requires a
+  unique secret application id (provided by Bambuser) and can start broadcasting
+  to different server clusters, depending on customer location and possibly
+  end-user location.
+- Added BackendApi.getUploadTicketForApplicationId(...) and deprecated the older
+  username/password-based method. The new method works with your secret
+  application id provided by Bambuser.
+- Deprecated Broadcaster.hasAutomaticResolutionSwitching() as the feature is
+  supported on all devices.
+- Enabled automatic resolution switching by default in the Broadcaster, and
+  discouraged streaming a fixed resolution.
+- Updated Example application (ExampleActivity and UploadHelper) to use the
+  new methods for broadcasting/uploading.
+
+
+Changelog for LibBambuser version 0.9.2. What's changed since version 0.9.1
+
+- Camera focus functionality reworked to switch reliably on more device models
+  between continuous auto-focus and focus locked
+- Raised default supported resolutions for the "auto" mode. Now up to 960x540
+  for the live stream and 1280x720 for the local copy
+- Added useAutomaticResolutionSwitching(maxWidth, maxHeight) to manually limit
+  the resolution in "auto" mode, in case the app wants to conserve bandwidth
+- Added getSupportedCameras(), getCameraId() and setCameraId(id) to conveniently
+  choose which camera that should be active
+
+
+Changelog for LibBambuser version 0.9.1. What's changed since version 0.9
+
+- BSD licensed OpenH264 encoder replaced with an Apache 2 licensed encoder
+  by Android Open Source Project
+  - Improves video encoding performance and quality on devices which
+    use software encoding
+  - NOTE: Customers need to update the license information for applications,
+    one license and project can be dropped
+- Support for new permission system in Android 6, library degrades gracefully
+  if any permissions are missing. App must get permissions relevant for library
+- Enabled hardware accelerated video encoding on several modern Snapdragon SoCs
+- Improved logic for choosing camera frame rate, greatly improving frame rate
+  on some devices
+
+
+Changelog for LibBambuser version 0.9. What's changed since version 0.8
+
+- Minimum supported API version raised to 8 (Android 2.2)
+- Added support for any display rotation
+  - Camera preview, live video, local video copy and photos are
+    rotated according to the rotation you specify.
+  - Capture rotation (live video, local video, photos) can be
+    set irrespective of preview rotation (UI orientation).
+  - See Broadcaster.setRotation() documentation and
+    example project for details.
+- Added support for zooming
+  - See Broadcaster.setZoom() documentation for details.
+- Improved support for switching camera
+  - Added Broadcaster.canSwitchCameraWithoutResolutionChange() which
+    the app can use to determine if camera switching is possible at
+    any given moment.
+  - Camera switching is allowed also while recording a local copy.
+- Bugfix: using Broadcaster.takePicture() while broadcasting consumed
+  video buffers until we ran out of buffers and video stalled.
+- Built libbambuser as AAR package, support for building the example
+  with gradle and Android Studio
+
+
+Changelog for LibBambuser version 0.8. What's changed since version 0.7
+
+- Added support for taking still pictures
+  - While not broadcasting, the picture resolution can be configured
+    to any resolution supported by the camera.
+  - While broadcasting, the picture resolution will be equal to the
+    live stream resolution.
+  - See Broadcaster.takePicture() documentation, and example use in
+    ExampleActivity.java
+- Added support for uploading files to Bambuser
+  - Currently supports videos and images in many common formats.
+  - Uploading is possible only to Bambuser accounts with special
+    customer privileges.
+  - See BackendApi documentation, and example use in ExampleActivity.java
+    and UploadHelper.java. The example depends on the OkHttp library to
+    support uploading large files, see readme.txt.
+- Added support for associating a chunk of custom metadata with broadcasts
+  - See Broadcaster.setCustomData() documentation.
+- Enabled continuous autofocus on modern devices where it is supported
+- Updated bundled software audio encoder
+- Updated bundled software video encoder
+- Enabled hardware accelerated video encoding on Tegra K1 devices
+
+
+Changelog for LibBambuser version 0.7. What's changed since version 0.6
+
+- Added support for voice talkback from web to broadcaster-app
+  - This feature is only available on devices with Jelly Bean (Android 4.1)
+    and higher.
+  - The example app shows how the talkback feature can be integrated while
+    being compatible with Froyo (android 2.2).
+- Small changes to audio codec choice on some devices with Jelly Bean
+- Small clarifications in documentation
+
+
+Changelog for LibBambuser version 0.6. What's changed since version 0.5
+
+- Added support for recording broadcasts locally as mp4-files with
+  H.264 video and AAC audio. Available on devices where hardware accelerated
+  video encoding is supported. Title and geo-location metadata is included
+  if available.
+- Avoid issue with stretched video on some devices
+- Avoid crash if using automatic resolution switching on Galaxy Note
+- Wait longer for slow cameras to start/stop, to avoid "camera occupied"
+- Fix rare deadlock where onPause and onResolutionsScanned blocked internally
+
+
+Changelog for LibBambuser version 0.5. What's changed since version 0.4
+
+- Minimum supported API version raised to 7 (Android 2.1)
+- Hardware accelerated video encoding supported on many more modern models
+- LGPL licensed FFmpeg encoders replaced with OpenH264.
+  - NOTE: Customers need to update the license information for applications
+- Support for fully automatic resolution switching while broadcasting
+- Improved upload speed by using larger network buffers
+- Improved smoothness of live stream by using better adaptive frame
+  selection algorithm
+- Improved microphone selection based on selected camera
+- Avoid audio-related crashes on some Sony devices with Android 4.3
+- Using a new higher-quality audio encoder on Android 4.1+
+- Using a more flexible Wakelock-approach
+  - NOTE: Customers should now handle screen wakelocks manually,
+    as shown in example application
+- Added detection and error message for the situation where camera
+  is disabled by device policy manager
+- Avoid issues with black/stretched video on Exynos4-based devices
+- Avoid issues with fluctuating stream health on Qualcomm-based
+  devices where hardware acceleration is used

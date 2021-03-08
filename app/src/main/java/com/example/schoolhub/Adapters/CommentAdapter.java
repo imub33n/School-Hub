@@ -23,7 +23,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public CommentAdapter(List<Comment> res, Context context) {
         Log.d(TAG, "CommentAdapter: "+res.size());
         this.resourceComment=res;
-
         this.context = context;
     }
 
@@ -46,6 +45,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public int getItemCount() {
         return resourceComment.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

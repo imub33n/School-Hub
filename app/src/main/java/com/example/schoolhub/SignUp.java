@@ -86,18 +86,14 @@ public class SignUp extends AppCompatActivity {
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-
-                        if (response.code() == 200) {
+                        if(response.isSuccessful()){
                             Toast.makeText(SignUp.this,
                                     "Signed up successfully", Toast.LENGTH_LONG).show();
                             Intent it = new Intent(SignUp.this, SignIn.class);
                             startActivity(it);
-                        } else if (response.code() == 400) {
-                            Toast.makeText(SignUp.this,
-                                    "Already registered", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(SignUp.this,
-                                    "Registration else", Toast.LENGTH_LONG).show();
+                                    "Response Code: "+response.code(), Toast.LENGTH_LONG).show();
                         }
                     }
 

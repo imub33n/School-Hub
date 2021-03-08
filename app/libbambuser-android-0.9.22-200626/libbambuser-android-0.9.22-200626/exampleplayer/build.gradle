@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+android {
+	compileSdkVersion 29
+	buildToolsVersion '29.0.3'
+
+	defaultConfig {
+		applicationId 'com.bambuser.exampleplayer'
+		minSdkVersion 19
+		targetSdkVersion 29
+		ndk {
+			// include only arm binaries by default. all relevant devices can run arm.
+			abiFilters 'armeabi-v7a', 'arm64-v8a'
+		}
+	}
+
+	buildTypes {
+		release {
+			minifyEnabled false
+		}
+		debug {
+			debuggable true
+			ndk {
+				// include x86 binaries in debug builds. this enables testing on android emulator x86 images.
+				abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+			}
+		}
+	}
+	sourceSets.main {
+		manifest.srcFile 'AndroidManifest.xml'
+		java.srcDirs = ['src']
+		res.srcDirs = ['res']
+		assets.srcDirs = ['assets']
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+}
+
+repositories {
+	jcenter()
+	flatDir {
+		dirs '..'
+	}
+}
+
+dependencies {
+	implementation 'com.bambuser.broadcaster:libbambuser:0.9.22@aar'
+	implementation 'com.squareup.okhttp3:okhttp:3.12.6'
+}

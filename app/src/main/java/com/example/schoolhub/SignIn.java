@@ -36,7 +36,7 @@ public class SignIn extends AppCompatActivity {
     Button lin;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    public static String userName,userID="";
+    public static String userName,userID,userType="";
     List<SchoolData> schoolData;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -47,7 +47,7 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        Toast.makeText(this,MainActivity.BASE_URL,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,MainActivity.BASE_URL,Toast.LENGTH_SHORT).show();
         //References
         lin = (Button) findViewById(R.id.loginBsi);
         email = (EditText) findViewById(R.id.email);
@@ -103,6 +103,7 @@ public class SignIn extends AppCompatActivity {
                             LoginResult result = response.body();
                             userID=result.getUserID();
                             userName=result.getUsername();
+                            userType=radioButton.getText().toString();
                             if(Objects.equals(radioButton.getText().toString(),"School")){
                                 Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();
                                 call2.enqueue(new Callback<List<SchoolData>>() {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
-    tools:context=".LiveStreamRequest">
+    tools:context=".ui.liveStream.LiveStreamRequest">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/yesnav"
         android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                 android:textColor="#000"/>
 
             <EditText
+                android:id="@+id/titleStream"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_comment"
@@ -84,6 +85,7 @@
                 android:text="Description :"
                 android:textColor="#000"/>
             <EditText
+                android:id="@+id/descriptionStream"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/bg_comment"
@@ -142,11 +144,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.1"
+            android:textSize="12sp"
+            android:text="You will be able to Livestream within given time only."
+            android:paddingTop="5dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="#333333" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
-            android:paddingTop="12dp"
             android:paddingRight="12dp">
             <TextView
                 android:id="@+id/textView14"
@@ -191,7 +204,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
-            android:paddingTop="12dp"
+            android:paddingTop="6dp"
             android:paddingRight="12dp">
 
             <TextView
@@ -250,11 +263,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RadioGroup
+                android:id="@+id/groupPrivacy"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="5dp"
                 android:orientation="horizontal">
                 <RadioButton
+                    android:id="@+id/buttonPrivate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
@@ -262,6 +277,7 @@
                     android:text="Private"
                     android:textColor="#000"/>
                 <RadioButton
+                    android:id="@+id/buttonPublic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
@@ -276,6 +292,7 @@
             android:layout_gravity="right"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/sendRequestButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

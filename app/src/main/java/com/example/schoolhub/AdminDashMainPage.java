@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.schoolhub.data.SchoolData;
@@ -33,6 +34,7 @@ public class AdminDashMainPage extends Fragment {
     String adminIdGet;
     Intent intent;
     CardView editGeneralCard,editPhotosCard,editFeeCard,editAcademicCard,editRequestCard;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,21 +45,20 @@ public class AdminDashMainPage extends Fragment {
         editFeeCard=root.findViewById(R.id.editFeeCard);
         editAcademicCard=root.findViewById(R.id.editAcademicCard);
         editRequestCard=root.findViewById(R.id.editRequestCard);
+        progressBar = (ProgressBar) root.findViewById(R.id.progressBar3);
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<List<SchoolData>> call = retrofitInterface.getSchoolData();
         call.enqueue(new Callback<List<SchoolData>>() {
             @Override
             public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
                 if (response.code() == 200) {
+                    progressBar.setVisibility(View.INVISIBLE);
                     schoolData =  response.body();
-                    //Toast.makeText(getContext(),schoolData.toString(),Toast.LENGTH_SHORT).show();
-
                     for(int i=0;i<schoolData.size();i++){
                         adminIdGet=schoolData.get(i).getAdminID();
                         if(Objects.equals(adminIdGet, adminId)){

@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.ContentValues.TAG;
+
 public class InformationSchoolFragment extends Fragment implements OnMapReadyCallback  {
     //retrofit
     private Retrofit retrofit;
@@ -46,7 +49,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
     static String adminId;
     //mattching admin
     String adminIdGet;
-
+    ProgressBar progressBar;
     public static SchoolData thisSchoolData=new SchoolData();
 
     ViewPager2 viewPager;
@@ -63,7 +66,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_information_school, container, false);
-
+        progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         viewPager = (ViewPager2) root.findViewById(R.id.viewPagerSlider);
         ModellButton = (Button) root.findViewById(R.id.view3dModellButton);
         ModellButton.setOnClickListener(new View.OnClickListener() {
@@ -96,10 +99,13 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        if(SignIn.userID!=""){
+
+        if(Objects.equals(SignIn.userType,"School")){
             adminId=SignIn.userID;
-        }else if(SearchResultAdapter.userIDsearch!=""){
+        }
+        else if(SearchResultAdapter.userIDsearch!=""){
             adminId=SearchResultAdapter.userIDsearch;
+            Log.d(TAG, "onCreateView: _____________adminId=SearchResultAdapter.userIDsearch;_____________"+adminId);
         }
 
 
@@ -108,17 +114,16 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
             @Override
             public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
                 if (response.code() == 200) {
-                    Log.d("TAG",response.code()+"");
+                    Log.d("TAG___s__",response.code()+"");
                     schoolData =  response.body();
                     //Toast.makeText(getContext(),schoolData.toString(),Toast.LENGTH_SHORT).show();
 
                     for(int i=0;i<schoolData.size();i++){
                         adminIdGet=schoolData.get(i).getAdminID();
                         if(Objects.equals(adminIdGet, adminId)){
+                            progressBar.setVisibility(View.INVISIBLE);
                             thisSchoolData=schoolData.get(i);
-//                            for(int j=0;j<thisSchoolData.getImages().size();j++){
-//                                Log.d(TAG, "onResponse: ______"+j+"_as_____________"+thisSchoolData.getImages().get(j).getPath());
-//                            }
+
                             //put photos
                             adapter= new SlideAdapter(thisSchoolData.getImages(),getContext());
                             viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -167,11 +172,6 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
-//        float lat= Float.parseFloat(schoolCoordinates.getLatitude());
-//        float lng= Float.parseFloat(thisSchoolData.getSchoolCoordinates().getLongitude());
-//        googleMap.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title(thisSchoolData.getSchoolName()).draggable(true));
-
         googleMap.setMyLocationEnabled(true);
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(3));
     }

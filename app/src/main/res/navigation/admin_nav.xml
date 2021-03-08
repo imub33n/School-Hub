@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_school_details_dash" />
     <fragment
         android:id="@+id/liveStream"
-        android:name="com.example.schoolhub.LiveStreamAdminFragment"
+        android:name="com.example.schoolhub.ui.liveStream.LiveStreamAdminFragment"
         android:label="Live Stream"
         tools:layout="@layout/fragment_live_stream" />
     <fragment

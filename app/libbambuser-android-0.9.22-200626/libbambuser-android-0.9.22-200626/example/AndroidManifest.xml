@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.bambuser.broadcaster.example"
+	android:versionCode="1"
+	android:versionName="0.1">
+	<!-- Mandatory permissions for any app that use the Broadcaster class. -->
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<!-- Optional permission to let the Broadcaster acquire high-performance WiFi wakelocks -->
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<!-- Optional permission to let the Broadcaster check network type when choosing video quality -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<!-- Permission to let this example app store photos/videos externally,
+	so the files can be accessed by other apps. -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<!-- Example of somewhat relaxed uses-feature declarations for Google Play store:
+	Because we require permission.CAMERA, Google Play will default to treat many camera features as
+	strictly required and hide the app for devices missing such features.
+	With uses-feature declarations, we can specify that this app requires any camera,
+	but doesn't strictly require a rear or front camera, and doesn't require flash or autofocus.
+	You can specify different uses-feature declarations according to your own needs. -->
+	<uses-feature android:name="android.hardware.camera.any" android:required="true" />
+	<uses-feature android:name="android.hardware.camera" android:required="false" />
+	<uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+	<uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+	<uses-feature android:name="android.hardware.camera.front" android:required="false" />
+	<application android:label="BambuserExample">
+		<activity android:name="ExampleActivity"
+			android:label="BambuserExample"
+			android:configChanges="keyboardHidden|orientation|screenSize"
+			android:launchMode="singleTask">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="ExampleActivity$AboutActivity"
+			android:label="About" />
+	</application>
+</manifest>

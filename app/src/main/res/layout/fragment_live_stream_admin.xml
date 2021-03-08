@@ -6,7 +6,7 @@
     android:background="#EAEAEA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LiveStreamAdminFragment">
+    tools:context=".ui.liveStream.LiveStreamAdminFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -39,20 +39,20 @@
         <com.google.android.material.chip.ChipGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:singleSelection="true"
             android:layout_gravity="center">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip4"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-                android:text="All Streams" />
+                android:text="All Upcoming Streams" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My History" />
+                android:text="My Requests" />
         </com.google.android.material.chip.ChipGroup>
 
         <LinearLayout
@@ -74,49 +74,14 @@
                 android:layout_gravity="right"
                 android:text="Start Live Stream"/>
         </LinearLayout>
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewLivestreamRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:itemCount="3"
             android:layout_margin="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:letterSpacing="0.1"
-                android:text="School Name Here"
-                android:textColor="#000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:letterSpacing="0.1"
-                android:text="Stream Title Here"
-                android:textColor="#000"
-                android:textSize="13sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:letterSpacing="0.1"
-                android:text="Stream Time and date Here"
-                android:textColor="#000"
-                android:textSize="12sp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="#EAEAEA"
-                android:letterSpacing="0.1"
-                android:text="Status Here"
-                android:textColor="#000"
-                android:textSize="10sp" />
-        </LinearLayout>
+            tools:listitem="@layout/recycler_livestream_requests"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,5 +99,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

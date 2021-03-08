@@ -93,7 +93,6 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
     GoogleMap googleMap;
     List<SchoolData> schoolData;
     List<SchoolData> allSchoolsData;
-    //SchoolCoordinates allSchoolCoordinates=new SchoolCoordinates();
     SearchResultAdapter searchResultAdapter;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -313,7 +312,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
             }
             @Override
             public void onFailure(Call<List<SchoolData>> call2, Throwable t) {
-                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Connection error", Toast.LENGTH_LONG).show();
             }
         });
 

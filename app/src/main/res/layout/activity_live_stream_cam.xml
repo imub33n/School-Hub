@@ -3,8 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/activity_video_chat_view"
     android:layout_height="match_parent"
-    tools:context=".LiveStreamCam">
+    tools:context=".ui.liveStream.LiveStreamCam">
+    <com.bambuser.broadcaster.SurfaceViewWithAutoAR
+        android:id="@+id/PreviewSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
+    <Button
+        android:id="@+id/BroadcastButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="#8043425D"
+        android:text="START STREAMING" />
 </RelativeLayout>

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment {
     public String uploadedImageURL;
     public static String nameHomePhoto="";
     String userIDPost,userNamePost, textPost, timePost, imagePost;
-    private HomeViewModel homeViewModel;
+    //private HomeViewModel homeViewModel;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     EditText postText;
@@ -80,13 +81,12 @@ public class HomeFragment extends Fragment {
     //Firebase
     FirebaseStorage storage;
     StorageReference storageReference;
-    //DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("images");
-    //recyclerview
     List<PostResult> resource;
     PostViewAdapter adapter;
+    ProgressBar progressBar;
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
 
-        homeViewModel =ViewModelProviders.of(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 //refrences
         postText= root.findViewById(R.id.postEditText);
@@ -96,6 +96,7 @@ public class HomeFragment extends Fragment {
         attachedImageId=root.findViewById(R.id.attachedImageId);
         photoHomeLayout=root.findViewById(R.id.photoHomeLayout);
         cancelImage= root.findViewById(R.id.cancelPhoto);
+        progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         cancelImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,12 +111,10 @@ public class HomeFragment extends Fragment {
         storageReference = storage.getReference();
 //recycler
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.postView);
-        //PostViewAdapter adapter = new PostViewAdapter(resource);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //recyclerView.setAdapter(adapter);
 
-//get shitpostings
+
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -123,16 +122,17 @@ public class HomeFragment extends Fragment {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
+        //get shitpostings
         Call<List<PostResult>> call = retrofitInterface.doGetListResources();
         call.enqueue(new Callback<List<PostResult>>() {
             @Override
             public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
                 if (response.code() == 200) {
                     Log.d("TAG",response.code()+"");
+                    progressBar.setVisibility(View.INVISIBLE);
                     resource =  response.body();
-                    //Toast.makeText(getContext(),resource.toString(),Toast.LENGTH_SHORT).show();
                     adapter = new PostViewAdapter(resource,getContext());
+                    adapter.setHasStableIds(true);
                     recyclerView.setAdapter(adapter);
                 }else {
                     Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
@@ -165,17 +165,31 @@ public class HomeFragment extends Fragment {
             }
         });
         final TextView textView = root.findViewById(R.id.text_home);
-        //title home
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         return root;
     }
 
+    private void updatePosts(){
+        Call<List<PostResult>> call = retrofitInterface.doGetListResources();
+        call.enqueue(new Callback<List<PostResult>>() {
+            @Override
+            public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
+                if (response.code() == 200) {
+                    Log.d("TAG",response.code()+"");
+                    resource =  response.body();
+                    adapter.notifyDataSetChanged();
+                }else {
+                    Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<PostResult>> call, Throwable t) {
+
+                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     private void chooseImage() {
         Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         Intent intentImages = new Intent();
@@ -200,8 +214,10 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if (response.code() == 200) {
+                    postText.setText("");
                     Toast.makeText(getContext(), "Post Successful", Toast.LENGTH_LONG).show();
-                    adapter.notifyDataSetChanged();
+                    //adapter.notifyDataSetChanged();
+                    updatePosts();
                 } else {
                     Toast.makeText(getContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
                 }
@@ -263,7 +279,6 @@ public class HomeFragment extends Fragment {
                             public void onSuccess(Uri yoru)
                             {
                                 uploadedImageURL=yoru.toString();
-                                //Toast.makeText(getContext(), yoru.toString(), Toast.LENGTH_SHORT).show();
                                 postUpload();
                             }
                         });
