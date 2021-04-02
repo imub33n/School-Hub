@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -36,17 +38,19 @@ import static android.content.ContentValues.TAG;
 
 public class LiveStreamCam extends AppCompatActivity {
     SurfaceView mPreviewSurface;
-    private static final String APPLICATION_ID = "6yLyWTTXxMPkygkuvaqAXg";
-    private static final String API_KEY = "DmzCdRgo9QTABUQg5z7AmZ";
+    private static final String APPLICATION_ID = "ddd56SuCBOa2vv6JoGwZ0g";
+    private static final String API_KEY = "VyUHQSKdTjr4Merap5T4SE";
     Broadcaster mBroadcaster;
     Button mBroadcastButton;
+
     OkHttpClient mOkHttpClient = new OkHttpClient();
     String resourceUri = null;
-
+    LinearLayout liveStreamView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_stream_cam);
+        liveStreamView= findViewById(R.id.liveStreamView);
         mPreviewSurface = findViewById(R.id.PreviewSurfaceView);
         mBroadcaster = new Broadcaster(this, APPLICATION_ID, mBroadcasterObserver);
         mBroadcaster.setRotation(getWindowManager().getDefaultDisplay().getRotation());
@@ -54,10 +58,16 @@ public class LiveStreamCam extends AppCompatActivity {
         mBroadcastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBroadcaster.canStartBroadcasting())
+                if (mBroadcaster.canStartBroadcasting()){
+                    liveStreamView.setVisibility(View.INVISIBLE);
+
                     mBroadcaster.startBroadcast();
-                else
+
+                }
+                else{
+                    liveStreamView.setVisibility(View.VISIBLE);
                     mBroadcaster.stopBroadcast();
+                }
             }
         });
 
@@ -93,6 +103,7 @@ public class LiveStreamCam extends AppCompatActivity {
         }
         @Override
         public void onCameraError(CameraError cameraError) {
+            Toast.makeText(getApplicationContext(),"Could not open camera",Toast.LENGTH_LONG).show();
         }
         @Override
         public void onChatMessage(String s) {
@@ -157,5 +168,9 @@ public class LiveStreamCam extends AppCompatActivity {
 
     private boolean hasPermission(String permission) {
         return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public void goBackFromLivestream(View view) {
+        onBackPressed();
     }
 }

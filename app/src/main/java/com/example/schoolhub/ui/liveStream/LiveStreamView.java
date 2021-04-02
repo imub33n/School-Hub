@@ -26,8 +26,8 @@ public class LiveStreamView extends AppCompatActivity {
     SurfaceViewWithAutoAR mVideoSurface;
     TextView mPlayerStatusTextView;
     View mPlayerContentView;
-    private static final String APPLICATION_ID = "6yLyWTTXxMPkygkuvaqAXg";
-    private static final String API_KEY = "DmzCdRgo9QTABUQg5z7AmZ";
+    private static final String APPLICATION_ID = "ddd56SuCBOa2vv6JoGwZ0g";
+    private static final String API_KEY = "VyUHQSKdTjr4Merap5T4SE";
     OkHttpClient mOkHttpClient = new OkHttpClient();
     BroadcastPlayer mBroadcastPlayer;
     Display mDefaultDisplay;

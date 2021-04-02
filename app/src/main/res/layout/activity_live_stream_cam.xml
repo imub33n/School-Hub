@@ -15,6 +15,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/livelogo"/>
+    <LinearLayout
+        android:id="@+id/liveStreamView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/ic_launcher_background"
+        android:layout_centerInParent="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/imageBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/back"
+            android:elevation="2dp"
+            android:layout_gravity="start"
+            android:onClick="goBackFromLivestream"
+            android:text=" Go Back"
+            android:textColor="#fff"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="40dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/live_room_bg_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:text="Click Start button to go Live " />
+            <TextView
+                android:layout_width="250dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:text="People will will be able to view and comment on your live stream" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
     <Button
         android:id="@+id/BroadcastButton"
         android:layout_width="wrap_content"
@@ -22,6 +85,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:backgroundTint="#8043425D"
+        android:textColor="@color/appDefault"
+        android:backgroundTint="#C6FFFFFF"
         android:text="START STREAMING" />
 </RelativeLayout>
