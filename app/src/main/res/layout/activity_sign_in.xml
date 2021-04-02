@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignIn">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/back"
+        android:drawableTint="@color/appDefault"
+        android:text=" Go Back"
+        android:textColor="@color/appDefault"
+        android:textStyle="bold"
+        android:layout_margin="20dp"
+        android:textSize="18dp"
+        android:onClick="goBackFromSignIn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:id="@+id/idPassLL"
         android:layout_width="match_parent"
@@ -162,17 +176,6 @@
             android:text="Login"
             android:textColor="#ffffff"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/s_up2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:letterSpacing="0.1"
-            android:text="Continue as Guest"
-            android:textColor="@color/appDefault"
-            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/s_up"

@@ -163,4 +163,9 @@ public class SignIn extends AppCompatActivity {
 
         }
     }
+
+    public void goBackFromSignIn(View view) {
+        Intent it = new Intent( getApplicationContext() , LandingScreen.class);
+        startActivity(it);
+    }
 }
