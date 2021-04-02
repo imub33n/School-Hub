@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdminDashboard extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-
+    Button logoutAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,20 @@ public class AdminDashboard extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarAdmin);
         setSupportActionBar(toolbar);
 
+        logoutAdmin = findViewById(R.id.logoutAdmin);
+        logoutAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout_admin);
         NavigationView navigationView = findViewById(R.id.nav_view_admin);
-        //View headerView = navigationView.getHeaderView(0);__________
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.nameNavHeader);
+        navUsername.setText("Hi "+SignIn.userName);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.skolDashMain, R.id.skolDash, R.id.liveStream)

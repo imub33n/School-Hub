@@ -105,12 +105,11 @@ public class LiveStreamRequest extends AppCompatActivity {
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == 200) {
                                 Toast.makeText(LiveStreamRequest.this, "Request Sent to Admin!", Toast.LENGTH_LONG).show();
-                                Intent it = new Intent( getApplicationContext() , AdminDashboard.class);
-                                startActivity(it);
+                                finish();
+//                                onBackPressed();
                             }else{
                                 Toast.makeText(LiveStreamRequest.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
                             }
-
                         }
 
                         @Override
