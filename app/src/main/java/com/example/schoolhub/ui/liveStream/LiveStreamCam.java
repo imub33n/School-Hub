@@ -60,9 +60,7 @@ public class LiveStreamCam extends AppCompatActivity {
             public void onClick(View v) {
                 if (mBroadcaster.canStartBroadcasting()){
                     liveStreamView.setVisibility(View.INVISIBLE);
-
                     mBroadcaster.startBroadcast();
-
                 }
                 else{
                     liveStreamView.setVisibility(View.VISIBLE);

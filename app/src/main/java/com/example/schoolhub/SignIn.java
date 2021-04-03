@@ -158,9 +158,6 @@ public class SignIn extends AppCompatActivity {
             }catch(Exception ex){
                 Toast.makeText(SignIn.this, "Retrofit not working ", Toast.LENGTH_LONG).show();
             }
-
-
-
         }
     }
 

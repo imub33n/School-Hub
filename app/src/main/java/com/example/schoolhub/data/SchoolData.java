@@ -5,7 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SchoolData {
-
+    @SerializedName("_id")
+    @Expose
+    private String _id;
     @SerializedName("adminID")
     @Expose
     private String adminID;
@@ -48,6 +50,10 @@ public class SchoolData {
     @SerializedName("videos")
     @Expose
     private List<Video> videos = null;
+
+    public String get_id() { return _id; }
+
+    public void set_id(String _id) { this._id = _id; }
 
     public String getAdminID() {
         return adminID;
