@@ -57,4 +57,7 @@ public interface RetrofitInterface {
 
     @GET("/review/reviews")
     Call<List<SchoolReviews>> getReviews();
+
+    @POST("/review/addReview")
+    Call<Void> postReviews(@Body SchoolReviews schoolReviews);
 }
