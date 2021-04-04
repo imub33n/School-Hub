@@ -14,9 +14,9 @@
         android:layout_marginTop="10dp"
         android:background="#fff"
         app:elevation="0dp"
-        android:outlineAmbientShadowColor="#fff"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+<!--        android:outlineAmbientShadowColor="#fff"-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

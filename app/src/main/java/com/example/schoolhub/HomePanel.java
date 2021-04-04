@@ -1,7 +1,9 @@
 package com.example.schoolhub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,6 +56,7 @@ public class HomePanel extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_panel, menu);
+
         return true;
     }
 
@@ -62,5 +65,10 @@ public class HomePanel extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void openProfile(MenuItem item) {
+        Intent it = new Intent( getApplicationContext() , UserProfile.class);
+        startActivity(it);
     }
 }

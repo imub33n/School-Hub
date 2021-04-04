@@ -8,10 +8,11 @@
         android:icon="@drawable/noti"
         />
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:id="@+id/action_profile"
+        android:title="@string/action_profile"
         app:showAsAction="always"
-        android:icon="@drawable/shublogoholowhite"
+        android:onClick="openProfile"
+        android:icon="@drawable/defaultpiccircle"
         />
 
 </menu>
