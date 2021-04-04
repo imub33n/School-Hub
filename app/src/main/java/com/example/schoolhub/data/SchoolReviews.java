@@ -25,13 +25,16 @@ public class SchoolReviews {
     @SerializedName("rating")
     @Expose
     private Integer rating;
+    @SerializedName("userProfilePic")
+    @Expose
+    private String userProfilePic;
+
+    public String getUserProfilePic() { return userProfilePic; }
+
+    public void setUserProfilePic(String userProfilePic) { this.userProfilePic = userProfilePic; }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getSchoolID() {

@@ -290,12 +290,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
                 if (response.code() == 200) {
                     Log.d("TAG",response.code()+"");
                     allSchoolsData =  response.body();
-
+                    LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
                     for(int i=0;i<allSchoolsData.size();i++){
                         lat= Double.valueOf(allSchoolsData.get(i).getSchoolCoordinates().getLatitude());
                         lng= Double.valueOf(allSchoolsData.get(i).getSchoolCoordinates().getLongitude());
-                        Log.d(TAG, "onResponse: _________this skol____"+allSchoolsData.get(i).getSchoolName());
-                        Log.d(TAG, "onResponse: ______________"+lat+"_________"+lng);
+//                        Log.d(TAG, "onResponse: _________this skol____"+allSchoolsData.get(i).getSchoolName());
+//                        Log.d(TAG, "onResponse: ______________"+lat+"_________"+lng);
                         while(googleMap==null){
                             try {
                                 A.wait();
@@ -377,8 +378,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
         schoolCoordinates.setLongitude(String.valueOf(location.getLongitude()));
         schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
         searchFilters.setSchoolCoordinates(schoolCoordinates);
-        LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
-        Log.d(TAG, "onResponse: ________________))_______________)()(_______"+l);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
+//        LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
+//        Log.d(TAG, "onResponse: ________________co-ordinates_______"+l);
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
+        //to line 293
     }
 }

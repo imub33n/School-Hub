@@ -21,7 +21,11 @@ import com.example.schoolhub.Adapters.LivestreamRequestsAdapter;
 import com.example.schoolhub.Adapters.SchoolReviewsAdapter;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.SchoolReviews;
+import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
 
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,21 +46,30 @@ public class ReviewsFragment extends Fragment {
     RatingBar giveRatingBar;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    RecyclerView recuclerForReview;
+    RecyclerView recyclerForReview;
     SchoolReviewsAdapter schoolReviewsAdapter;
     List<SchoolReviews> thisSchoolReviews = new ArrayList<SchoolReviews>();
-    SchoolReviews schoolReviews;
+    SchoolReviews schoolReviews= new SchoolReviews();
+    DecimalFormat adf;
     float avg=0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root=inflater.inflate(R.layout.fragment_reviews, container, false);
-
+        adf = new DecimalFormat("0.0");
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         reviewsStatus= root.findViewById(R.id.reviewsStatus);
         postReview = root.findViewById(R.id.postReview);
         giveReview= root.findViewById(R.id.giveReview);
         giveRatingBar= root.findViewById(R.id.giveRatingBar);
+        //retrofit
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MainActivity.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
         postReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,25 +82,87 @@ public class ReviewsFragment extends Fragment {
                     }
                 }else{
                     //posting here
-                    schoolReviews.setRating((int) giveRatingBar.getRating());
-                    schoolReviews.setReviewText(giveReview.getText().toString());
-                    schoolReviews.setSchoolID(InformationSchoolFragment.thisSchoolData.get_id());
-                    schoolReviews.setUserID("");
-                    schoolReviews.setUsername("");
+                    if(SignIn.userID==null){
+                        Toast.makeText(getContext(), "Please sign in to give review/rating!", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        progressBar.setVisibility(View.VISIBLE);
+                        schoolReviews.setUserID(SignIn.userID);
+                        schoolReviews.setUsername(SignIn.userName);
+                        schoolReviews.setRating((int) giveRatingBar.getRating());
+                        schoolReviews.setReviewText(giveReview.getText().toString());
+                        schoolReviews.setSchoolID(InformationSchoolFragment.thisSchoolData.get_id());
+                        Timestamp timestamp= new Timestamp(System.currentTimeMillis());
+                        SimpleDateFormat df= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                        schoolReviews.setDate(df.format(timestamp));
+                        //POST REQUEST
+                        Call<Void> call = retrofitInterface.postReviews(schoolReviews);
+                        call.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(getContext(), "Review Posted!", Toast.LENGTH_LONG).show();
+                                    giveRatingBar.setRating(0);
+                                    giveReview.setText("");
+                                    List<SchoolReviews> updatedSchoolReviews = new ArrayList<SchoolReviews>();
+                                    //update review list after posting review
+                                    Call<List<SchoolReviews>> call2 = retrofitInterface.getReviews();
+                                    call2.enqueue(new Callback<List<SchoolReviews>>() {
+                                        @Override
+                                        public void onResponse(Call<List<SchoolReviews>> call, Response<List<SchoolReviews>> response) {
+                                            if (response.code() == 200) {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                for(int i=0;i<response.body().size();i++){
+                                                    if(Objects.equals(InformationSchoolFragment.thisSchoolData.get_id(),response.body().get(i).getSchoolID())){
+                                                        updatedSchoolReviews.add(response.body().get(i));
+                                                    }
+                                                    if(i==response.body().size()-1){
+                                                        if(updatedSchoolReviews.size()==0){
+                                                            reviewsStatus.setText("No Reviews Yet!");
+                                                        } else{
+                                                            for(int j=0;j<updatedSchoolReviews.size();j++){
+                                                                avg+=updatedSchoolReviews.get(j).getRating();
+                                                            }
+                                                            avg=avg/updatedSchoolReviews.size();
+
+                                                            reviewsStatus.setText("Rating  "+adf.format(avg));
+                                                            avg=0;
+                                                            schoolReviewsAdapter = new SchoolReviewsAdapter(updatedSchoolReviews,getContext());
+                                                            recyclerForReview.setAdapter(schoolReviewsAdapter);
+                                                        }
+
+                                                    }
+                                                }
+
+                                            }else {
+                                                Toast.makeText(getContext(), "CODE: "+response.code(), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                        @Override
+                                        public void onFailure(Call<List<SchoolReviews>> call, Throwable t) {
+                                            Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }else{
+                                    Toast.makeText(getContext(), "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getContext(), "Connection Error: "+t.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
                 }
             }
         });
 
-        //retrofit
-        retrofit = new Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-        //listView
-        recuclerForReview = (RecyclerView) root.findViewById(R.id.recuclerForReview);
-        recuclerForReview.setLayoutManager(new LinearLayoutManager(getContext()));
+        //listViewReviews
+        recyclerForReview = (RecyclerView) root.findViewById(R.id.recuclerForReview);
+        recyclerForReview.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Call<List<SchoolReviews>> call2 = retrofitInterface.getReviews();
         call2.enqueue(new Callback<List<SchoolReviews>>() {
@@ -104,12 +179,14 @@ public class ReviewsFragment extends Fragment {
                                 reviewsStatus.setText("No Reviews Yet!");
                             } else{
                                 for(int j=0;j<thisSchoolReviews.size();j++){
-                                    avg+=thisSchoolReviews.get(0).getRating();
+                                    avg+=thisSchoolReviews.get(j).getRating();
                                 }
                                 avg=avg/thisSchoolReviews.size();
-                                reviewsStatus.setText("Rating  "+avg);
+
+                                reviewsStatus.setText("Rating  "+adf.format(avg));
+                                avg=0;
                                 schoolReviewsAdapter = new SchoolReviewsAdapter(thisSchoolReviews,getContext());
-                                recuclerForReview.setAdapter(schoolReviewsAdapter);
+                                recyclerForReview.setAdapter(schoolReviewsAdapter);
                             }
 
                         }
