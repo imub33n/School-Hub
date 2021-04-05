@@ -1,9 +1,11 @@
 package com.example.schoolhub;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,13 +13,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.Adapters.PostViewAdapter;
+import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +42,8 @@ public class UserProfile extends AppCompatActivity {
     List<PostResult> resource= new ArrayList<>();
     PostViewAdapter adapter;
     TextView postStatus,phoneNoProfile,userNameProfile,emailProfile;
+    FirebaseStorage storage= FirebaseStorage.getInstance();
+    CircleImageView profilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +57,56 @@ public class UserProfile extends AppCompatActivity {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
+        profilePhoto = findViewById(R.id.profilePhoto);
         postStatus= findViewById(R.id.postStatus);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         phoneNoProfile= findViewById(R.id.phoneNoProfile);
         emailProfile= findViewById(R.id.emailProfile);
         userNameProfile= findViewById(R.id.userNameProfile);
-
         //setData
         userNameProfile.setText(SignIn.userName);
+        //getting userData
+        Call<List<LoginResult>> call2 = retrofitInterface.userData(SignIn.userID);
+        call2.enqueue(new Callback<List<LoginResult>>() {
+            @Override
+            public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+                if (response.code() == 200) {
+                    emailProfile.setText(response.body().get(0).getEmail());
+                    phoneNoProfile.setText(response.body().get(0).getPhoneNumber());
+                    StorageReference storageRef = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(getApplicationContext())
+                                    .load(uri)
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                    .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
+                                    .error(R.drawable.ic_image_error)
+                                    .into(profilePhoto);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Glide.with(getApplicationContext())
+                                    .load(R.drawable.ic_image_error)
+                                    .fitCenter()
+                                    .into(profilePhoto);
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(getApplicationContext(), "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         //recycler
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.postViewProfile);
         recyclerView.setHasFixedSize(true);

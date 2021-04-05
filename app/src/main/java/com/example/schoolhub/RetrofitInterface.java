@@ -60,4 +60,7 @@ public interface RetrofitInterface {
 
     @POST("/review/addReview")
     Call<Void> postReviews(@Body SchoolReviews schoolReviews);
+
+    @GET("/user_management/userProfile/{id}")
+    Call<List<LoginResult>> userData(@Path("id") String id);
 }
