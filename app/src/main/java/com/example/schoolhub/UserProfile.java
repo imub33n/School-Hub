@@ -5,10 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +28,15 @@ import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -44,6 +55,9 @@ public class UserProfile extends AppCompatActivity {
     TextView postStatus,phoneNoProfile,userNameProfile,emailProfile;
     FirebaseStorage storage= FirebaseStorage.getInstance();
     CircleImageView profilePhoto;
+    private final int PICK_IMAGE_REQUEST = 76;
+    private Uri filePath;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,5 +160,100 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void editProfilePic(View view) {
+        chooseImage();
+    }
+    private void chooseImage() {
+        //Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        Intent intentImages = new Intent();
+        intentImages.setType("image/*");
+        intentImages.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intentImages, "Select New Profile Pic"), PICK_IMAGE_REQUEST);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null )
+        {
+            if (data.getData() != null) {
+                filePath = data.getData();
+                Cursor returnCursor = getApplicationContext().getContentResolver().query(filePath, null, null, null, null);
+                returnCursor.moveToFirst();
+                String photoUri= String.valueOf(filePath);
+                if (photoUri.isEmpty()||photoUri.equals(null)||photoUri.equals("")) {
+
+                } else {
+                    uploadImage();
+                }
+            }
+        }
+    }
+    private void uploadImage() {
+        if(filePath != null)
+        {
+            ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            ref.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Updated Successfully", Toast.LENGTH_SHORT).show();
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                            {
+                                @Override
+                                public void onSuccess(Uri yoru)
+                                {
+                                    HashMap<String, String> map = new HashMap<>();
+                                    map.put("profilePic", yoru.toString());
+                                    Call<Void> call = retrofitInterface.executePost(map);
+                                    call.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            if (response.code() == 200) {
+                                                Toast.makeText(getApplicationContext(), "Photo Updated", Toast.LENGTH_LONG).show();
+                                                Glide.with(getApplicationContext())
+                                                        .load(filePath)
+                                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
+                                                        .error(R.drawable.ic_image_error)
+                                                        .into(profilePhoto);
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+                                            Toast.makeText(getApplicationContext(), "Update error: "+t.getMessage(),
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
     }
 }

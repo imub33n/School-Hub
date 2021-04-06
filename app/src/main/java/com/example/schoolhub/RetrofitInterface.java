@@ -63,4 +63,7 @@ public interface RetrofitInterface {
 
     @GET("/user_management/userProfile/{id}")
     Call<List<LoginResult>> userData(@Path("id") String id);
+
+    @PATCH("/user_management/userProfile/updateProfile/{id}")
+    Call<Void> updateDp(@Path("id") String id,@Body HashMap<String, String> map);
 }

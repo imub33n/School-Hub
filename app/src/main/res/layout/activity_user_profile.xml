@@ -32,28 +32,43 @@
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePhoto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/defaultpic" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/userNameProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:letterSpacing="0.1"
-                    android:text="Name Here"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profilePhoto"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/defaultpic" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:onClick="editProfilePic"
+                        app:srcCompat="@drawable/ic_baseline_edit_24" />
+                </FrameLayout>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/userNameProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:letterSpacing="0.1"
+                android:text="Name Here"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/editDetails"

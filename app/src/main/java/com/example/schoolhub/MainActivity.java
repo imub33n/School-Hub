@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.schoolhub.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.9:8080/";
+    public static String BASE_URL = "http://192.168.100.136:8080/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
