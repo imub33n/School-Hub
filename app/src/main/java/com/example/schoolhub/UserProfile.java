@@ -57,7 +57,7 @@ public class UserProfile extends AppCompatActivity {
     CircleImageView profilePhoto;
     private final int PICK_IMAGE_REQUEST = 76;
     private Uri filePath;
-    StorageReference storageReference;
+    StorageReference storageReference ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,8 @@ public class UserProfile extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        storageReference = storage.getReference();
 
         profilePhoto = findViewById(R.id.profilePhoto);
         postStatus= findViewById(R.id.postStatus);
@@ -194,7 +196,7 @@ public class UserProfile extends AppCompatActivity {
     private void uploadImage() {
         if(filePath != null)
         {
-            ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+            ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
@@ -212,8 +214,9 @@ public class UserProfile extends AppCompatActivity {
                                 {
                                     HashMap<String, String> map = new HashMap<>();
                                     map.put("profilePic", yoru.toString());
-                                    Call<Void> call = retrofitInterface.executePost(map);
-                                    call.enqueue(new Callback<Void>() {
+
+                                    Call<Void> call3 = retrofitInterface.updateDp(SignIn.userID,map);
+                                    call3.enqueue(new Callback<Void>() {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             if (response.code() == 200) {
