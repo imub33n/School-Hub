@@ -24,6 +24,7 @@ import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.data.Comment;
+import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,6 +72,47 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
+        //dp set
+        Call<List<LoginResult>> call2 = retrofitInterface.userData(postResult.getUserID());
+        call2.enqueue(new Callback<List<LoginResult>>() {
+            @Override
+            public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+                if (response.code() == 200) {
+
+                    StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                    storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(context)
+                                    .load(uri)
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                    .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                                    .error(R.drawable.ic_image_error)
+                                    .into(holder.userDpPost);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Glide.with(context)
+                                    .load(R.drawable.ic_image_error)
+                                    .fitCenter()
+                                    .into(holder.userDpPost);
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(context, "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+                Toast.makeText(context, ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //image in post set
         if(postResult.getImage()==null){
             //holder.imagePost.setLayoutParams(new LinearLayout.LayoutParams(0,0));
         }else{
@@ -105,6 +148,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
         }else{
             this.resourceComment= postResult.getComments();
+
             commentAdapter = new CommentAdapter(resourceComment,context);
             commentAdapter.setHasStableIds(true);
             recyclerViewCmnt.setAdapter(commentAdapter);
@@ -165,7 +209,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         public TextView userNamePost,timePost,postTextData;
         public ImageView imagePost,commentSendButton;
         public EditText commentSendText;
-
+        public CircleImageView userDpPost;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.userNamePost = itemView.findViewById(R.id.userNamePost);
@@ -174,6 +218,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             this.imagePost = itemView.findViewById(R.id.imagePost);
             this.commentSendText = itemView.findViewById(R.id.commentSendText);
             this.commentSendButton = itemView.findViewById(R.id.commentSendButton);
+            this.userDpPost= itemView.findViewById(R.id.userDpPost);
 
             recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));

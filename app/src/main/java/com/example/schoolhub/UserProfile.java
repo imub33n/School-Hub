@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -143,6 +147,7 @@ public class UserProfile extends AppCompatActivity {
                             if(resource.size()==0){
                                 postStatus.setText("No Posts Yet!");
                             }else{
+
                                 adapter = new PostViewAdapter(resource,getApplicationContext());
                                 adapter.setHasStableIds(true);
                                 recyclerView.setAdapter(adapter);
@@ -259,4 +264,28 @@ public class UserProfile extends AppCompatActivity {
                     });
         }
     }
+
+    public void editDetails(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.edit_profile_dialogue, null))
+                // Add action buttons
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // sign in the user ...
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create();
+        builder.show();
+    }
+
 }
