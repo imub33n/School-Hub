@@ -253,7 +253,7 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
                 dialog.show();
                 mBehavior = BottomSheetBehavior.from((View) v.getParent());
                 mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                ;
+
             }
         });
 
@@ -299,4 +299,5 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
 //        v.getParent().removeView();
 
     }
+
 }

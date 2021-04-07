@@ -71,11 +71,6 @@
                         android:layout_height="wrap_content"
                         android:text="Teacher" />
 
-                    <RadioButton
-                        android:id="@+id/radioButton9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Parent" />
 
                     <RadioButton
                         android:id="@+id/radioButton10"

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +51,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity implements OnCommentClick {
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -62,6 +64,8 @@ public class UserProfile extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 76;
     private Uri filePath;
     StorageReference storageReference ;
+    OnCommentClick c=this;
+    EditText userNameEdit,phoneNoEdit,oldPasswordEdit,newPasswordEdit,confirmPasswordEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +152,7 @@ public class UserProfile extends AppCompatActivity {
                                 postStatus.setText("No Posts Yet!");
                             }else{
 
-                                adapter = new PostViewAdapter(resource,getApplicationContext());
+                                adapter = new PostViewAdapter(resource,getApplicationContext(),c);
                                 adapter.setHasStableIds(true);
                                 recyclerView.setAdapter(adapter);
                             }
@@ -269,14 +273,47 @@ public class UserProfile extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
+        View convertview = inflater.inflate(R.layout.edit_profile_dialogue, null);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.edit_profile_dialogue, null))
+        builder.setView(convertview)
                 // Add action buttons
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        // edit the user ...
+                        userNameEdit=convertview.findViewById(R.id.userNameEdit);
+                        phoneNoEdit=convertview.findViewById(R.id.phoneNoEdit);
+                        oldPasswordEdit=convertview.findViewById(R.id.oldPasswordEdit);
+                        newPasswordEdit=convertview.findViewById(R.id.newPasswordEdit);
+                        confirmPasswordEdit=convertview.findViewById(R.id.confirmPasswordEdit);
+
+//                        HashMap<String, String> map = new HashMap<>();
+//                        map.put("profilePic", yoru.toString());
+//
+//                        Call<Void> call3 = retrofitInterface.updateDp(SignIn.userID,map);
+//                        call3.enqueue(new Callback<Void>() {
+//                            @Override
+//                            public void onResponse(Call<Void> call, Response<Void> response) {
+//                                if (response.code() == 200) {
+//                                    Toast.makeText(getApplicationContext(), "Photo Updated", Toast.LENGTH_LONG).show();
+//                                    Glide.with(getApplicationContext())
+//                                            .load(filePath)
+//                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+//                                            .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
+//                                            .error(R.drawable.ic_image_error)
+//                                            .into(profilePhoto);
+//                                } else {
+//                                    Toast.makeText(getApplicationContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Void> call, Throwable t) {
+//                                Toast.makeText(getApplicationContext(), "Update error: "+t.getMessage(),
+//                                        Toast.LENGTH_LONG).show();
+//                            }
+//                        });
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -288,4 +325,9 @@ public class UserProfile extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    public void onClick(List<PostResult> postResult, int position) {
+//        resource=postResult;
+        adapter.notifyItemChanged(position);
+    }
 }

@@ -36,6 +36,7 @@ import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
+import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -63,7 +64,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 import static java.lang.Thread.sleep;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnCommentClick {
 //recyclerView.getAdapter().notifyDataSetChanged();
     public String uploadedImageURL;
     public static String nameHomePhoto="";
@@ -84,9 +85,9 @@ public class HomeFragment extends Fragment {
     List<PostResult> resource;
     PostViewAdapter adapter;
     ProgressBar progressBar;
+    OnCommentClick c=this;
+
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
-
-
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 //refrences
         postText= root.findViewById(R.id.postEditText);
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment {
                     Log.d("TAG",response.code()+"");
                     progressBar.setVisibility(View.INVISIBLE);
                     resource =  response.body();
-                    adapter = new PostViewAdapter(resource,getContext());
+                    adapter = new PostViewAdapter(resource,getContext(),c);
                     adapter.setHasStableIds(true);
                     recyclerView.setAdapter(adapter);
                 }else {
@@ -300,5 +301,11 @@ public class HomeFragment extends Fragment {
                     }
                 });
         }
+    }
+
+    @Override
+    public void onClick(List<PostResult> postResult,int position) {
+        resource=postResult;
+        adapter.notifyItemChanged(position);
     }
 }
