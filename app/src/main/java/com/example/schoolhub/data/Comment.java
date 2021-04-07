@@ -4,17 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Comment {
-    @SerializedName("_id")
-    @Expose
-    private String cmntID;
-
-    public String getCmntID() {
-        return cmntID;
-    }
-
-    public void setCmntID(String cmntID) {
-        this.cmntID = cmntID;
-    }
 
     @SerializedName("username")
     @Expose
