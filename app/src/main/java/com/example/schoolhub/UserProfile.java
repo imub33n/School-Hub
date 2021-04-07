@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -66,6 +67,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     StorageReference storageReference ;
     OnCommentClick c=this;
     EditText userNameEdit,phoneNoEdit,oldPasswordEdit,newPasswordEdit,confirmPasswordEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,49 +273,120 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
 
     public void editDetails(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(UserProfile.this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         View convertview = inflater.inflate(R.layout.edit_profile_dialogue, null);
+        LayoutInflater inflater2 = UserProfile.this.getLayoutInflater();
+        View convertview2 = inflater2.inflate(R.layout.change_password_user, null);
+        userNameEdit=convertview.findViewById(R.id.userNameEdit);
+        phoneNoEdit=convertview.findViewById(R.id.phoneNoEdit);
+        oldPasswordEdit=convertview2.findViewById(R.id.oldPasswordEdit);
+        newPasswordEdit=convertview2.findViewById(R.id.newPasswordEdit);
+        confirmPasswordEdit=convertview2.findViewById(R.id.confirmPasswordEdit);
+
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(convertview)
+                .setNeutralButton("Change Button", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        builder2.setView(convertview2)
+                                // Add action buttons
+                                .setPositiveButton("Change Password", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // edit password ...
+                                        HashMap<String, String> maped = new HashMap<>();
+
+                                        if(!newPasswordEdit.getText().toString().isEmpty() && !confirmPasswordEdit.getText().toString().isEmpty()){
+                                            if(Objects.equals(newPasswordEdit.getText().toString(),confirmPasswordEdit.getText().toString())){
+                                                if(!oldPasswordEdit.getText().toString().isEmpty()){
+                                                    maped.put("oldPassword", oldPasswordEdit.getText().toString());
+                                                    maped.put("newPassword", newPasswordEdit.getText().toString());
+                                                    Call<Void> called = retrofitInterface.updateUserData(SignIn.userID,maped);
+                                                    called.enqueue(new Callback<Void>() {
+                                                        @Override
+                                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                                            if (response.code() == 200) {
+                                                                Toast.makeText(UserProfile.this, "Password Updated", Toast.LENGTH_LONG).show();
+                                                                dialog.dismiss();
+                                                            }else if(response.code()==401){
+                                                                Toast.makeText(UserProfile.this, "Old Password is incorrect!", Toast.LENGTH_LONG).show();
+                                                            }else {
+                                                                Toast.makeText(UserProfile.this, "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Void> call, Throwable t) {
+                                                            Toast.makeText(UserProfile.this, "Update error: "+t.getMessage(),
+                                                                    Toast.LENGTH_LONG).show();
+                                                        }
+                                                    });
+                                                }else{
+                                                    Toast.makeText(UserProfile.this, "Please write your Old Password",
+                                                            Toast.LENGTH_LONG).show();
+                                                }
+                                            }else{
+                                                Toast.makeText(UserProfile.this, "New Password & Confirm New Password must be same",
+                                                        Toast.LENGTH_LONG).show();
+                                                }
+                                        }else{
+                                            Toast.makeText(UserProfile.this, "Write a New Password to Update",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        builder2.create();
+                        builder2.show();
+                    }
+                })
                 // Add action buttons
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // edit the user ...
-                        userNameEdit=convertview.findViewById(R.id.userNameEdit);
-                        phoneNoEdit=convertview.findViewById(R.id.phoneNoEdit);
-                        oldPasswordEdit=convertview.findViewById(R.id.oldPasswordEdit);
-                        newPasswordEdit=convertview.findViewById(R.id.newPasswordEdit);
-                        confirmPasswordEdit=convertview.findViewById(R.id.confirmPasswordEdit);
 
-//                        HashMap<String, String> map = new HashMap<>();
-//                        map.put("profilePic", yoru.toString());
-//
-//                        Call<Void> call3 = retrofitInterface.updateDp(SignIn.userID,map);
-//                        call3.enqueue(new Callback<Void>() {
-//                            @Override
-//                            public void onResponse(Call<Void> call, Response<Void> response) {
-//                                if (response.code() == 200) {
-//                                    Toast.makeText(getApplicationContext(), "Photo Updated", Toast.LENGTH_LONG).show();
-//                                    Glide.with(getApplicationContext())
-//                                            .load(filePath)
-//                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-//                                            .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
-//                                            .error(R.drawable.ic_image_error)
-//                                            .into(profilePhoto);
-//                                } else {
-//                                    Toast.makeText(getApplicationContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<Void> call, Throwable t) {
-//                                Toast.makeText(getApplicationContext(), "Update error: "+t.getMessage(),
-//                                        Toast.LENGTH_LONG).show();
-//                            }
-//                        });
+                        HashMap<String, String> maper = new HashMap<>();
+                        if(!userNameEdit.getText().toString().isEmpty()){
+                            maper.put("username",userNameEdit.getText().toString());
+                        }
+                        if(!phoneNoEdit.getText().toString().isEmpty()){
+                            maper.put("phoneNumber",phoneNoEdit.getText().toString());
+                        }
+                        if(!userNameEdit.getText().toString().isEmpty() || !phoneNoEdit.getText().toString().isEmpty()){
+                            Call<Void> caller = retrofitInterface.updateUserData(SignIn.userID,maper);
+                            caller.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.code() == 200) {
+                                        Toast.makeText(UserProfile.this, "Updated", Toast.LENGTH_LONG).show();
+                                        dialog.dismiss();
+                                    } else {
+                                        Toast.makeText(UserProfile.this, "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    Toast.makeText(UserProfile.this, "Update error: "+t.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }else{
+                            Toast.makeText(UserProfile.this, "Nothing to update",
+                                    Toast.LENGTH_LONG).show();
+                            dialog.cancel();
+                        }
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
