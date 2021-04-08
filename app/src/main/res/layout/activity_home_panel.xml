@@ -21,18 +21,34 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer">
-
-        <Button
-            android:id="@+id/logout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:drawableLeft="@drawable/logout"
-            android:backgroundTint="@color/appDefault"
-            android:drawableTint="#fff"
             android:layout_margin="16dp"
-            android:text="LOG OUT"
-            android:textColor="#fff"
-            android:textSize="16sp" />
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/reviewAndFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Review &amp; Feedback"
+                android:textColor="@color/appDefault"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#EAEAEA"
+                android:layout_marginBottom="10dp"
+                />
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/logout"
+                android:backgroundTint="@color/appDefault"
+                android:drawableTint="#fff"
+                android:text="LOG OUT"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

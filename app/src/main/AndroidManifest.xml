@@ -44,7 +44,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.liveStream.LiveStreamView"></activity>
+        <activity android:name=".ReviewAndFeedback"></activity>
+        <activity android:name=".ui.liveStream.LiveStreamView" />
         <activity android:name=".StatisticsResult" />
         <activity android:name=".ui.liveStream.LiveStreamCam" />
         <activity android:name=".ui.liveStream.LiveStreamRequest" />

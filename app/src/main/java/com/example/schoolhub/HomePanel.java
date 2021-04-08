@@ -21,7 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 public class HomePanel extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    Button logout;
+    Button logout,reviewAndFeedback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,14 @@ public class HomePanel extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         logout = findViewById(R.id.logout);
+        reviewAndFeedback= findViewById(R.id.reviewAndFeedback);
+        reviewAndFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent( HomePanel.this , ReviewAndFeedback.class);
+                startActivity(it);
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

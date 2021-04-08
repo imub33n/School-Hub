@@ -288,13 +288,13 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(convertview)
-                .setNeutralButton("Change Button", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Change Password", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         builder2.setView(convertview2)
                                 // Add action buttons
-                                .setPositiveButton("Change Password", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Update Password", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int id) {
                                         // edit password ...
