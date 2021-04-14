@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
     PostViewAdapter adapter;
     ProgressBar progressBar;
     OnCommentClick c=this;
+    RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -111,7 +112,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 //recycler
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.postView);
+        recyclerView = (RecyclerView) root.findViewById(R.id.postView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -178,7 +179,10 @@ public class HomeFragment extends Fragment implements OnCommentClick {
                 if (response.code() == 200) {
                     Log.d("TAG",response.code()+"");
                     resource =  response.body();
-                    adapter.notifyDataSetChanged();
+                    adapter = new PostViewAdapter(resource,getContext(),c);
+                    adapter.setHasStableIds(true);
+                    recyclerView.setAdapter(adapter);
+//                    adapter.notifyDataSetChanged();
                 }else {
                     Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
                 }
@@ -217,7 +221,6 @@ public class HomeFragment extends Fragment implements OnCommentClick {
                 if (response.code() == 200) {
                     postText.setText("");
                     Toast.makeText(getContext(), "Post Successful", Toast.LENGTH_LONG).show();
-                    //adapter.notifyDataSetChanged();
                     updatePosts();
                 } else {
                     Toast.makeText(getContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
@@ -305,7 +308,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
 
     @Override
     public void onClick(List<PostResult> postResult,int position) {
-        resource=postResult;
+        //resource=postResult;
         adapter.notifyItemChanged(position);
     }
 }

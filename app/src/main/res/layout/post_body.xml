@@ -88,12 +88,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/likeButtonPost"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_weight="1"
-                        android:padding="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/likefalse"
+                        android:textColor="#000"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/likeTextPost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
                         android:layout_margin="5dp"
                         android:text="Like"
                         android:textColor="#000"

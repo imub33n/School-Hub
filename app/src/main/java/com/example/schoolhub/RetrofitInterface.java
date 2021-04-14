@@ -1,6 +1,7 @@
 package com.example.schoolhub;
 
 import com.example.schoolhub.data.Comment;
+import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
@@ -34,8 +35,11 @@ public interface RetrofitInterface {
     @GET("/dashboard/home")
     Call<List<PostResult>> doGetListResources();
 
-    @PATCH("/dashboard/{id}")
+    @PATCH("/dashboard/updateComment/{id}")
     Call<PostResult> putComment(@Path("id") String id, @Body HashMap<String, HashMap<String, String>> map);
+
+    @PATCH("/dashboard/updateLike/{id}")
+    Call<PostResult> putLike(@Path("id") String id, @Body HashMap<String, Likes> map);
 
     @POST("/school/Create_School")
     Call<Void> createSchool(@Body SchoolData schoolData);
@@ -57,7 +61,7 @@ public interface RetrofitInterface {
 
     @GET("/review/reviews")
     Call<List<SchoolReviews>> getReviews();
-
+    
     @POST("/review/addReview")
     Call<Void> postReviews(@Body SchoolReviews schoolReviews);
 

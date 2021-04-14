@@ -1,6 +1,7 @@
 package com.example.schoolhub.Adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.data.Comment;
+import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.OnItemClick;
@@ -34,9 +36,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -50,6 +54,8 @@ import static android.content.ContentValues.TAG;
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     List<PostResult> resourcePost;
     List<Comment> resourceComment;
+    List<Likes> resourceLike;
+    Likes like;
     Context context;
     CommentAdapter commentAdapter;
     RecyclerView recyclerViewCmnt;
@@ -57,11 +63,13 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private OnCommentClick cCallback;
-
+    List<PostResult> resourcer= new ArrayList<>();
 
     public PostViewAdapter(List<PostResult> postLists, Context context,OnCommentClick listener) {
+        Collections.reverse(postLists);
         this.resourcePost = postLists;
         this.context = context;
+        //Log.d(TAG, "PostViewAdapter:______________________ "+context.getClass().getSimpleName());
         this.cCallback = listener;
     }
     @Override
@@ -78,6 +86,14 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
+        this.resourceLike=postResult.getLikes();
+        for(int i=0;i<postResult.getLikes().size();i++){
+            if(Objects.equals(resourceLike.get(i).getUserID(),SignIn.userID) && resourceLike.get(i).getLike()){
+                holder.likeTextPost.setText("Unlike");
+                holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
+            }
+        }
+
         //set dp of person who posted
         Call<List<LoginResult>> call2 = retrofitInterface.userData(postResult.getUserID());
         call2.enqueue(new Callback<List<LoginResult>>() {
@@ -153,11 +169,52 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         if(postResult.getComments().isEmpty()){
         }else{
             this.resourceComment= postResult.getComments();
-
             commentAdapter = new CommentAdapter(resourceComment,context);
             commentAdapter.setHasStableIds(true);
             recyclerViewCmnt.setAdapter(commentAdapter);
         }
+
+        holder.likeButtonPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                like=new Likes(SignIn.userID,true);
+                like.setUserID(SignIn.userID);
+                like.setUsername(SignIn.userName);
+                if(Objects.equals(holder.likeTextPost.getText().toString(),"Like")){
+                    like.setLike(true);
+                } else if(Objects.equals(holder.likeTextPost.getText().toString(),"Unlike")){
+                    like.setLike(false);
+                }
+                HashMap<String,Likes> maping = new HashMap<>();
+                maping.put("likes",like);
+
+                Call<PostResult> call =retrofitInterface.putLike(postResult.getId(),maping);
+                call.enqueue(new Callback<PostResult>() {
+                    @Override
+                    public void onResponse(Call<PostResult> call, Response<PostResult> response) {
+                        if(response.isSuccessful()){
+                            if(Objects.equals(holder.likeTextPost.getText().toString(),"Like")){
+                                holder.likeTextPost.setText("Unlike");
+                                holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
+                            } else if(Objects.equals(holder.likeTextPost.getText().toString(),"Unlike")){
+                                holder.likeTextPost.setText("Like");
+                                holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.likefalse));
+                            }
+                        }else{
+                            Toast.makeText(context, "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                    @Override
+                    public void onFailure(Call<PostResult> call, Throwable t) {
+                        Toast.makeText(context, " Some error in like patch request : "+t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
         holder.commentSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +223,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                     maped.put("userID", SignIn.userID);
                     maped.put("username", SignIn.userName);
                     maped.put("text", holder.commentSendText.getText().toString());
+                    
                     HashMap<String,HashMap<String, String>> map = new HashMap<>();
                     map.put("comments",maped);
                     Call<PostResult> call =retrofitInterface.putComment(postResult.getId(),map);
@@ -183,13 +241,21 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                                     public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
                                         if (response.code() == 200) {
                                             Log.d("TAG",response.code()+"");
-                                            resourcePost=response.body();
-                                            cCallback.onClick(response.body(),position);
-
-                                            //notifyItemInserted(position);
-//                                            resourceComment= response.body().get(position).getComments();
-//                                            commentAdapter = new CommentAdapter(resourceComment,context);
-//                                            recyclerViewCmnt.setAdapter(commentAdapter);
+                                            if(Objects.equals(context.getClass().getSimpleName(),"HomePanel")){
+                                                resourcePost=response.body();
+                                                cCallback.onClick(response.body(),position);
+                                            }else if(Objects.equals(context.getClass().getSimpleName(),"Application")){
+                                                for(int i=0;i<response.body().size();i++){
+                                                    if(Objects.equals(response.body().get(i).getUserID(),SignIn.userID)){
+                                                        resourcer.add(response.body().get(i));
+                                                    }
+                                                    if(i==response.body().size()-1){
+                                                        Collections.reverse(resourcer);
+                                                        resourcePost=resourcer;
+                                                        cCallback.onClick(resourcer,position);
+                                                    }
+                                                }
+                                            }
                                         }else {
                                             Toast.makeText(context, "some response code", Toast.LENGTH_LONG).show();
                                         }
@@ -237,8 +303,8 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView userNamePost,timePost,postTextData;
-        public ImageView imagePost,commentSendButton;
+        public TextView userNamePost,timePost,postTextData,likeTextPost;
+        public ImageView imagePost,commentSendButton,likeButtonPost;
         public EditText commentSendText;
         public CircleImageView userDpPost;
         public ViewHolder(@NonNull View itemView) {
@@ -250,6 +316,8 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             this.commentSendText = itemView.findViewById(R.id.commentSendText);
             this.commentSendButton = itemView.findViewById(R.id.commentSendButton);
             this.userDpPost= itemView.findViewById(R.id.userDpPost);
+            this.likeButtonPost= itemView.findViewById(R.id.likeButtonPost);
+            this.likeTextPost= itemView.findViewById(R.id.likeTextPost);
 
             recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));
