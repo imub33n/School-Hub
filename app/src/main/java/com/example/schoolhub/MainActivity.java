@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.schoolhub.ui.home.HomeFragment;
+
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
     public static String BASE_URL = "http://192.168.10.8:8080/";
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 //        Toast.makeText(this,ip,Toast.LENGTH_SHORT).show();
         Intent it = new Intent( getApplicationContext() , LandingScreen.class);
         startActivity(it);
+
 //admin@admin.com
 //admin
 

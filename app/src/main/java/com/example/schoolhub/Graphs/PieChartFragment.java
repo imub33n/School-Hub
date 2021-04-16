@@ -19,6 +19,7 @@ import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.example.schoolhub.R;
+import com.example.schoolhub.ui.statistics.StatisticsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +44,10 @@ public class PieChartFragment extends Fragment {
                 Toast.makeText(getContext(), event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
             }
         });
-
         List<DataEntry> data2 = new ArrayList<>();
-        data2.add(new ValueDataEntry("School 1", 4.3));
-        data2.add(new ValueDataEntry("School 2", 2.7));
-        data2.add(new ValueDataEntry("School 3", 4.9));
+        for(int i=0;i<StatisticsFragment.ComparisonSchools.size();i++){
+            data2.add(new ValueDataEntry(StatisticsFragment.ComparisonSchools.get(i).getSchoolName(), 4.3+i));
+        }
         pie.data(data2);
         pie.title("School Ratting Graph");
         pie.labels().position("outside");
@@ -60,7 +60,6 @@ public class PieChartFragment extends Fragment {
                 .itemsLayout(LegendLayout.HORIZONTAL)
                 .align(Align.CENTER);
         anyChartView2.setChart(pie);
-
 
         return root;
     }

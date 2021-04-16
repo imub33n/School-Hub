@@ -83,7 +83,7 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
     List<SchoolData> schoolData;
     SearchResultAdapter searchResultAdapter;
     static RecyclerView recyclerViewCompare;
-    List<SchoolData> ComparisonSchools= new ArrayList<>();
+    public static List<SchoolData> ComparisonSchools= new ArrayList<>();
     ComparisonAdapter comparisonAdapter;
 
     private Retrofit retrofit;
@@ -244,25 +244,30 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
             @Override
             public void onClick(View view) {
                 //Bottom navBar
+                if(ComparisonSchools.size()==5){
+                    Toast.makeText(getContext(),"You can compare a max of 5 schools!", Toast.LENGTH_LONG).show();
+                }else{
+                    LinearLayout linearLayout = v.findViewById(R.id.rootfrag);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearLayout.getLayoutParams();
+                    params.height = getScreenHeight();
+                    linearLayout.setLayoutParams(params);
 
-                LinearLayout linearLayout = v.findViewById(R.id.rootfrag);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearLayout.getLayoutParams();
-                params.height = getScreenHeight();
-                linearLayout.setLayoutParams(params);
-
-                dialog.show();
-                mBehavior = BottomSheetBehavior.from((View) v.getParent());
-                mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
+                    dialog.show();
+                    mBehavior = BottomSheetBehavior.from((View) v.getParent());
+                    mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
             }
         });
 
         compareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent( getContext() , StatisticsResult.class);
-                startActivity(it);
-
+                if(ComparisonSchools.size()<2){
+                    Toast.makeText(getContext(), "Select at least 2 schools to compare", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent it = new Intent( getContext() , StatisticsResult.class);
+                    startActivity(it);
+                }
             }
         });
 

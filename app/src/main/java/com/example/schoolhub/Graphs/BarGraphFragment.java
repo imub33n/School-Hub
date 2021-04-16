@@ -19,6 +19,7 @@ import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
 import com.example.schoolhub.R;
+import com.example.schoolhub.ui.statistics.StatisticsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,13 @@ public class BarGraphFragment extends Fragment {
         AnyChartView anyChartView = root.findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(root.findViewById(R.id.progress_bar));
         Cartesian cartesian = AnyChart.column();
+
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("School 1", 5000));
-        data.add(new ValueDataEntry("School 2", 13000));
-        data.add(new ValueDataEntry("School 3", 10000));
-        data.add(new ValueDataEntry("School 4", 25000));
+
+        for(int i = 0; i< StatisticsFragment.ComparisonSchools.size(); i++){
+            data.add(new ValueDataEntry(StatisticsFragment.ComparisonSchools.get(i).getSchoolName(), 5000+((i+1)*100)));
+        }
+
         Column column = cartesian.column(data);
         column.tooltip()
                 .titleFormat("{%X}")
