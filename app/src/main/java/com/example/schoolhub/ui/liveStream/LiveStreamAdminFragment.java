@@ -25,6 +25,7 @@ import com.example.schoolhub.RequestsForSchoolAdmin;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.data.LiveStreamRequests;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.ui.liveStream.LiveStreamCam;
 import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
@@ -49,7 +50,7 @@ public class LiveStreamAdminFragment extends Fragment {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
-    static String adminId= SignIn.userID;
+    static String adminId= "";
     String adminIdGet;
     public static SchoolData yesSchoolData=new SchoolData();
     RecyclerView recyclerViewLivestreamRequest;
@@ -59,6 +60,7 @@ public class LiveStreamAdminFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.fragment_live_stream_admin, container, false);
+        adminId=PreferenceData.getLoggedInUserData(getContext()).get("userID");
         liveRequestButton= root.findViewById(R.id.liveRequestButton);
         startLiveStream= root.findViewById(R.id.startLiveStream);
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);

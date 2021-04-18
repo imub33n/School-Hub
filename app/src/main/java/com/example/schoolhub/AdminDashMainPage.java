@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class AdminDashMainPage extends Fragment {
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
     public static SchoolData yesSchoolData=new SchoolData();
-    static String adminId=SignIn.userID;
+    static String adminId="";
     String adminIdGet;
     Intent intent;
     CardView editGeneralCard,editPhotosCard,editFeeCard,editAcademicCard,editRequestCard;
@@ -40,6 +41,7 @@ public class AdminDashMainPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin_dash_main_page, container, false);
+        adminId= PreferenceData.getLoggedInUserData(getContext()).get("userID");
         editGeneralCard=root.findViewById(R.id.editGeneralCard);
         editPhotosCard=root.findViewById(R.id.editPhotosCard);
         editFeeCard=root.findViewById(R.id.editFeeCard);

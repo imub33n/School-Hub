@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.ui.home.HomeFragment;
 
 import static android.content.ContentValues.TAG;
@@ -25,19 +26,21 @@ public class MainActivity extends AppCompatActivity {
 //        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 //        BASE_URL = "http://"+ip+":8080/";
 //        Toast.makeText(this,ip,Toast.LENGTH_SHORT).show();
-        Intent it = new Intent( getApplicationContext() , LandingScreen.class);
-        startActivity(it);
-
-//admin@admin.com
-//admin
-
-//        final Handler handler = new Handler(Looper.getMainLooper());
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent intent= new Intent(getApplicationContext(), LandingScreen.class);
-//                startActivity(intent);
-//            }
-//        }, 2000);//timer set for 2 seconds
+//        Intent it = new Intent( getApplicationContext() , LandingScreen.class);
+//        startActivity(it);
+        if(PreferenceData.getUserLoggedInStatus(this)){
+            Log.d(TAG, "onCreate: _____________already logged in_____"+PreferenceData.getLoggedInUserData(this));
+            Intent intent= new Intent(getApplicationContext(), HomePanel.class);
+            startActivity(intent);
+        }else{
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent= new Intent(getApplicationContext(), LandingScreen.class);
+                    startActivity(intent);
+                }
+            }, 2000);//timer set for 2 seconds
+        }
    }
 }

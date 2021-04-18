@@ -30,6 +30,7 @@ import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.PostResult;
+import com.example.schoolhub.data.PreferenceData;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -88,7 +89,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.timePost.setText(postResult.getTime());
         this.resourceLike=postResult.getLikes();
         for(int i=0;i<postResult.getLikes().size();i++){
-            if(Objects.equals(resourceLike.get(i).getUserID(),SignIn.userID) && resourceLike.get(i).getLike()){
+            if(Objects.equals(resourceLike.get(i).getUserID(), PreferenceData.getLoggedInUserData(context).get("userID")) && resourceLike.get(i).getLike()){
                 holder.likeTextPost.setText("Unlike");
                 holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
             }
@@ -177,9 +178,9 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.likeButtonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                like=new Likes(SignIn.userID,true);
-                like.setUserID(SignIn.userID);
-                like.setUsername(SignIn.userName);
+                like=new Likes(PreferenceData.getLoggedInUserData(context).get("userID"),true);
+                like.setUserID(PreferenceData.getLoggedInUserData(context).get("userID"));
+                like.setUsername(PreferenceData.getLoggedInUserData(context).get("username"));
                 if(Objects.equals(holder.likeTextPost.getText().toString(),"Like")){
                     like.setLike(true);
                 } else if(Objects.equals(holder.likeTextPost.getText().toString(),"Unlike")){
@@ -220,8 +221,8 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             public void onClick(View v) {
                 if(holder.commentSendText.getText().length()>0){
                     HashMap<String, String> maped = new HashMap<>();
-                    maped.put("userID", SignIn.userID);
-                    maped.put("username", SignIn.userName);
+                    maped.put("userID", PreferenceData.getLoggedInUserData(context).get("userID"));
+                    maped.put("username", PreferenceData.getLoggedInUserData(context).get("username"));
                     maped.put("text", holder.commentSendText.getText().toString());
                     
                     HashMap<String,HashMap<String, String>> map = new HashMap<>();
@@ -246,7 +247,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                                                 cCallback.onClick(response.body(),position);
                                             }else if(Objects.equals(context.getClass().getSimpleName(),"Application")){
                                                 for(int i=0;i<response.body().size();i++){
-                                                    if(Objects.equals(response.body().get(i).getUserID(),SignIn.userID)){
+                                                    if(Objects.equals(response.body().get(i).getUserID(),PreferenceData.getLoggedInUserData(context).get("userID"))){
                                                         resourcer.add(response.body().get(i));
                                                     }
                                                     if(i==response.body().size()-1){

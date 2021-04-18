@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolhub.Adapters.SlideAdapter;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -48,6 +49,8 @@ public class AdminDashboard extends AppCompatActivity {
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PreferenceData.setUserLoggedInStatus(getApplicationContext(),false);
+                PreferenceData.clearLoggedInEmailAddress(getApplicationContext());
                 finish();
             }
         });
@@ -57,7 +60,7 @@ public class AdminDashboard extends AppCompatActivity {
 
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.nameNavHeader);
-        navUsername.setText("Hi "+SignIn.userName);
+        navUsername.setText("Hi "+ PreferenceData.getLoggedInUserData(getApplicationContext()).get("username"));
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.skolDashMain, R.id.skolDash, R.id.liveStream)

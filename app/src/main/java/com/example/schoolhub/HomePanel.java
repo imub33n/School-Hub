@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.schoolhub.data.PreferenceData;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -40,6 +41,8 @@ public class HomePanel extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PreferenceData.setUserLoggedInStatus(getApplicationContext(),false);
+                PreferenceData.clearLoggedInEmailAddress(getApplicationContext());
                 finish();
             }
         });
@@ -48,7 +51,7 @@ public class HomePanel extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.nameNavHeader);
-        navUsername.setText("Hi "+SignIn.userName);
+        navUsername.setText("Hi "+ PreferenceData.getLoggedInUserData(getApplicationContext()).get("username"));
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

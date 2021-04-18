@@ -20,6 +20,7 @@ import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.data.FeeStructure;
 import com.example.schoolhub.data.Image;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.Video;
@@ -199,7 +200,7 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
 
                                         }
                                         if((AddingSchoolStep2.newAttachmentList.size()-1)== finalI1){
-                                            schoolData.setAdminID(SignIn.userID);
+                                            schoolData.setAdminID(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
                                             schoolData.setSchoolName(AddingSchool.schoolNames);
                                             schoolData.setSchoolAddress(AddingSchool.schoolAddresss);
                                             schoolData.setAboutSchool(AddingSchool.schoolAbouts);

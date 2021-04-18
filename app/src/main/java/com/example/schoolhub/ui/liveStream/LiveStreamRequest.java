@@ -23,6 +23,7 @@ import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.SignUp;
+import com.example.schoolhub.data.PreferenceData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -89,7 +90,7 @@ public class LiveStreamRequest extends AppCompatActivity {
                 }else{
                     HashMap<String, String> map = new HashMap<>();
 
-                    map.put("schoolID",SignIn.userID);
+                    map.put("schoolID", PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
                     map.put("schoolName",LiveStreamAdminFragment.yesSchoolData.getSchoolName());
                     map.put("date",txtDate.getText().toString());
                     map.put("startTime",txtTime.getText().toString());

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.schoolhub.AddingSchool.AddingSchool;
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class SignIn extends AppCompatActivity {
     Button lin;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    public static String userName,userID,userType="";
+    //public static String userName,userID,userType="";
     List<SchoolData> schoolData;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -102,9 +103,11 @@ public class SignIn extends AppCompatActivity {
 
                         if (response.code() == 200) {
                             LoginResult result = response.body();
-                            userID=result.getUserID();
-                            userName=result.getUsername();
-                            userType=radioButton.getText().toString();
+                            PreferenceData.setUserLoggedInStatus(getApplicationContext(),true);
+                            PreferenceData.setLoggedInUserData(getApplicationContext(),result.getUsername(),result.getUserID(),result.getType());
+//                            userID=result.getUserID();
+//                            userName=result.getUsername();
+//                            userType=radioButton.getText().toString();
                             if(Objects.equals(radioButton.getText().toString(),"School")){
                                 Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();
                                 call2.enqueue(new Callback<List<SchoolData>>() {
@@ -140,13 +143,15 @@ public class SignIn extends AppCompatActivity {
                                 Intent it = new Intent( getApplicationContext() , HomePanel.class);
                                 startActivity(it);
                             }
-
-                            Toast.makeText(SignIn.this, result.getUserID(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(SignIn.this, result.getUserID(), Toast.LENGTH_LONG).show();
                         } else if (response.code() == 401) {
                             Toast.makeText(SignIn.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         } else if (response.code() == 500) {
                             Toast.makeText(SignIn.this, "Email error",
+                                    Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(SignIn.this, "Err "+response.code(),
                                     Toast.LENGTH_LONG).show();
                         }
                     }

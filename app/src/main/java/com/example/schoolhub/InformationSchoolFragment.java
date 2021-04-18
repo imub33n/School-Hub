@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.example.schoolhub.Adapters.SlideAdapter;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -100,8 +101,8 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        if(Objects.equals(SignIn.userType,"School")){
-            adminId=SignIn.userID;
+        if(Objects.equals(PreferenceData.getLoggedInUserData(getContext()).get("userType"),"School")){
+            adminId=PreferenceData.getLoggedInUserData(getContext()).get("userID");
         }
         else if(SearchResultAdapter.userIDsearch!=""){
             adminId=SearchResultAdapter.userIDsearch;

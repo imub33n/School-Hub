@@ -38,6 +38,7 @@ import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.PostResult;
+import com.example.schoolhub.data.PreferenceData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -207,8 +208,8 @@ public class HomeFragment extends Fragment implements OnCommentClick {
         LocalDateTime now = LocalDateTime.now();
         String currentTime=dtf.format(now);
         HashMap<String, String> map = new HashMap<>();
-        map.put("userID", SignIn.userID);
-        map.put("username", SignIn.userName);
+        map.put("userID", PreferenceData.getLoggedInUserData(getContext()).get("userID"));
+        map.put("username", PreferenceData.getLoggedInUserData(getContext()).get("username"));
         map.put("text", postText.getText().toString());
         map.put("time", currentTime);
         map.put("image",uploadedImageURL);

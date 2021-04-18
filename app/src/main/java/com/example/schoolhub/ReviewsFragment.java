@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.schoolhub.Adapters.LivestreamRequestsAdapter;
 import com.example.schoolhub.Adapters.SchoolReviewsAdapter;
 import com.example.schoolhub.data.LiveStreamRequests;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
 
@@ -82,13 +83,13 @@ public class ReviewsFragment extends Fragment {
                     }
                 }else{
                     //posting here
-                    if(SignIn.userID==null){
+                    if(PreferenceData.getLoggedInUserData(getContext()).get("userID")==null){
                         Toast.makeText(getContext(), "Please sign in to give review/rating!", Toast.LENGTH_LONG).show();
                     }
                     else{
                         progressBar.setVisibility(View.VISIBLE);
-                        schoolReviews.setUserID(SignIn.userID);
-                        schoolReviews.setUsername(SignIn.userName);
+                        schoolReviews.setUserID(PreferenceData.getLoggedInUserData(getContext()).get("userID"));
+                        schoolReviews.setUsername(PreferenceData.getLoggedInUserData(getContext()).get("username"));
                         schoolReviews.setRating((int) giveRatingBar.getRating());
                         schoolReviews.setReviewText(giveReview.getText().toString());
                         schoolReviews.setSchoolID(InformationSchoolFragment.thisSchoolData.get_id());

@@ -32,6 +32,7 @@ import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.PostResult;
+import com.example.schoolhub.data.PreferenceData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -90,9 +91,9 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         emailProfile= findViewById(R.id.emailProfile);
         userNameProfile= findViewById(R.id.userNameProfile);
         //setData
-        userNameProfile.setText(SignIn.userName);
+        userNameProfile.setText(PreferenceData.getLoggedInUserData(getApplicationContext()).get("username"));
         //getting userData
-        Call<List<LoginResult>> call2 = retrofitInterface.userData(SignIn.userID);
+        Call<List<LoginResult>> call2 = retrofitInterface.userData(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
         call2.enqueue(new Callback<List<LoginResult>>() {
             @Override
             public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
@@ -146,7 +147,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                 if (response.code() == 200) {
                     progressBar.setVisibility(View.INVISIBLE);
                     for(int i=0;i<response.body().size();i++){
-                        if(Objects.equals(response.body().get(i).getUserID(),SignIn.userID)){
+                        if(Objects.equals(response.body().get(i).getUserID(),PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"))){
                             resource.add(response.body().get(i));
                         }
                         if(i==response.body().size()-1){
@@ -226,7 +227,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                                     HashMap<String, String> map = new HashMap<>();
                                     map.put("profilePic", yoru.toString());
 
-                                    Call<Void> call3 = retrofitInterface.updateDp(SignIn.userID,map);
+                                    Call<Void> call3 = retrofitInterface.updateDp(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"),map);
                                     call3.enqueue(new Callback<Void>() {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
@@ -305,7 +306,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                                                 if(!oldPasswordEdit.getText().toString().isEmpty()){
                                                     maped.put("oldPassword", oldPasswordEdit.getText().toString());
                                                     maped.put("newPassword", newPasswordEdit.getText().toString());
-                                                    Call<Void> called = retrofitInterface.updateUserData(SignIn.userID,maped);
+                                                    Call<Void> called = retrofitInterface.updateUserData(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"),maped);
                                                     called.enqueue(new Callback<Void>() {
                                                         @Override
                                                         public void onResponse(Call<Void> call, Response<Void> response) {
@@ -363,7 +364,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                             maper.put("phoneNumber",phoneNoEdit.getText().toString());
                         }
                         if(!userNameEdit.getText().toString().isEmpty() || !phoneNoEdit.getText().toString().isEmpty()){
-                            Call<Void> caller = retrofitInterface.updateUserData(SignIn.userID,maper);
+                            Call<Void> caller = retrofitInterface.updateUserData(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"),maper);
                             caller.enqueue(new Callback<Void>() {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
