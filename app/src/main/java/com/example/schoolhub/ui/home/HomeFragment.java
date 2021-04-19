@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
             public void onClick(View v) {
                 imageNameHome.setText("");
                 nameHomePhoto="";
-                filePath= Uri.parse("");
+                filePath=null;
                 photoHomeLayout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
             }
         });
@@ -222,6 +222,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
                 if (response.code() == 200) {
                     postText.setText("");
                     Toast.makeText(getContext(), "Post Successful", Toast.LENGTH_LONG).show();
+                    photoHomeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
                     updatePosts();
                 } else {
                     Toast.makeText(getContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();

@@ -41,7 +41,6 @@ public class LineGraphFragment extends Fragment {
         cartesian.animation(true);
 
         cartesian.padding(10d, 20d, 5d, 20d);
-
         cartesian.crosshair().enabled(true);
         cartesian.crosshair()
                 .yLabel(true)
@@ -49,15 +48,92 @@ public class LineGraphFragment extends Fragment {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Trend of Sales of the Most Popular Products of ACME Corp.");
+        cartesian.title("Fee Structure Comparison");
 
-        cartesian.yAxis(0).title("Number of Bottles Sold (thousands)");
-        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
-        //distance,fee,rating
+        cartesian.yAxis(0).title("Fee in PKR");
+        cartesian.xAxis(0).title("Fee Type");
+        cartesian.xAxis(0).title().padding(0d, 0d, 10d, 0d);
+        cartesian.xAxis(0).labels().padding(0d, 0d, 0d, 0d);
+        //
         List<DataEntry> seriesData = new ArrayList<>();
-        seriesData.add(new CustomDataEntry("1986", 3.6, 2.3, 2.8));
+        if(StatisticsFragment.ComparisonSchools.size()==2){
+            seriesData.add(new CustomDataEntry("Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getAdmissionFee()));
+            seriesData.add(new CustomDataEntry("Tution",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTutionFee()));
+            seriesData.add(new CustomDataEntry("Monthly",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getMonthlyFee()));
+            seriesData.add(new CustomDataEntry("Total Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTotalAdmissionFee()));
 
-
+        }else if(StatisticsFragment.ComparisonSchools.size()==3){
+            seriesData.add(new CustomDataEntry("Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getAdmissionFee()));
+            seriesData.add(new CustomDataEntry("Tution",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getTutionFee()));
+            seriesData.add(new CustomDataEntry("Monthly",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getMonthlyFee()));
+            seriesData.add(new CustomDataEntry("Total Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getTotalAdmissionFee()));
+        }else if(StatisticsFragment.ComparisonSchools.size()==4){
+            seriesData.add(new CustomDataEntry("Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getAdmissionFee()));
+            seriesData.add(new CustomDataEntry("Tution",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getTutionFee()));
+            seriesData.add(new CustomDataEntry("Monthly",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getMonthlyFee()));
+            seriesData.add(new CustomDataEntry("Total Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getTotalAdmissionFee()));
+        }else if(StatisticsFragment.ComparisonSchools.size()==5){
+            seriesData.add(new CustomDataEntry("Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().size()-1).getAdmissionFee()));
+            seriesData.add(new CustomDataEntry("Tution",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getTutionFee(),
+                    StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().size()-1).getTutionFee()));
+            seriesData.add(new CustomDataEntry("Monthly",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getMonthlyFee(),
+                    StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().size()-1).getMonthlyFee()));
+            seriesData.add(new CustomDataEntry("Total Admission",
+                    StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(0).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(1).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(2).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(3).getFeeStructure().size()-1).getTotalAdmissionFee(),
+                    StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(4).getFeeStructure().size()-1).getTotalAdmissionFee()));
+        }
 
         Set set = Set.instantiate();
         set.data(seriesData);

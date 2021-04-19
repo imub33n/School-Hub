@@ -29,6 +29,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.enums.Align;
+import com.anychart.enums.LegendLayout;
 import com.example.schoolhub.Adapters.ComparisonAdapter;
 import com.example.schoolhub.Adapters.GraphAdapter;
 import com.example.schoolhub.Adapters.SearchResultAdapter;
@@ -41,6 +45,7 @@ import com.example.schoolhub.data.Fee;
 import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
+import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.data.SearchFilters;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap;
@@ -51,6 +56,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,11 +85,12 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
     Fee fee=new Fee();
     SearchFilters searchFiltersReset= new SearchFilters();
     Fee feeReset=new Fee();
-    SchoolCoordinates schoolCoordinates=new SchoolCoordinates();
+    public static SchoolCoordinates schoolCoordinates=new SchoolCoordinates();
     List<SchoolData> schoolData;
     SearchResultAdapter searchResultAdapter;
     static RecyclerView recyclerViewCompare;
     public static List<SchoolData> ComparisonSchools= new ArrayList<>();
+    public static List<SchoolReviews> allSchoolReviews = new ArrayList<SchoolReviews>();
     ComparisonAdapter comparisonAdapter;
 
     private Retrofit retrofit;
@@ -93,7 +100,6 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
         getLocation();
-
         v = getLayoutInflater().inflate(R.layout.fragment_filters, null, false);
         dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(v);
@@ -106,6 +112,22 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+        //request review data
+        Call<List<SchoolReviews>> call2er = retrofitInterface.getReviews();
+        call2er.enqueue(new Callback<List<SchoolReviews>>() {
+            @Override
+            public void onResponse(Call<List<SchoolReviews>> call, Response<List<SchoolReviews>> response) {
+                if (response.code() == 200) {
+                    allSchoolReviews = response.body();
+                }else {
+                    Toast.makeText(getContext(), "CODE: "+response.code(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<SchoolReviews>> call, Throwable t) {
+                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
         //yes
         searchEditText=v.findViewById(R.id.searchEditText);
         reset=v.findViewById(R.id.button);

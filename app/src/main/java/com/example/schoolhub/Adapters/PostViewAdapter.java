@@ -87,6 +87,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
+        holder.totalLikesTextPost.setText("("+postResult.getTotalLikes()+" Likes) ");
         this.resourceLike=postResult.getLikes();
         for(int i=0;i<postResult.getLikes().size();i++){
             if(Objects.equals(resourceLike.get(i).getUserID(), PreferenceData.getLoggedInUserData(context).get("userID")) && resourceLike.get(i).getLike()){
@@ -304,7 +305,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView userNamePost,timePost,postTextData,likeTextPost;
+        public TextView userNamePost,timePost,postTextData,likeTextPost,totalLikesTextPost;
         public ImageView imagePost,commentSendButton,likeButtonPost;
         public EditText commentSendText;
         public CircleImageView userDpPost;
@@ -319,6 +320,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             this.userDpPost= itemView.findViewById(R.id.userDpPost);
             this.likeButtonPost= itemView.findViewById(R.id.likeButtonPost);
             this.likeTextPost= itemView.findViewById(R.id.likeTextPost);
+            this.totalLikesTextPost= itemView.findViewById(R.id.totalLikesTextPost);
 
             recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));

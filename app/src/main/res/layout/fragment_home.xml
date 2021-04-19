@@ -7,20 +7,21 @@
     android:background="#fff"
     tools:context=".ui.home.HomeFragment">
 
-<!--    <TextView-->
-<!--        android:id="@+id/text_home"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="5dp"-->
-<!--        android:paddingLeft="10dp"-->
-<!--        android:textAllCaps="true"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textAlignment="viewStart"-->
-<!--        android:textColor="@color/ic_launcher_background"-->
-<!--        android:textSize="40sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:paddingLeft="10dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textAlignment="viewStart"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="40sp"
+        android:text="HOME"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ScrollView
@@ -31,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/text_home">
 
         <LinearLayout
             android:layout_width="match_parent"

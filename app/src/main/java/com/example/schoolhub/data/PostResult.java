@@ -22,6 +22,9 @@ public class PostResult {
     @SerializedName("likes")
     @Expose
     private List<Likes> likes;
+    @SerializedName("totalLikes")
+    @Expose
+    private Integer totalLikes;
     @SerializedName("time")
     @Expose
     private String time;
@@ -92,4 +95,5 @@ public class PostResult {
         this.image = image;
     }
 
+    public Integer getTotalLikes() { return totalLikes; }
 }

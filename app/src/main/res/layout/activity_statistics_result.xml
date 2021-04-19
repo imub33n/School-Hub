@@ -42,12 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/schoolComparisonNav">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_graph_view_1"
-                android:name="com.example.schoolhub.Graphs.PieChartFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_pie_chart" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,13 +89,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_graph_view_2"
-                android:name="com.example.schoolhub.Graphs.BarGraphFragment"
+                android:id="@+id/fragment_graph_view_1"
+                android:name="com.example.schoolhub.Graphs.PieChartFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_bar_graph" />
+                tools:layout="@layout/fragment_pie_chart" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -134,13 +128,12 @@
                         app:layout_constraintTop_toBottomOf="@id/skolNameDistaceStats" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_graph_view_3"
-                android:name="com.example.schoolhub.Graphs.LineGraphFragment"
+                android:id="@+id/fragment_graph_view_2"
+                android:name="com.example.schoolhub.Graphs.BarGraphFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_line_graph" />
+                tools:layout="@layout/fragment_bar_graph" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -174,6 +167,12 @@
                         app:layout_constraintTop_toBottomOf="@id/skolNameFeeStats" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_graph_view_3"
+                android:name="com.example.schoolhub.Graphs.LineGraphFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_line_graph" />
         </LinearLayout>
     </ScrollView>
 
