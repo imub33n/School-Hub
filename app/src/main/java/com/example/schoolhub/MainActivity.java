@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 //        Intent it = new Intent( getApplicationContext() , LandingScreen.class);
 //        startActivity(it);
         if(PreferenceData.getUserLoggedInStatus(this)){
-            Log.d(TAG, "onCreate: _____________already logged in_____"+PreferenceData.getLoggedInUserData(this));
             Intent intent= new Intent(getApplicationContext(), HomePanel.class);
             startActivity(intent);
         }else{

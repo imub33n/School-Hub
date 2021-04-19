@@ -1,8 +1,10 @@
 package com.example.schoolhub.ui.search;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -103,6 +105,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
+
+        final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+
         searchButton= root.findViewById(R.id.searchText);
         getLocation();
         retrofit = new Retrofit.Builder()
@@ -258,7 +267,6 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
                                         Toast.LENGTH_LONG).show();
                             }
                         });
-
                     }
                 });
             }
@@ -270,12 +278,14 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
 
         return root;
     }
+
     void getLocation() {
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 0, this::onLocationChanged);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000000, 0, this::onLocationChanged);
+            locationManager.removeUpdates(this::onLocationChanged);
         }
         catch(SecurityException e) {
             e.printStackTrace();
@@ -290,8 +300,8 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
                 if (response.code() == 200) {
                     Log.d("TAG",response.code()+"");
                     allSchoolsData =  response.body();
-                    LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
+//                    LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
+//                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
                     for(int i=0;i<allSchoolsData.size();i++){
                         lat= Double.valueOf(allSchoolsData.get(i).getSchoolCoordinates().getLatitude());
                         lng= Double.valueOf(allSchoolsData.get(i).getSchoolCoordinates().getLongitude());
@@ -330,8 +340,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
         }
         this.googleMap=googleMap;
         getSchoolMarkers();
-        googleMap.setMyLocationEnabled(true);
 
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.getUiSettings().setCompassEnabled(true);
     }
 
     @Override
@@ -378,9 +390,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
         schoolCoordinates.setLongitude(String.valueOf(location.getLongitude()));
         schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
         searchFilters.setSchoolCoordinates(schoolCoordinates);
-//        LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
-//        Log.d(TAG, "onResponse: ________________co-ordinates_______"+l);
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
+        LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
         //to line 293
     }
+
 }

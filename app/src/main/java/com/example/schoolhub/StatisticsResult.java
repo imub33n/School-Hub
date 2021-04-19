@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +17,7 @@ import com.example.schoolhub.Adapters.GraphAdapter;
 import com.example.schoolhub.Adapters.SchoolReviewsAdapter;
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.ui.statistics.StatisticsFragment;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.DecimalFormat;
@@ -25,15 +30,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
-public class StatisticsResult extends AppCompatActivity {
+public class StatisticsResult extends AppCompatActivity implements LocationListener {
     public Toolbar schoolComparisonNav;
     TextView skolNameRatedStats,RatedStats,skolNameDistaceStats,DistaceStats,skolNameFeeStats,FeeStats;
+    LocationManager locationManager;
 
     String highestRatedSkol;
     float RatingSkol=0;
     float avg=0;
+    String shortestDistaceSkol;
+    float DistaceSkol= 99999;
+    String cheapestSkol;
+    int[] fee= new int[3];
+
     DecimalFormat adf= new DecimalFormat("0.0");
+    DecimalFormat bdf= new DecimalFormat("00.0");
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -98,9 +111,31 @@ public class StatisticsResult extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_LONG).show();
             }
         });
-//        for(int a=0;a<StatisticsFragment.ComparisonSchools.size();a++){
-//            if(StatisticsFragment.ComparisonSchools.)
-//        }
+
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 0, this::onLocationChanged);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000000, 0, this::onLocationChanged);
+            locationManager.removeUpdates(this::onLocationChanged);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+        fee[0]=999999;
+        fee[1]=999999;
+        fee[2]=999999;
+        for(int a=0;a<StatisticsFragment.ComparisonSchools.size();a++){
+            for(int b=0;b<StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().size();b++){
+                if(StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().get(b).getMonthlyFee()<fee[b] &&
+                        StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().get(b).getMonthlyFee()!=0){
+                    fee[b]=StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().get(b).getMonthlyFee();
+                    cheapestSkol=StatisticsFragment.ComparisonSchools.get(a).getSchoolName();
+                }
+            }
+        }
+        skolNameFeeStats.setText(cheapestSkol);
+        FeeStats.setText(fee[0]+" "+fee[0]);
         schoolComparisonNav=findViewById(R.id.schoolComparisonNav);
         schoolComparisonNav.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,5 +145,26 @@ public class StatisticsResult extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        for(int a=0;a<StatisticsFragment.ComparisonSchools.size();a++){
+            float[] results = new float[1];
+            Location.distanceBetween(
+                    33.684422,
+                    73.047882,
+                    Double.valueOf(StatisticsFragment.ComparisonSchools.get(a).getSchoolCoordinates().getLatitude()),
+                    Double.valueOf(StatisticsFragment.ComparisonSchools.get(a).getSchoolCoordinates().getLongitude()),
+                    results);
+            if( (results[0] / 1000) < DistaceSkol){
+                DistaceSkol = results[0]/1000;
+                shortestDistaceSkol = StatisticsFragment.ComparisonSchools.get(a).getSchoolName();
+            }
+//            Log.d(TAG, "onLocationChanged() called with: location = [______]" + DistaceSkol[0]/1000+"____" );
+        }
+        skolNameDistaceStats.setText(shortestDistaceSkol+" is nearest to you!");
+        DistaceStats.setText(bdf.format(DistaceSkol)+" KM Away");
     }
 }

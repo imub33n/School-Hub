@@ -116,7 +116,7 @@
                         android:id="@+id/skolNameDistaceStats"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="School Name Here is nearest to you!"
+                        android:text="School Name is nearest to you!"
                         android:textColor="#000"
                         android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
