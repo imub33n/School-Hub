@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cometchat.pro.core.AppSettings;
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.AddingSchool.AddingSchool;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
@@ -28,10 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.8:8080/";
+    public static String BASE_URL = "http://192.168.10.9:8080/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
+    //chat
+    String appID = "323611fede35399"; // Replace with your App ID
+    String region = "us"; // Replace with your App Region ("eu" or "us")
+    public static String authKey = "bdceaa21c369442ac6ddbbe1e68a7fc56596017a"; //Replace with your Auth Key.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,23 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+//chat
+        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(region).build();
 
+        CometChat.init(this, appID,appSettings, new CometChat.CallbackListener<String>() {
+            @Override
+            public void onSuccess(String successMessage) {
+
+                //UIKitSettings.setAuthKey(authKey);
+                CometChat.setSource("ui-kit","android","java");
+                Log.d(TAG, "Initialization completed successfully");
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
+            }
+        });
         if(PreferenceData.getUserLoggedInStatus(this)){
             if(Objects.equals(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"),"School")){
                 Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();

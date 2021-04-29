@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
@@ -35,6 +38,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.ContentValues.TAG;
+
 public class AdminDashboard extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     Button logoutAdmin;
@@ -51,7 +56,19 @@ public class AdminDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 PreferenceData.setUserLoggedInStatus(getApplicationContext(),false);
                 PreferenceData.clearLoggedInEmailAddress(getApplicationContext());
+                CometChat.logout(new CometChat.CallbackListener<String>() {
+                    @Override
+                    public void onSuccess(String successMessage) {
+                        Log.d(TAG, "Logout completed successfully");
+                    }
+                    @Override
+                    public void onError(CometChatException e) {
+                        Log.d(TAG, "Logout failed with exception: " + e.getMessage());
+                    }
+                });
                 finish();
+                Intent it = new Intent( AdminDashboard.this , LandingScreen.class);
+                startActivity(it);
             }
         });
 

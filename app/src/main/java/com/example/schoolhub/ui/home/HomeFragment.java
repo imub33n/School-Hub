@@ -1,4 +1,4 @@
-package com.example.schoolhub.ui.home;
+ package com.example.schoolhub.ui.home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,6 +31,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.cometchat.pro.core.AppSettings;
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.models.User;
 import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
@@ -63,7 +67,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
-import static java.lang.Thread.sleep;
 
 public class HomeFragment extends Fragment implements OnCommentClick {
 //recyclerView.getAdapter().notifyDataSetChanged();
@@ -91,6 +94,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
 //refrences
         postText= root.findViewById(R.id.postEditText);
         postButton= root.findViewById(R.id.postButton);
@@ -100,6 +104,43 @@ public class HomeFragment extends Fragment implements OnCommentClick {
         photoHomeLayout=root.findViewById(R.id.photoHomeLayout);
         cancelImage= root.findViewById(R.id.cancelPhoto);
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
+        //create chat user
+//        String authKey = MainActivity.authKey; // Replace with your App Auth Key
+//        User user = new User();
+//        user.setUid(PreferenceData.getLoggedInUserData(getContext()).get("userID")); // Replace with the UID for the user to be created
+//        user.setName(PreferenceData.getLoggedInUserData(getContext()).get("username")); // Replace with the name of the user
+//
+//        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
+//            @Override
+//            public void onSuccess(User user) {
+//                Log.d("createUser", user.toString());
+//            }
+//
+//            @Override
+//            public void onError(CometChatException e) {
+//                Log.e("createUser", e.getMessage());
+//            }
+//        });
+
+        //chat
+        if (CometChat.getLoggedInUser() == null) {
+            CometChat.login(PreferenceData.getLoggedInUserData(getContext()).get("userID"), MainActivity.authKey, new CometChat.CallbackListener<User>() {
+                @Override
+                public void onSuccess(User user) {
+                    Log.d(TAG, "Login Successful : " + user.toString());
+                }
+
+                @Override
+                public void onError(CometChatException e) {
+                    Log.d(TAG, "Login failed with exception: " + e.getMessage());
+                }
+            });
+        } else {
+            // User already logged in
+            Log.d(TAG, "Already loggedIn");
+        }
+        //endChat
+
         cancelImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

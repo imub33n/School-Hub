@@ -2,12 +2,15 @@ package com.example.schoolhub;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.data.PreferenceData;
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import static android.content.ContentValues.TAG;
 
 public class HomePanel extends AppCompatActivity {
 
@@ -43,7 +47,19 @@ public class HomePanel extends AppCompatActivity {
             public void onClick(View v) {
                 PreferenceData.setUserLoggedInStatus(getApplicationContext(),false);
                 PreferenceData.clearLoggedInEmailAddress(getApplicationContext());
+                CometChat.logout(new CometChat.CallbackListener<String>() {
+                    @Override
+                    public void onSuccess(String successMessage) {
+                        Log.d(TAG, "Logout completed successfully");
+                    }
+                    @Override
+                    public void onError(CometChatException e) {
+                        Log.d(TAG, "Logout failed with exception: " + e.getMessage());
+                    }
+                });
                 finish();
+                Intent it = new Intent( HomePanel.this , LandingScreen.class);
+                startActivity(it);
             }
         });
 

@@ -52,16 +52,7 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
             super(itemView);
             this.imageView = itemView.findViewById(R.id.image);
             this.title = itemView.findViewById(R.id.title);
-            this.desc = itemView.findViewById(R.id.desc);
+            this.desc = itemView.findViewById(R.id.rating);
         }
     }
 }
-//<androidx.viewpager2.widget.ViewPager2
-//        android:id="@+id/schoolsSliderLandingPage"
-//        android:layout_width="match_parent"
-//        android:layout_height="wrap_content"
-//        android:padding="10dp"
-//        android:paddingLeft="15dp"
-//        android:paddingRight="80dp"
-//        android:orientation="horizontal"
-//        />

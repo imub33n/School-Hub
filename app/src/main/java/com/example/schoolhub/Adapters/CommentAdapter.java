@@ -67,29 +67,31 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
                 if (response.code() == 200) {
+                    if(response.body().get(0).getProfilePic()==null){
 
-                    StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
-                    storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Glide.with(context)
-                                    .load(uri)
-                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                    .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
-                                    .error(R.drawable.ic_image_error)
-                                    .into(holder.userDpComment);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle any errors
-                            Glide.with(context)
-                                    .load(R.drawable.ic_image_error)
-                                    .fitCenter()
-                                    .into(holder.userDpComment);
-                        }
-                    });
-
+                    }else{
+                        StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                        storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Glide.with(context)
+                                        .load(uri)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                        .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                                        .error(R.drawable.ic_image_error)
+                                        .into(holder.userDpComment);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                                Glide.with(context)
+                                        .load(R.drawable.ic_image_error)
+                                        .fitCenter()
+                                        .into(holder.userDpComment);
+                            }
+                        });
+                    }
                 }else {
                     Toast.makeText(context, "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
                 }
