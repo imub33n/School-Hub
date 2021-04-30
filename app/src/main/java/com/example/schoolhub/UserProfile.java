@@ -6,21 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,7 +57,8 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     ProgressBar progressBar;
     List<PostResult> resource= new ArrayList<>();
     PostViewAdapter adapter;
-    TextView postStatus,phoneNoProfile,userNameProfile,emailProfile;
+    TextView postStatus,phoneNoProfile,userNameProfile,emailProfile,editDetails;
+    ImageView editDP;
     FirebaseStorage storage= FirebaseStorage.getInstance();
     CircleImageView profilePhoto;
     private final int PICK_IMAGE_REQUEST = 76;
@@ -83,21 +81,26 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         storageReference = storage.getReference();
-
+        editDP = findViewById(R.id.editDP);
+        editDetails = findViewById(R.id.editDetails);
         profilePhoto = findViewById(R.id.profilePhoto);
         postStatus= findViewById(R.id.postStatus);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         phoneNoProfile= findViewById(R.id.phoneNoProfile);
         emailProfile= findViewById(R.id.emailProfile);
         userNameProfile= findViewById(R.id.userNameProfile);
-        //setData
-        userNameProfile.setText(PreferenceData.getLoggedInUserData(getApplicationContext()).get("username"));
+        if(!Objects.equals(getIntent().getStringExtra("EXTRA_USER_ID"),PreferenceData.getLoggedInUserData(this).get("userID"))){
+            editDetails.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+            editDP.setLayoutParams(new FrameLayout.LayoutParams(0, 0));
+        }
         //getting userData
-        Call<List<LoginResult>> call2 = retrofitInterface.userData(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
+        Call<List<LoginResult>> call2 = retrofitInterface.userData(getIntent().getStringExtra("EXTRA_USER_ID"));
         call2.enqueue(new Callback<List<LoginResult>>() {
             @Override
             public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
                 if (response.code() == 200) {
+                    //setData
+                    userNameProfile.setText(response.body().get(0).getUsername());
                     emailProfile.setText(response.body().get(0).getEmail());
                     phoneNoProfile.setText(response.body().get(0).getPhoneNumber());
                     StorageReference storageRef = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
@@ -147,7 +150,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                 if (response.code() == 200) {
                     progressBar.setVisibility(View.INVISIBLE);
                     for(int i=0;i<response.body().size();i++){
-                        if(Objects.equals(response.body().get(i).getUserID(),PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"))){
+                        if(Objects.equals(response.body().get(i).getUserID(),getIntent().getStringExtra("EXTRA_USER_ID"))){
                             resource.add(response.body().get(i));
                         }
                         if(i==response.body().size()-1){
@@ -403,5 +406,9 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     public void onClick(List<PostResult> postResult, int position) {
 //        resource=postResult;
         adapter.notifyItemChanged(position);
+    }
+
+    public void goBackFromProfile(View view) {
+        onBackPressed();
     }
 }

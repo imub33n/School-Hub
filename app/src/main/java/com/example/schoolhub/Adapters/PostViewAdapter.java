@@ -1,6 +1,7 @@
 package com.example.schoolhub.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SignIn;
+import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LoginResult;
@@ -135,7 +137,13 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                 Toast.makeText(context, ""+t, Toast.LENGTH_LONG).show();
             }
         });
-
+        //
+        holder.userDpPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callProfile(postResult.getUserID());
+            }
+        });
         //set image in post
         if(postResult.getImage()==null){
             //holder.imagePost.setLayoutParams(new LinearLayout.LayoutParams(0,0));
@@ -334,5 +342,9 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
         }
     }
-
+    private void callProfile(String id){
+        Intent it = new Intent( context , UserProfile.class);
+        it.putExtra("EXTRA_USER_ID", id);
+        context.startActivity(it);
+    }
 }

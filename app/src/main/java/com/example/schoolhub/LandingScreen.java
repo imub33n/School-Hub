@@ -35,14 +35,20 @@ import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
+import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.data.SchoolsLandingModel;
 import com.example.schoolhub.data.SearchFilters;
+import com.example.schoolhub.ui.statistics.StatisticsFragment;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,6 +91,10 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
     AdapterLanding adapterLanding;
     Handler sliderHandler= new Handler();
 
+    List<SchoolReviews> thisSchoolReviews = new ArrayList<SchoolReviews>();
+
+    float avg=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +105,7 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
+        //
         //sliderAdapter
         viewPager = (ViewPager2) findViewById(R.id.viewPagerSliderLandingPage);
         imageInLanding.setPath("gs://okay-945dc.appspot.com/images/landingScreen.jpg");
@@ -110,22 +120,46 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
         recyclerViewLanding = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage);
         recyclerViewLanding.setHasFixedSize(true);
         recyclerViewLanding.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        this.models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
-        this.models.add(new SchoolsLandingModel(R.drawable.b, "Sticker", "Sticker is a type of label"));
-        this.models.add(new SchoolsLandingModel(R.drawable.c, "Poster", "Poster is any piece of printed"));
-        this.models.add(new SchoolsLandingModel(R.drawable.a, "Namecard", "Business cards are cards"));
-        adapterLanding = new AdapterLanding(models,this);
-        recyclerViewLanding.setAdapter(adapterLanding);
+        //top rated skols
+        for(int a = 0; a< MainActivity.allSchools.size(); a++){
+            for(int i=0;i< MainActivity.allSchoolReviews.size();i++){
+                if(Objects.equals(MainActivity.allSchools.get(a).get_id(),MainActivity.allSchoolReviews.get(i).getSchoolID())){
+                    thisSchoolReviews.add(MainActivity.allSchoolReviews.get(i));
+                }
+                if(i == MainActivity.allSchoolReviews.size()-1){
+                    if(thisSchoolReviews.size()==0){
+                    } else{
+                        for(int j=0;j<thisSchoolReviews.size();j++){
+                            avg+=thisSchoolReviews.get(j).getRating();
+                        }
+
+                        avg = avg/thisSchoolReviews.size();
+                        this.models.add( new SchoolsLandingModel( MainActivity.allSchools.get(a) , avg ) );
+                        avg=0;
+                        thisSchoolReviews.clear();
+                    }
+                }
+            }
+            if(a==MainActivity.allSchools.size()-1){
+                Collections.sort(models,SchoolsLandingModel.RatingComparator);
+                adapterLanding = new AdapterLanding(models,this);
+                recyclerViewLanding.setAdapter(adapterLanding);
+            }
+        }
+
+//        this.models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
+
         //2
-        recyclerViewLanding2 = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage2);
-        recyclerViewLanding2.setHasFixedSize(true);
-        recyclerViewLanding2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        this.models2.add( new SchoolsLandingModel(R.drawable.b, "Brochure2", "Brochure is an informative ") );
-        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Sticker2", "Sticker is a type of label"));
-        this.models2.add(new SchoolsLandingModel(R.drawable.c, "Poster2", "Poster is any piece of printed"));
-        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Namecard2", "Business cards are cards"));
-        adapterLanding = new AdapterLanding(models2,this);
-        recyclerViewLanding2.setAdapter(adapterLanding);
+//        recyclerViewLanding2 = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage2);
+//        recyclerViewLanding2.setHasFixedSize(true);
+//        recyclerViewLanding2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+//        this.models2.add( new SchoolsLandingModel(R.drawable.b, "Brochure2", "Brochure is an informative ") );
+//        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Sticker2", "Sticker is a type of label"));
+//        this.models2.add(new SchoolsLandingModel(R.drawable.c, "Poster2", "Poster is any piece of printed"));
+//        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Namecard2", "Business cards are cards"));
+//        adapterLanding = new AdapterLanding(models2,this);
+//        recyclerViewLanding2.setAdapter(adapterLanding);
+
         //sliderAdapter
         viewPager.setClipToPadding(false);
         viewPager.setClipChildren(false);

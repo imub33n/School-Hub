@@ -81,7 +81,6 @@ public class StatisticsResult extends AppCompatActivity {
             }
             if(a==StatisticsFragment.ComparisonSchools.size()-1){
                 skolNameRatedStats.setText(highestRatedSkol);
-
                 RatedStats.setText(adf.format(RatingSkol));
             }
         }

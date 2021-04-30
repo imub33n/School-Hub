@@ -44,7 +44,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReviewAndFeedback"></activity>
+        <activity android:name=".UserProfileView"></activity>
+        <activity android:name=".ReviewAndFeedback" />
         <activity android:name=".ui.liveStream.LiveStreamView" />
         <activity android:name=".StatisticsResult" />
         <activity android:name=".ui.liveStream.LiveStreamCam" />
@@ -65,7 +66,6 @@
         <activity android:name=".LandingScreen" />
         <activity android:name=".ARModel" />
         <activity android:name=".SignIn" />
-        <activity android:name=".UserSignIn" />
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -3,47 +3,39 @@ package com.example.schoolhub.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SchoolsLandingModel {
-    private int image;
-    private String title;
-    private String desc;
-    private List<SchoolData> schools;
 
+    private SchoolData schools;
+    private Float rating;
 
-    public SchoolsLandingModel(int image, String title, String desc) {
-        this.image = image;
-        this.title = title;
-        this.desc = desc;
-    }
-    public int getImage() {
-        return image;
+    public SchoolsLandingModel(SchoolData schoolData, float rating) {
+        this.schools=schoolData;
+        this.rating=rating;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
+    public Float getRating() { return rating; }
 
-    public String getTitle() {
-        return title;
-    }
+    public void setRating(Float rating) { this.rating = rating; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public SchoolData getSchools() { return schools; }
 
-    public String getDesc() {
-        return desc;
-    }
+    public void setSchools(SchoolData schools) { this.schools = schools; }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+    public static Comparator<SchoolsLandingModel> RatingComparator = new Comparator<SchoolsLandingModel>() {
 
-    public List<SchoolData> getSchools() { return schools; }
+        public int compare(SchoolsLandingModel s1, SchoolsLandingModel s2) {
+            return Float.compare(s2.getRating() , s1.getRating());
+//            String StudentName1 = s1.getStudentname().toUpperCase();
+//            String StudentName2 = s2.getStudentname().toUpperCase();
 
-    public void setSchools(List<SchoolData> schools) { this.schools = schools; }
+            //ascending order
+//            return StudentName1.compareTo(StudentName2);
+
+        }
+    };
 }
 
 

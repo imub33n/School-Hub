@@ -17,8 +17,10 @@ import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.AddingSchool.AddingSchool;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
+import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.ui.home.HomeFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.9:8080/";
+    public static String BASE_URL = "http://192.168.10.8:8080/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     String appID = "323611fede35399"; // Replace with your App ID
     String region = "us"; // Replace with your App Region ("eu" or "us")
     public static String authKey = "bdceaa21c369442ac6ddbbe1e68a7fc56596017a"; //Replace with your Auth Key.
+    //data
+    public static List<SchoolData> allSchools= new ArrayList<>();
+    public static List<SchoolReviews> allSchoolReviews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +56,42 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-//chat
+        //get data
+        //request review data
+        Call<List<SchoolReviews>> call2er = retrofitInterface.getReviews();
+        call2er.enqueue(new Callback<List<SchoolReviews>>() {
+            @Override
+            public void onResponse(Call<List<SchoolReviews>> call, Response<List<SchoolReviews>> response) {
+                if (response.code() == 200) {
+                    allSchoolReviews = response.body();
+                }else {
+                    Toast.makeText(MainActivity.this, "CODE: "+response.code(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<SchoolReviews>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+        //schools data
+        Call<List<SchoolData>> call = retrofitInterface.getSchoolData();
+        call.enqueue(new Callback<List<SchoolData>>() {
+            @Override
+            public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
+                if (response.code() == 200) {
+                    allSchools =  response.body();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<SchoolData>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+        //chat
         AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(region).build();
-
         CometChat.init(this, appID,appSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successMessage) {
-
                 //UIKitSettings.setAuthKey(authKey);
                 CometChat.setSource("ui-kit","android","java");
                 Log.d(TAG, "Initialization completed successfully");
@@ -112,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent= new Intent(getApplicationContext(), LandingScreen.class);
                     startActivity(intent);
                 }
-            }, 2000);//timer set for 2 seconds
+            }, 3000);//timer set for 3 seconds
         }
    }
 }
