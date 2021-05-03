@@ -2,7 +2,6 @@ package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
-import com.example.schoolhub.SignIn;
 import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
-import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.PostResult;
 import com.example.schoolhub.data.PreferenceData;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,8 +46,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.ContentValues.TAG;
 
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     List<PostResult> resourcePost;
@@ -112,7 +105,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                             Glide.with(context)
                                     .load(uri)
                                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                    .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                                    .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
                                     .error(R.drawable.ic_image_error)
                                     .into(holder.userDpPost);
                         }
@@ -159,7 +152,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                                 .load(uri)
                                 //.fitCenter()
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
                                 .error(R.drawable.a)
                                 .into(holder.imagePost);
                     }

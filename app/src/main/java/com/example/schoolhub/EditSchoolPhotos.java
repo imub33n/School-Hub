@@ -2,8 +2,6 @@ package com.example.schoolhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -132,7 +130,7 @@ public class EditSchoolPhotos extends AppCompatActivity {
                     Glide.with(this)
                             .load(videoUri)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(this).load(R.drawable.ic_image_loading))
+                            .thumbnail(Glide.with(this).load(R.drawable.ic_img_loading))
                             .error(R.drawable.ic_image_error)
                             .into(attachedVideoId);
                 }
@@ -156,7 +154,7 @@ public class EditSchoolPhotos extends AppCompatActivity {
                     Glide.with(this)
                             .load(returnUri)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(this).load(R.drawable.ic_image_loading))
+                            .thumbnail(Glide.with(this).load(R.drawable.ic_img_loading))
                             .error(R.drawable.ic_image_error)
                             .into(attachedPhotoId);
                 }

@@ -44,7 +44,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserProfileView"></activity>
+
         <activity android:name=".ReviewAndFeedback" />
         <activity android:name=".ui.liveStream.LiveStreamView" />
         <activity android:name=".StatisticsResult" />
@@ -83,7 +83,6 @@
         <activity
             android:name=".SchoolDetails"
             android:label="School Details" /> <!-- android:theme="@style/AppTheme.ActionBar" -->
-        <activity android:name=".SuperAdminMain" />
         <activity
             android:name=".HomePanel"
             android:label="@string/title_activity_home_panel"

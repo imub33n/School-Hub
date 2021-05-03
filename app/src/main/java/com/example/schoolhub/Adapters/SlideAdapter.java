@@ -55,7 +55,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
                                 //.fitCenter()
                                 //.dontAnimate()
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
                                 .error(R.drawable.ic_image_error)
                                 //.apply(new RequestOptions().override(1000, 500))
                                 .into(holder.imageView);

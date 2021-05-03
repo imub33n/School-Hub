@@ -123,7 +123,7 @@ public class AddingSchoolStep2 extends AppCompatActivity {
                     Glide.with(this)
                             .load(videoUri)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(this).load(R.drawable.ic_image_loading))
+                            .thumbnail(Glide.with(this).load(R.drawable.ic_img_loading))
                             .error(R.drawable.ic_image_error)
                             .into(attachedVideoId);
                 }

@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -110,7 +109,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                             Glide.with(getApplicationContext())
                                     .load(uri)
                                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                    .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
+                                    .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
                                     .error(R.drawable.ic_image_error)
                                     .into(profilePhoto);
                         }
@@ -239,7 +238,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                                                 Glide.with(getApplicationContext())
                                                         .load(filePath)
                                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
+                                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
                                                         .error(R.drawable.ic_image_error)
                                                         .into(profilePhoto);
                                             } else {

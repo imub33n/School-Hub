@@ -57,7 +57,7 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
                             //.fitCenter()
                             //.dontAnimate()
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(context).load(R.drawable.ic_image_loading))
+                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
                             .error(R.drawable.ic_image_error)
                             //.apply(new RequestOptions().override(1000, 500))
                             .into(holder.imageView);

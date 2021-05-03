@@ -20,7 +20,6 @@ import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.storage.FirebaseStorage;
@@ -76,6 +75,7 @@ public class HomePanel extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +137,7 @@ public class HomePanel extends AppCompatActivity {
                                         .load(uri)
                                         .circleCrop()
                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_image_loading))
+                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
                                         .error(R.drawable.ic_image_error)
                                         .into(new CustomTarget<Drawable>() {
                                             @Override
