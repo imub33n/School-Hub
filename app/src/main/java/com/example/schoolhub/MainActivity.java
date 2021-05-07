@@ -35,14 +35,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.11:8080/";
+    public static String BASE_URL = "http://192.168.10.8:8080/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
-    //chat
-    public static String appID = "323611fede35399"; // Replace with your App ID
-    public static String region = "us"; // Replace with your App Region ("eu" or "us")
-    public static String authKey = "bdceaa21c369442ac6ddbbe1e68a7fc56596017a"; //Replace with your Auth Key.
+    //chatAPI
+    public static String appID = "323611fede35399";
+    public static String region = "us";
+    public static String authKey = "bdceaa21c369442ac6ddbbe1e68a7fc56596017a";
+    public static String API_KEY = "3972dfed09f25aabc875f5e613e862b39db70fca";
     //data
     public static List<SchoolData> allSchools= new ArrayList<>();
     public static List<SchoolReviews> allSchoolReviews = new ArrayList<>();
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //chat login chk
         if(PreferenceData.getUserLoggedInStatus(this)){
-            if(Objects.equals(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"),"School")){
+            if(Objects.equals(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userType"),"School")){
                 Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();
                 call2.enqueue(new Callback<List<SchoolData>>() {
                     @Override

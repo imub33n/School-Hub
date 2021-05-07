@@ -29,11 +29,13 @@ import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.ui.liveStream.LiveStreamCam;
 import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
+import com.google.android.material.chip.Chip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -47,23 +49,58 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LiveStreamAdminFragment extends Fragment {
     Button liveRequestButton;
     TextView startLiveStream;
+    Chip chipAll,chipMy;
+
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
-    static String adminId= "";
-    String adminIdGet;
     public static SchoolData yesSchoolData=new SchoolData();
+    List<LiveStreamRequests> allLiveStreamRequests;
+    List<LiveStreamRequests> myLiveStreamRequests= new ArrayList<>();
+
     RecyclerView recyclerViewLivestreamRequest;
     LivestreamRequestsAdapter livestreamRequestsAdapter;
+
+    static String adminId= "";
+    String adminIdGet;
     ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.fragment_live_stream_admin, container, false);
         adminId=PreferenceData.getLoggedInUserData(getContext()).get("userID");
         liveRequestButton= root.findViewById(R.id.liveRequestButton);
-        startLiveStream= root.findViewById(R.id.startLiveStream);
+        //startLiveStream= root.findViewById(R.id.startLiveStream);
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
+        chipAll= root.findViewById(R.id.chipAll);
+        chipMy= root.findViewById(R.id.chipMy);
+        chipMy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(allLiveStreamRequests.size()==0){
+                }else{
+                    myLiveStreamRequests.clear();
+                    for(int i=0;i<allLiveStreamRequests.size();i++){
+                        if(allLiveStreamRequests.get(i).getSchoolName().equals(yesSchoolData.getSchoolName())){
+                            myLiveStreamRequests.add(allLiveStreamRequests.get(i));
+
+                        }
+                        if(i==allLiveStreamRequests.size()-1){
+                            livestreamRequestsAdapter = new LivestreamRequestsAdapter(myLiveStreamRequests,getContext());
+                            recyclerViewLivestreamRequest.setAdapter(livestreamRequestsAdapter);
+                        }
+                    }
+                }
+            }
+        });
+        chipAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                livestreamRequestsAdapter = new LivestreamRequestsAdapter(allLiveStreamRequests,getContext());
+                recyclerViewLivestreamRequest.setAdapter(livestreamRequestsAdapter);
+            }
+        });
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -82,6 +119,7 @@ public class LiveStreamAdminFragment extends Fragment {
                 if (response.code() == 200) {
 //                    Toast.makeText(getContext(),"Size Matters: " +response.body().size(), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.INVISIBLE);
+                    allLiveStreamRequests = response.body();
                     livestreamRequestsAdapter = new LivestreamRequestsAdapter(response.body(),getContext());
                     recyclerViewLivestreamRequest.setAdapter(livestreamRequestsAdapter);
                 }else {
@@ -125,13 +163,13 @@ public class LiveStreamAdminFragment extends Fragment {
             }
         });
 
-        startLiveStream.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), LiveStreamCam.class );
-                startActivity(intent);
-            }
-        });
+//        startLiveStream.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), LiveStreamCam.class );
+//                startActivity(intent);
+//            }
+//        });
         return root;
     }
 }

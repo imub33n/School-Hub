@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!--        Theme.MaterialComponents.Light//Theme.AppCompat.Light-->
         <!-- Customize your theme here.::Theme.AppCompat.Light.NoActionBar:: -->
         <item name="colorPrimary">#222222</item>

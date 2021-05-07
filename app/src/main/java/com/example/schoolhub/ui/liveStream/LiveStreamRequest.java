@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,9 +26,11 @@ import com.example.schoolhub.SignIn;
 import com.example.schoolhub.SignUp;
 import com.example.schoolhub.data.PreferenceData;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -35,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
 public class LiveStreamRequest extends AppCompatActivity {
     public Toolbar toolbarEdit;
@@ -44,7 +48,9 @@ public class LiveStreamRequest extends AppCompatActivity {
     RadioButton buttonPrivacy;
     private int mYear, mMonth, mDay, mHour, mMinute, mHour_end, mMinute_end;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    Calendar cStartTime;
+    SimpleDateFormat formatter = new SimpleDateFormat("d/M/yyyy");
+    Date date = new Date();
+    Calendar cStartTime= Calendar.getInstance();
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -174,9 +180,29 @@ public class LiveStreamRequest extends AppCompatActivity {
                                                       int minute) {
                                     datetime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                     datetime.set(Calendar.MINUTE, minute);
-                                    if (datetime.getTimeInMillis() >= c.getTimeInMillis()) {
+                                    if(formatter.format(date).equals(txtDate.getText().toString())){
+                                        if (datetime.getTimeInMillis() >= c.getTimeInMillis()) {
+                                            //it's after current
+                                            cStartTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                            cStartTime.set(Calendar.MINUTE, minute);
+                                            String a=String.valueOf(hourOfDay);
+                                            String b=String.valueOf(minute);
+                                            if(a.length()==1){
+                                                a="0"+hourOfDay;
+                                            }
+                                            if(b.length()==1){
+                                                b="0"+minute;
+                                            }
+                                            txtTime.setText(a + ":" + b);
+//                                        txtTime.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "AM" : "PM"));
+                                        } else {
+                                            //it's before current'
+                                            Toast.makeText(getApplicationContext(), "Invalid Time", Toast.LENGTH_LONG).show();
+                                        }
+                                    }else if(!formatter.format(date).equals(txtDate.getText().toString())){
                                         //it's after current
-                                        cStartTime=c;
+                                        cStartTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                        cStartTime.set(Calendar.MINUTE, minute);
                                         String a=String.valueOf(hourOfDay);
                                         String b=String.valueOf(minute);
                                         if(a.length()==1){
@@ -186,10 +212,6 @@ public class LiveStreamRequest extends AppCompatActivity {
                                             b="0"+minute;
                                         }
                                         txtTime.setText(a + ":" + b);
-//                                        txtTime.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "AM" : "PM"));
-                                    } else {
-                                        //it's before current'
-                                        Toast.makeText(getApplicationContext(), "Invalid Time", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }, mHour, mMinute, false);
@@ -218,9 +240,23 @@ public class LiveStreamRequest extends AppCompatActivity {
                                                       int minute) {
                                     datetime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                     datetime.set(Calendar.MINUTE, minute);
-                                    if (datetime.getTimeInMillis() >= cStartTime.getTimeInMillis()) {
-                                        //it's after current
-//                                        int hour = hourOfDay % 12;
+                                    if(hourOfDay < cStartTime.get(Calendar.HOUR_OF_DAY)){
+                                        Toast.makeText(getApplicationContext(), "Ending time can not be before starting time.", Toast.LENGTH_LONG).show();
+                                    }else if(cStartTime.get(Calendar.HOUR_OF_DAY)==hourOfDay){
+                                        if(minute<cStartTime.get(Calendar.MINUTE)){
+                                            Toast.makeText(getApplicationContext(), "Ending time can not be before starting time.", Toast.LENGTH_LONG).show();
+                                        }else{
+                                            String a=String.valueOf(hourOfDay);
+                                            String b=String.valueOf(minute);
+                                            if(a.length()==1){
+                                                a="0"+hourOfDay;
+                                            }
+                                            if(b.length()==1){
+                                                b="0"+minute;
+                                            }
+                                            txtTime_end.setText( a + ":" + b);
+                                        }
+                                    }else{
                                         String a=String.valueOf(hourOfDay);
                                         String b=String.valueOf(minute);
                                         if(a.length()==1){
@@ -230,11 +266,17 @@ public class LiveStreamRequest extends AppCompatActivity {
                                             b="0"+minute;
                                         }
                                         txtTime_end.setText( a + ":" + b);
-//                                        txtTime_end.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "AM" : "PM"));
-                                    } else {
-                                        //it's before current'
-                                        Toast.makeText(getApplicationContext(), "Ending time can not be before starting time.", Toast.LENGTH_LONG).show();
                                     }
+//                                    Log.d(TAG, "onTimeSet:_________________ "+cStartTime.get(Calendar.HOUR_OF_DAY)+"_______"+cStartTime.getTimeInMillis()+"_______"+cStartTime.getTime());
+//                                    if (datetime.getTimeInMillis() >= cStartTime.getTimeInMillis()) {
+//                                        //it's after current
+////                                        int hour = hourOfDay % 12;
+//
+////                                        txtTime_end.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, minute, hourOfDay < 12 ? "AM" : "PM"));
+//                                    } else {
+//                                        //it's before current'
+//                                        Toast.makeText(getApplicationContext(), "Ending time can not be before starting time.", Toast.LENGTH_LONG).show();
+//                                    }
                                 }
                             }, mHour_end, mMinute_end, false);
                     timePickerDialog.show();

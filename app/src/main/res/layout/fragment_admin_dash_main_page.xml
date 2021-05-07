@@ -50,17 +50,17 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:tag="0"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="5dp"
                     app:cardElevation="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:background="@color/appDefault"
+                        android:background="@drawable/edittextbg"
                         android:padding="30dp"
                         app:srcCompat="@drawable/information"
-                        app:tint="#fff" />
+                        app:tint="@color/appDefault" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                         android:layout_margin="5dp"
                         android:gravity="center"
                         android:text="General Information"
-                        android:textColor="#fff"
+                        android:textColor="@color/appDefault"
                         android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
 
@@ -80,17 +80,17 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:tag="1"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="5dp"
                     app:cardElevation="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:background="@color/appDefault"
+                        android:background="@drawable/edittextbg"
                         android:padding="30dp"
                         app:srcCompat="@drawable/fee"
-                        app:tint="#fff" />
+                        app:tint="@color/appDefault" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                         android:layout_margin="5dp"
                         android:gravity="center"
                         android:text="Fee Structure"
-                        android:textColor="#fff"
+                        android:textColor="@color/appDefault"
                         android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -116,17 +116,17 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:tag="2"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="5dp"
                     app:cardElevation="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:background="@color/appDefault"
+                        android:background="@drawable/edittextbg"
                         android:padding="30dp"
                         app:srcCompat="@drawable/picture"
-                        app:tint="#fff" />
+                        app:tint="@color/appDefault" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
                         android:layout_margin="5dp"
                         android:gravity="center"
                         android:text="Photos/Video"
-                        android:textColor="#fff"
+                        android:textColor="@color/appDefault"
                         android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
 
@@ -146,17 +146,17 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:tag="4"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="5dp"
                     app:cardElevation="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:background="@color/appDefault"
+                        android:background="@drawable/edittextbg"
                         android:padding="30dp"
                         app:srcCompat="@drawable/picture"
-                        app:tint="#fff" />
+                        app:tint="@color/appDefault" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                         android:layout_margin="5dp"
                         android:gravity="center"
                         android:text="Academic Info"
-                        android:textColor="#fff"
+                        android:textColor="@color/appDefault"
                         android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -177,17 +177,17 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:tag="3"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@color/appDefault"
+                    android:background="@drawable/edittextbg"
                     android:padding="30dp"
                     app:srcCompat="@drawable/request"
-                    app:tint="#fff" />
+                    app:tint="@color/appDefault" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="Faculty"
-                    android:textColor="#fff"
+                    android:textColor="@color/appDefault"
                     android:textSize="16dp" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
