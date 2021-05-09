@@ -11,6 +11,8 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -391,7 +393,14 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
         schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
         searchFilters.setSchoolCoordinates(schoolCoordinates);
         LatLng l = new LatLng(Double.valueOf(schoolCoordinates.getLatitude()),Double.valueOf(schoolCoordinates.getLongitude()));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(l,15));
+            }
+        }, 500);//timer set for .5 seconds
+
         //to line 293
     }
 

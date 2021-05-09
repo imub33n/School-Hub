@@ -1,4 +1,4 @@
-package com.example.schoolhub.ui.liveStream;
+ package com.example.schoolhub.ui.liveStream;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -118,7 +118,7 @@ public class LiveStreamCam extends AppCompatActivity {
         }
         @Override
         public void onBroadcastIdAvailable(String s) {
-            Log.d(TAG, "_____________s______________onBroadcastIdAvailable: "+s);
+            Log.d(TAG, "___________________________onBroadcastIdAvailable: "+s);
             Request request = new Request.Builder()
                     .url("https://api.bambuser.com/broadcasts/"+s)
                     .addHeader("Content-Type", "application/json")

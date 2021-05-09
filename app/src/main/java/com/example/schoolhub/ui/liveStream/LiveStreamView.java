@@ -108,48 +108,51 @@ public class LiveStreamView extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mVideoSurface = findViewById(R.id.VideoSurfaceView);
-        mPlayerStatusTextView.setText("Loading latest broadcast");
+        mPlayerStatusTextView.setText("Loading broadcast");
         getLatestResourceUri();
     }
 
     void getLatestResourceUri() {
-        Request request = new Request.Builder()
-                .url("https://api.bambuser.com/broadcasts")
-                .addHeader("Accept", "application/vnd.bambuser.v1+json")
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + API_KEY)
-                .get()
-                .build();
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(final Call call, final IOException e) {
-                runOnUiThread(new Runnable() { @Override public void run() {
-                    if (mPlayerStatusTextView != null)
-                        mPlayerStatusTextView.setText("Http exception: " + e);
-                }});
-            }
-            @Override
-            public void onResponse(final Call call, final Response response) throws IOException {
-                String body = response.body().string();
-                String resourceUri = null;
-                try {
-                    JSONObject json = new JSONObject(body);
-                    JSONArray results = json.getJSONArray("results");
-                    JSONObject latestBroadcast = results.optJSONObject(0);
-                    resourceUri = latestBroadcast.optString("resourceUri");
-                } catch (Exception ignored) {}
-                final String uri = resourceUri;
-                runOnUiThread(new Runnable() { @Override public void run() {
-                    initPlayer(uri);
-                }});
-            }
-        });
+        runOnUiThread(new Runnable() { @Override public void run() {
+            initPlayer(getIntent().getStringExtra("EXTRA_RESOURCE_URI"));
+        }});
+//        Request request = new Request.Builder()
+//                .url("https://api.bambuser.com/broadcasts")
+//                .addHeader("Accept", "application/vnd.bambuser.v1+json")
+//                .addHeader("Content-Type", "application/json")
+//                .addHeader("Authorization", "Bearer " + API_KEY)
+//                .get()
+//                .build();
+//        mOkHttpClient.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(final Call call, final IOException e) {
+//                runOnUiThread(new Runnable() { @Override public void run() {
+//                    if (mPlayerStatusTextView != null)
+//                        mPlayerStatusTextView.setText("Http exception: " + e);
+//                }});
+//            }
+//            @Override
+//            public void onResponse(final Call call, final Response response) throws IOException {
+//                String body = response.body().string();
+//                String resourceUri = null;
+//                try {
+//                    JSONObject json = new JSONObject(body);
+//                    JSONArray results = json.getJSONArray("results");
+//                    JSONObject latestBroadcast = results.optJSONObject(0);
+//                    resourceUri = latestBroadcast.optString("resourceUri");
+//                } catch (Exception ignored) {}
+//                final String uri = resourceUri;
+//                runOnUiThread(new Runnable() { @Override public void run() {
+//                    initPlayer(uri);
+//                }});
+//            }
+//        });
     }
 
     void initPlayer(String resourceUri) {
         if (resourceUri == null) {
             if (mPlayerStatusTextView != null)
-                mPlayerStatusTextView.setText("Could not get info about latest broadcast");
+                mPlayerStatusTextView.setText("Could not get the broadcast");
             return;
         }
         if (mVideoSurface == null) {

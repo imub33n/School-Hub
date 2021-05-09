@@ -34,6 +34,12 @@ public class LiveStreamRequests {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("resourceURI")
+    @Expose
+    private String resourceURI;
+    @SerializedName("isLive")
+    @Expose
+    private Boolean isLive;
 
     public String getSchoolID() {
         return schoolID;
@@ -114,4 +120,12 @@ public class LiveStreamRequests {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getResourceURI() { return resourceURI; }
+
+    public void setResourceURI(String resourceURI) { this.resourceURI = resourceURI; }
+
+    public Boolean getLive() { return isLive; }
+
+    public void setLive(Boolean live) { isLive = live; }
 }

@@ -7,25 +7,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/bgStreamList"
         android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_usage_rounded_corner"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="#EAEAEA"
-            android:orientation="vertical" />
         <TextView
-            android:id="@+id/nameSkolStreamRequest"
+            android:id="@+id/titleStream"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:letterSpacing="0.1"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:text="School Name Here"
+            android:text="Stream Title Here"
             android:textColor="#000" />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,21 +31,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:letterSpacing="0.1"
-                android:text="Title :"
+                android:text="School :"
                 android:textColor="#000"
                 android:textSize="14sp" />
             <TextView
-                android:id="@+id/titleStreamRequest"
+                android:id="@+id/nameSkolStream"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:letterSpacing="0.1"
-                android:text="Stream Title Here"
+                android:text="School Name Here"
                 android:textColor="#000"
                 android:textSize="14sp" />
         </LinearLayout>
         <TextView
-            android:id="@+id/timeDateStreamRequest"
+            android:id="@+id/timeDateStreams"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -58,17 +53,5 @@
             android:text="Stream Time and date Here"
             android:textColor="#000"
             android:textSize="12sp" />
-        <Button
-            android:id="@+id/statusStreamRequest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:clickable="false"
-            android:layout_marginLeft="10dp"
-            android:backgroundTint="#EAEAEA"
-            android:letterSpacing="0.1"
-            android:text="Status"
-            android:textColor="#000"
-            android:textSize="10sp" />
     </LinearLayout>
 </LinearLayout>

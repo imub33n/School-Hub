@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +51,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fragment.FragmentReactionObject.TAG;
+
 public class LiveStreamAdminFragment extends Fragment {
     Button liveRequestButton;
     TextView startLiveStream;
@@ -56,7 +63,10 @@ public class LiveStreamAdminFragment extends Fragment {
     List<SchoolData> schoolData;
     public static SchoolData yesSchoolData=new SchoolData();
     List<LiveStreamRequests> allLiveStreamRequests;
+    List<LiveStreamRequests> allUpcomingStreams= new ArrayList<>();
     List<LiveStreamRequests> myLiveStreamRequests= new ArrayList<>();
+
+    DateTimeFormatter df = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     RecyclerView recyclerViewLivestreamRequest;
     LivestreamRequestsAdapter livestreamRequestsAdapter;
@@ -84,7 +94,6 @@ public class LiveStreamAdminFragment extends Fragment {
                     for(int i=0;i<allLiveStreamRequests.size();i++){
                         if(allLiveStreamRequests.get(i).getSchoolName().equals(yesSchoolData.getSchoolName())){
                             myLiveStreamRequests.add(allLiveStreamRequests.get(i));
-
                         }
                         if(i==allLiveStreamRequests.size()-1){
                             livestreamRequestsAdapter = new LivestreamRequestsAdapter(myLiveStreamRequests,getContext());
@@ -97,30 +106,41 @@ public class LiveStreamAdminFragment extends Fragment {
         chipAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                livestreamRequestsAdapter = new LivestreamRequestsAdapter(allLiveStreamRequests,getContext());
+                livestreamRequestsAdapter = new LivestreamRequestsAdapter(allUpcomingStreams,getContext());
                 recyclerViewLivestreamRequest.setAdapter(livestreamRequestsAdapter);
             }
         });
-        //retrofit
+
+        //Retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        //listView
+
+        //ListView
         recyclerViewLivestreamRequest = (RecyclerView) root.findViewById(R.id.recyclerViewLivestreamRequest);
         recyclerViewLivestreamRequest.setLayoutManager(new LinearLayoutManager(getContext()));
+        //current date
+        LocalDate dateCurrent = LocalDate.parse(df.format(LocalDateTime.now()), df);
 
+        //All Upcoming Streams
         Call<List<LiveStreamRequests>> call2 = retrofitInterface.getStreams();
         call2.enqueue(new Callback<List<LiveStreamRequests>>() {
             @Override
             public void onResponse(Call<List<LiveStreamRequests>> call, Response<List<LiveStreamRequests>> response) {
                 if (response.code() == 200) {
-//                    Toast.makeText(getContext(),"Size Matters: " +response.body().size(), Toast.LENGTH_LONG).show();
+
+                    for(int i=0;i<response.body().size();i++){
+                        LocalDate dateStream = LocalDate.parse(response.body().get(i).getDate(), df);
+                        if(dateStream.isAfter(dateCurrent) || dateStream.isEqual(dateCurrent)){
+                            allUpcomingStreams.add(response.body().get(i));
+                        }
+                    }
                     progressBar.setVisibility(View.INVISIBLE);
                     allLiveStreamRequests = response.body();
-                    livestreamRequestsAdapter = new LivestreamRequestsAdapter(response.body(),getContext());
+                    livestreamRequestsAdapter = new LivestreamRequestsAdapter(allUpcomingStreams,getContext());
                     recyclerViewLivestreamRequest.setAdapter(livestreamRequestsAdapter);
                 }else {
                     Toast.makeText(getContext(), "CODE: "+response.code(), Toast.LENGTH_LONG).show();

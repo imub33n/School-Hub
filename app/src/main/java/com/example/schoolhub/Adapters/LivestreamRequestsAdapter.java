@@ -25,6 +25,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,11 +36,12 @@ public class LivestreamRequestsAdapter extends RecyclerView.Adapter<LivestreamRe
     List<LiveStreamRequests> liveStreamRequests;
     Context context;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy");
-    //DateTimeFormatter ttf = DateTimeFormatter.ISO_LOCAL_TIME;
+
     LocalDateTime now = LocalDateTime.now();
 
 
     public LivestreamRequestsAdapter(List<LiveStreamRequests> body, Context context) {
+        Collections.reverse(body);
         this.liveStreamRequests=body;
         this.context=context;
     }

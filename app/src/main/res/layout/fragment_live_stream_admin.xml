@@ -64,7 +64,7 @@
             android:id="@+id/liveRequestButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Request a Live Stream"
+            android:text="Request LiveStream"
             android:layout_gravity="center"
             android:backgroundTint="@color/appDefault" />
 <!--        <LinearLayout-->
