@@ -20,9 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -58,12 +60,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-public class HomeFragment extends Fragment implements OnCommentClick {
+public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefreshLayout.OnRefreshListener {
 //recyclerView.getAdapter().notifyDataSetChanged();
     public String uploadedImageURL;
     public static String nameHomePhoto="";
     String userIDPost,userNamePost, textPost, timePost, imagePost;
-    //private HomeViewModel homeViewModel;
+
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     EditText postText;
@@ -81,6 +83,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
     ProgressBar progressBar;
     OnCommentClick c=this;
     RecyclerView recyclerView;
+    SwipeRefreshLayout pullToRefresh;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -94,6 +97,9 @@ public class HomeFragment extends Fragment implements OnCommentClick {
         photoHomeLayout=root.findViewById(R.id.photoHomeLayout);
         cancelImage= root.findViewById(R.id.cancelPhoto);
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
+        pullToRefresh = root.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(this);
+
         //create chat user
 //        String authKey = MainActivity.authKey; // Replace with your App Auth Key
 //        User user = new User();
@@ -144,17 +150,15 @@ public class HomeFragment extends Fragment implements OnCommentClick {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 //recycler
-        recyclerView = (RecyclerView) root.findViewById(R.id.postView);
+        recyclerView = root.findViewById(R.id.postView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         //get shitpostings
         Call<List<PostResult>> call = retrofitInterface.doGetListResources();
@@ -168,6 +172,7 @@ public class HomeFragment extends Fragment implements OnCommentClick {
                     adapter = new PostViewAdapter(resource,getContext(),c);
                     adapter.setHasStableIds(true);
                     recyclerView.setAdapter(adapter);
+                    //ViewCompat.setNestedScrollingEnabled(recyclerView, false);
                 }else {
                     Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
                 }
@@ -338,10 +343,37 @@ public class HomeFragment extends Fragment implements OnCommentClick {
                 });
         }
     }
+    private void refreshPostData(){
+        //get shitpostings
+        Call<List<PostResult>> call = retrofitInterface.doGetListResources();
+        call.enqueue(new Callback<List<PostResult>>() {
+            @Override
+            public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
+                if (response.code() == 200) {
+                    adapter = new PostViewAdapter(response.body(),getContext(),c);
+                    recyclerView.setAdapter(adapter);
+                }else {
+                    Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<PostResult>> call, Throwable t) {
+
+                Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     @Override
     public void onClick(List<PostResult> postResult,int position) {
         //resource=postResult;
         adapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshPostData(); // your code
+        pullToRefresh.setRefreshing(false);
     }
 }

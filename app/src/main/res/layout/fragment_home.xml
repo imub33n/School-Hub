@@ -24,7 +24,7 @@
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,138 +32,142 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/pullToRefresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#EAEAEA"
-                app:cardCornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_home">
+                android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    app:cardBackgroundColor="#EAEAEA"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_home">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_margin="10dp">
 
-                        <EditText
-                            android:id="@+id/postEditText"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            android:ems="10"
-                            android:gravity="start|top"
-                            android:hint="Write your status here..."
-                            android:inputType="textMultiLine"
-                            android:textColor="#000"
-                            android:textColorHint="#BF000000"
-                            android:textSize="12sp" />
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/postEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:ems="10"
+                                android:gravity="start|top"
+                                android:hint="Write your status here..."
+                                android:inputType="textMultiLine"
+                                android:textColor="#000"
+                                android:textColorHint="#BF000000"
+                                android:textSize="12sp" />
 
-                            <LinearLayout
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                <LinearLayout
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/uploadImageButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:drawableLeft="@drawable/ic_menu_gallery"
+                                        android:drawableTint="#000"
+                                        android:text="  Upload photo"
+                                        android:textColor="#000" />
+                                </LinearLayout>
 
                                 <TextView
-                                    android:id="@+id/uploadImageButton"
+                                    android:id="@+id/postButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_weight="1"
-                                    android:drawableLeft="@drawable/ic_menu_gallery"
-                                    android:drawableTint="#000"
-                                    android:text="  Upload photo"
-                                    android:textColor="#000" />
-                            </LinearLayout>
+                                    android:padding="5dp"
+                                    android:text="Post"
+                                    android:textColor="#000"
+                                    android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
-                                android:id="@+id/postButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="Post"
-                                android:textColor="#000"
-                                android:textStyle="bold"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/photoHomeLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:padding="10dp">
-
-                            <ImageView
-                                android:id="@+id/attachedImageId"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_centerVertical="true"
-                                android:src="@android:drawable/ic_menu_close_clear_cancel" />
-
-                            <TextView
-                                android:id="@+id/imageNameHome"
+                            <RelativeLayout
+                                android:id="@+id/photoHomeLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginRight="2dp"
-                                android:layout_toLeftOf="@id/cancelPhoto"
-                                android:layout_toRightOf="@id/attachedImageId"
-                                android:text="The notes on the new age cloud system" />
+                                android:layout_height="0dp"
+                                android:padding="10dp">
 
-                            <ImageView
-                                android:id="@+id/cancelPhoto"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:src="@android:drawable/ic_menu_close_clear_cancel" />
-                        </RelativeLayout>
-                    </LinearLayout>
+                                <ImageView
+                                    android:id="@+id/attachedImageId"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                                <TextView
+                                    android:id="@+id/imageNameHome"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_toLeftOf="@id/cancelPhoto"
+                                    android:layout_toRightOf="@id/attachedImageId"
+                                    android:text="The notes on the new age cloud system" />
 
-            </androidx.cardview.widget.CardView>
+                                <ImageView
+                                    android:id="@+id/cancelPhoto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/postView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:scrollbars="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView3"
-                tools:listitem="@layout/post_body" />
-        </LinearLayout>
-    </ScrollView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/postView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical"
+                        android:layout_marginBottom="5dp"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/post_body" />
+
+
+            </LinearLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progressBar"

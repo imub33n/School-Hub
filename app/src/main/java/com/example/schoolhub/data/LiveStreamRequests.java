@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LiveStreamRequests {
+    @SerializedName("_id")
+    @Expose
+    private String streamID;
     @SerializedName("schoolID")
     @Expose
     private String schoolID;
@@ -128,4 +131,6 @@ public class LiveStreamRequests {
     public Boolean getLive() { return isLive; }
 
     public void setLive(Boolean live) { isLive = live; }
+
+    public String getStreamID() { return streamID; }
 }

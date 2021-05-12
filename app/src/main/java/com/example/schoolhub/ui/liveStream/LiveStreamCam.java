@@ -14,6 +14,10 @@ import com.bambuser.broadcaster.CameraError;
 import com.bambuser.broadcaster.ConnectionError;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
+import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.UserProfile;
+import com.example.schoolhub.data.LiveStreamRequests;
+import com.example.schoolhub.data.PreferenceData;
 
 import android.view.View;
 import android.view.WindowManager;
@@ -27,12 +31,16 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 
@@ -42,6 +50,10 @@ public class LiveStreamCam extends AppCompatActivity {
     private static final String API_KEY = "VyUHQSKdTjr4Merap5T4SE";
     Broadcaster mBroadcaster;
     Button mBroadcastButton;
+
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+    LiveStreamRequests liveStreamURIStatus= new LiveStreamRequests();
 
     OkHttpClient mOkHttpClient = new OkHttpClient();
     String resourceUri = null;
@@ -55,6 +67,13 @@ public class LiveStreamCam extends AppCompatActivity {
         mBroadcaster = new Broadcaster(this, APPLICATION_ID, mBroadcasterObserver);
         mBroadcaster.setRotation(getWindowManager().getDefaultDisplay().getRotation());
         mBroadcastButton = findViewById(R.id.BroadcastButton);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MainActivity.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
         mBroadcastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +87,6 @@ public class LiveStreamCam extends AppCompatActivity {
                 }
             }
         });
-
     }
     @Override
     public void onDestroy() {
@@ -140,8 +158,24 @@ public class LiveStreamCam extends AppCompatActivity {
                         JSONObject json = new JSONObject(body);
                         resourceUri=json.optString("resourceUri");
 
+                        liveStreamURIStatus.setResourceURI(resourceUri);
+                        liveStreamURIStatus.setLive(true);
+                        //path request here for URi
+                        retrofit2.Call<Void> called = retrofitInterface.streamURIPatch(getIntent().getExtras().getString("StreamID"),liveStreamURIStatus);
+                        called.enqueue(new retrofit2.Callback<Void>() {
+                            @Override
+                            public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+                                if(!response.isSuccessful()){
+                                    Toast.makeText(LiveStreamCam.this, "URi Update error: "+response.code(), Toast.LENGTH_LONG).show();
+                                }
+                                Toast.makeText(LiveStreamCam.this, "URi Updated", Toast.LENGTH_LONG).show();
+                            }
+                            @Override
+                            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+                                Toast.makeText(LiveStreamCam.this, "URi Update error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
                     } catch (Exception ignored) {}
-
                     Log.d(TAG, "_____________resourceUri______________onBody: "+resourceUri);
                 }
             });

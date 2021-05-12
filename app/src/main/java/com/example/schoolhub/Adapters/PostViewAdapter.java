@@ -243,7 +243,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                                     @Override
                                     public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
                                         if (response.code() == 200) {
-                                            Log.d("TAG",response.code()+"");
+                                            Collections.reverse(response.body());
                                             if(Objects.equals(context.getClass().getSimpleName(),"HomePanel")){
                                                 resourcePost=response.body();
                                                 cCallback.onClick(response.body(),position);
@@ -253,14 +253,13 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                                                         resourcer.add(response.body().get(i));
                                                     }
                                                     if(i==response.body().size()-1){
-                                                        Collections.reverse(resourcer);
                                                         resourcePost=resourcer;
                                                         cCallback.onClick(resourcer,position);
                                                     }
                                                 }
                                             }
                                         }else {
-                                            Toast.makeText(context, "some response code", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(context, "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
                                         }
 
                                     }

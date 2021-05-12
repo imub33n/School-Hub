@@ -73,4 +73,8 @@ public interface RetrofitInterface {
 
     @PATCH("/user_management/userProfile/updateProfile/{id}")
     Call<Void> updateUserData(@Path("id") String id,@Body HashMap<String, String> map);
+
+    @PATCH("/videoStreaming/updateStreamURI/{id}")
+    Call<Void> streamURIPatch(@Path("id") String id,@Body LiveStreamRequests ohYes);
+
 }

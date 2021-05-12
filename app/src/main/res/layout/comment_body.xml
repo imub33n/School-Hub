@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:id="@+id/linearLayoutComment"
     android:orientation="vertical"
-
-    android:background="#EAEAEA"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -33,7 +31,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="2dp"
             android:padding="5dp"
             android:orientation="vertical">
             <TextView
@@ -49,7 +47,7 @@
             <TextView
                 android:id="@+id/textComment"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="start|top"
                 android:hint="Comment here..."

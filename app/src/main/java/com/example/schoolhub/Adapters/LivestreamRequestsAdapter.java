@@ -118,6 +118,7 @@ public class LivestreamRequestsAdapter extends RecyclerView.Adapter<LivestreamRe
 //                    }
                     //do stuff
                     Intent intent = new Intent(context, LiveStreamCam.class );
+                    intent.putExtra("StreamID", liveStreamRequests.get(position).getStreamID());
                     context.startActivity(intent);
                 }
             }
