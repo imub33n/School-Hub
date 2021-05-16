@@ -15,17 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reviews and Ratings"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:letterSpacing="0.07"
-        android:textColor="#000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,10 +30,10 @@
                 android:textColor="#000"
                 android:layout_margin="20dp"
                 />
-
         </LinearLayout>
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewFaculity"
+            android:id="@+id/cardReviewSkol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -141,6 +131,17 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reviews"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="5dp"
+            android:letterSpacing="0.07"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recuclerForReview"
             android:layout_width="match_parent"

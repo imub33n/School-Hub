@@ -56,7 +56,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     ProgressBar progressBar;
     List<PostResult> resource= new ArrayList<>();
     PostViewAdapter adapter;
-    TextView postStatus,phoneNoProfile,userNameProfile,emailProfile,editDetails;
+    TextView postStatus,phoneNoProfile,userNameProfile,emailProfile,editDetails,send_msg;
     ImageView editDP;
     FirebaseStorage storage= FirebaseStorage.getInstance();
     CircleImageView profilePhoto;
@@ -65,7 +65,6 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     StorageReference storageReference ;
     OnCommentClick c=this;
     EditText userNameEdit,phoneNoEdit,oldPasswordEdit,newPasswordEdit,confirmPasswordEdit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +87,13 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         phoneNoProfile= findViewById(R.id.phoneNoProfile);
         emailProfile= findViewById(R.id.emailProfile);
         userNameProfile= findViewById(R.id.userNameProfile);
+        send_msg= findViewById(R.id.send_msg);
+
         if(!Objects.equals(getIntent().getStringExtra("EXTRA_USER_ID"),PreferenceData.getLoggedInUserData(this).get("userID"))){
             editDetails.setLayoutParams(new LinearLayout.LayoutParams(0,0));
             editDP.setLayoutParams(new FrameLayout.LayoutParams(0, 0));
+        }else{
+            send_msg.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         }
         //getting userData
         Call<List<LoginResult>> call2 = retrofitInterface.userData(getIntent().getStringExtra("EXTRA_USER_ID"));

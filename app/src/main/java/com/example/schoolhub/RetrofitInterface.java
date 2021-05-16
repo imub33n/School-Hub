@@ -5,6 +5,7 @@ import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
+import com.example.schoolhub.data.ReplyReview;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.data.SearchFilters;
@@ -64,6 +65,9 @@ public interface RetrofitInterface {
     
     @POST("/review/addReview")
     Call<Void> postReviews(@Body SchoolReviews schoolReviews);
+
+    @PATCH("/review/updateReview/{id}")
+    Call<Void> replyReview(@Path("id") String id, @Body ReplyReview reply);
 
     @GET("/user_management/userProfile/{id}")
     Call<List<LoginResult>> userData(@Path("id") String id);

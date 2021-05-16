@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewFaculity"
+        android:id="@+id/cardViewReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -81,12 +82,47 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="Ye skol bohot acha ha, kya edr sports week hota ha?"
                     android:inputType="textMultiLine"
                     android:textColor="#000"
                     android:textSize="14sp" />
+                <LinearLayout
+                    android:id="@+id/reviewReply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/giveReviewReply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:hint="Leave a Reply..."
+                        android:inputType="textMultiLine"
+                        android:textColor="#000"
+                        android:textColorHint="#BF000000"
+                        android:textSize="12sp" />
+                    <ImageView
+                        android:id="@+id/replyReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:src="@drawable/send_icon"
+                        android:layout_margin="5dp"
+                        app:tint="#000" />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerForReviewReply"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/review_reply_body"/>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

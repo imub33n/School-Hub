@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appDefault"
+    android:background="#fff"
     tools:context=".UserProfile">
     <ScrollView
         android:id="@+id/scrollView2"
@@ -48,42 +48,48 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePhoto"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/defaultpic" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profilePhoto"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/defaultpic" />
-
-                    <ImageView
-                        android:id="@+id/editDP"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:onClick="editProfilePic"
-                        app:srcCompat="@drawable/ic_baseline_edit_24" />
-                </FrameLayout>
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/editDP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:onClick="editProfilePic"
+                    app:srcCompat="@drawable/ic_baseline_edit_24" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/userNameProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:letterSpacing="0.1"
                 android:text="Name Here"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/send_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send Message"
+                android:textColor="#CD262626"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittextbg"/>
             <TextView
                 android:id="@+id/editDetails"
                 android:layout_width="wrap_content"

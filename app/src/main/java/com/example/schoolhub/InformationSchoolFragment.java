@@ -115,7 +115,6 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
             @Override
             public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
                 if (response.code() == 200) {
-                    Log.d("TAG___s__",response.code()+"");
                     schoolData =  response.body();
                     //Toast.makeText(getContext(),schoolData.toString(),Toast.LENGTH_SHORT).show();
 

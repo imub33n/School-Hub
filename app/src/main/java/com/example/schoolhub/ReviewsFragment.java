@@ -2,6 +2,7 @@ package com.example.schoolhub;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,17 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.schoolhub.Adapters.LivestreamRequestsAdapter;
 import com.example.schoolhub.Adapters.SchoolReviewsAdapter;
-import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolReviews;
-import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -45,6 +44,7 @@ public class ReviewsFragment extends Fragment {
     ImageView postReview;
     EditText giveReview;
     RatingBar giveRatingBar;
+    CardView cardReviewSkol;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     RecyclerView recyclerForReview;
@@ -53,6 +53,9 @@ public class ReviewsFragment extends Fragment {
     SchoolReviews schoolReviews= new SchoolReviews();
     DecimalFormat adf;
     float avg=0;
+
+    String idUser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class ReviewsFragment extends Fragment {
         postReview = root.findViewById(R.id.postReview);
         giveReview= root.findViewById(R.id.giveReview);
         giveRatingBar= root.findViewById(R.id.giveRatingBar);
+        cardReviewSkol= root.findViewById(R.id.cardReviewSkol);
+
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -71,6 +76,10 @@ public class ReviewsFragment extends Fragment {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
+        if(PreferenceData.getLoggedInUserData(getContext()).get("userType").equals("School")){
+            cardReviewSkol.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+
+        }
         postReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,8 +180,14 @@ public class ReviewsFragment extends Fragment {
             public void onResponse(Call<List<SchoolReviews>> call, Response<List<SchoolReviews>> response) {
                 if (response.code() == 200) {
                     progressBar.setVisibility(View.INVISIBLE);
+
+                    if(getParentFragment()!=null){
+                        idUser=AdminDashMainPage.yesSchoolData.get_id();
+                    }else{
+                        idUser=InformationSchoolFragment.thisSchoolData.get_id();
+                    }
                     for(int i=0;i<response.body().size();i++){
-                        if(Objects.equals(InformationSchoolFragment.thisSchoolData.get_id(),response.body().get(i).getSchoolID())){
+                        if(Objects.equals(idUser,response.body().get(i).getSchoolID())){
                             thisSchoolReviews.add(response.body().get(i));
                         }
                         if(i==response.body().size()-1){
@@ -189,7 +204,6 @@ public class ReviewsFragment extends Fragment {
                                 schoolReviewsAdapter = new SchoolReviewsAdapter(thisSchoolReviews,getContext());
                                 recyclerForReview.setAdapter(schoolReviewsAdapter);
                             }
-
                         }
                     }
 

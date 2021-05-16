@@ -65,7 +65,6 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         Collections.reverse(postLists);
         this.resourcePost = postLists;
         this.context = context;
-        //Log.d(TAG, "PostViewAdapter:______________________ "+context.getClass().getSimpleName());
         this.cCallback = listener;
     }
     @Override
