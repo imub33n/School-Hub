@@ -89,11 +89,12 @@ public class StatisticsResult extends AppCompatActivity {
         for(int a=0;a<StatisticsFragment.ComparisonSchools.size();a++){
             float[] results = new float[1];
             Location.distanceBetween(
-                    33.684422,
-                    73.047882,
-                    Double.valueOf(StatisticsFragment.ComparisonSchools.get(a).getSchoolCoordinates().getLatitude()),
-                    Double.valueOf(StatisticsFragment.ComparisonSchools.get(a).getSchoolCoordinates().getLongitude()),
+                    Double.parseDouble(StatisticsFragment.schoolCoordinates.getLatitude()),
+                    Double.parseDouble(StatisticsFragment.schoolCoordinates.getLongitude()),
+                    Double.parseDouble(StatisticsFragment.ComparisonSchools.get(a).getSchoolCoordinates().getLatitude()),
+                    Double.parseDouble(StatisticsFragment.ComparisonSchools.get(a).getSchoolCoordinates().getLongitude()),
                     results);
+            //valueOf
             if( (results[0] / 1000) < DistaceSkol){
                 DistaceSkol = results[0]/1000;
                 shortestDistaceSkol = StatisticsFragment.ComparisonSchools.get(a).getSchoolName();

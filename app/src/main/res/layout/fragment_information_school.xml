@@ -13,6 +13,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,34 +53,51 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/bg_usage_rounded_corner"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:paddingLeft="5dp"
+                    android:text="About"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/ic_launcher_background"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#EAEAEA"/>
                 <TextView
                     android:id="@+id/tAbout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:padding="10dp"
+                    android:paddingLeft="5dp"
+                    android:text="About the School"
                     android:textAlignment="viewStart"
                     android:textColor="@color/ic_launcher_background"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/view3dModellButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="10dp"
-                android:layout_marginEnd="72dp"
-                android:backgroundTint="@color/appDefault"
+                android:layout_gravity="center"
+                android:background="@drawable/edittextbg"
                 android:drawableLeft="@drawable/model3d"
+                android:drawableTint="@color/appDefault"
                 android:hapticFeedbackEnabled="true"
                 android:onClick="arOnClick"
-                android:padding="10dp"
                 android:text="  View AR Model"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/appDefault" />
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -95,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:paddingLeft="10dp"
-                    android:text="School Details"
+                    android:text="Location"
                     android:textAlignment="viewStart"
                     android:textAllCaps="true"
                     android:textColor="@color/ic_launcher_background"
@@ -116,7 +134,13 @@
                         android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-
+                        <TextView
+                            android:id="@+id/tDistance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/ic_launcher_background" />
                         <TextView
                             android:id="@+id/tAddress"
                             android:layout_width="wrap_content"
@@ -144,7 +168,22 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="Contact"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textColor="@color/ic_launcher_background"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#EAEAEA"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -169,7 +208,12 @@
                         android:textAllCaps="true"
                         android:textColor="@color/ic_launcher_background" />
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#EAEAEA"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

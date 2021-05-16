@@ -13,7 +13,7 @@ import com.example.schoolhub.ReviewsFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private String tabTitles[]= new String[]{
-            "Information",
+            "Info",
             "Fee Structure",
             "Faculty",
             "Ratings & Reviews"

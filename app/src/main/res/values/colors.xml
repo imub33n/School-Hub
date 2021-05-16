@@ -21,5 +21,6 @@
     <color name="dark_black">#CC262626</color>
     <color name="black_half_transparent">#66000000</color>
     <color name="black_full_transparent">#22000000</color>
+    <color name="fee_table">#F2262626</color>
 
 </resources>

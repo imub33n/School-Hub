@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/skolDash"
         android:name="com.example.schoolhub.SchoolDetailsDash"
-        android:label="View School"
+        android:label="School Preview"
         tools:layout="@layout/fragment_school_details_dash" />
     <fragment
         android:id="@+id/liveStream"

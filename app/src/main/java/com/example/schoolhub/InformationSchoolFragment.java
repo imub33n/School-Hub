@@ -1,10 +1,14 @@
 package com.example.schoolhub;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -14,7 +18,10 @@ import android.view.View;
 import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.example.schoolhub.Adapters.SlideAdapter;
 import com.example.schoolhub.data.PreferenceData;
+import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
+import com.example.schoolhub.ui.statistics.StatisticsFragment;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -41,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 
-public class InformationSchoolFragment extends Fragment implements OnMapReadyCallback  {
+public class InformationSchoolFragment extends Fragment implements LocationListener, OnMapReadyCallback  {
     //retrofit
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -59,7 +66,10 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
     private MapView mMapView;
     GoogleMap googleMap;
 
-    TextView schoolName,tContact,tEmail,tAddress,tZip,tAbout,tSchoolType,tEducationLevel,tCourseType;
+    SchoolCoordinates schoolCoordinates=new SchoolCoordinates();
+    LocationManager locationManager;
+
+    TextView schoolName,tContact,tEmail,tAddress,tZip,tAbout,tDistance,tSchoolType,tEducationLevel,tCourseType;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -67,9 +77,13 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_information_school, container, false);
+
+        getLocation();
+
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         viewPager = (ViewPager2) root.findViewById(R.id.viewPagerSlider);
         ModellButton = (Button) root.findViewById(R.id.view3dModellButton);
+
         ModellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +91,6 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                 startActivity(it);
             }
         });
-
 
         mMapView=root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -89,6 +102,7 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
         tAddress=root.findViewById(R.id.tAddress);
         tZip=root.findViewById(R.id.tZip);
         tAbout=root.findViewById(R.id.tAbout);
+        tDistance=root.findViewById(R.id.tDistance);
 //        tSchoolType=root.findViewById(R.id.tSchoolType);
 //        tEducationLevel=root.findViewById(R.id.tEducationLevel);
 //        tCourseType=root.findViewById(R.id.tCourseType);
@@ -144,6 +158,17 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
                             tContact.setText(thisSchoolData.getContactNumber());
                             tAddress.setText(thisSchoolData.getSchoolAddress());
                             tZip.setText(thisSchoolData.getZipCode().toString());
+                            //distance
+                            float[] results = new float[1];
+                            Location.distanceBetween(
+                                    Double.parseDouble(schoolCoordinates.getLatitude()),
+                                    Double.parseDouble(schoolCoordinates.getLongitude()),
+                                    Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLatitude()),
+                                    Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLongitude()),
+                                    results);
+                            tDistance.setText(results[0]/1000+" KMs Away");
+
+
 //                            tEducationLevel.setText(thisSchoolData.getEducationLevel());
 //                            tCourseType.setText(thisSchoolData.getEducationType());
                         }
@@ -212,4 +237,22 @@ public class InformationSchoolFragment extends Fragment implements OnMapReadyCal
         mMapView.onLowMemory();
     }
 
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000, 0, this::onLocationChanged);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000000, 0, this::onLocationChanged);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        schoolCoordinates.setLongitude(String.valueOf(location.getLongitude()));
+        schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
+
+    }
 }
