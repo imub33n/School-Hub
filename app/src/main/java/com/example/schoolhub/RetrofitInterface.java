@@ -1,6 +1,7 @@
 package com.example.schoolhub;
 
 import com.example.schoolhub.data.Comment;
+import com.example.schoolhub.data.FacultyRequest;
 import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.LoginResult;
@@ -81,4 +82,9 @@ public interface RetrofitInterface {
     @PATCH("/videoStreaming/updateStreamURI/{id}")
     Call<Void> streamURIPatch(@Path("id") String id,@Body LiveStreamRequests ohYes);
 
+    @GET("/teacherRequest/getTeacherRequests")
+    Call<List<FacultyRequest>> getFaculty();
+
+    @POST("/teacherRequest/addTeacherRequest")
+    Call<Void> postTeacherRequest(@Body FacultyRequest facultyRequest);
 }

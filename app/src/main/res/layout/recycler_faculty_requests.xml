@@ -2,23 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FaculityFragment" >
-    <TextView
-        android:id="@+id/join_faculty"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Request Join Faculty"
-        android:textColor="#CD262626"
-        android:textAllCaps="true"
-        android:textSize="14sp"
-        android:clickable="true"
-        android:elevation="5dp"
-        android:background="@drawable/edittextbg"/>
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewFaculity"
         android:layout_width="match_parent"
@@ -33,25 +19,48 @@
             android:layout_margin="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="3dp"
+                    android:clickable="true"
+                    android:src="@drawable/accept" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="3dp"
+                    android:clickable="true"
+                    android:src="@drawable/reject" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageViewFaculity"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:id="@+id/imageFaculty"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_margin="5dp"
-                        android:src="@drawable/model"
-                        />
+                        android:src="@drawable/model" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -59,18 +68,18 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textViewFaculity"
+                            android:id="@+id/nameFaculty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Faculty member Name"
+                            android:text="Faculity member Name"
                             android:textAllCaps="true"
                             android:textColor="#000"
-                            android:textStyle="bold"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textViewFaculity2"
+                            android:id="@+id/depFaculity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -80,15 +89,15 @@
                             android:textColor="#000"
                             android:textSize="12sp" />
 
-                        <TextView
-                            android:id="@+id/textViewFaculity3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="3dp"
-                            android:text="abc@gmail.com"
-                            android:textColor="#000"
-                            android:textSize="12sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/textViewFaculity3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="5dp"-->
+<!--                            android:layout_marginTop="3dp"-->
+<!--                            android:text="abc@gmail.com"-->
+<!--                            android:textColor="#000"-->
+<!--                            android:textSize="12sp" />-->
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

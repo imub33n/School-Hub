@@ -37,6 +37,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -68,6 +69,7 @@ public class InformationSchoolFragment extends Fragment implements LocationListe
 
     SchoolCoordinates schoolCoordinates=new SchoolCoordinates();
     LocationManager locationManager;
+    DecimalFormat adf = new DecimalFormat("0.0");
 
     TextView schoolName,tContact,tEmail,tAddress,tZip,tAbout,tDistance,tSchoolType,tEducationLevel,tCourseType;
 
@@ -158,15 +160,6 @@ public class InformationSchoolFragment extends Fragment implements LocationListe
                             tContact.setText(thisSchoolData.getContactNumber());
                             tAddress.setText(thisSchoolData.getSchoolAddress());
                             tZip.setText(thisSchoolData.getZipCode().toString());
-                            //distance
-                            float[] results = new float[1];
-                            Location.distanceBetween(
-                                    Double.parseDouble(schoolCoordinates.getLatitude()),
-                                    Double.parseDouble(schoolCoordinates.getLongitude()),
-                                    Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLatitude()),
-                                    Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLongitude()),
-                                    results);
-                            tDistance.setText(results[0]/1000+" KMs Away");
 
 
 //                            tEducationLevel.setText(thisSchoolData.getEducationLevel());
@@ -253,6 +246,15 @@ public class InformationSchoolFragment extends Fragment implements LocationListe
     public void onLocationChanged(@NonNull Location location) {
         schoolCoordinates.setLongitude(String.valueOf(location.getLongitude()));
         schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
-
+//distance
+        float[] results = new float[1];
+        Location.distanceBetween(
+                Double.parseDouble(schoolCoordinates.getLatitude()),
+                Double.parseDouble(schoolCoordinates.getLongitude()),
+                Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLatitude()),
+                Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLongitude()),
+                results);
+        String yes=adf.format(results[0]/1000)+" km Away";
+        tDistance.setText(yes);
     }
 }
