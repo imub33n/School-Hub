@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
@@ -248,13 +250,19 @@ public class InformationSchoolFragment extends Fragment implements LocationListe
         schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
 //distance
         float[] results = new float[1];
-        Location.distanceBetween(
-                Double.parseDouble(schoolCoordinates.getLatitude()),
-                Double.parseDouble(schoolCoordinates.getLongitude()),
-                Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLatitude()),
-                Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLongitude()),
-                results);
-        String yes=adf.format(results[0]/1000)+" km Away";
-        tDistance.setText(yes);
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Location.distanceBetween(
+                        Double.parseDouble(schoolCoordinates.getLatitude()),
+                        Double.parseDouble(schoolCoordinates.getLongitude()),
+                        Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLatitude()),
+                        Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLongitude()),
+                        results);
+                String yes=adf.format(results[0]/1000)+" km Away";
+                tDistance.setText(yes);
+            }
+        }, 1000);//1 second delay
     }
 }

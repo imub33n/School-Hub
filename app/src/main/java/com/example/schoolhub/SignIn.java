@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
 public class SignIn extends AppCompatActivity {
 
@@ -54,6 +55,8 @@ public class SignIn extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         sup = (TextView) findViewById(R.id.s_up);
+        email.setText("mubeenafzal3@gmail.com");
+        password.setText("12345");
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -98,14 +101,13 @@ public class SignIn extends AppCompatActivity {
                 call.enqueue(new Callback<LoginResult>() {
                     @Override
                     public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                        if (response.isSuccessful()) {
 
-                        if (response.code() == 200) {
                             LoginResult result = response.body();
+
                             PreferenceData.setUserLoggedInStatus(getApplicationContext(),true);
-                            PreferenceData.setLoggedInUserData(getApplicationContext(),result.getUsername(),result.getUserID(),result.getType());
-//                            userID=result.getUserID();
-//                            userName=result.getUsername();
-//                            userType=radioButton.getText().toString();
+                            PreferenceData.setLoggedInUserData(getApplicationContext(),result.getUsername(),result.getUserID(),result.getType(),result.getEmail(),result.getProfilePic());
+
                             if(Objects.equals(radioButton.getText().toString(),"School")){
                                 Call<List<SchoolData>> call2 = retrofitInterface.getSchoolData();
                                 call2.enqueue(new Callback<List<SchoolData>>() {

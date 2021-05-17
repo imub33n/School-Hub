@@ -9,11 +9,12 @@
         android:id="@+id/toolbarEditSchool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/appDefault"
+        android:background="@drawable/tab_bar_bg"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:titleTextColor="#fff"
-        app:title="Faculty"
+        android:layout_margin="10dp"
+        app:title="Faculty Requests"
         app:layout_scrollFlags="scroll|snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +29,9 @@
         android:text="New Requests"
         android:textAllCaps="true"
         android:textColor="#000"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarEditSchool" />
 
@@ -41,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/heading"
-        tools:itemCount="3"
+        tools:itemCount="2"
         tools:listitem="@layout/recycler_faculty_requests" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

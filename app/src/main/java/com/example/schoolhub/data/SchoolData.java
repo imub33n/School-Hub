@@ -50,6 +50,13 @@ public class SchoolData {
     @SerializedName("videos")
     @Expose
     private List<Video> videos = null;
+    @SerializedName("teachers")
+    @Expose
+    private List<Teachers> teachers = null;
+
+    public List<Teachers> getTeachers() { return teachers; }
+
+    public void setTeachers(List<Teachers> teachers) { this.teachers = teachers; }
 
     public String get_id() { return _id; }
 

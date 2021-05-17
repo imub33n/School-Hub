@@ -87,4 +87,7 @@ public interface RetrofitInterface {
 
     @POST("/teacherRequest/addTeacherRequest")
     Call<Void> postTeacherRequest(@Body FacultyRequest facultyRequest);
+
+    @PATCH("/teacherRequest/updateTeacherRequest/{id}")
+    Call<Void> teacherRequest(@Path("id") String id,@Body HashMap<String, String> map);
 }

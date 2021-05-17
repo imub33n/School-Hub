@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.example.schoolhub.Adapters.RequestFacultyAdapter;
 import com.example.schoolhub.data.FacultyRequest;
 import com.example.schoolhub.data.PreferenceData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fragment.FragmentReactionObject.TAG;
 
 public class RequestsForSchoolAdmin extends AppCompatActivity {
     public Toolbar toolbarEdit;
@@ -29,6 +32,8 @@ public class RequestsForSchoolAdmin extends AppCompatActivity {
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
+
+    List<FacultyRequest> facultyRequests=new ArrayList<>();
 
     RecyclerView recyclerViewRequestFaculty;
     RequestFacultyAdapter requestFacultyAdapter;
@@ -57,16 +62,21 @@ public class RequestsForSchoolAdmin extends AppCompatActivity {
             public void onResponse(Call<List<FacultyRequest>> call, Response<List<FacultyRequest>> response) {
                 if (response.code() == 200) {
                     for(int i=0;i<response.body().size();i++){
-                        if(!response.body().get(i).getSchoolID().equals(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"))){
-                            response.body().remove(i);
+                        if(response.body().get(i).getAdminID().equals(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"))){
+                            if(response.body().get(i).getStatusRequest().equals("Pending")){
+                                facultyRequests.add(response.body().get(i));
+                            }
+                        }
+                        if(response.body().size()-1==i){
+                            if(facultyRequests.size()==0){
+                                heading.setText("No New Requests");
+                            }else{
+                                requestFacultyAdapter = new RequestFacultyAdapter(facultyRequests,getApplicationContext());
+                                recyclerViewRequestFaculty.setAdapter(requestFacultyAdapter);
+                            }
                         }
                     }
-                    if(response.body().size()==0){
-                        heading.setText("No New Requests");
-                    }else{
-                        requestFacultyAdapter = new RequestFacultyAdapter(response.body(),getApplicationContext());
-                        recyclerViewRequestFaculty.setAdapter(requestFacultyAdapter);
-                    }
+
                 }else {
                     Toast.makeText(RequestsForSchoolAdmin.this, "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
                 }

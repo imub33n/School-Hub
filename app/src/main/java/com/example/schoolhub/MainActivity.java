@@ -35,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.8:8080/";
+    public static String BASE_URL = "http://192.168.10.11:8080/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
             }
         });
-        //dark mode ke chuti
-        if(Utils.isDarkMode(getApplicationContext())){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+//        //dark mode ke chuti
+//        if(Utils.isDarkMode(getApplicationContext())){
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        }
         //chat login chk
         if(PreferenceData.getUserLoggedInStatus(this)){
             if(Objects.equals(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userType"),"School")){
@@ -143,8 +143,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }else{
+                //dark mode ke chuti
+                if(Utils.isDarkMode(getApplicationContext())){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
                 Intent it = new Intent( getApplicationContext() , HomePanel.class);
                 startActivity(it);
+
             }
         }else{
             final Handler handler = new Handler(Looper.getMainLooper());

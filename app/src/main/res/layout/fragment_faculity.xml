@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
@@ -19,80 +18,11 @@
         android:clickable="true"
         android:elevation="5dp"
         android:background="@drawable/edittextbg"/>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewFaculity"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFaculty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardBackgroundColor="#EAEAEA"
-        app:cardCornerRadius="10dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageViewFaculity"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/model"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textViewFaculity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="Faculty member Name"
-                            android:textAllCaps="true"
-                            android:textColor="#000"
-                            android:textStyle="bold"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:id="@+id/textViewFaculity2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="3dp"
-                            android:text="Science Department"
-                            android:textAllCaps="true"
-                            android:textColor="#000"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/textViewFaculity3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="3dp"
-                            android:text="abc@gmail.com"
-                            android:textColor="#000"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        android:layout_margin="5dp"
+        tools:itemCount="2"
+        tools:listitem="@layout/recycler_faculty" />
 </LinearLayout>
