@@ -64,9 +64,6 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
     FirebaseStorage storage;
     StorageReference storageReference;
 
-    List<Video> videos= new ArrayList<>();
-    Video video= new Video();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -252,16 +249,14 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 schoolData.setFeeStructure(feeStructures);
                                             }
 
-                                            video.setPath("G ye video ka path ha, okay?");
-                                            videos.add(video);
-                                            schoolData.setVideos(videos);
-
+                                            schoolData.setVideos("video link here");
+                                            schoolData.setSchoolIcon("https://firebasestorage.googleapis.com/v0/b/okay-945dc.appspot.com/o/images%2F7cb7677b-bf68-4131-b681-308f4175d8b3?alt=media&token=d9f5b8d9-4dc3-4d7f-a478-5753cb56f18b");
                                             Call<Void> call = retrofitInterface.createSchool(schoolData);
                                             call.enqueue(new Callback<Void>() {
                                                 @Override
                                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                                     if(response.code()==201){
-                                                        Toast.makeText(getApplicationContext(),"Halo "+response.code(), Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getApplicationContext(),"Added", Toast.LENGTH_LONG).show();
                                                         Intent it = new Intent( getApplicationContext() , AddingSchoolCompleted.class);
                                                         it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(it);

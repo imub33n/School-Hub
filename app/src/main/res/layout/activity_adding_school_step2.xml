@@ -87,18 +87,7 @@
                 android:drawableLeft="@drawable/ic_menu_gallery"
                 android:text="  Select Photos"
                 android:textColor="#000" />
-            <TextView
-                android:id="@+id/uploadVideos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:onClick="uploadVideo"
-                android:drawableTint="#000"
-                android:drawableLeft="@drawable/video"
-                android:text="  Select Video"
-                android:textColor="#000" />
+
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/videoLayout"
@@ -136,6 +125,7 @@
             android:id="@+id/newAttachmentList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:itemCount="3"
             tools:listitem="@layout/item_newattachment_list"/>
     </LinearLayout>
 

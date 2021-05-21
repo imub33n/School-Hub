@@ -28,6 +28,7 @@ public class ARModel extends AppCompatActivity {
         setUpModel();
         setUpPlane();
     }
+
     //halo
     private void setUpModel() {
         ModelRenderable.builder()
@@ -41,8 +42,6 @@ public class ARModel extends AppCompatActivity {
                                 .build())
 
                 .setRegistryId(Model_URL)
-
-
 
                 .build()
                 .thenAccept(renderable -> modelRenderable = renderable)

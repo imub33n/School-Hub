@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.uikit.ui_resources.utils.Utils;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -60,6 +62,10 @@ public class HomePanel extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         logout = findViewById(R.id.logout);
+        //dark mode ke chuti
+        if(Utils.isDarkMode(getApplicationContext())){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         reviewAndFeedback= findViewById(R.id.reviewAndFeedback);
         //retrofit
         retrofit = new Retrofit.Builder()

@@ -8,6 +8,7 @@ import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
 import com.example.schoolhub.data.ReplyReview;
 import com.example.schoolhub.data.SchoolData;
+import com.example.schoolhub.data.SchoolHubReview;
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.data.SearchFilters;
 import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
@@ -29,7 +30,7 @@ public interface RetrofitInterface {
     Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/user_management/signup")
-    Call<Void> executeSignup (@Body HashMap<String, String> map);
+    Call<HashMap<String, String>> executeSignup (@Body HashMap<String, String> map);
 
     @POST("/dashboard/post")
     Call<Void> executePost(@Body HashMap<String, String> map);
@@ -90,4 +91,10 @@ public interface RetrofitInterface {
 
     @PATCH("/teacherRequest/updateTeacherRequest/{id}")
     Call<Void> teacherRequest(@Path("id") String id,@Body HashMap<String, String> map);
+
+    @POST("/chat/chatPost")
+    Call<Void> addChatFriend(@Body HashMap<String, String> map);
+
+    @POST("/mainReview/schoolhubReviews")
+    Call<Void> postSchoolhubReview(@Body SchoolHubReview schoolHubReview);
 }

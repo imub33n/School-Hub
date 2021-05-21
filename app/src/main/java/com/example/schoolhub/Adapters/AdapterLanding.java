@@ -47,32 +47,34 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
     @Override
     public void onBindViewHolder(@NonNull AdapterLanding.ViewHolder holder, int position) {
 //        holder.imageView.setImageResource(models.get(position).getImage());
-        if(models.get(position).getSchools().getImages().get(0).getPath()!=null){
-            StorageReference storageRef = storage.getReferenceFromUrl(models.get(position).getSchools().getImages().get(0).getPath());
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(context)
-                            .load(uri)
-                            //.fitCenter()
-                            //.dontAnimate()
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                            .error(R.drawable.ic_image_error)
-                            //.apply(new RequestOptions().override(1000, 500))
-                            .into(holder.imageView);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
-                    Glide.with(context)
-                            .load(R.drawable.ic_image_error)
-                            .fitCenter()
-                            .into(holder.imageView);
-                }
-            });
+        if(models.get(position).getSchools().getImages().size()>0){
+            if(models.get(position).getSchools().getImages().get(0).getPath()!=null){
+                StorageReference storageRef = storage.getReferenceFromUrl(models.get(position).getSchools().getImages().get(0).getPath());
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(context)
+                                .load(uri)
+                                //.fitCenter()
+                                //.dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                .error(R.drawable.ic_image_error)
+                                //.apply(new RequestOptions().override(1000, 500))
+                                .into(holder.imageView);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
+                        Glide.with(context)
+                                .load(R.drawable.ic_image_error)
+                                .fitCenter()
+                                .into(holder.imageView);
+                    }
+                });
+            }
         }
         holder.title.setText(models.get(position).getSchools().getSchoolName());
         holder.desc.setText(adf.format(models.get(position).getRating()));
@@ -81,7 +83,7 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
 
     @Override
     public int getItemCount() {
-        return 4;
+        return models.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -24,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
 public class SignUp extends AppCompatActivity {
     EditText email, phoneNo, password, userName;
@@ -87,13 +88,30 @@ public class SignUp extends AppCompatActivity {
                 //Toast.makeText(SignUp.this, "type chk: "+radioButton.getText().toString(), Toast.LENGTH_LONG).show();
                 map.put("type", radioButton.getText().toString());
 
-                Call<Void> call = retrofitInterface.executeSignup(map);
-                call.enqueue(new Callback<Void>() {
+                Call<HashMap<String, String>> call = retrofitInterface.executeSignup(map);
+                call.enqueue(new Callback<HashMap<String, String>>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(SignUp.this,
-                                    "Signed up successfully", Toast.LENGTH_LONG).show();
+                            //create chat user
+                            String authKey = MainActivity.authKey; // Replace with your App Auth Key
+                            User user = new User();
+                            user.setUid(response.body().get("_id")); // Replace with the UID for the user to be created
+                            user.setName(response.body().get("username")); // Replace with the name of the user
+
+                            CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
+                                @Override
+                                public void onSuccess(User user) {
+                                    Log.d("createUser", user.toString());
+                                }
+
+                                @Override
+                                public void onError(CometChatException e) {
+                                    Log.e("createUser", e.getMessage());
+                                }
+                            });
+
+                            Toast.makeText(SignUp.this,"Signed up successfully", Toast.LENGTH_LONG).show();
                             Intent it = new Intent(SignUp.this, SignIn.class);
                             startActivity(it);
                         } else {
@@ -103,7 +121,7 @@ public class SignUp extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
                         Toast.makeText(SignUp.this, " sup "+t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }

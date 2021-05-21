@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -24,6 +26,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.cometchat.pro.constants.CometChatConstants;
+import com.cometchat.pro.core.AppSettings;
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.core.UsersRequest;
+import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.models.User;
+import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMessageListActivity;
+import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants;
 import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
@@ -48,6 +58,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
 public class UserProfile extends AppCompatActivity implements OnCommentClick {
 
@@ -66,6 +77,11 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     OnCommentClick c=this;
     EditText userNameEdit,phoneNoEdit,oldPasswordEdit,newPasswordEdit,confirmPasswordEdit;
 
+    Boolean themFriends=false;
+
+    private int limit = 30;
+    List <User> listOfFriends= new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +93,21 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+        //chat
+        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(MainActivity.region).build();
+        CometChat.init(this, MainActivity.appID,appSettings, new CometChat.CallbackListener<String>() {
+            @Override
+            public void onSuccess(String successMessage) {
+                //UIKitSettings.setAuthKey(authKey);
+                CometChat.setSource("ui-kit","android","java");
+                Log.d(TAG, "Initialization completed successfully");
+            }
 
+            @Override
+            public void onError(CometChatException e) {
+                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
+            }
+        });
         storageReference = storage.getReference();
         editDP = findViewById(R.id.editDP);
         editDetails = findViewById(R.id.editDetails);
@@ -89,12 +119,75 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         userNameProfile= findViewById(R.id.userNameProfile);
         send_msg= findViewById(R.id.send_msg);
 
+        UsersRequest usersRequest = new UsersRequest.UsersRequestBuilder()
+                .setLimit(limit)
+                .friendsOnly(true)
+                .build();
+        usersRequest.fetchNext(new CometChat.CallbackListener<List<User>>() {
+            @Override
+            public void onSuccess(List <User> list) {
+                listOfFriends=list;
+                Log.d(TAG, "User list received: " + list.size());
+            }
+            @Override
+            public void onError(CometChatException e) {
+                Log.d(TAG, "User list fetching failed with exception: " + e.getMessage());
+            }
+        });
+
         if(!Objects.equals(getIntent().getStringExtra("EXTRA_USER_ID"),PreferenceData.getLoggedInUserData(this).get("userID"))){
             editDetails.setLayoutParams(new LinearLayout.LayoutParams(0,0));
             editDP.setLayoutParams(new FrameLayout.LayoutParams(0, 0));
         }else{
             send_msg.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         }
+        //send msg button
+        send_msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                for(int i=0;i<listOfFriends.size();i++){
+
+                    if(getIntent().getStringExtra("EXTRA_USER_ID").equals(listOfFriends.get(i).getUid())){
+                        themFriends=true;
+                    }
+                    if(i==listOfFriends.size()-1){
+                        if(!themFriends){
+                            //add as friend
+                            HashMap<String, String> mapUsers = new HashMap<>();
+
+                            mapUsers.put( "userID", PreferenceData.getLoggedInUserData(UserProfile.this).get("userID") );
+                            mapUsers.put( "otherID", getIntent().getStringExtra("EXTRA_USER_ID") );
+                            //POST REQUEST
+                            Call<Void> call = retrofitInterface.addChatFriend(mapUsers);
+                            call.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(UserProfile.this, "Yes", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        Toast.makeText(UserProfile.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    //Toast.makeText(UserProfile.this, "Connection Error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
+                                }
+                            });
+                        }else{
+                            progressBar.setVisibility(View.INVISIBLE);
+                            openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
+                        }
+                    }
+                }//added as friend in chat if not already
+
+            }
+        });
+
         //getting userData
         Call<List<LoginResult>> call2 = retrofitInterface.userData(getIntent().getStringExtra("EXTRA_USER_ID"));
         call2.enqueue(new Callback<List<LoginResult>>() {
@@ -403,7 +496,26 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         builder.create();
         builder.show();
     }
+    public static void openChat(Context c,String uID){
+        CometChat.getUser(uID, new CometChat.CallbackListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                Log.d(TAG, "User details fetched for user: " + user.toString());
+                Intent intent = new Intent(c, CometChatMessageListActivity.class);
+                intent.putExtra(UIKitConstants.IntentStrings.TYPE, CometChatConstants.RECEIVER_TYPE_USER);
+                intent.putExtra(UIKitConstants.IntentStrings.NAME,user.getName());
+                intent.putExtra(UIKitConstants.IntentStrings.UID,user.getUid());
+                intent.putExtra(UIKitConstants.IntentStrings.AVATAR,user.getAvatar());
+                intent.putExtra(UIKitConstants.IntentStrings.STATUS,user.getStatus());
+                c.startActivity(intent);
+            }
+            @Override
+            public void onError(CometChatException e) {
+                Log.d(TAG, "User details fetching failed with exception: " + e.getMessage());
+            }
+        });
 
+    }
     @Override
     public void onClick(List<PostResult> postResult, int position) {
 //        resource=postResult;

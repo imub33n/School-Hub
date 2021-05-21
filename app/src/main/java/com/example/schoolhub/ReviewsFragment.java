@@ -45,6 +45,7 @@ public class ReviewsFragment extends Fragment {
     EditText giveReview;
     RatingBar giveRatingBar;
     CardView cardReviewSkol;
+
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     RecyclerView recyclerForReview;

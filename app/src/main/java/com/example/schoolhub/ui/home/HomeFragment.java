@@ -100,23 +100,7 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
         pullToRefresh = root.findViewById(R.id.pullToRefresh);
         pullToRefresh.setOnRefreshListener(this);
 
-        //create chat user
-//        String authKey = MainActivity.authKey; // Replace with your App Auth Key
-//        User user = new User();
-//        user.setUid(PreferenceData.getLoggedInUserData(getContext()).get("userID")); // Replace with the UID for the user to be created
-//        user.setName(PreferenceData.getLoggedInUserData(getContext()).get("username")); // Replace with the name of the user
-//
-//        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
-//            @Override
-//            public void onSuccess(User user) {
-//                Log.d("createUser", user.toString());
-//            }
-//
-//            @Override
-//            public void onError(CometChatException e) {
-//                Log.e("createUser", e.getMessage());
-//            }
-//        });
+
 
         //chat
         if (CometChat.getLoggedInUser() == null) {

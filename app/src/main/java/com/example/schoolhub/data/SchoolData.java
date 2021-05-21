@@ -17,6 +17,9 @@ public class SchoolData {
     @SerializedName("schoolEmail")
     @Expose
     private String schoolEmail;
+    @SerializedName("schoolIcon")
+    @Expose
+    private String schoolIcon;
     @SerializedName("schoolAddress")
     @Expose
     private String schoolAddress;
@@ -47,9 +50,18 @@ public class SchoolData {
     @SerializedName("images")
     @Expose
     private List<Image> images = null;
+
+    public String getVideos() {
+        return videos;
+    }
+
+    public void setVideos(String videos) {
+        this.videos = videos;
+    }
+
     @SerializedName("videos")
     @Expose
-    private List<Video> videos = null;
+    private String videos;
     @SerializedName("teachers")
     @Expose
     private List<Teachers> teachers = null;
@@ -146,17 +158,13 @@ public class SchoolData {
         return schoolCoordinates;
     }
 
-    public void setSchoolCoordinates(SchoolCoordinates schoolCoordinates) {
-        this.schoolCoordinates = schoolCoordinates;
-    }
+    public void setSchoolCoordinates(SchoolCoordinates schoolCoordinates) { this.schoolCoordinates = schoolCoordinates; }
 
     public List<FeeStructure> getFeeStructure() {
         return feeStructure;
     }
 
-    public void setFeeStructure(List<FeeStructure> feeStructure) {
-        this.feeStructure = feeStructure;
-    }
+    public void setFeeStructure(List<FeeStructure> feeStructure) { this.feeStructure = feeStructure; }
 
     public List<Image> getImages() {
         return images;
@@ -166,12 +174,7 @@ public class SchoolData {
         this.images = images;
     }
 
-    public List<Video> getVideos() {
-        return videos;
-    }
+    public String getSchoolIcon() { return schoolIcon; }
 
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-    }
-
+    public void setSchoolIcon(String schoolIcon) { this.schoolIcon = schoolIcon; }
 }
