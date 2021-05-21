@@ -42,14 +42,14 @@ import static android.content.ContentValues.TAG;
 
 public class AdminDashboard extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-    Button logoutAdmin;
+    Button logoutAdmin,reviewAndFeedbackAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbarAdmin);
         setSupportActionBar(toolbar);
-
+        reviewAndFeedbackAdmin = findViewById(R.id.reviewAndFeedbackAdmin);
         logoutAdmin = findViewById(R.id.logoutAdmin);
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +72,13 @@ public class AdminDashboard extends AppCompatActivity {
             }
         });
 
+        reviewAndFeedbackAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getApplicationContext(), ReviewAndFeedback.class);
+                startActivity(intent);
+            }
+        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout_admin);
         NavigationView navigationView = findViewById(R.id.nav_view_admin);
 

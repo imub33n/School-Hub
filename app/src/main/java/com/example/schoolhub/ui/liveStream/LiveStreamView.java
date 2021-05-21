@@ -26,8 +26,8 @@ public class LiveStreamView extends AppCompatActivity {
     SurfaceViewWithAutoAR mVideoSurface;
     TextView mPlayerStatusTextView;
     View mPlayerContentView;
-    private static final String APPLICATION_ID = "ddd56SuCBOa2vv6JoGwZ0g";
-    private static final String API_KEY = "VyUHQSKdTjr4Merap5T4SE";
+    private static final String APPLICATION_ID = "Qj6nLAnk5oKeMua2ChtVlQ";
+    private static final String API_KEY = "SnGkNLdLDAg1X6XHew1XbL";
     OkHttpClient mOkHttpClient = new OkHttpClient();
     BroadcastPlayer mBroadcastPlayer;
     Display mDefaultDisplay;
@@ -61,8 +61,15 @@ public class LiveStreamView extends AppCompatActivity {
     BroadcastPlayer.Observer mBroadcastPlayerObserver = new BroadcastPlayer.Observer() {
         @Override
         public void onStateChange(PlayerState playerState) {
-            if (mPlayerStatusTextView != null)
+            if (mPlayerStatusTextView != null){
+                if(playerState == PlayerState.PLAYING){
+                    mPlayerStatusTextView.setVisibility(View.GONE);
+                }
+                if(playerState == PlayerState.COMPLETED){
+                    onBackPressed();
+                }
                 mPlayerStatusTextView.setText("Status: " + playerState);
+            }
             //set media controls
             if (playerState == PlayerState.PLAYING || playerState == PlayerState.PAUSED || playerState == PlayerState.COMPLETED) {
                 if (mMediaController == null && mBroadcastPlayer != null && !mBroadcastPlayer.isTypeLive()) {

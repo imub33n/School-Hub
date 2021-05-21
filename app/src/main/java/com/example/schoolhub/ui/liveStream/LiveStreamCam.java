@@ -46,8 +46,8 @@ import static android.content.ContentValues.TAG;
 
 public class LiveStreamCam extends AppCompatActivity {
     SurfaceView mPreviewSurface;
-    private static final String APPLICATION_ID = "ddd56SuCBOa2vv6JoGwZ0g";
-    private static final String API_KEY = "VyUHQSKdTjr4Merap5T4SE";
+    private static final String APPLICATION_ID = "Qj6nLAnk5oKeMua2ChtVlQ";
+    private static final String API_KEY = "SnGkNLdLDAg1X6XHew1XbL";
     Broadcaster mBroadcaster;
     Button mBroadcastButton;
 
@@ -84,6 +84,7 @@ public class LiveStreamCam extends AppCompatActivity {
                 else{
                     liveStreamView.setVisibility(View.VISIBLE);
                     mBroadcaster.stopBroadcast();
+                    onBackPressed();
                 }
             }
         });

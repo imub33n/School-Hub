@@ -88,7 +88,16 @@
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:paddingRight="15dp" />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/ubuntu_medium"
+                android:text="@string/landing_description"
+                android:textColor="#000"
+                android:textAlignment="center"
+                android:letterSpacing="0.05"
+                android:textSize="15sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -136,5 +145,6 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

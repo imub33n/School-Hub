@@ -121,7 +121,9 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
         recyclerViewLanding.setHasFixedSize(true);
         recyclerViewLanding.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         //top rated skols
+        Log.d(TAG, "onCreate: ____size___"+MainActivity.allSchools.size());
         for(int a = 0; a< MainActivity.allSchools.size(); a++){
+            Log.d(TAG, "onCreate: ____review)size___"+MainActivity.allSchoolReviews.size());
             for(int i=0;i< MainActivity.allSchoolReviews.size();i++){
                 if(Objects.equals(MainActivity.allSchools.get(a).get_id(),MainActivity.allSchoolReviews.get(i).getSchoolID())){
                     thisSchoolReviews.add(MainActivity.allSchoolReviews.get(i));
@@ -142,6 +144,7 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
             }
             if(a==MainActivity.allSchools.size()-1){
                 Collections.sort(models,SchoolsLandingModel.RatingComparator);
+
                 adapterLanding = new AdapterLanding(models,this);
                 recyclerViewLanding.setAdapter(adapterLanding);
             }
@@ -150,15 +153,15 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
 //        this.models.add( new SchoolsLandingModel(R.drawable.a, "Brochure", "Brochure is an informative ") );
 
         //2
-//        recyclerViewLanding2 = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage2);
-//        recyclerViewLanding2.setHasFixedSize(true);
-//        recyclerViewLanding2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerViewLanding2 = (RecyclerView) findViewById(R.id.schoolsSliderLandingPage2);
+        recyclerViewLanding2.setHasFixedSize(true);
+        recyclerViewLanding2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 //        this.models2.add( new SchoolsLandingModel(R.drawable.b, "Brochure2", "Brochure is an informative ") );
 //        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Sticker2", "Sticker is a type of label"));
 //        this.models2.add(new SchoolsLandingModel(R.drawable.c, "Poster2", "Poster is any piece of printed"));
 //        this.models2.add(new SchoolsLandingModel(R.drawable.a, "Namecard2", "Business cards are cards"));
-//        adapterLanding = new AdapterLanding(models2,this);
-//        recyclerViewLanding2.setAdapter(adapterLanding);
+        adapterLanding = new AdapterLanding(models,this);
+        recyclerViewLanding2.setAdapter(adapterLanding);
 
         //sliderAdapter
         viewPager.setClipToPadding(false);

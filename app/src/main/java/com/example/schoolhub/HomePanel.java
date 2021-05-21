@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.uikit.ui_resources.utils.Utils;
@@ -66,6 +67,21 @@ public class HomePanel extends AppCompatActivity {
         if(Utils.isDarkMode(getApplicationContext())){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+        //chat
+        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(MainActivity.region).build();
+        CometChat.init(this, MainActivity.appID,appSettings, new CometChat.CallbackListener<String>() {
+            @Override
+            public void onSuccess(String successMessage) {
+                //UIKitSettings.setAuthKey(authKey);
+                CometChat.setSource("ui-kit","android","java");
+                Log.d(TAG, "Initialization completed successfully");
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
+            }
+        });
         reviewAndFeedback= findViewById(R.id.reviewAndFeedback);
         //retrofit
         retrofit = new Retrofit.Builder()

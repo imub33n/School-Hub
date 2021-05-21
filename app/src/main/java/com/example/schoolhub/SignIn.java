@@ -55,8 +55,8 @@ public class SignIn extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         sup = (TextView) findViewById(R.id.s_up);
-        email.setText("mubeenafzal3@gmail.com");
-        password.setText("12345");
+//        email.setText("mubeenafzal3@gmail.com");
+//        password.setText("12345");
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
