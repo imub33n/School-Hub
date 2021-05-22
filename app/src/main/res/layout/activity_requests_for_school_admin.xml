@@ -5,35 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RequestsForSchoolAdmin">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarEditSchool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:background="@drawable/tab_bar_bg"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#fff"
-        android:layout_margin="10dp"
-        app:title="Faculty Requests"
-        app:layout_scrollFlags="scroll|snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back"/>
+        app:layout_scrollFlags="scroll|snap"
+        app:navigationIcon="@drawable/back"
+        app:title="Faculty"
+        app:titleTextColor="#fff" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEditSchool"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/newRequests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Requests" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/faculty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Faculty" />
+    </com.google.android.material.chip.ChipGroup>
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="New Requests"
         android:textAllCaps="true"
         android:textColor="#000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarEditSchool" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewRequestFaculty" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRequestFaculty"
@@ -42,7 +64,7 @@
         android:layout_margin="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heading"
+        app:layout_constraintTop_toBottomOf="@id/chipG"
         tools:itemCount="2"
         tools:listitem="@layout/recycler_faculty_requests" />
 

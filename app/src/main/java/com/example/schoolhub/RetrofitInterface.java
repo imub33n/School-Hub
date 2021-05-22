@@ -1,6 +1,5 @@
 package com.example.schoolhub;
 
-import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.FacultyRequest;
 import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LiveStreamRequests;
@@ -11,9 +10,7 @@ import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SchoolHubReview;
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.data.SearchFilters;
-import com.example.schoolhub.ui.liveStream.LiveStreamRequest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -100,4 +97,13 @@ public interface RetrofitInterface {
 
     @GET("/mainReview/schoolhubReviews")
     Call<List<SchoolHubReview>> getSchoolHubReviews();
+
+    @POST("/school/delete_School/{id}")
+    Call<Void> deleteSchool(@Path("id") String id,@Body HashMap<String, String> map);
+
+    @POST("/school/delete_Teacher/{id}")
+    Call<Void> deleteTeacher(@Path("id") String id,@Body HashMap<String, String> map);
+
+    @GET("/dashboard/deletePost/{id}")
+    Call<Void> deletePost(@Path("id") String id);
 }

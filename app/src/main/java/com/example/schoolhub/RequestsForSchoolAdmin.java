@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.schoolhub.Adapters.FacultyAdapter;
 import com.example.schoolhub.Adapters.RequestFacultyAdapter;
 import com.example.schoolhub.data.FacultyRequest;
 import com.example.schoolhub.data.PreferenceData;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fra
 public class RequestsForSchoolAdmin extends AppCompatActivity {
     public Toolbar toolbarEdit;
     TextView heading;
-
+    Chip faculty,newRequests;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 
@@ -37,14 +39,33 @@ public class RequestsForSchoolAdmin extends AppCompatActivity {
 
     RecyclerView recyclerViewRequestFaculty;
     RequestFacultyAdapter requestFacultyAdapter;
+    FacultyAdapter facultyAdapter;
+    String statusRequest="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requests_for_school_admin);
         toolbarEdit = (Toolbar) findViewById(R.id.toolbarEditSchool);
+        newRequests= findViewById(R.id.newRequests);
+        faculty = findViewById(R.id.faculty);
         heading= findViewById(R.id.heading);
-
+        newRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                heading.setText(statusRequest);
+                requestFacultyAdapter = new RequestFacultyAdapter(facultyRequests,getApplicationContext());
+                recyclerViewRequestFaculty.setAdapter(requestFacultyAdapter);
+            }
+        });
+        faculty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                heading.setText(statusRequest);
+                facultyAdapter = new FacultyAdapter(InformationSchoolFragment.thisSchoolData.getTeachers(),RequestsForSchoolAdmin.this);
+                recyclerViewRequestFaculty.setAdapter(facultyAdapter);
+            }
+        });
         //ListView
         recyclerViewRequestFaculty = (RecyclerView) findViewById(R.id.recyclerViewRequestFaculty);
         recyclerViewRequestFaculty.setLayoutManager(new LinearLayoutManager(this));
@@ -69,7 +90,8 @@ public class RequestsForSchoolAdmin extends AppCompatActivity {
                         }
                         if(response.body().size()-1==i){
                             if(facultyRequests.size()==0){
-                                heading.setText("No New Requests");
+                                statusRequest="No New Requests";
+                                heading.setText(statusRequest);
                             }else{
                                 requestFacultyAdapter = new RequestFacultyAdapter(facultyRequests,getApplicationContext());
                                 recyclerViewRequestFaculty.setAdapter(requestFacultyAdapter);
