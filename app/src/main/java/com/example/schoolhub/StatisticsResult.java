@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -129,11 +130,15 @@ public class StatisticsResult extends AppCompatActivity {
             }
 //            Log.d(TAG, "onLocationChanged() called with: location = [______]" + DistaceSkol[0]/1000+"____" );
         }
+        if(DistaceSkol>100){
+            skolNameDistaceStats.setText(shortestDistaceSkol+"");
+            DistaceStats.setText(bdf.format(DistaceSkol)+" KM Away");
+        }else{
         skolNameDistaceStats.setText(shortestDistaceSkol+" is nearest to you!");
         DistaceStats.setText(bdf.format(DistaceSkol)+" KM Away");
+        }
 
         //fee
-
         for(int a=0;a<StatisticsFragment.ComparisonSchools.size();a++){
             if(StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().size()-1).getMonthlyFee()<fee &&
                     StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().get(StatisticsFragment.ComparisonSchools.get(a).getFeeStructure().size()-1).getMonthlyFee()!=0){
@@ -152,23 +157,21 @@ public class StatisticsResult extends AppCompatActivity {
             }
         });
     }
-    public static Bitmap getScreenShot(View view) {
-        View screenView = view.getRootView();
-        screenView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
-        screenView.setDrawingCacheEnabled(false);
-        if(bitmap!=null){
-        Log.d(TAG, "getScreenShot: _____________"+bitmap);
-        }else{
-            Log.d(TAG, "getScreenShot: ________null_____");
-        }
-        return bitmap;
+    public static Bitmap getScreenShot(View v) {
+//        View screenView = view.getRootView();
+//        screenView.setDrawingCacheEnabled(true);
+//        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+//        screenView.setDrawingCacheEnabled(false);
+        Bitmap b = Bitmap.createBitmap(v.getWidth() , v.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
     }
 
     private void store(Bitmap finalBitmap,String filename) {
 
         String root = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-        Log.d(TAG, "store: __root____"+root);
+
         File myDir = new File(root + "/StatsScreenshots");
         if(!myDir.exists()){
             try {
@@ -217,6 +220,9 @@ public class StatisticsResult extends AppCompatActivity {
         }
     }
 }
-
+//
 // https://stackoverflow.com/questions/30196965/how-to-take-a-screenshot-of-current-activity-and-then-share-it/30212385
 // https://stackoverflow.com/questions/19214714/android-taking-the-screenshot-and-sharing-it
+
+//full screen capture
+//https://stackoverflow.com/questions/9791714/take-a-screenshot-of-a-whole-view
