@@ -27,15 +27,6 @@ public class SearchResultFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-//        Location l1=new Location("One");
-//        l1.setLatitude(location.getLatitude());
-//        l1.setLongitude(location.getLongitude());
-//
-//        Location l2=new Location("Two");
-//        l2.setLatitude(Double.parseDouble("33.6381982"));
-//        l2.setLongitude(Double.parseDouble("73.1467504"));
-//
-//        float distance_bw_one_and_two=l1.distanceTo(l2);
-//        Log.d(TAG, "onLocationChanged:__________________________________ "+distance_bw_one_and_two);
+
     }
 }

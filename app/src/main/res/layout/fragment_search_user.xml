@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_user_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+    <LinearLayout
+        android:id="@+id/rootfragUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableBottom="@drawable/drop_down"
+            android:text="Pull down to close"
+            android:textColor="#000"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/searchUserEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/edittextbg"
+            android:focusable="true"
+            android:hint="⌕ Search Users here..."
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/searchButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/appDefault"
+            android:text="Search"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/statusUserSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text=""
+            android:layout_gravity="center"
+            android:textColor="#000"
+            android:textSize="16dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchUserResultRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="5"
+            tools:listitem="@layout/frag_user_search_result"/>
+    </LinearLayout>
+</LinearLayout>

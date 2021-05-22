@@ -1,14 +1,20 @@
 package com.example.schoolhub;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +26,13 @@ import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.uikit.ui_resources.utils.Utils;
+import com.example.schoolhub.Adapters.SearchResultAdapter;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
+import com.example.schoolhub.data.SchoolData;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -37,8 +47,11 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,17 +64,19 @@ import static android.content.ContentValues.TAG;
 public class HomePanel extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    Button logout,reviewAndFeedback;
+    Button logout,reviewAndFeedback,searchButt;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     FirebaseStorage storage= FirebaseStorage.getInstance();
-
+    TextView statusUserSearch;
+    EditText searchUserEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_panel);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         logout = findViewById(R.id.logout);
         //dark mode ke chuti
         if(Utils.isDarkMode(getApplicationContext())){
@@ -144,45 +159,27 @@ public class HomePanel extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         if (item != null) {
             //getting userData
-            Call<List<LoginResult>> call2 = retrofitInterface.userData(PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
-            call2.enqueue(new Callback<List<LoginResult>>() {
+            StorageReference storageRef = storage.getReferenceFromUrl(Objects.requireNonNull(PreferenceData.getLoggedInUserData(HomePanel.this).get("userPic")));
+            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
-                public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
-                    if (response.code() == 200) {
-                        //setData
+                public void onSuccess(Uri uri) {
+                    Glide.with(getApplicationContext())
+                            .load(uri)
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                            .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
+                            .error(R.drawable.ic_image_error)
+                            .into(new CustomTarget<Drawable>() {
+                                @Override
+                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    item.setIcon(resource);
+                                }
 
-                        StorageReference storageRef = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
-                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Glide.with(getApplicationContext())
-                                        .load(uri)
-                                        .circleCrop()
-                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
-                                        .error(R.drawable.ic_image_error)
-                                        .into(new CustomTarget<Drawable>() {
-                                            @Override
-                                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                                item.setIcon(resource);
-                                            }
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                                            @Override
-                                            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                                            }
-                                        });
-                            }
-                        });
-
-                    }else {
-                        Toast.makeText(getApplicationContext(), "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
-                    }
-
-                }
-                @Override
-                public void onFailure(Call<List<LoginResult>> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_LONG).show();
+                                }
+                            });
                 }
             });
         }
@@ -200,5 +197,76 @@ public class HomePanel extends AppCompatActivity {
         Intent it = new Intent( getApplicationContext() , UserProfile.class);
         it.putExtra("EXTRA_USER_ID", PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
         startActivity(it);
+    }
+
+    public void inflateSearch(MenuItem item) {
+
+    }
+    public void openSearchFragment(View view) {
+        View v = getLayoutInflater().inflate(R.layout.fragment_search_user, null);
+        //full screen bottom sheet
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        LinearLayout linearLayout = v.findViewById(R.id.rootfragUser);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearLayout.getLayoutParams();
+        params.height = getScreenHeight();
+        linearLayout.setLayoutParams(params);
+        dialog.setContentView(v);
+        dialog.show();
+        BottomSheetBehavior mBehavior;
+        mBehavior = BottomSheetBehavior.from((View) v.getParent());
+        mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        //yes
+        searchUserEditText =v.findViewById(R.id.searchUserEditText);
+        statusUserSearch =v.findViewById(R.id.statusUserSearch);
+        searchButt = v.findViewById(R.id.searchButt);
+        //recycler
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.searchUserResultRecycleView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        searchUserEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, 0);
+                recyclerView.setLayoutParams(layoutParams2);
+                statusUserSearch.setText("");
+            }
+        });
+
+
+        searchButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                statusUserSearch.setText("Searching..");
+
+                Call<List<SchoolData>> call = retrofitInterface.searchSchools(searchUserEditText.getText().toString());
+                call.enqueue(new Callback<List<SchoolData>>() {
+                    @Override
+                    public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
+                        Log.d(TAG, "Size: _____________SIZE:__"+ response.body().size());
+                        if(response.code()==200){
+
+//                            searchResultAdapter = new SearchResultAdapter(jaga,schoolData,getApplicationContext(),m);
+//                            recyclerView.setAdapter(searchResultAdapter);
+                        }
+                        if(!response.isSuccessful()){
+                            Log.d(TAG, "onResponse search retrofit: "+response.code());
+                            return;
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<SchoolData>> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), " some connection error in search : "+t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        });
+    }
+    private int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 }
