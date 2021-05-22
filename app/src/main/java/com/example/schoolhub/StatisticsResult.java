@@ -3,15 +3,26 @@ package com.example.schoolhub;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.ui.statistics.StatisticsFragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +35,8 @@ import static android.content.ContentValues.TAG;
 public class StatisticsResult extends AppCompatActivity {
     public Toolbar schoolComparisonNav;
     TextView skolNameRatedStats,RatedStats,skolNameDistaceStats,DistaceStats,skolNameFeeStats,FeeStats;
+    LinearLayout linearLayout6;
+    ImageView shareButton;
 
     String highestRatedSkol;
     float RatingSkol=0;
@@ -50,6 +63,9 @@ public class StatisticsResult extends AppCompatActivity {
         DistaceStats=findViewById(R.id.DistaceStats);
         skolNameFeeStats=findViewById(R.id.skolNameFeeStats);
         FeeStats=findViewById(R.id.FeeStats);
+        linearLayout6=findViewById(R.id.linearLayout6);
+        shareButton=findViewById(R.id.shareButton);
+
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -57,6 +73,14 @@ public class StatisticsResult extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+                store(getScreenShot(rootView),"Statistics");
+            }
+        });
 
         for(int a=0;a<StatisticsFragment.ComparisonSchools.size();a++){
             for(int i=0;i<StatisticsFragment.allSchoolReviews.size();i++){
@@ -123,6 +147,46 @@ public class StatisticsResult extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+    public static Bitmap getScreenShot(View view) {
+        View screenView = view.getRootView();
+        screenView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+        screenView.setDrawingCacheEnabled(false);
+        return bitmap;
+    }
+    public void store(Bitmap bm, String fileName){
+        final String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screenshots";
+        File dir = new File(dirPath);
+        if(!dir.exists())
+            dir.mkdirs();
+        File file = new File(dirPath, fileName);
+        try {
+            FileOutputStream fOut = new FileOutputStream(file);
+            bm.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+            fOut.flush();
+            fOut.close();
+            shareImage(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void shareImage(File file){
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
 
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        try {
+            startActivity(Intent.createChooser(intent, "Share Screenshot"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "No App Available", Toast.LENGTH_SHORT).show();
+        }
     }
 }
+
+// https://stackoverflow.com/questions/30196965/how-to-take-a-screenshot-of-current-activity-and-then-share-it/30212385
+// https://stackoverflow.com/questions/19214714/android-taking-the-screenshot-and-sharing-it

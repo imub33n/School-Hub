@@ -22,7 +22,19 @@
         app:layout_scrollFlags="enterAlwaysCollapsed"
         app:navigationIcon="@drawable/back"
         app:title="Stats"
-        app:titleTextColor="#fff" />
+        app:titleTextColor="#fff" >
+
+        <ImageView
+            android:id="@+id/shareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_share_24dp"
+            app:tint="#fff"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
