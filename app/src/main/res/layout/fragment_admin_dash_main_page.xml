@@ -140,7 +140,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/editAcademicCard"
+                    android:id="@+id/editSettingsCard"
                     android:layout_width="0dp"
                     android:layout_height="160dp"
                     android:layout_margin="10dp"
@@ -155,7 +155,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/edittextbg"
                         android:padding="30dp"
-                        app:srcCompat="@drawable/picture"
+                        app:srcCompat="@drawable/setting_icon"
                         app:tint="@color/appDefault" />
 
                     <TextView
@@ -164,7 +164,7 @@
                         android:layout_gravity="bottom|center"
                         android:layout_margin="5dp"
                         android:gravity="center"
-                        android:text="Academic Info"
+                        android:text="Account Setting"
                         android:textColor="@color/appDefault"
                         android:textSize="16dp" />
                 </androidx.cardview.widget.CardView>

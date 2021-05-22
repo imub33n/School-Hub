@@ -51,7 +51,7 @@
         <activity android:name=".ui.liveStream.LiveStreamCam" />
         <activity android:name=".ui.liveStream.LiveStreamRequest" />
         <activity android:name=".RequestsForSchoolAdmin" />
-        <activity android:name=".EditAcademicInfo" />
+        <activity android:name=".EditAccountSettings" />
         <activity android:name=".EditSchoolFeeStructure" />
         <activity android:name=".EditSchoolPhotos" />
         <activity android:name=".EditSchool" />

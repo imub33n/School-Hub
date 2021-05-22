@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class AdminDashMainPage extends Fragment {
     static String adminId="";
     String adminIdGet;
     Intent intent;
-    CardView editGeneralCard,editPhotosCard,editFeeCard,editAcademicCard,editRequestCard;
+    CardView editGeneralCard,editPhotosCard,editFeeCard,editSettingsCard,editRequestCard;
     ProgressBar progressBar;
 
     @Override
@@ -45,7 +44,7 @@ public class AdminDashMainPage extends Fragment {
         editGeneralCard=root.findViewById(R.id.editGeneralCard);
         editPhotosCard=root.findViewById(R.id.editPhotosCard);
         editFeeCard=root.findViewById(R.id.editFeeCard);
-        editAcademicCard=root.findViewById(R.id.editAcademicCard);
+        editSettingsCard=root.findViewById(R.id.editSettingsCard);
         editRequestCard=root.findViewById(R.id.editRequestCard);
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar3);
         //retrofit
@@ -93,11 +92,11 @@ public class AdminDashMainPage extends Fragment {
                                     startActivity(intent);
                                 }
                             });
-                            editAcademicCard.setOnClickListener(new View.OnClickListener() {
+                            editSettingsCard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                                    intent = new Intent(getContext(),EditAcademicInfo.class );
-//                                    startActivity(intent);
+                                    intent = new Intent(getContext(), EditAccountSettings.class );
+                                    startActivity(intent);
                                 }
                             });
                         }
