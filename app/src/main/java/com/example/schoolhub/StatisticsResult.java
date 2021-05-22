@@ -2,6 +2,7 @@ package com.example.schoolhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import com.example.schoolhub.ui.statistics.StatisticsFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +81,8 @@ public class StatisticsResult extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-                store(getScreenShot(rootView),"Statistics");
+                View thisView = linearLayout6;
+                store(getScreenShot(thisView),"Statistics");
             }
         });
 
@@ -153,30 +157,56 @@ public class StatisticsResult extends AppCompatActivity {
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
         screenView.setDrawingCacheEnabled(false);
+        if(bitmap!=null){
+        Log.d(TAG, "getScreenShot: _____________"+bitmap);
+        }else{
+            Log.d(TAG, "getScreenShot: ________null_____");
+        }
         return bitmap;
     }
-    public void store(Bitmap bm, String fileName){
-        final String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screenshots";
-        File dir = new File(dirPath);
-        if(!dir.exists())
-            dir.mkdirs();
-        File file = new File(dirPath, fileName);
+
+    private void store(Bitmap finalBitmap,String filename) {
+
+        String root = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
+        Log.d(TAG, "store: __root____"+root);
+        File myDir = new File(root + "/StatsScreenshots");
+        if(!myDir.exists()){
+            try {
+                myDir.mkdirs();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+
+        File file = new File (myDir, filename);
+        if (file.exists ()) file.delete ();
         try {
-            FileOutputStream fOut = new FileOutputStream(file);
-            bm.compress(Bitmap.CompressFormat.PNG, 85, fOut);
-            fOut.flush();
-            fOut.close();
+            file.createNewFile();
+        } catch (SecurityException | IOException se) {
+            se.printStackTrace();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
             shareImage(file);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     private void shareImage(File file){
-        Uri uri = Uri.fromFile(file);
+        //Uri uri = Uri.fromFile(file);
+//        <meta-data
+//        android:name="android.support.FILE_PROVIDER_PATHS"
+//        android:resource="@xml/provider_paths" />
+        Uri uri = FileProvider.getUriForFile(StatisticsResult.this, StatisticsResult.this.
+                getApplicationContext().getPackageName() + ".provider", file);
+        Log.d(TAG, "getScreenShot: ________uri_____"+uri);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
-
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
         intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
         intent.putExtra(Intent.EXTRA_STREAM, uri);
