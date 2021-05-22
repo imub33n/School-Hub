@@ -50,11 +50,11 @@ public class SchoolHubReview {
         this.rating = rating;
     }
 
-    public List<ReplyReview> getReply() {
+    public List<ReplySchoolHubReview> getReply() {
         return reply;
     }
 
-    public void setReply(List<ReplyReview> reply) {
+    public void setReply(List<ReplySchoolHubReview> reply) {
         this.reply = reply;
     }
 
@@ -86,7 +86,7 @@ public class SchoolHubReview {
     private Integer rating;
     @SerializedName("reply")
     @Expose
-    private List<ReplyReview> reply;
+    private List<ReplySchoolHubReview> reply;
     @SerializedName("date")
     @Expose
     private String date;

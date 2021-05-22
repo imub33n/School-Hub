@@ -24,6 +24,7 @@
             android:textColor="#000"
             android:textSize="22sp"
             android:textStyle="bold" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewFaculity"
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            app:cardBackgroundColor="#D5D4D4"
+            app:cardBackgroundColor="#D6D6D6"
             app:cardCornerRadius="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,5 +121,12 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reclerForReview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/schoolhub_review_layout"
+            tools:itemCount="2"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

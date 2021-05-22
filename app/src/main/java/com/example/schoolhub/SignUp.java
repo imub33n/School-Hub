@@ -115,8 +115,13 @@ public class SignUp extends AppCompatActivity {
                             Intent it = new Intent(SignUp.this, SignIn.class);
                             startActivity(it);
                         } else {
-                            Toast.makeText(SignUp.this,
-                                    "Response Code: "+response.code(), Toast.LENGTH_LONG).show();
+                            if(response.code()==500){
+                                Toast.makeText(SignUp.this,
+                                        "User already exists", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(SignUp.this,
+                                        "Response Code: "+response.code(), Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
 

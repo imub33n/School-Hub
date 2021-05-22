@@ -35,15 +35,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.18.45:8080/";
+    public static String BASE_URL = "http://192.168.10.7:8080/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
     //chatAPI
-    public static String appID = "323611fede35399";
+    public static String appID = "3372201956af684";
     public static String region = "us";
-    public static String authKey = "bdceaa21c369442ac6ddbbe1e68a7fc56596017a";
-    public static String API_KEY = "3972dfed09f25aabc875f5e613e862b39db70fca";
+    public static String authKey = "6686381f7d6999ea04c5eb3feea375ae7d205b0f";
+//    public static String API_KEY = "3972dfed09f25aabc875f5e613e862b39db70fca";
     //data
     public static List<SchoolData> allSchools= new ArrayList<>();
     public static List<SchoolReviews> allSchoolReviews = new ArrayList<>();

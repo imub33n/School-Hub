@@ -23,6 +23,7 @@ import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.PostResult;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.ReplyReview;
+import com.example.schoolhub.data.SchoolHubReview;
 import com.example.schoolhub.data.SchoolReviews;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class SchoolReviewsAdapter extends RecyclerView.Adapter<SchoolReviewsAdap
         this.schoolReviews=body;
         this.context=context;
     }
+
 
     @NonNull
     @Override

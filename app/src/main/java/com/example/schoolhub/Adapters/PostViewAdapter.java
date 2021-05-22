@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,8 +77,12 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull PostViewAdapter.ViewHolder holder, int position) {
-
         PostResult postResult=resourcePost.get(position);
+        if(Objects.equals(context.getClass().getSimpleName(),"Application")){
+            if(postResult.getUserID().equals(PreferenceData.getLoggedInUserData(context).get("userID"))){
+                holder.delete_icon.setVisibility(View.VISIBLE);
+            }
+        }
         holder.userNamePost.setText(postResult.getUsername());
         holder.postTextData.setText(postResult.getText());
         holder.timePost.setText(postResult.getTime());
@@ -305,7 +310,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView userNamePost,timePost,postTextData,likeTextPost,totalLikesTextPost;
-        public ImageView imagePost,commentSendButton,likeButtonPost;
+        public ImageView imagePost,commentSendButton,likeButtonPost,delete_icon;
         public EditText commentSendText;
         public CircleImageView userDpPost;
         public ViewHolder(@NonNull View itemView) {
@@ -320,6 +325,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             this.likeButtonPost= itemView.findViewById(R.id.likeButtonPost);
             this.likeTextPost= itemView.findViewById(R.id.likeTextPost);
             this.totalLikesTextPost= itemView.findViewById(R.id.totalLikesTextPost);
+            this.delete_icon= itemView.findViewById(R.id.delete_icon);
 
             recyclerViewCmnt = (RecyclerView) itemView.findViewById(R.id.commentView);
             recyclerViewCmnt.setLayoutManager(new LinearLayoutManager(context));
