@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.schoolhub.LandingScreen;
 import com.example.schoolhub.R;
 import com.example.schoolhub.SchoolDetails;
+import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnItemClick;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.ui.statistics.StatisticsFragment;

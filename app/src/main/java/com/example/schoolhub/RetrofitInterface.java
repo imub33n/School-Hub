@@ -106,4 +106,9 @@ public interface RetrofitInterface {
 
     @GET("/dashboard/deletePost/{id}")
     Call<Void> deletePost(@Path("id") String id);
+
+    @POST("/user_management/searchUser/{id}")
+    Call<List<LoginResult>> getUser(@Path("id") String id,@Body HashMap<String, String> map);
+
+
 }

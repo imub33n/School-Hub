@@ -2,18 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/search_user"
-        android:title="Search"
-        app:showAsAction="always"
-        android:iconTint="#FFF"
-        android:onClick="inflateSearch"
-        android:icon="@drawable/ic_search_24dp"
-        />
-    <item
         android:id="@+id/action_notification"
         android:title="Notification"
         app:showAsAction="always"
         android:icon="@drawable/noti"
+        />
+    <item
+        android:id="@+id/search_user"
+        android:title="Search User"
+        app:showAsAction="always"
+        android:onClick="inflateSearch"
+        android:icon="@drawable/ic_search_24dp"
         />
     <item
         android:id="@+id/action_profile"

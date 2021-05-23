@@ -36,22 +36,11 @@
             android:hint="⌕ Search Users here..."
             android:inputType="text"
             android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/searchButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="15dp"
-            android:backgroundTint="@color/appDefault"
-            android:text="Search"
-            android:textColor="#fff" />
-
         <TextView
             android:id="@+id/statusUserSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:padding="10dp"
             android:text=""
             android:layout_gravity="center"
             android:textColor="#000"
@@ -60,6 +49,7 @@
             android:id="@+id/searchUserResultRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             tools:itemCount="5"
             tools:listitem="@layout/frag_user_search_result"/>
     </LinearLayout>

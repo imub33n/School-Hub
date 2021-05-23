@@ -5,8 +5,11 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +30,7 @@ import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.uikit.ui_resources.utils.Utils;
 import com.example.schoolhub.Adapters.SearchResultAdapter;
+import com.example.schoolhub.Adapters.SearchUserAdapter;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
@@ -50,6 +54,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -70,6 +75,11 @@ public class HomePanel extends AppCompatActivity {
     FirebaseStorage storage= FirebaseStorage.getInstance();
     TextView statusUserSearch;
     EditText searchUserEditText;
+    List<LoginResult> loginResults;
+
+    SearchUserAdapter searchUserAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,9 +210,9 @@ public class HomePanel extends AppCompatActivity {
     }
 
     public void inflateSearch(MenuItem item) {
-
+        openSearchFragment();
     }
-    public void openSearchFragment(View view) {
+    public void openSearchFragment() {
         View v = getLayoutInflater().inflate(R.layout.fragment_search_user, null);
         //full screen bottom sheet
         BottomSheetDialog dialog = new BottomSheetDialog(this);
@@ -215,15 +225,62 @@ public class HomePanel extends AppCompatActivity {
         BottomSheetBehavior mBehavior;
         mBehavior = BottomSheetBehavior.from((View) v.getParent());
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        ///
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+        LinearLayout.LayoutParams layoutParams3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams3.gravity = Gravity.CENTER;
         //yes
         searchUserEditText =v.findViewById(R.id.searchUserEditText);
         statusUserSearch =v.findViewById(R.id.statusUserSearch);
-        searchButt = v.findViewById(R.id.searchButt);
+
         //recycler
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.searchUserResultRecycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchUserEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(loginResults!=null){
+                    loginResults.clear();
+                }
+                statusUserSearch.setLayoutParams(layoutParams3);
+                statusUserSearch.setText("Searching..");
+//
+                HashMap<String, String> mapTypeUser = new HashMap<>();
+                mapTypeUser.put("type","");
+                Call<List<LoginResult>> call = retrofitInterface.getUser(searchUserEditText.getText().toString(),mapTypeUser);
+                call.enqueue(new Callback<List<LoginResult>>() {
+                    @Override
+                    public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+                        loginResults=response.body();
+                        if(response.code()==200){
+                            if(loginResults.size()>0){
+                                statusUserSearch.setText("");
+                                statusUserSearch.setLayoutParams(layoutParams);
+                                searchUserAdapter = new SearchUserAdapter(loginResults,getApplicationContext());
+                                recyclerView.setAdapter(searchUserAdapter);
+                            }else if(loginResults.size()==0){
+                                statusUserSearch.setText("No User Found");
+                            }
 
+
+                        }
+                        if(!response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "search Err: "+response.code(), Toast.LENGTH_LONG).show();
+                            statusUserSearch.setText("Err Database: "+response.code());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Connection error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
         searchUserEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,38 +288,6 @@ public class HomePanel extends AppCompatActivity {
                 LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, 0);
                 recyclerView.setLayoutParams(layoutParams2);
                 statusUserSearch.setText("");
-            }
-        });
-
-
-        searchButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                statusUserSearch.setText("Searching..");
-
-                Call<List<SchoolData>> call = retrofitInterface.searchSchools(searchUserEditText.getText().toString());
-                call.enqueue(new Callback<List<SchoolData>>() {
-                    @Override
-                    public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
-                        Log.d(TAG, "Size: _____________SIZE:__"+ response.body().size());
-                        if(response.code()==200){
-
-//                            searchResultAdapter = new SearchResultAdapter(jaga,schoolData,getApplicationContext(),m);
-//                            recyclerView.setAdapter(searchResultAdapter);
-                        }
-                        if(!response.isSuccessful()){
-                            Log.d(TAG, "onResponse search retrofit: "+response.code());
-                            return;
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<List<SchoolData>> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), " some connection error in search : "+t.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-
             }
         });
     }
