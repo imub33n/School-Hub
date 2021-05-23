@@ -29,11 +29,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -52,12 +56,14 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
     EditText schoolZip;
     EditText schoolAbout;
     EditText schoolAddress;
-    RadioButton radioButtonSkolType,radioButtonSkolType1,radioButtonSkolType2,radioButtonSkolType3,radioButtonEducationType,radioButtonEducationType1,radioButtonEducationType2,radioButtonEducationType3;
+    RadioButton radioButtonSkolType,radioButtonSkolType1,radioButtonSkolType2,
+            radioButtonSkolType3,radioButtonEducationType,radioButtonEducationType1,
+            radioButtonEducationType2,radioButtonEducationType3;
     RadioGroup radioGroupSkolType,radioGroupEducationType;
     CheckBox checkBoxPrimary,checkBoxMiddle,checkBoxHigher;
     public static String EducationLevel="";
 
-    List<SchoolData> UpdatedSchoolData;
+    List<SchoolData> UpdatedSchoolData = new ArrayList<>();
     SchoolData updateSchoolData= new SchoolData();
     SchoolCoordinates schoolCoordinates= new SchoolCoordinates();
 
@@ -127,8 +133,8 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
             }
         }
         //put map coordinates
-        lat= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude();
-        lng= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude();
+//        lat= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude();
+//        lng= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude();
 
         //
         toolbarEdit.setNavigationOnClickListener(new View.OnClickListener() {
@@ -161,8 +167,13 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
         }
         googleMap.setMyLocationEnabled(true);
         googleMap.setOnMapClickListener(this);
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(lat),Float.parseFloat(lng))).title(AdminDashMainPage.yesSchoolData.getSchoolName()).draggable(true));
-        LatLng location = new LatLng(Float.parseFloat(lat), Float.parseFloat(lng));
+        googleMap.addMarker(new MarkerOptions().
+                position(new LatLng(
+                        Float.parseFloat(AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude()),
+                        Float.parseFloat(AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude()))).
+                title(AdminDashMainPage.yesSchoolData.getSchoolName()).draggable(true));
+        LatLng location = new LatLng(Float.parseFloat(AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude()),
+                Float.parseFloat(AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude()));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location,13));
     }
     @Override
@@ -211,7 +222,7 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
                 .setMessage("Are you sure you want to update ?")
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Continue with delete operation
+                        //
                         if (!Objects.equals(schoolName.getText(), AdminDashMainPage.yesSchoolData.getSchoolName())) {
                            updateSchoolData.setSchoolName(String.valueOf(schoolName.getText()));
                         }
@@ -253,15 +264,33 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
                             schoolCoordinates.setLatitude(lat);
                             schoolCoordinates.setLongitude(lng);
                             updateSchoolData.setSchoolCoordinates(schoolCoordinates);
-
                         }
+
                         UpdatedSchoolData.add(updateSchoolData);
                         // backend connection under this line
-
+                        Call<SchoolData> call = retrofitInterface.putSchoolData(AdminDashMainPage.yesSchoolData.get_id(),updateSchoolData);
+                        call.enqueue(new Callback<SchoolData>() {
+                            @Override
+                            public void onResponse(Call<SchoolData> call, Response<SchoolData> response) {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(EditSchool.this, "Updated", Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(EditSchool.this, "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<SchoolData> call, Throwable t) {
+                                Toast.makeText(EditSchool.this, "Err Connection: "+t, Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
                 })
                 .setNegativeButton("Cancel", null)
                 //.setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void cancelEditSchool(View view) {
+        onBackPressed();
     }
 }

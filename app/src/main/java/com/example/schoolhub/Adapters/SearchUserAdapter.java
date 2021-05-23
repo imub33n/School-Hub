@@ -53,7 +53,6 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserAdapter.Vi
         holder.userType.setText(loginResults.get(position).getType());
         if(loginResults.get(position).getProfilePic()!=null){
             if(!loginResults.get(position).getProfilePic().isEmpty()){
-
                 StorageReference storageRef2 = storage.getReferenceFromUrl(loginResults.get(position).getProfilePic());
                 storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override

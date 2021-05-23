@@ -5,12 +5,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolReviews;
 
@@ -23,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.ContentValues.TAG;
 
 public class EditAccountSettings extends AppCompatActivity {
     public Toolbar toolbarEdit;
@@ -64,6 +70,24 @@ public class EditAccountSettings extends AppCompatActivity {
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         if (response.isSuccessful()) {
                                             Toast.makeText(EditAccountSettings.this,"School Deleted",Toast.LENGTH_LONG).show();
+                                            PreferenceData.setUserLoggedInStatus(getApplicationContext(),false);
+                                            PreferenceData.clearLoggedInEmailAddress(getApplicationContext());
+                                            CometChat.logout(new CometChat.CallbackListener<String>() {
+                                                @Override
+                                                public void onSuccess(String successMessage) {
+                                                    Log.d(TAG, "Logout completed successfully");
+                                                }
+                                                @Override
+                                                public void onError(CometChatException e) {
+                                                    Log.d(TAG, "Logout failed with exception: " + e.getMessage());
+                                                }
+                                            });
+                                            finish();
+                                            Intent it = new Intent( EditAccountSettings.this , LandingScreen.class);
+                                            it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                                    Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(it);
                                         }else {
                                             Toast.makeText(EditAccountSettings.this, "CODE: "+response.code(), Toast.LENGTH_LONG).show();
                                         }

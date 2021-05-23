@@ -69,14 +69,15 @@ import static android.content.ContentValues.TAG;
 public class HomePanel extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    Button logout,reviewAndFeedback,searchButt;
+    Button logout,reviewAndFeedback;
+    RadioButton studentButton,teacherButton;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     FirebaseStorage storage= FirebaseStorage.getInstance();
     TextView statusUserSearch;
     EditText searchUserEditText;
     List<LoginResult> loginResults;
-
+    RecyclerView recyclerView;
     SearchUserAdapter searchUserAdapter;
 
 
@@ -140,6 +141,9 @@ public class HomePanel extends AppCompatActivity {
                 });
                 finish();
                 Intent it = new Intent( HomePanel.this , LandingScreen.class);
+                it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(it);
             }
         });
@@ -225,16 +229,14 @@ public class HomePanel extends AppCompatActivity {
         BottomSheetBehavior mBehavior;
         mBehavior = BottomSheetBehavior.from((View) v.getParent());
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        ///
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
-        LinearLayout.LayoutParams layoutParams3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams3.gravity = Gravity.CENTER;
+
         //yes
         searchUserEditText =v.findViewById(R.id.searchUserEditText);
         statusUserSearch =v.findViewById(R.id.statusUserSearch);
-
+        teacherButton =v.findViewById(R.id.teacherButton);
+        studentButton =v.findViewById(R.id.studentButton);
         //recycler
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.searchUserResultRecycleView);
+        recyclerView = (RecyclerView) v.findViewById(R.id.searchUserResultRecycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchUserEditText.addTextChangedListener(new TextWatcher() {
@@ -244,54 +246,81 @@ public class HomePanel extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
-                if(loginResults!=null){
-                    loginResults.clear();
-                }
-                statusUserSearch.setLayoutParams(layoutParams3);
-                statusUserSearch.setText("Searching..");
-//
-                HashMap<String, String> mapTypeUser = new HashMap<>();
-                mapTypeUser.put("type","");
-                Call<List<LoginResult>> call = retrofitInterface.getUser(searchUserEditText.getText().toString(),mapTypeUser);
-                call.enqueue(new Callback<List<LoginResult>>() {
-                    @Override
-                    public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
-                        loginResults=response.body();
-                        if(response.code()==200){
-                            if(loginResults.size()>0){
-                                statusUserSearch.setText("");
-                                statusUserSearch.setLayoutParams(layoutParams);
-                                searchUserAdapter = new SearchUserAdapter(loginResults,getApplicationContext());
-                                recyclerView.setAdapter(searchUserAdapter);
-                            }else if(loginResults.size()==0){
-                                statusUserSearch.setText("No User Found");
-                            }
-
-
-                        }
-                        if(!response.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "search Err: "+response.code(), Toast.LENGTH_LONG).show();
-                            statusUserSearch.setText("Err Database: "+response.code());
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<List<LoginResult>> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Connection error: "+t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                searchit();
+            }
+        });
+        teacherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchit();
+            }
+        });
+        studentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchit();
             }
         });
         searchUserEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, 0);
-                recyclerView.setLayoutParams(layoutParams2);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+                recyclerView.setLayoutParams(layoutParams);
                 statusUserSearch.setText("");
             }
         });
     }
     private int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+    private void searchit(){
+        ///
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+        LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams3.gravity = Gravity.CENTER;
+        if(loginResults!=null){
+            loginResults.clear();
+        }
+        statusUserSearch.setLayoutParams(layoutParams3);
+        statusUserSearch.setText("Searching..");
+//
+        HashMap<String, String> mapTypeUser = new HashMap<>();
+        if(teacherButton.isChecked()){
+            mapTypeUser.put("type","Teacher");
+        }else if(studentButton.isChecked()){
+            mapTypeUser.put("type","Student");
+        }else{
+            mapTypeUser.put("type","");
+        }
+
+        Call<List<LoginResult>> call = retrofitInterface.getUser(searchUserEditText.getText().toString(),mapTypeUser);
+        call.enqueue(new Callback<List<LoginResult>>() {
+            @Override
+            public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+                loginResults=response.body();
+                if(response.code()==200){
+                    recyclerView.setLayoutParams(layoutParams2);
+                    if(loginResults.size()>0){
+                        statusUserSearch.setText("");
+                        statusUserSearch.setLayoutParams(layoutParams);
+                        searchUserAdapter = new SearchUserAdapter(loginResults,getApplicationContext());
+                        recyclerView.setAdapter(searchUserAdapter);
+                    }else if(loginResults.size()==0){
+                        statusUserSearch.setText("No User Found");
+                    }
+
+
+                }
+                if(!response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "search Err: "+response.code(), Toast.LENGTH_LONG).show();
+                    statusUserSearch.setText("Err Database: "+response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Connection error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

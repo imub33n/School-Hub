@@ -48,7 +48,7 @@ public interface RetrofitInterface {
     Call<List<SchoolData>> getSchoolData();
 
     @PATCH("/school/Edit_School/{id}")
-    Call<SchoolData> putSchoolData(@Path("id") String id, @Body List<SchoolData> UpdatedSchoolData);
+    Call<SchoolData> putSchoolData(@Path("id") String id, @Body SchoolData UpdatedSchoolData);
 
     @POST("/searchSchool/search/{yes}")
     Call<List<SchoolData>> searchSchools(@Path("yes") String yes, @Body SearchFilters searchFilters);
@@ -110,5 +110,9 @@ public interface RetrofitInterface {
     @POST("/user_management/searchUser/{id}")
     Call<List<LoginResult>> getUser(@Path("id") String id,@Body HashMap<String, String> map);
 
+    @POST("/school/delete_Image/{id}")
+    Call<Void> deleteImage(@Path("id") String id,@Body HashMap<String, String> map);
 
+    @POST("/school/addNewSchoolImages/{id}")
+    Call<Void> addImage(@Path("id") String id,@Body HashMap<String, String> map);
 }

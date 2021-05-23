@@ -73,7 +73,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     CircleImageView profilePhoto;
     private final int PICK_IMAGE_REQUEST = 76;
     private Uri filePath;
-    StorageReference storageReference ;
+    StorageReference storageReference;
     OnCommentClick c=this;
     EditText userNameEdit,phoneNoEdit,oldPasswordEdit,newPasswordEdit,confirmPasswordEdit;
 
@@ -253,7 +253,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                                 postStatus.setText("No Posts Yet!");
                             }else{
 
-                                adapter = new PostViewAdapter(resource,getApplicationContext(),c);
+                                adapter = new PostViewAdapter(resource,UserProfile.this,c);
                                 adapter.setHasStableIds(true);
                                 recyclerView.setAdapter(adapter);
                             }

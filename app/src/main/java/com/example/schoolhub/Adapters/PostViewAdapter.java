@@ -52,6 +52,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fragment.FragmentReactionObject.TAG;
+
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     List<PostResult> resourcePost;
     List<Comment> resourceComment;
@@ -82,7 +84,8 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull PostViewAdapter.ViewHolder holder, int position) {
         PostResult postResult=resourcePost.get(position);
-        if(Objects.equals(context.getClass().getSimpleName(),"Application")){
+
+        if(Objects.equals(context.getClass().getSimpleName(),"UserProfile")){
             if(postResult.getUserID().equals(PreferenceData.getLoggedInUserData(context).get("userID"))){
                 holder.delete_icon.setVisibility(View.VISIBLE);
             }
@@ -102,6 +105,8 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (response.isSuccessful()) {
                                     Toast.makeText(context,"Post Deleted",Toast.LENGTH_LONG).show();
+                                    resourcePost.remove(position);
+                                    notifyDataSetChanged();
                                 }else {
                                     Toast.makeText(context, "CODE: "+response.code(), Toast.LENGTH_LONG).show();
                                 }
@@ -290,7 +295,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                                             if(Objects.equals(context.getClass().getSimpleName(),"HomePanel")){
                                                 resourcePost=response.body();
                                                 cCallback.onClick(response.body(),position);
-                                            }else if(Objects.equals(context.getClass().getSimpleName(),"Application")){
+                                            }else if(Objects.equals(context.getClass().getSimpleName(),"UserProfile")){
                                                 for(int i=0;i<response.body().size();i++){
                                                     if(Objects.equals(response.body().get(i).getUserID(),PreferenceData.getLoggedInUserData(context).get("userID"))){
                                                         resourcer.add(response.body().get(i));

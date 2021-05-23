@@ -68,6 +68,9 @@ public class AdminDashboard extends AppCompatActivity {
                 });
                 finish();
                 Intent it = new Intent( AdminDashboard.this , LandingScreen.class);
+                it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(it);
             }
         });
