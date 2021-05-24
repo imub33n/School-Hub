@@ -207,3 +207,6 @@ public class LiveStreamCam extends AppCompatActivity {
         onBackPressed();
     }
 }
+
+//https://prodocs.cometchat.com/docs/android-messaging-send-message#text-message
+//https://docs.cometchat.io/android/v2.0/javadocs/com/cometchat/pro/core/CometChat.MessageListener.html

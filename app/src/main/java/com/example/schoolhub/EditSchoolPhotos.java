@@ -87,10 +87,7 @@ public class EditSchoolPhotos extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
     }
-
 
     public void selectPhotos(View view) {
         Intent intent = new Intent();

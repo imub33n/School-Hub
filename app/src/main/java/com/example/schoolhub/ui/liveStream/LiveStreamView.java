@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bambuser.broadcaster.BroadcastPlayer;
@@ -25,6 +27,8 @@ import android.widget.MediaController;
 public class LiveStreamView extends AppCompatActivity {
     SurfaceViewWithAutoAR mVideoSurface;
     TextView mPlayerStatusTextView;
+    EditText msg_box;
+    ImageView send_msg_button;
     View mPlayerContentView;
     private static final String APPLICATION_ID = "Qj6nLAnk5oKeMua2ChtVlQ";
     private static final String API_KEY = "SnGkNLdLDAg1X6XHew1XbL";
@@ -40,6 +44,9 @@ public class LiveStreamView extends AppCompatActivity {
         mVideoSurface = findViewById(R.id.VideoSurfaceView);
         mPlayerStatusTextView = findViewById(R.id.PlayerStatusTextView);
         mPlayerContentView = findViewById(R.id.PlayerContentView);
+        //chat
+        send_msg_button = findViewById(R.id.send_msg_button);
+        msg_box = findViewById(R.id.msg_box);
         //Sizing the video surface
         mDefaultDisplay = getWindowManager().getDefaultDisplay();
 
