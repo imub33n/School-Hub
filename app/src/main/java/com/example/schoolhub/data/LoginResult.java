@@ -3,6 +3,8 @@ package com.example.schoolhub.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class LoginResult {
     @SerializedName("_id")
     @Expose
@@ -25,6 +27,17 @@ public class LoginResult {
     @SerializedName("profilePic")
     @Expose
     private String profilePic;
+    @SerializedName("following")
+    @Expose
+    private List<Following> following;
+
+    public List<Following> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Following> following) {
+        this.following = following;
+    }
 
     public String getUserID() {
         return userID;

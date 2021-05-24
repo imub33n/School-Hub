@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,8 @@ import com.cometchat.pro.models.User;
 import com.cometchat.pro.uikit.ui_components.messages.message_list.CometChatMessageListActivity;
 import com.cometchat.pro.uikit.ui_resources.constants.UIKitConstants;
 import com.example.schoolhub.Adapters.PostViewAdapter;
+import com.example.schoolhub.data.Following;
+import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.PostResult;
@@ -67,7 +71,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     ProgressBar progressBar;
     List<PostResult> resource= new ArrayList<>();
     PostViewAdapter adapter;
-    TextView postStatus,phoneNoProfile,userNameProfile,emailProfile,editDetails,send_msg;
+    TextView postStatus,phoneNoProfile,userNameProfile,emailProfile,editDetails,send_msg,follow_button;
     ImageView editDP;
     FirebaseStorage storage= FirebaseStorage.getInstance();
     CircleImageView profilePhoto;
@@ -76,8 +80,9 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
     StorageReference storageReference;
     OnCommentClick c=this;
     EditText userNameEdit,phoneNoEdit,oldPasswordEdit,newPasswordEdit,confirmPasswordEdit;
-
+    LinearLayout follow_chat_layout;
     Boolean themFriends=false;
+    Following following= new Following();
 
     private int limit = 30;
     List <User> listOfFriends= new ArrayList<>();
@@ -118,7 +123,31 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         emailProfile= findViewById(R.id.emailProfile);
         userNameProfile= findViewById(R.id.userNameProfile);
         send_msg= findViewById(R.id.send_msg);
+        follow_chat_layout= findViewById(R.id.follow_chat_layout);
+        follow_button= findViewById(R.id.follow_button);
+        //logedin user
+        Call<List<LoginResult>> calld = retrofitInterface.userData(PreferenceData.getLoggedInUserData(this).get("userID"));
+        calld.enqueue(new Callback<List<LoginResult>>() {
+            @Override
+            public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+                if (response.code() == 200) {
+                    //chk followers
+                    for(int i=0;i<response.body().get(0).getFollowing().size();i++){
+                        if(Objects.equals(response.body().get(0).getFollowing().get(i).getUserID(), getIntent().getStringExtra("EXTRA_USER_ID")) && response.body().get(0).getFollowing().get(i).getFollow()){
+                            follow_button.setText("Unfollow");
+                        }
+                    }
 
+                }else {
+                    Toast.makeText(getApplicationContext(), "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
         UsersRequest usersRequest = new UsersRequest.UsersRequestBuilder()
                 .setLimit(limit)
                 .friendsOnly(true)
@@ -139,8 +168,43 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
             editDetails.setLayoutParams(new LinearLayout.LayoutParams(0,0));
             editDP.setLayoutParams(new FrameLayout.LayoutParams(0, 0));
         }else{
-            send_msg.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            follow_chat_layout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         }
+        follow_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                following.setUserID(getIntent().getStringExtra("EXTRA_USER_ID"));
+                if(Objects.equals(follow_button.getText().toString(),"Follow")){
+                    following.setFollow(true);
+                } else if(Objects.equals(follow_button.getText().toString(),"Unfollow")){
+                    following.setFollow(false);
+                }
+//                HashMap<String,Following> maping = new HashMap<>();
+//                maping.put("following",following);
+
+                Call<Void> call =retrofitInterface.updateFollow(PreferenceData.getLoggedInUserData(UserProfile.this).get("userID"),following);
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            if(Objects.equals(follow_button.getText().toString(),"Follow")){
+                                follow_button.setText("Unfollow");
+                            } else if(Objects.equals(follow_button.getText().toString(),"Unfollow")){
+                                follow_button.setText("Follow");
+                            }
+                        }else{
+                            Toast.makeText(UserProfile.this, "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(UserProfile.this, " Connection Err: "+t.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
         //send msg button
         send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +218,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                     if(i==listOfFriends.size()-1){
                         if(!themFriends){
                             //add as friend
+                            Log.d(TAG, "onClick: __friends?_"+themFriends);
                             HashMap<String, String> mapUsers = new HashMap<>();
 
                             mapUsers.put( "userID", PreferenceData.getLoggedInUserData(UserProfile.this).get("userID") );
@@ -163,8 +228,6 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                             call.enqueue(new Callback<Void>() {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
                                     if (response.isSuccessful()) {
                                         Toast.makeText(UserProfile.this, "Yes", Toast.LENGTH_LONG).show();
                                     }else{
@@ -174,10 +237,16 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                                 @Override
                                 public void onFailure(Call<Void> call, Throwable t) {
                                     //Toast.makeText(UserProfile.this, "Connection Error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
                                     progressBar.setVisibility(View.INVISIBLE);
                                     openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
                                 }
-                            });
+                            }, 1000);//timer set for 1 seconds
                         }else{
                             progressBar.setVisibility(View.INVISIBLE);
                             openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
@@ -194,6 +263,8 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
             @Override
             public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
                 if (response.code() == 200) {
+                    //chk followers
+
                     //setData
                     userNameProfile.setText(response.body().get(0).getUsername());
                     emailProfile.setText(response.body().get(0).getEmail());

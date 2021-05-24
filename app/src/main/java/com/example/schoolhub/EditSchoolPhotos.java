@@ -27,6 +27,7 @@ import com.example.schoolhub.Adapters.AdapterLanding;
 import com.example.schoolhub.Adapters.AttachmentListAdapter;
 import com.example.schoolhub.Adapters.EditPhotosViewAdapter;
 import com.example.schoolhub.data.AttachmentListData;
+import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.PreferenceData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -130,10 +132,14 @@ public class EditSchoolPhotos extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri yoru)
                                 {
-                                    HashMap<String, String> mapNewImage = new HashMap<>();
-                                    mapNewImage.put("newImages", yoru.toString());
-
-                                    Call<Void> call3 = retrofitInterface.addImage(AdminDashMainPage.yesSchoolData.get_id(),mapNewImage);
+//                                    List<Image> sendImage=new ArrayList<>();
+                                    Image image= new Image();
+                                    image.setPath(yoru.toString());
+//                                    sendImage.add(image);
+                                    HashMap<String, Image> map = new HashMap<>();
+                                    map.put("images",image);
+                                    //map.put("videos","video");
+                                    Call<Void> call3 = retrofitInterface.addImage(AdminDashMainPage.yesSchoolData.get_id(),map);
                                     call3.enqueue(new Callback<Void>() {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {

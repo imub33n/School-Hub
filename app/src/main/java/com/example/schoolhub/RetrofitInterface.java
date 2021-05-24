@@ -1,6 +1,8 @@
 package com.example.schoolhub;
 
 import com.example.schoolhub.data.FacultyRequest;
+import com.example.schoolhub.data.Following;
+import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.LoginResult;
@@ -114,5 +116,8 @@ public interface RetrofitInterface {
     Call<Void> deleteImage(@Path("id") String id,@Body HashMap<String, String> map);
 
     @POST("/school/addNewSchoolImages/{id}")
-    Call<Void> addImage(@Path("id") String id,@Body HashMap<String, String> map);
+    Call<Void> addImage(@Path("id") String id,@Body HashMap<String, Image> map);
+
+    @PATCH("/user_management/userProfile/updateFollowing/{id}")
+    Call<Void> updateFollow(@Path("id") String id,@Body Following following);
 }
