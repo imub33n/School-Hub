@@ -21,35 +21,39 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/livelogo"/>
+
     <LinearLayout
         android:id="@+id/liveStreamView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/ic_launcher_background"
         android:layout_centerInParent="true"
+        android:background="@color/ic_launcher_background"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/imageBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/back"
             android:elevation="2dp"
-            android:layout_gravity="start"
             android:onClick="goBackFromLivestream"
             android:text=" Go Back"
             android:textColor="#fff"
             android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginBottom="40dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
@@ -59,24 +63,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:textSize="20dp"
-                android:layout_margin="10dp"
                 android:layout_gravity="center"
-                android:text="Click Start button to go Live " />
+                android:layout_margin="10dp"
+                android:text="Click Start button to go Live "
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
             <TextView
                 android:layout_width="250dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
                 android:layout_gravity="center"
-                android:text="People will will be able to view and comment on your live stream" />
+                android:gravity="center"
+                android:text="People will will be able to view and comment on your live stream"
+                android:textColor="#fff" />
         </LinearLayout>
-
     </LinearLayout>
-
-
-
 
     <Button
         android:id="@+id/BroadcastButton"
@@ -88,4 +89,17 @@
         android:textColor="@color/appDefault"
         android:backgroundTint="#C6FFFFFF"
         android:text="START STREAMING" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cmnt_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="25dp"
+        tools:listitem="@layout/frag_livestream_cmnt"
+        tools:itemCount="5"
+        android:layout_above="@+id/BroadcastButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"/>
 </RelativeLayout>

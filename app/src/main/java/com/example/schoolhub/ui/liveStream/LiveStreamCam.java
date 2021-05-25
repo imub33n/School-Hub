@@ -2,6 +2,8 @@
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,10 +14,16 @@ import com.bambuser.broadcaster.BroadcastStatus;
 import com.bambuser.broadcaster.Broadcaster;
 import com.bambuser.broadcaster.CameraError;
 import com.bambuser.broadcaster.ConnectionError;
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.models.TextMessage;
+import com.example.schoolhub.Adapters.CommentLivestreamAdapter;
+import com.example.schoolhub.Adapters.LivestreamViewAdapter;
+import com.example.schoolhub.AdminDashMainPage;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.UserProfile;
+import com.example.schoolhub.data.CommentLiveStream;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.PreferenceData;
 
@@ -32,6 +40,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -54,6 +63,9 @@ public class LiveStreamCam extends AppCompatActivity {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     LiveStreamRequests liveStreamURIStatus= new LiveStreamRequests();
+    RecyclerView cmnt_recycler;
+    CommentLivestreamAdapter commentLivestreamAdapter;
+    List<CommentLiveStream> cmnts=new ArrayList<>();
 
     OkHttpClient mOkHttpClient = new OkHttpClient();
     String resourceUri = null;
@@ -67,6 +79,8 @@ public class LiveStreamCam extends AppCompatActivity {
         mBroadcaster = new Broadcaster(this, APPLICATION_ID, mBroadcasterObserver);
         mBroadcaster.setRotation(getWindowManager().getDefaultDisplay().getRotation());
         mBroadcastButton = findViewById(R.id.BroadcastButton);
+        cmnt_recycler = findViewById(R.id.cmnt_recycler);
+        cmnt_recycler.setLayoutManager(new LinearLayoutManager(LiveStreamCam.this));
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -88,6 +102,18 @@ public class LiveStreamCam extends AppCompatActivity {
                 }
             }
         });
+        CometChat.addMessageListener(AdminDashMainPage.yesSchoolData.get_id(),new CometChat.MessageListener() {
+            @Override
+            public void onTextMessageReceived(TextMessage message) {
+                CommentLiveStream commentLiveStream= new CommentLiveStream();
+                commentLiveStream.setText(message.getText());
+                commentLiveStream.setUsername(message.getSender().getName());
+                cmnts.add(commentLiveStream);
+                commentLivestreamAdapter = new CommentLivestreamAdapter(cmnts,LiveStreamCam.this);
+                cmnt_recycler.setAdapter(commentLivestreamAdapter);
+                //Toast.makeText(LiveStreamCam.this, message.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public void onDestroy() {
@@ -99,6 +125,7 @@ public class LiveStreamCam extends AppCompatActivity {
         super.onPause();
         mBroadcaster.onActivityPause();
     }
+
     private Broadcaster.Observer mBroadcasterObserver = new Broadcaster.Observer() {
         @Override
         public void onConnectionStatusChange(BroadcastStatus broadcastStatus) {
@@ -109,6 +136,22 @@ public class LiveStreamCam extends AppCompatActivity {
             }
             if (broadcastStatus == BroadcastStatus.IDLE){
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+            if (broadcastStatus == BroadcastStatus.FINISHING){
+                liveStreamURIStatus.setLive(false);
+                retrofit2.Call<Void> called = retrofitInterface.streamURIPatch(getIntent().getExtras().getString("StreamID"),liveStreamURIStatus);
+                called.enqueue(new retrofit2.Callback<Void>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+                        if(!response.isSuccessful()){
+                            Toast.makeText(LiveStreamCam.this, "Status update Err: "+response.code(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+                        Toast.makeText(LiveStreamCam.this, "Status Update error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }
         @Override
@@ -124,7 +167,7 @@ public class LiveStreamCam extends AppCompatActivity {
         }
         @Override
         public void onChatMessage(String s) {
-            Toast.makeText(getApplicationContext(),""+s,Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(),""+s,Toast.LENGTH_LONG).show();
         }
         @Override
         public void onResolutionsScanned() {
@@ -154,7 +197,6 @@ public class LiveStreamCam extends AppCompatActivity {
                 public void onResponse(final Call call, final Response response) throws IOException {
                     String body = response.body().string();
 
-                    Log.d(TAG, "_____________body______________onBody: "+body);
                     try {
                         JSONObject json = new JSONObject(body);
                         resourceUri=json.optString("resourceUri");
@@ -169,7 +211,7 @@ public class LiveStreamCam extends AppCompatActivity {
                                 if(!response.isSuccessful()){
                                     Toast.makeText(LiveStreamCam.this, "URi Update error: "+response.code(), Toast.LENGTH_LONG).show();
                                 }
-                                Toast.makeText(LiveStreamCam.this, "URi Updated", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(LiveStreamCam.this, "URi Updated", Toast.LENGTH_LONG).show();
                             }
                             @Override
                             public void onFailure(retrofit2.Call<Void> call, Throwable t) {
@@ -177,11 +219,12 @@ public class LiveStreamCam extends AppCompatActivity {
                             }
                         });
                     } catch (Exception ignored) {}
-                    Log.d(TAG, "_____________resourceUri______________onBody: "+resourceUri);
+
                 }
             });
         }
     };
+
     @Override
     public void onResume() {
         super.onResume();

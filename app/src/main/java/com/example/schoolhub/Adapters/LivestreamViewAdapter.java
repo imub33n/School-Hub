@@ -51,22 +51,24 @@ public class LivestreamViewAdapter extends RecyclerView.Adapter<LivestreamViewAd
             if(liveStreams.get(position).getLive()){
                 holder.timeDateStreams.setText("Started");
                 holder.bgStreamList.setBackgroundColor(context.getResources().getColor(R.color.green_600));
+                holder.bgStreamList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(dateStream.isEqual(dateCurrent)){
+                            Intent it = new Intent( context , LiveStreamView.class);
+                            it.putExtra("EXTRA_RESOURCE_URI", liveStreams.get(position).getResourceURI());
+                            it.putExtra("EXTRA_School_Id", liveStreams.get(position).getSchoolID());
+                            context.startActivity(it);
+                        }
+                    }
+                });
             }else{
                 holder.timeDateStreams.setText("Starts Today at "+ liveStreams.get(position).getStartTime());
             }
         }else{
             holder.timeDateStreams.setText("On "+liveStreams.get(position).getDate()+" At "+liveStreams.get(position).getStartTime());
         }
-        holder.bgStreamList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dateStream.isEqual(dateCurrent)){
-                    Intent it = new Intent( context , LiveStreamView.class);
-                    it.putExtra("EXTRA_RESOURCE_URI", liveStreams.get(position).getResourceURI());
-                    context.startActivity(it);
-                }
-            }
-        });
+
     }
 
     @Override

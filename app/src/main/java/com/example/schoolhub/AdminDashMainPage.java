@@ -6,12 +6,16 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.models.User;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 
@@ -23,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.ContentValues.TAG;
 
 public class AdminDashMainPage extends Fragment {
     //retrofit
@@ -53,11 +59,31 @@ public class AdminDashMainPage extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
         Call<List<SchoolData>> call = retrofitInterface.getSchoolData();
         call.enqueue(new Callback<List<SchoolData>>() {
             @Override
             public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
                 if (response.code() == 200) {
+
+                    //chat
+                    if (CometChat.getLoggedInUser() == null) {
+                        CometChat.login(PreferenceData.getLoggedInUserData(getContext()).get("userID"), MainActivity.authKey, new CometChat.CallbackListener<User>() {
+                            @Override
+                            public void onSuccess(User user) {
+                                Log.d(TAG, "Login Successful : " + user.toString());
+                            }
+
+                            @Override
+                            public void onError(CometChatException e) {
+                                Log.d(TAG, "Login failed with exception: " + e.getMessage());
+                            }
+                        });
+                    } else {
+                        // User already logged in
+                        Log.d(TAG, "Already loggedIn");
+                    }
+                    //endChat
                     progressBar.setVisibility(View.INVISIBLE);
                     schoolData =  response.body();
                     for(int i=0;i<schoolData.size();i++){

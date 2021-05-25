@@ -2,8 +2,11 @@ package com.example.schoolhub.ui.liveStream;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +14,10 @@ import android.widget.TextView;
 import com.bambuser.broadcaster.BroadcastPlayer;
 import com.bambuser.broadcaster.PlayerState;
 import com.bambuser.broadcaster.SurfaceViewWithAutoAR;
+import com.cometchat.pro.constants.CometChatConstants;
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.models.TextMessage;
 import com.example.schoolhub.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,6 +30,9 @@ import okhttp3.Response;
 import android.graphics.Point;
 import android.view.Display;
 import android.widget.MediaController;
+import android.widget.Toast;
+
+import static android.content.ContentValues.TAG;
 
 public class LiveStreamView extends AppCompatActivity {
     SurfaceViewWithAutoAR mVideoSurface;
@@ -49,7 +59,41 @@ public class LiveStreamView extends AppCompatActivity {
         msg_box = findViewById(R.id.msg_box);
         //Sizing the video surface
         mDefaultDisplay = getWindowManager().getDefaultDisplay();
+        send_msg_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!msg_box.getText().toString().isEmpty()){
+                    String receiverID = getIntent().getStringExtra("EXTRA_School_Id");
+                    String messageText = msg_box.getText().toString();
+                    String receiverType = CometChatConstants.RECEIVER_TYPE_USER;
 
+                    TextMessage textMessage = new TextMessage(receiverID, messageText, receiverType);
+
+                    CometChat.sendMessage(textMessage, new CometChat.CallbackListener <TextMessage> () {
+                        @Override
+                        public void onSuccess(TextMessage textMessage) {
+                            Log.d(TAG, "Message sent successfully: " + textMessage.toString());
+                            msg_box.setText("");
+                            closeKeyboard();
+                        }
+                        @Override
+                        public void onError(CometChatException e) {
+                            Log.d(TAG, "Message sending failed with exception: " + e.getMessage());
+                        }
+                    });
+                }else{
+                    Toast.makeText(LiveStreamView.this, "Empty comment box!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
     private Point getScreenSize() {
         if (mDefaultDisplay == null)

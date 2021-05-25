@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.models.User;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
@@ -257,6 +260,23 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                                     if(response.code()==201){
                                                         Toast.makeText(getApplicationContext(),"Added", Toast.LENGTH_LONG).show();
+//                                                        //create chat user
+//                                                        String authKey = MainActivity.authKey; // Replace with your App Auth Key
+//                                                        User user = new User();
+//                                                        user.setUid(response.body().get("_id")); // Replace with the UID for the user to be created
+//                                                        user.setName(response.body().get("username")); // Replace with the name of the user
+//
+//                                                        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
+//                                                            @Override
+//                                                            public void onSuccess(User user) {
+//                                                                Log.d("createUser", user.toString());
+//                                                            }
+//
+//                                                            @Override
+//                                                            public void onError(CometChatException e) {
+//                                                                Log.e("createUser", e.getMessage());
+//                                                            }
+//                                                        });
                                                         Intent it = new Intent( getApplicationContext() , AddingSchoolCompleted.class);
                                                         it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(it);

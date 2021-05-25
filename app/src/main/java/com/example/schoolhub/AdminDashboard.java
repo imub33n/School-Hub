@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.example.schoolhub.Adapters.SlideAdapter;
@@ -51,6 +52,21 @@ public class AdminDashboard extends AppCompatActivity {
         setSupportActionBar(toolbar);
         reviewAndFeedbackAdmin = findViewById(R.id.reviewAndFeedbackAdmin);
         logoutAdmin = findViewById(R.id.logoutAdmin);
+        //chat
+        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(MainActivity.region).build();
+        CometChat.init(this, MainActivity.appID,appSettings, new CometChat.CallbackListener<String>() {
+            @Override
+            public void onSuccess(String successMessage) {
+                //UIKitSettings.setAuthKey(authKey);
+                CometChat.setSource("ui-kit","android","java");
+                Log.d(TAG, "Initialization completed successfully");
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
+            }
+        });
         logoutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

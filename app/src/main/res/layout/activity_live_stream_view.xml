@@ -30,8 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_usage_rounded_corner"
-        android:backgroundTint="#A6FFFFFF"
+        android:background="@drawable/bg_comment"
         android:elevation="3dp"
         android:layout_margin="10dp"
         android:paddingStart="10dp"
@@ -40,18 +39,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
         <EditText
             android:id="@+id/msg_box"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Send Live Message.."
-            android:textColor="#000"/>
+            android:hint="Comment on stream.."
+            android:textColorHint="#fff"
+            android:textColor="#fff" />
         <ImageView
             android:id="@+id/send_msg_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tint="@color/appDefault"
+            app:tint="#fff"
             android:layout_marginStart="5dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_send"/>

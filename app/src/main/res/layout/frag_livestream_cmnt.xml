@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:background="@drawable/bg_comment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/name_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Name Sender"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:text=" :  "/>
+    <TextView
+        android:id="@+id/cmnt_here"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:textColor="#fff"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Comment body here"/>
+</LinearLayout>
