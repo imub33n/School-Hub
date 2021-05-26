@@ -9,6 +9,7 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -21,6 +22,9 @@ import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SchoolReviews;
 import com.example.schoolhub.ui.home.HomeFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,19 @@ public class MainActivity extends AppCompatActivity {
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         //get data
         //request review data
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult();
+                        Log.d(TAG,"__))__"+ token);
+                    }
+                });
+
         Call<List<SchoolReviews>> call2er = retrofitInterface.getReviews();
         call2er.enqueue(new Callback<List<SchoolReviews>>() {
             @Override

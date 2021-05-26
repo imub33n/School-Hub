@@ -254,29 +254,29 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
 
                                             schoolData.setVideos("video link here");
                                             schoolData.setSchoolIcon("https://firebasestorage.googleapis.com/v0/b/okay-945dc.appspot.com/o/images%2F7cb7677b-bf68-4131-b681-308f4175d8b3?alt=media&token=d9f5b8d9-4dc3-4d7f-a478-5753cb56f18b");
-                                            Call<Void> call = retrofitInterface.createSchool(schoolData);
-                                            call.enqueue(new Callback<Void>() {
+                                            Call<SchoolData> call = retrofitInterface.createSchool(schoolData);
+                                            call.enqueue(new Callback<SchoolData>() {
                                                 @Override
-                                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                                public void onResponse(Call<SchoolData> call, Response<SchoolData> response) {
                                                     if(response.code()==201){
                                                         Toast.makeText(getApplicationContext(),"Added", Toast.LENGTH_LONG).show();
-//                                                        //create chat user
-//                                                        String authKey = MainActivity.authKey; // Replace with your App Auth Key
-//                                                        User user = new User();
-//                                                        user.setUid(response.body().get("_id")); // Replace with the UID for the user to be created
-//                                                        user.setName(response.body().get("username")); // Replace with the name of the user
-//
-//                                                        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
-//                                                            @Override
-//                                                            public void onSuccess(User user) {
-//                                                                Log.d("createUser", user.toString());
-//                                                            }
-//
-//                                                            @Override
-//                                                            public void onError(CometChatException e) {
-//                                                                Log.e("createUser", e.getMessage());
-//                                                            }
-//                                                        });
+                                                        //create chat user
+                                                        String authKey = MainActivity.authKey; // Replace with your App Auth Key
+                                                        User user = new User();
+                                                        user.setUid(response.body().get_id()); // Replace with the UID for the user to be created
+                                                        user.setName(AddingSchool.schoolNames); // Replace with the name of the user
+
+                                                        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
+                                                            @Override
+                                                            public void onSuccess(User user) {
+                                                                Log.d("createdUser: ", user.toString());
+                                                            }
+
+                                                            @Override
+                                                            public void onError(CometChatException e) {
+                                                                Log.e("createUser", e.getMessage());
+                                                            }
+                                                        });
                                                         Intent it = new Intent( getApplicationContext() , AddingSchoolCompleted.class);
                                                         it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(it);
@@ -285,7 +285,7 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                     }
                                                 }
                                                 @Override
-                                                public void onFailure(Call<Void> call, Throwable t) {
+                                                public void onFailure(Call<SchoolData> call, Throwable t) {
                                                     Toast.makeText(getApplicationContext(),"Error: "+t, Toast.LENGTH_LONG).show();
                                                 }
                                             });

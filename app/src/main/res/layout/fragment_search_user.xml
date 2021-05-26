@@ -21,6 +21,7 @@
             android:layout_gravity="center"
             android:drawableBottom="@drawable/drop_down"
             android:text="Pull down to close"
+            android:letterSpacing="0.1"
             android:textColor="#000"
             android:textSize="12sp" />
 
@@ -33,6 +34,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/edittextbg"
             android:focusable="true"
+            android:letterSpacing="0.05"
             android:hint="⌕ Search Users here..."
             android:inputType="text"
             android:textAlignment="center" />
@@ -42,6 +44,12 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search for : "
+                android:letterSpacing="0.1"
+                android:textColor="#000"/>
             <RadioButton
                 android:id="@+id/studentButton"
                 android:layout_width="wrap_content"

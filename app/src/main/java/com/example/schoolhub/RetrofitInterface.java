@@ -44,7 +44,7 @@ public interface RetrofitInterface {
     Call<PostResult> putLike(@Path("id") String id, @Body HashMap<String, Likes> map);
 
     @POST("/school/Create_School")
-    Call<Void> createSchool(@Body SchoolData schoolData);
+    Call<SchoolData> createSchool(@Body SchoolData schoolData);
 
     @GET("/school/School_Details")
     Call<List<SchoolData>> getSchoolData();

@@ -30,6 +30,17 @@ public class LoginResult {
     @SerializedName("following")
     @Expose
     private List<Following> following;
+    @SerializedName("notification")
+    @Expose
+    private List<Notification> notification;
+
+    public List<Notification> getNotification() {
+        return notification;
+    }
+
+    public void setNotification(List<Notification> notification) {
+        this.notification = notification;
+    }
 
     public List<Following> getFollowing() {
         return following;
