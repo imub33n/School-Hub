@@ -61,9 +61,14 @@ public class RequestsForSchoolAdmin extends AppCompatActivity {
         faculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                heading.setText(statusRequest);
-                facultyAdapter = new FacultyAdapter(InformationSchoolFragment.thisSchoolData.getTeachers(),RequestsForSchoolAdmin.this);
-                recyclerViewRequestFaculty.setAdapter(facultyAdapter);
+                if(AdminDashMainPage.yesSchoolData.getTeachers().size()>0){
+                    heading.setText("");
+                    facultyAdapter = new FacultyAdapter(AdminDashMainPage.yesSchoolData.getTeachers(),RequestsForSchoolAdmin.this);
+                    recyclerViewRequestFaculty.setAdapter(facultyAdapter);
+                }else{
+                    heading.setText("No Faculty Member");
+                }
+
             }
         });
         //ListView

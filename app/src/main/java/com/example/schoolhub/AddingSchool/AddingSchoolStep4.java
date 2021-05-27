@@ -211,8 +211,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                             schoolData.setEducationType(AddingSchool.EducationType);
                                             schoolData.setSchoolType(AddingSchool.SkolType);
                                             schoolData.setSchoolCoordinates(schoolCoordinates);
-                                            if(AddingSchoolStep3.step1){
-                                                feeStructure.setGroup(AddingSchoolStep3.To_From);
+                                            if(AddingSchool.EducationLevel.getPrimary()){
+                                                feeStructure.setGroup("primary");
                                                 feeStructure.setAdmissionFee(AddingSchoolStep3.iAddFee);
                                                 feeStructure.setExamFee(AddingSchoolStep3.iExamFee);
                                                 feeStructure.setLabFee(AddingSchoolStep3.ilab);
@@ -224,8 +224,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 feeStructure.setTutionFee(AddingSchoolStep3.iTutionFee);
                                                 feeStructures.add(feeStructure);
                                                 schoolData.setFeeStructure(feeStructures);
-                                            }if(AddingSchoolStep3.step2){
-                                                feeStructure2.setGroup(AddingSchoolStep3.To_From2);
+                                            }if(AddingSchool.EducationLevel.getMiddle()){
+                                                feeStructure2.setGroup("middle");
                                                 feeStructure2.setAdmissionFee(AddingSchoolStep3.iAddFee2);
                                                 feeStructure2.setExamFee(AddingSchoolStep3.iExamFee2);
                                                 feeStructure2.setLabFee(AddingSchoolStep3.ilab2);
@@ -237,8 +237,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 feeStructure2.setTutionFee(AddingSchoolStep3.iTutionFee2);
                                                 feeStructures.add(feeStructure2);
                                                 schoolData.setFeeStructure(feeStructures);
-                                            }if(AddingSchoolStep3.step3){
-                                                feeStructure3.setGroup(AddingSchoolStep3.To_From3);
+                                            }if(AddingSchool.EducationLevel.getHigher()){
+                                                feeStructure3.setGroup("higher");
                                                 feeStructure3.setAdmissionFee(AddingSchoolStep3.iAddFee3);
                                                 feeStructure3.setExamFee(AddingSchoolStep3.iExamFee3);
                                                 feeStructure3.setLabFee(AddingSchoolStep3.ilab3);
@@ -252,31 +252,15 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                 schoolData.setFeeStructure(feeStructures);
                                             }
 
-                                            schoolData.setVideos("video link here");
-                                            schoolData.setSchoolIcon("https://firebasestorage.googleapis.com/v0/b/okay-945dc.appspot.com/o/images%2F7cb7677b-bf68-4131-b681-308f4175d8b3?alt=media&token=d9f5b8d9-4dc3-4d7f-a478-5753cb56f18b");
-                                            Call<SchoolData> call = retrofitInterface.createSchool(schoolData);
-                                            call.enqueue(new Callback<SchoolData>() {
+                                            schoolData.setVideos("");
+                                            schoolData.setSchoolIcon("https://firebasestorage.googleapis.com/v0/b/okay-945dc.appspot.com/o/images%2FLogoSchoolhub.png?alt=media&token=107bf37f-1b64-4490-b697-06740fcb81a1");
+                                            Call<Void> call = retrofitInterface.createSchool(schoolData);
+                                            call.enqueue(new Callback<Void>() {
                                                 @Override
-                                                public void onResponse(Call<SchoolData> call, Response<SchoolData> response) {
-                                                    if(response.code()==201){
+                                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                                    if(response.isSuccessful()){
                                                         Toast.makeText(getApplicationContext(),"Added", Toast.LENGTH_LONG).show();
-                                                        //create chat user
-                                                        String authKey = MainActivity.authKey; // Replace with your App Auth Key
-                                                        User user = new User();
-                                                        user.setUid(response.body().get_id()); // Replace with the UID for the user to be created
-                                                        user.setName(AddingSchool.schoolNames); // Replace with the name of the user
 
-                                                        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
-                                                            @Override
-                                                            public void onSuccess(User user) {
-                                                                Log.d("createdUser: ", user.toString());
-                                                            }
-
-                                                            @Override
-                                                            public void onError(CometChatException e) {
-                                                                Log.e("createUser", e.getMessage());
-                                                            }
-                                                        });
                                                         Intent it = new Intent( getApplicationContext() , AddingSchoolCompleted.class);
                                                         it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(it);
@@ -285,7 +269,7 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                                                     }
                                                 }
                                                 @Override
-                                                public void onFailure(Call<SchoolData> call, Throwable t) {
+                                                public void onFailure(Call<Void> call, Throwable t) {
                                                     Toast.makeText(getApplicationContext(),"Error: "+t, Toast.LENGTH_LONG).show();
                                                 }
                                             });

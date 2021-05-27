@@ -92,7 +92,8 @@ public class LiveStreamAdminFragment extends Fragment {
                 }else{
                     myLiveStreamRequests.clear();
                     for(int i=0;i<allLiveStreamRequests.size();i++){
-                        if(allLiveStreamRequests.get(i).getSchoolName().equals(yesSchoolData.getSchoolName())){
+
+                        if(allLiveStreamRequests.get(i).getSchoolID().equals(PreferenceData.getLoggedInUserData(getContext()).get("userID"))){
                             myLiveStreamRequests.add(allLiveStreamRequests.get(i));
                         }
                         if(i==allLiveStreamRequests.size()-1){

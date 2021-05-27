@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,24 +15,17 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
             AddFee,AddFee2,AddFee3,TutionFee,TutionFee2,TutionFee3,ExamFee,ExamFee2,ExamFee3,
             sports,sports2,sports3,lab,lab2,lab3,library,library2,library3,totalAddFee,totalAddFee2,
             totalAddFee3,monthlyFee,monthlyFee2,monthlyFee3,others,others2,others3;
-    public static String To_From,To_From2,To_From3;
+    //LinearLayout columnClasses,columnClasses2,columnClasses3;
     public static int iAddFee,iAddFee2,iAddFee3,iTutionFee,iTutionFee2,iTutionFee3,iExamFee,iExamFee2,iExamFee3,
             isports,isports2,isports3,ilab,ilab2,ilab3,ilibrary,ilibrary2,ilibrary3,itotalAddFee,itotalAddFee2,
             itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
-    public static int progress=0;
-    public static boolean step1=false,step2=false,step3=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_school_fee_structure);
 
-        To= findViewById(R.id.To);
-        From=findViewById(R.id.From);
-        To2= findViewById(R.id.To2);
-        From2=findViewById(R.id.From2);
-        To3= findViewById(R.id.To3);
-        From3=findViewById(R.id.From3);
         AddFee=findViewById(R.id.AddFee);
         AddFee3=findViewById(R.id.AddFee3);
         AddFee2=findViewById(R.id.AddFee2);
@@ -72,11 +66,11 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         }
     }
     private void group1(){
-        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getGroup().split("-"))
-                .map(String::trim)
-                .collect(Collectors.toList());
-        From.setText(String.valueOf(splitStr.get(0)));
-        To.setText(String.valueOf(splitStr.get(1)));
+//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getGroup().split("-"))
+//                .map(String::trim)
+//                .collect(Collectors.toList());
+//        From.setText(String.valueOf(splitStr.get(0)));
+//        To.setText(String.valueOf(splitStr.get(1)));
         AddFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getAdmissionFee()));
         ExamFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getExamFee()));
         TutionFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getTutionFee()));
@@ -88,11 +82,11 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         totalAddFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getTotalAdmissionFee()));
     }
     private void group2(){
-        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getGroup().split("-"))
-                .map(String::trim)
-                .collect(Collectors.toList());
-        From2.setText(String.valueOf(splitStr.get(0)));
-        To2.setText(String.valueOf(splitStr.get(1)));
+//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getGroup().split("-"))
+//                .map(String::trim)
+//                .collect(Collectors.toList());
+//        From2.setText(String.valueOf(splitStr.get(0)));
+//        To2.setText(String.valueOf(splitStr.get(1)));
         AddFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getAdmissionFee()));
         ExamFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getExamFee()));
         TutionFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getTutionFee()));
@@ -104,11 +98,11 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         totalAddFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getTotalAdmissionFee()));
     }
     private void group3(){
-        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getGroup().split("-"))
-                .map(String::trim)
-                .collect(Collectors.toList());
-        From3.setText(String.valueOf(splitStr.get(0)));
-        To3.setText(String.valueOf(splitStr.get(1)));
+//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getGroup().split("-"))
+//                .map(String::trim)
+//                .collect(Collectors.toList());
+//        From3.setText(String.valueOf(splitStr.get(0)));
+//        To3.setText(String.valueOf(splitStr.get(1)));
         AddFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getAdmissionFee()));
         ExamFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getExamFee()));
         TutionFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getTutionFee()));

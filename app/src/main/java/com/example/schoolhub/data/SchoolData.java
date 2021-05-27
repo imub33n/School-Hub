@@ -37,7 +37,7 @@ public class SchoolData {
     private String schoolType;
     @SerializedName("educationLevel")
     @Expose
-    private String educationLevel;
+    private EducationLevel educationLevel;
     @SerializedName("educationType")
     @Expose
     private String educationType;
@@ -138,11 +138,11 @@ public class SchoolData {
         this.schoolType = schoolType;
     }
 
-    public String getEducationLevel() {
+    public EducationLevel getEducationLevel() {
         return educationLevel;
     }
 
-    public void setEducationLevel(String educationLevel) {
+    public void setEducationLevel(EducationLevel educationLevel) {
         this.educationLevel = educationLevel;
     }
 

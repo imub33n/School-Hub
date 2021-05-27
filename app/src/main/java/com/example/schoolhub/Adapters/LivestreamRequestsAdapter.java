@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schoolhub.R;
 import com.example.schoolhub.data.LiveStreamRequests;
+import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.ui.liveStream.LiveStreamAdminFragment;
 import com.example.schoolhub.ui.liveStream.LiveStreamCam;
 
@@ -69,7 +70,7 @@ public class LivestreamRequestsAdapter extends RecyclerView.Adapter<LivestreamRe
         LocalTime sT=LocalTime.parse(liveStreamRequests.get(position).getStartTime());
         LocalTime eT=LocalTime.parse(liveStreamRequests.get(position).getEndTime());
 
-        if(liveStreamRequests.get(position).getSchoolName().equals(LiveStreamAdminFragment.yesSchoolData.getSchoolName())){
+        if(liveStreamRequests.get(position).getSchoolID().equals(PreferenceData.getLoggedInUserData(context).get("userID"))){
             if(liveStreamRequests.get(position).getStatus().equals("Accepted")){
                 if(dtf.format(now).equals(liveStreamRequests.get(position).getDate())){
                     if( LocalTime.now().getHour() >= sT.getHour() && LocalTime.now().getHour() <= eT.getHour()){

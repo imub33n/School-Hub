@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -61,7 +62,10 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "getSimpleName: ______+++______"+context.getClass().getSimpleName());
+//        Log.d(TAG, "onBindViewHolder:_______________this___________ "+context.getClass().getSimpleName());
+        if(Objects.equals(context.getClass().getSimpleName(),"RequestsForSchoolAdmin")){
+            holder.delete_icon.setVisibility(View.VISIBLE);
+        }
         holder.delete_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +83,9 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (response.isSuccessful()) {
-                                    Toast.makeText(context,"Post Deleted",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context,"Faculty Member Removed",Toast.LENGTH_LONG).show();
+                                    teachersList.remove(position);
+                                    notifyDataSetChanged();
                                 }else {
                                     Toast.makeText(context, "CODE: "+response.code(), Toast.LENGTH_LONG).show();
                                 }

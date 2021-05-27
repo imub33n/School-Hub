@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.schoolhub.R;
+import com.example.schoolhub.data.EducationLevel;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchool extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class AddingSchool extends AppCompatActivity {
     RadioButton radioButtonSkolType,radioButtonEducationType;
     CheckBox checkBoxPrimary,checkBoxMiddle,checkBoxHigher;
     public static String schoolNames,schoolEmails,schoolAddresss,schoolPhoneNos,schoolAbouts,SkolType,EducationType;
-    public static String EducationLevel="";
+    public static EducationLevel EducationLevel= new EducationLevel();
     public static int schoolZipi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +83,22 @@ public class AddingSchool extends AppCompatActivity {
             SkolType =radioButtonSkolType.getText().toString();
             EducationType=radioButtonEducationType.getText().toString();
             if(checkBoxPrimary.isChecked()){
-                EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
+                EducationLevel.setPrimary(true);
+                //EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
+            }else{
+                EducationLevel.setPrimary(false);
             }
             if(checkBoxMiddle.isChecked()){
-                EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
+                EducationLevel.setMiddle(true);
+                //EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
+            }else{
+                EducationLevel.setMiddle(false);
             }
             if(checkBoxHigher.isChecked()){
-                EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
+                EducationLevel.setHigher(true);
+                //EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
+            }else{
+                EducationLevel.setHigher(false);
             }
             Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

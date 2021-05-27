@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.schoolhub.data.EducationLevel;
 import com.example.schoolhub.data.SchoolCoordinates;
 import com.example.schoolhub.data.SchoolData;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
 public class EditSchool extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener{
 
@@ -61,7 +63,7 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
             radioButtonEducationType2,radioButtonEducationType3;
     RadioGroup radioGroupSkolType,radioGroupEducationType;
     CheckBox checkBoxPrimary,checkBoxMiddle,checkBoxHigher;
-    public static String EducationLevel="";
+    public static EducationLevel EducationLevel= new EducationLevel();
 
     List<SchoolData> UpdatedSchoolData = new ArrayList<>();
     SchoolData updateSchoolData= new SchoolData();
@@ -118,20 +120,37 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
         }else if(Objects.equals(radioButtonEducationType3.getText(),AdminDashMainPage.yesSchoolData.getEducationType())){
             radioButtonEducationType3.setChecked(true);
         }
-        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getEducationLevel().split(" "))
-                .map(String::trim)
-                .collect(Collectors.toList());
-        for(int i=0;i<splitStr.size();i++){
-            if(Objects.equals(splitStr.get(i),checkBoxPrimary.getText())){
+        if(AdminDashMainPage.yesEducationLevel.getPrimary()!=null){
+            if(AdminDashMainPage.yesEducationLevel.getPrimary()){
                 checkBoxPrimary.setChecked(true);
             }
-            if(Objects.equals(splitStr.get(i),checkBoxHigher.getText())){
-                checkBoxHigher.setChecked(true);
-            }
-            if(Objects.equals(splitStr.get(i),checkBoxMiddle.getText())){
+        }
+        if(AdminDashMainPage.yesEducationLevel.getMiddle()!=null){
+            if(AdminDashMainPage.yesEducationLevel.getMiddle()){
                 checkBoxMiddle.setChecked(true);
             }
         }
+        if(AdminDashMainPage.yesEducationLevel.getHigher()!=null){
+            if(AdminDashMainPage.yesEducationLevel.getHigher()){
+                checkBoxHigher.setChecked(true);
+            }
+        }
+        lat= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude();
+        lng= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude();
+//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getEducationLevel().split(" "))
+//                .map(String::trim)
+//                .collect(Collectors.toList());
+//        for(int i=0;i<splitStr.size();i++){
+//            if(Objects.equals(splitStr.get(i),checkBoxPrimary.getText())){
+//                checkBoxPrimary.setChecked(true);
+//            }
+//            if(Objects.equals(splitStr.get(i),checkBoxHigher.getText())){
+//                checkBoxHigher.setChecked(true);
+//            }
+//            if(Objects.equals(splitStr.get(i),checkBoxMiddle.getText())){
+//                checkBoxMiddle.setChecked(true);
+//            }
+//        }
         //put map coordinates
 //        lat= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude();
 //        lng= AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude();
@@ -248,23 +267,31 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
                             updateSchoolData.setEducationType(String.valueOf(radioButtonEducationType.getText()));
                         }
                         if(checkBoxPrimary.isChecked()){
-                            EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
+                            EducationLevel.setPrimary(true);
+//                            EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
+                        }else{
+                            EducationLevel.setPrimary(false);
                         }
                         if(checkBoxMiddle.isChecked()){
-                            EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
+                            EducationLevel.setMiddle(true);
+//                            EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
+                        }else{
+                            EducationLevel.setMiddle(false);
                         }
                         if(checkBoxHigher.isChecked()){
-                            EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
+                            EducationLevel.setHigher(true);
+//                            EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
+                        }else{
+                            EducationLevel.setHigher(false);
                         }
                         if(!Objects.equals(EducationLevel,AdminDashMainPage.yesSchoolData.getEducationLevel())){
                             updateSchoolData.setEducationLevel(EducationLevel);
                         }
-                        if(!Objects.equals(lat,AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLatitude()) ||
-                                !Objects.equals(lng,AdminDashMainPage.yesSchoolData.getSchoolCoordinates().getLongitude())){
-                            schoolCoordinates.setLatitude(lat);
-                            schoolCoordinates.setLongitude(lng);
-                            updateSchoolData.setSchoolCoordinates(schoolCoordinates);
-                        }
+
+                        schoolCoordinates.setLatitude(lat);
+                        schoolCoordinates.setLongitude(lng);
+                        updateSchoolData.setSchoolCoordinates(schoolCoordinates);
+
 
                         UpdatedSchoolData.add(updateSchoolData);
                         // backend connection under this line

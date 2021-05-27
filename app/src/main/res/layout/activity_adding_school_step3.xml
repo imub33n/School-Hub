@@ -302,7 +302,7 @@
                                     android:layout_height="30dp"
                                     android:background="#F2262626"
                                     android:gravity="center"
-                                    android:text="Grade"
+                                    android:text="Education Level"
                                     android:textAllCaps="true"
                                     android:textColor="#FFFFFF"
                                     android:textStyle="bold" />
@@ -311,7 +311,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="0.05dp"
                                     android:background="#EAEAEA"
-                                    android:orientation="vertical"></LinearLayout>
+                                    android:orientation="vertical"/>
 
                                 <LinearLayout
                                     android:id="@+id/columnClassesSpace"
@@ -325,49 +325,13 @@
                                         android:layout_height="match_parent"
                                         android:orientation="vertical">
 
-                                        <LinearLayout
+                                        <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
-                                            android:background="#F2262626"
                                             android:gravity="center"
-                                            android:orientation="horizontal">
-
-                                            <EditText
-                                                android:id="@+id/From"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="From"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-
-                                            <TextView
-                                                android:layout_width="10dp"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="center"
-                                                android:text="-"
-                                                android:textColor="#fff" />
-
-                                            <EditText
-                                                android:id="@+id/To"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="To"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-                                        </LinearLayout>
-
+                                            android:background="#F2262626"
+                                            android:text="Primary"
+                                            android:textColor="#fff" />
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
@@ -574,48 +538,13 @@
                                         android:layout_height="match_parent"
                                         android:orientation="vertical">
 
-                                        <LinearLayout
+                                        <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
-                                            android:background="#F2262626"
                                             android:gravity="center"
-                                            android:orientation="horizontal">
-
-                                            <EditText
-                                                android:id="@+id/From2"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="From"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-
-                                            <TextView
-                                                android:layout_width="10dp"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="center"
-                                                android:text="-"
-                                                android:textColor="#fff" />
-
-                                            <EditText
-                                                android:id="@+id/To2"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="To"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-                                        </LinearLayout>
+                                            android:background="#F2262626"
+                                            android:text="Middle"
+                                            android:textColor="#fff" />
 
 
                                         <LinearLayout
@@ -823,48 +752,13 @@
                                         android:layout_height="match_parent"
                                         android:orientation="vertical">
 
-                                        <LinearLayout
+                                        <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
-                                            android:background="#F2262626"
                                             android:gravity="center"
-                                            android:orientation="horizontal">
-
-                                            <EditText
-                                                android:id="@+id/From3"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="From"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-
-                                            <TextView
-                                                android:layout_width="10dp"
-                                                android:layout_height="wrap_content"
-                                                android:gravity="center"
-                                                android:text="-"
-                                                android:textColor="#fff" />
-
-                                            <EditText
-                                                android:id="@+id/To3"
-                                                android:layout_width="45dp"
-                                                android:layout_height="50dp"
-                                                android:gravity="center"
-                                                android:hint="To"
-                                                android:inputType="number"
-                                                android:maxLength="2"
-                                                android:textAllCaps="true"
-                                                android:textColor="#FFFFFF"
-                                                android:textColorHint="#78FFFFFF"
-                                                android:textSize="12sp"
-                                                android:textStyle="bold" />
-                                        </LinearLayout>
+                                            android:background="#F2262626"
+                                            android:text="Higher"
+                                            android:textColor="#fff" />
 
 
                                         <LinearLayout

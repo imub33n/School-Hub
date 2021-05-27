@@ -2,6 +2,7 @@ package com.example.schoolhub.ui.liveStream;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fragment.FragmentReactionObject.TAG;
+
 public class LiveStreamFragment extends Fragment {
     Button viewLivestream;
     RecyclerView recyclerViewLivestreams;
@@ -72,9 +75,12 @@ public class LiveStreamFragment extends Fragment {
             @Override
             public void onResponse(Call<List<LiveStreamRequests>> call, Response<List<LiveStreamRequests>> response) {
                 if (response.code() == 200) {
+                    Log.d(TAG, "livestr: ______"+response.body().size());
                     for(int i=0;i<response.body().size();i++){
+                        Log.d(TAG, "livestr2: ______"+response.body().get(i).getTitle());
                         LocalDate dateStream = LocalDate.parse(response.body().get(i).getDate(), df);
                         if(dateStream.isAfter(dateCurrent) || dateStream.isEqual(dateCurrent)){
+                            Log.d(TAG, "livestr3: ______"+i);
                             liveStreams.add(response.body().get(i));
                         }
                     }

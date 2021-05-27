@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
+import com.example.schoolhub.data.EducationLevel;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 
@@ -36,6 +37,7 @@ public class AdminDashMainPage extends Fragment {
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
     public static SchoolData yesSchoolData=new SchoolData();
+    public static EducationLevel yesEducationLevel =new EducationLevel();
     static String adminId="";
     String adminIdGet;
     Intent intent;
@@ -90,6 +92,7 @@ public class AdminDashMainPage extends Fragment {
                         adminIdGet=schoolData.get(i).getAdminID();
                         if(Objects.equals(adminIdGet, adminId)){
                             yesSchoolData=schoolData.get(i);
+                            yesEducationLevel=schoolData.get(i).getEducationLevel();
                             editGeneralCard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
