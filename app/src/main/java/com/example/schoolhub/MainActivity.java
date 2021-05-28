@@ -40,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.2:8080/";
+    public static String BASE_URL = "http://192.168.10.4:8090/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
                         token = task.getResult();
-                        Log.d(TAG,"__))__"+ token);
+                        Log.d(TAG,"__token__"+ token);
                     }
                 });
 

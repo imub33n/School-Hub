@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -129,5 +130,10 @@ public class AdminDashboard extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment2);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void openNotificationsSchool(MenuItem item) {
+        Intent it = new Intent( getApplicationContext() , Notifications.class);
+        startActivity(it);
     }
 }

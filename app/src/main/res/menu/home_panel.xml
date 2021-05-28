@@ -5,6 +5,7 @@
         android:id="@+id/action_notification"
         android:title="Notification"
         app:showAsAction="always"
+        android:onClick="openNotifications"
         android:icon="@drawable/noti"
         />
     <item

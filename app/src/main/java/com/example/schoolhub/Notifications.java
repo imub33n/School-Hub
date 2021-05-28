@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.schoolhub.Adapters.NotificationAdapter;
 import com.example.schoolhub.Adapters.PostViewAdapter;
@@ -28,6 +30,7 @@ public class Notifications extends AppCompatActivity {
     NotificationAdapter notificationAdapter;
     RecyclerView recycler_notification;
     TextView status_notification;
+    Toolbar navNoti;
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -38,6 +41,14 @@ public class Notifications extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         status_notification=findViewById(R.id.status_notification);
         recycler_notification= findViewById(R.id.recycler_notification);
+        navNoti= findViewById(R.id.navNoti);
+        navNoti.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
         recycler_notification.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         //retrofit
         retrofit = new Retrofit.Builder()
@@ -53,8 +64,12 @@ public class Notifications extends AppCompatActivity {
             public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
                 if (response.code() == 200) {
                     //setData
-                    notificationAdapter = new NotificationAdapter(response.body().get(0).getNotification(),Notifications.this);
-                    recycler_notification.setAdapter(notificationAdapter);
+                    if(response.body().get(0).getNotification().size()>0){
+                        notificationAdapter = new NotificationAdapter(response.body().get(0).getNotification(),Notifications.this);
+                        recycler_notification.setAdapter(notificationAdapter);
+                    }else{
+                        status_notification.setText("No New Notifications");
+                    }
 
                 }else {
                     Log.d(TAG, "onResponse: "+response.code());

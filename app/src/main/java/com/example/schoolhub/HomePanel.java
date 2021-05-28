@@ -330,4 +330,9 @@ public class HomePanel extends AppCompatActivity {
             }
         });
     }
+
+    public void openNotifications(MenuItem item) {
+        Intent it = new Intent( getApplicationContext() , Notifications.class);
+        startActivity(it);
+    }
 }
