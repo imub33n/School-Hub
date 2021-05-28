@@ -10,6 +10,7 @@
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp">
     <TextView
+        android:id="@+id/titleNoti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Topic Notification"
@@ -20,6 +21,7 @@
         android:textSize="16sp"
         android:letterSpacing="0.05"/>
     <TextView
+        android:id="@+id/subTitleNoti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Notification Text Here"

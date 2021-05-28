@@ -112,6 +112,11 @@ public class ReviewsFragment extends Fragment {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (response.code() == 200) {
+                                    //notiStart
+                                    String title="School Review";
+                                    String subTitle = PreferenceData.getLoggedInUserData(getContext()).get("username")+ " added a review ";
+                                    new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(getContext()).get("userID"), InformationSchoolFragment.thisSchoolData.getAdminID());
+                                    //notiEnd
                                     Toast.makeText(getContext(), "Review Posted!", Toast.LENGTH_LONG).show();
                                     giveRatingBar.setRating(0);
                                     giveReview.setText("");

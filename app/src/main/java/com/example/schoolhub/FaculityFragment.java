@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +20,22 @@ import com.example.schoolhub.Adapters.RequestFacultyAdapter;
 import com.example.schoolhub.data.FacultyRequest;
 import com.example.schoolhub.data.PreferenceData;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fragment.FragmentReactionObject.TAG;
+
 public class FaculityFragment extends Fragment {
-    TextView join_faculty;
+    TextView join_faculty,status_faculty_member;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     FacultyRequest facultyRequest = new FacultyRequest();
-
+    Boolean isTeacherHere = false;
     RecyclerView recyclerViewFaculty;
     FacultyAdapter facultyAdapter;
 
@@ -40,19 +45,42 @@ public class FaculityFragment extends Fragment {
         // Inflate the layout for this fragment
         View root =inflater.inflate(R.layout.fragment_faculity, container, false);
         join_faculty=root.findViewById(R.id.join_faculty);
+        status_faculty_member= root.findViewById(R.id.status_faculty_member);
 
         //ListView
         recyclerViewFaculty = (RecyclerView) root.findViewById(R.id.recyclerViewFaculty);
         recyclerViewFaculty.setLayoutManager(new LinearLayoutManager(getContext()));
         //set recycler
-        facultyAdapter = new FacultyAdapter(InformationSchoolFragment.thisSchoolData.getTeachers(),getContext());
-        recyclerViewFaculty.setAdapter(facultyAdapter);
+        if(InformationSchoolFragment.thisSchoolData.getTeachers().size()>0){
+            facultyAdapter = new FacultyAdapter(InformationSchoolFragment.thisSchoolData.getTeachers(),getContext());
+            recyclerViewFaculty.setAdapter(facultyAdapter);
+        }else{
+            status_faculty_member.setText("No Faculty Member Added");
+        }
         //enable button if teacher
-        if(PreferenceData.getLoggedInUserData(getContext()).get("userType").equals("Teacher")){
-            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.gravity = Gravity.CENTER;
-            params.setMargins(0,25,0,0);
-            join_faculty.setLayoutParams(params);
+        Log.d(TAG, "type user: "+PreferenceData.getLoggedInUserData(getContext()).get("userType"));
+        if(Objects.equals(PreferenceData.getLoggedInUserData(getContext()).get("userType"), "Teacher")){
+
+            if(InformationSchoolFragment.thisSchoolData.getTeachers().size()>0){
+                for(int i=0;i<InformationSchoolFragment.thisSchoolData.getTeachers().size();i++){
+                    if(Objects.equals(PreferenceData.getLoggedInUserData(getContext()).get("userID"), InformationSchoolFragment.thisSchoolData.getTeachers().get(i).getTeacherID())){
+                        isTeacherHere=true;
+                    }
+                    if(i==InformationSchoolFragment.thisSchoolData.getTeachers().size()-1){
+                        if(!isTeacherHere){
+                            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            params.gravity = Gravity.CENTER;
+                            params.setMargins(0,25,0,0);
+                            join_faculty.setLayoutParams(params);
+                        }
+                    }
+                }
+            }else{
+                LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.gravity = Gravity.CENTER;
+                params.setMargins(0,25,0,0);
+                join_faculty.setLayoutParams(params);
+            }
         }
         //retrofit
         retrofit = new Retrofit.Builder()
@@ -76,6 +104,11 @@ public class FaculityFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.code() == 200) {
+                            //notiStart
+                            String title="Teacher Join Request";
+                            String subTitle=PreferenceData.getLoggedInUserData(getContext()).get("username")+" requested for school faculty";
+                            new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(getContext()).get("userID"),InformationSchoolFragment.thisSchoolData.getAdminID());
+                            //notiEnd
                             Toast.makeText(getContext(), "Request Sent to School Admin!", Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(getContext(), "Error Code: "+response.code(), Toast.LENGTH_LONG).show();

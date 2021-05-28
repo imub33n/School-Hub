@@ -22,6 +22,8 @@ import com.example.schoolhub.AdminDashboard;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.ReviewAndFeedback;
+import com.example.schoolhub.SendNotification;
 import com.example.schoolhub.SignIn;
 import com.example.schoolhub.SignUp;
 import com.example.schoolhub.data.PreferenceData;
@@ -111,6 +113,11 @@ public class LiveStreamRequest extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == 200) {
+                                //notiStart
+                                String title="Request for a Live Stream";
+                                String subTitle = LiveStreamAdminFragment.yesSchoolData.getSchoolName()+" requested for a stream";
+                                new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(LiveStreamRequest.this).get("userID"),MainActivity.SuperAdminID);
+                                //notiEnd
                                 Toast.makeText(LiveStreamRequest.this, "Request Sent to Admin!", Toast.LENGTH_LONG).show();
                                 finish();
 //                                onBackPressed();

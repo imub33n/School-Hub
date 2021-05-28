@@ -111,6 +111,11 @@ public class ReviewAndFeedback extends AppCompatActivity {
                             if (response.code() == 200) {
                                 giveRatingBar.setRating(0);
                                 textReview.setText("");
+                                //notiStart
+                                String title="User Review & Rating";
+                                String subTitle = PreferenceData.getLoggedInUserData(ReviewAndFeedback.this).get("username")+" added a review";
+                                new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(ReviewAndFeedback.this).get("userID"),MainActivity.SuperAdminID);
+                                //notiEnd
                                 Toast.makeText(ReviewAndFeedback.this, "Review Posted!", Toast.LENGTH_LONG).show();
                             }else{
                                 Toast.makeText(ReviewAndFeedback.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
@@ -127,5 +132,9 @@ public class ReviewAndFeedback extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void goBackFromSchoolHubReview(View view) {
+        onBackPressed();
     }
 }

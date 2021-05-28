@@ -18,13 +18,16 @@ import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.models.TextMessage;
 import com.example.schoolhub.Adapters.CommentLivestreamAdapter;
 import com.example.schoolhub.Adapters.LivestreamViewAdapter;
+import com.example.schoolhub.Adapters.SearchUserAdapter;
 import com.example.schoolhub.AdminDashMainPage;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.SendNotification;
 import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.CommentLiveStream;
 import com.example.schoolhub.data.LiveStreamRequests;
+import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
 
 import android.view.View;
@@ -208,7 +211,38 @@ public class LiveStreamCam extends AppCompatActivity {
                         called.enqueue(new retrofit2.Callback<Void>() {
                             @Override
                             public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
-                                if(!response.isSuccessful()){
+                                if(response.isSuccessful()){
+                                    HashMap<String, String> mapTypeUser = new HashMap<>();
+                                    mapTypeUser.put("type","");
+                                    retrofit2.Call<List<LoginResult>> called = retrofitInterface.getUser("",mapTypeUser);
+                                    called.enqueue(new retrofit2.Callback<List<LoginResult>>() {
+                                        @Override
+                                        public void onResponse(retrofit2.Call<List<LoginResult>> call, retrofit2.Response<List<LoginResult>> response) {
+                                            if(response.code()==200){
+                                                if(response.body().size()>0){
+                                                    for(int j=0;j<response.body().size();j++){
+                                                        if(response.body().get(j).getType().equals("Teacher") || response.body().get(j).getType().equals("Student")){
+                                                            //notiStart
+                                                            String title="Live Stream";
+                                                            String subTitle=LiveStreamAdminFragment.yesSchoolData.getSchoolName()+" started a Live Stream";
+                                                            new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(LiveStreamCam.this).get("userID"),response.body().get(j).getUserID());
+                                                            //notiEnd
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if(!response.isSuccessful()){
+                                                Log.d(TAG, "notification users Err: "+response.code());
+                                            }
+                                        }
+                                        @Override
+                                        public void onFailure(retrofit2.Call<List<LoginResult>> call, Throwable t) {
+                                            Log.d(TAG, "Connection notification users Err: "+t);
+                                        }
+                                    });
+
+                                }
+                                else {
                                     Toast.makeText(LiveStreamCam.this, "URi Update error: "+response.code(), Toast.LENGTH_LONG).show();
                                 }
                                 //Toast.makeText(LiveStreamCam.this, "URi Updated", Toast.LENGTH_LONG).show();

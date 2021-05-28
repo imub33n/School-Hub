@@ -25,4 +25,13 @@
         android:layout_margin="5dp"
         tools:itemCount="2"
         tools:listitem="@layout/recycler_faculty" />
+    <TextView
+        android:id="@+id/status_faculty_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        android:layout_gravity="center"/>
 </LinearLayout>

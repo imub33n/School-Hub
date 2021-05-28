@@ -34,7 +34,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Log.d(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
         }
-
     }
     private void sendNotification(String title, String messageBody) {
         Intent intent = new Intent(this, MainActivity.class);

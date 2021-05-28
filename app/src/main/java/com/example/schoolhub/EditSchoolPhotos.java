@@ -10,25 +10,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.schoolhub.Adapters.AdapterLanding;
-import com.example.schoolhub.Adapters.AttachmentListAdapter;
 import com.example.schoolhub.Adapters.EditPhotosViewAdapter;
-import com.example.schoolhub.data.AttachmentListData;
 import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.PreferenceData;
+import com.example.schoolhub.data.SchoolData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,6 +28,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -59,7 +49,7 @@ public class EditSchoolPhotos extends AppCompatActivity {
     FirebaseStorage storage= FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
     private RetrofitInterface retrofitInterface;
-
+    List<Image> imaging=new ArrayList<>();
     public Toolbar toolbarEdit;
 
     @Override
@@ -77,8 +67,30 @@ public class EditSchoolPhotos extends AppCompatActivity {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         //
-        editPhotosViewAdapter = new EditPhotosViewAdapter(AdminDashMainPage.yesSchoolData.getImages(),EditSchoolPhotos.this);
-        schoolPhotosList.setAdapter(editPhotosViewAdapter);
+        Call<List<SchoolData>> call = retrofitInterface.getSchoolData();
+        call.enqueue(new Callback<List<SchoolData>>() {
+            @Override
+            public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
+                if (response.code() == 200) {
+                    for(int i=0;i<response.body().size();i++){
+                        String adminIdGet=response.body().get(i).getAdminID();
+                        if(Objects.equals(adminIdGet, PreferenceData.getLoggedInUserData(EditSchoolPhotos.this).get("userID"))){
+                            imaging=response.body().get(i).getImages();
+                            editPhotosViewAdapter = new EditPhotosViewAdapter(imaging,EditSchoolPhotos.this);
+                            schoolPhotosList.setAdapter(editPhotosViewAdapter);
+                        }
+                    }
+                }else {
+                    Toast.makeText(EditSchoolPhotos.this, "CODE: "+response.code(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<SchoolData>> call, Throwable t) {
+
+                Toast.makeText(EditSchoolPhotos.this, ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         toolbarEdit.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,16 +135,14 @@ public class EditSchoolPhotos extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Updated Successfully", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "photo uploaded: ");
                             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
                             {
                                 @Override
                                 public void onSuccess(Uri yoru)
                                 {
-//                                    List<Image> sendImage=new ArrayList<>();
                                     Image image= new Image();
                                     image.setPath(yoru.toString());
-//                                    sendImage.add(image);
                                     HashMap<String, Image> map = new HashMap<>();
                                     map.put("images",image);
                                     //map.put("videos","video");
@@ -142,6 +152,29 @@ public class EditSchoolPhotos extends AppCompatActivity {
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             if (response.code() == 200) {
                                                 Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
+                                                Call<List<SchoolData>> callAgain = retrofitInterface.getSchoolData();
+                                                callAgain.enqueue(new Callback<List<SchoolData>>() {
+                                                    @Override
+                                                    public void onResponse(Call<List<SchoolData>> call, Response<List<SchoolData>> response) {
+                                                        if (response.code() == 200) {
+                                                            for(int i=0;i<response.body().size();i++){
+                                                                String adminIdGet=response.body().get(i).getAdminID();
+                                                                if(Objects.equals(adminIdGet, PreferenceData.getLoggedInUserData(EditSchoolPhotos.this).get("userID"))){
+                                                                    imaging=response.body().get(i).getImages();
+                                                                    editPhotosViewAdapter = new EditPhotosViewAdapter(imaging,EditSchoolPhotos.this);
+                                                                    schoolPhotosList.setAdapter(editPhotosViewAdapter);
+                                                                }
+                                                            }
+                                                        }else {
+                                                            Toast.makeText(EditSchoolPhotos.this, "CODE: "+response.code(), Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }
+                                                    @Override
+                                                    public void onFailure(Call<List<SchoolData>> call, Throwable t) {
+
+                                                        Toast.makeText(EditSchoolPhotos.this, ""+t, Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
                                             }

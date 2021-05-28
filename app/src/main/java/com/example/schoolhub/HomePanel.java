@@ -145,6 +145,7 @@ public class HomePanel extends AppCompatActivity {
                         Log.d(TAG, "Logout failed with exception: " + e.getMessage());
                     }
                 });
+                FirebaseMessaging.getInstance().deleteToken();
                 finish();
                 Intent it = new Intent( HomePanel.this , LandingScreen.class);
                 it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.AdminDashMainPage;
+import com.example.schoolhub.InformationSchoolFragment;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.SendNotification;
 import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.FacultyRequest;
 import com.example.schoolhub.data.PreferenceData;
@@ -94,6 +96,11 @@ public class RequestFacultyAdapter extends RecyclerView.Adapter<RequestFacultyAd
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.code() == 200) {
+                            //notiStart
+                            String title="Join Request";
+                            String subTitle = "Added to "+AdminDashMainPage.yesSchoolData.getSchoolName()+" faculty";
+                            new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(context).get("userID"), facultyRequests.get(position).getTeacherID());
+                            //notiEnd
                             Toast.makeText(context, "Teacher added to school", Toast.LENGTH_LONG).show();
                             facultyRequests.remove(position);
                             notifyDataSetChanged();
@@ -119,6 +126,11 @@ public class RequestFacultyAdapter extends RecyclerView.Adapter<RequestFacultyAd
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.code() == 200) {
+                            //notiStart
+                            String title="Join Request";
+                            String subTitle = ""+AdminDashMainPage.yesSchoolData.getSchoolName()+" rejected your join request!";
+                            new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(context).get("userID"), facultyRequests.get(position).getTeacherID());
+                            //notiEnd
                             Toast.makeText(context, "Removed", Toast.LENGTH_LONG).show();
                             facultyRequests.remove(position);
                             notifyDataSetChanged();

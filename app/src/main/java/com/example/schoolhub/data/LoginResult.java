@@ -12,6 +12,9 @@ public class LoginResult {
     @SerializedName("type")
     @Expose
     private String type;
+    @SerializedName("deviceToken")
+    @Expose
+    private String deviceToken;
     @SerializedName("email")
     @Expose
     private String email;
@@ -42,6 +45,13 @@ public class LoginResult {
         this.notification = notification;
     }
 
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
     public List<Following> getFollowing() {
         return following;
     }

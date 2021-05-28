@@ -1,5 +1,6 @@
 package com.example.schoolhub;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,9 @@ import com.example.schoolhub.AddingSchool.AddingSchool;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +100,9 @@ public class SignIn extends AppCompatActivity {
             map.put("email", email.getText().toString());
             map.put("password", password.getText().toString());
             map.put("type",radioButton.getText().toString());
+            map.put("deviceToken",MainActivity.token);
+
+            Log.d(TAG, "allowingUserToLogin: _______"+map);
             try{
                 Call<LoginResult> call = retrofitInterface.executeLogin(map);
                 call.enqueue(new Callback<LoginResult>() {

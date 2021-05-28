@@ -29,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 import java.util.Objects;
@@ -82,6 +83,7 @@ public class AdminDashboard extends AppCompatActivity {
                         Log.d(TAG, "Logout failed with exception: " + e.getMessage());
                     }
                 });
+                FirebaseMessaging.getInstance().deleteToken();
                 finish();
                 Intent it = new Intent( AdminDashboard.this , LandingScreen.class);
                 it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

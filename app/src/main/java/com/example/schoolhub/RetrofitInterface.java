@@ -6,6 +6,7 @@ import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.Likes;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.data.Notification;
 import com.example.schoolhub.data.PostResult;
 import com.example.schoolhub.data.ReplyReview;
 import com.example.schoolhub.data.SchoolData;
@@ -120,4 +121,7 @@ public interface RetrofitInterface {
 
     @PATCH("/user_management/userProfile/updateFollowing/{id}")
     Call<Void> updateFollow(@Path("id") String id,@Body Following following);
+
+    @PATCH("/notification/addNotification/{id}")
+    Call<Void> sendNotification(@Path("id") String id, @Body Notification notification);
 }

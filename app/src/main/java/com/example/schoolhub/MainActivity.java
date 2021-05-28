@@ -18,6 +18,7 @@ import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.uikit.ui_resources.utils.Utils;
 import com.example.schoolhub.AddingSchool.AddingSchool;
+import com.example.schoolhub.data.Notification;
 import com.example.schoolhub.data.PreferenceData;
 import com.example.schoolhub.data.SchoolData;
 import com.example.schoolhub.data.SchoolReviews;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     public static String authKey = "6686381f7d6999ea04c5eb3feea375ae7d205b0f";
 //    public static String API_KEY = "3972dfed09f25aabc875f5e613e862b39db70fca";
     //data
+    public static String SuperAdminID="6091789f4cdfef00a2a0c19b";
+    public static String token="";
     public static List<SchoolData> allSchools= new ArrayList<>();
     public static List<SchoolReviews> allSchoolReviews = new ArrayList<>();
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                             return;
                         }
-                        String token = task.getResult();
+                        token = task.getResult();
                         Log.d(TAG,"__))__"+ token);
                     }
                 });

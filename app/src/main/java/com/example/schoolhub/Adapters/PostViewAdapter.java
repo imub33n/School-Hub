@@ -27,6 +27,7 @@ import com.example.schoolhub.EditAccountSettings;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.SendNotification;
 import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.Likes;
@@ -245,6 +246,11 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                     public void onResponse(Call<PostResult> call, Response<PostResult> response) {
                         if(response.isSuccessful()){
                             if(Objects.equals(holder.likeTextPost.getText().toString(),"Like")){
+                                //notiStart
+                                String title="Like";
+                                String subTitle=PreferenceData.getLoggedInUserData(context).get("username")+" liked your post";
+                                new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(context).get("userID"),postResult.getUserID());
+                                //notiEnd
                                 holder.likeTextPost.setText("Unlike");
                                 holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
                             } else if(Objects.equals(holder.likeTextPost.getText().toString(),"Unlike")){
@@ -254,8 +260,6 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                         }else{
                             Toast.makeText(context, "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
                         }
-
-
                     }
                     @Override
                     public void onFailure(Call<PostResult> call, Throwable t) {
@@ -283,6 +287,11 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                         @Override
                         public void onResponse(Call<PostResult> call, Response<PostResult> response) {
                             if(response.isSuccessful()){
+                                //notiStart
+                                String title="Comment";
+                                String subTitle=PreferenceData.getLoggedInUserData(context).get("username")+" commented on your post";
+                                new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(context).get("userID"),postResult.getUserID());
+                                //notiEnd
                                 Toast.makeText(context, "Comment Posted.", Toast.LENGTH_LONG).show();
                                 holder.commentSendText.setText("");
                                 //get shitPostings cmnt

@@ -16,9 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.schoolhub.InformationSchoolFragment;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.SendNotification;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.PostResult;
 import com.example.schoolhub.data.PreferenceData;
@@ -95,6 +97,11 @@ public class SchoolReviewsAdapter extends RecyclerView.Adapter<SchoolReviewsAdap
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if(response.isSuccessful()){
+                                //notiStart
+                                String title="Reply on School Review";
+                                String subTitle = InformationSchoolFragment.thisSchoolData.getSchoolName()+ " has new reply on your review";
+                                new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(context).get("userID"), schoolReviews.get(position).getUserID());
+                                //notiEnd
                                 Toast.makeText(context, "Reply Sent", Toast.LENGTH_LONG).show();
                                 holder.giveReviewReply.setText("");
                             }else{
