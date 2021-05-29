@@ -61,6 +61,7 @@ public class ReviewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root=inflater.inflate(R.layout.fragment_reviews, container, false);
+        Log.d(TAG, "onuIDView: "+PreferenceData.getLoggedInUserData(getContext()).get("userID"));
         adf = new DecimalFormat("0.0");
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         reviewsStatus= root.findViewById(R.id.reviewsStatus);
@@ -93,7 +94,7 @@ public class ReviewsFragment extends Fragment {
                     }
                 }else{
                     //posting here
-                    if(PreferenceData.getLoggedInUserData(getContext()).get("userID")==null){
+                    if(PreferenceData.getLoggedInUserData(getContext()).get("userID")==null || PreferenceData.getLoggedInUserData(getContext()).get("userID").isEmpty()){
                         Toast.makeText(getContext(), "Please sign in to give review/rating!", Toast.LENGTH_LONG).show();
                     }
                     else{

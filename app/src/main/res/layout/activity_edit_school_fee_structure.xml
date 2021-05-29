@@ -32,7 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+            <TextView
+                android:id="@+id/statusFeeStructure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"/>
             <LinearLayout
                 android:id="@+id/linearLayoutFee"
                 android:layout_width="match_parent"
@@ -307,6 +313,7 @@
                                         android:orientation="vertical">
 
                                         <TextView
+                                            android:id="@+id/group1"
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
                                             android:gravity="center"
@@ -520,6 +527,7 @@
                                         android:orientation="vertical">
 
                                         <TextView
+                                            android:id="@+id/group2"
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
                                             android:gravity="center"
@@ -734,6 +742,7 @@
                                         android:orientation="vertical">
 
                                         <TextView
+                                            android:id="@+id/group3"
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
                                             android:gravity="center"
@@ -956,6 +965,7 @@
                         android:layout_margin="5dp"
                         android:backgroundTint="#EAEAEA"
                         android:text="Cancel"
+                        android:onClick="backEditEee"
                         android:textColor="#000"
                         />
                     <Button
@@ -974,6 +984,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                android:onClick="updateFeeStructure"
                 android:text="Write classes number in To and From section and enter fee data.(i.e.1-5). Columns with To and From sections filled will be saved only. Put 0 for empty fields!"
                 android:textSize="12sp" />
         </LinearLayout>

@@ -41,14 +41,14 @@ public class Notifications extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         status_notification=findViewById(R.id.status_notification);
         recycler_notification= findViewById(R.id.recycler_notification);
-        navNoti= findViewById(R.id.navNoti);
-        navNoti.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // back button pressed
-                onBackPressed();
-            }
-        });
+//        navNoti= findViewById(R.id.navNoti);
+//        navNoti.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // back button pressed
+//                onBackPressed();
+//            }
+//        });
         recycler_notification.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         //retrofit
         retrofit = new Retrofit.Builder()

@@ -1,25 +1,51 @@
 package com.example.schoolhub;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.schoolhub.AddingSchool.AddingSchool;
+import com.example.schoolhub.AddingSchool.AddingSchoolCompleted;
+import com.example.schoolhub.AddingSchool.AddingSchoolStep3;
+import com.example.schoolhub.data.EducationLevel;
+import com.example.schoolhub.data.FeeStructure;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class EditSchoolFeeStructure extends AppCompatActivity {
-    EditText To,From,To2,From2,To3,From3,
-            AddFee,AddFee2,AddFee3,TutionFee,TutionFee2,TutionFee3,ExamFee,ExamFee2,ExamFee3,
+    EditText AddFee,AddFee2,AddFee3,TutionFee,TutionFee2,TutionFee3,ExamFee,ExamFee2,ExamFee3,
             sports,sports2,sports3,lab,lab2,lab3,library,library2,library3,totalAddFee,totalAddFee2,
             totalAddFee3,monthlyFee,monthlyFee2,monthlyFee3,others,others2,others3;
-    //LinearLayout columnClasses,columnClasses2,columnClasses3;
+    TextView group1,group2,group3,statusFeeStructure;
+    LinearLayout columnClasses,columnClasses2,columnClasses3;
     public static int iAddFee,iAddFee2,iAddFee3,iTutionFee,iTutionFee2,iTutionFee3,iExamFee,iExamFee2,iExamFee3,
             isports,isports2,isports3,ilab,ilab2,ilab3,ilibrary,ilibrary2,ilibrary3,itotalAddFee,itotalAddFee2,
             itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
 
+    List<FeeStructure> feeStructures = new ArrayList<>();
+    FeeStructure feeStructure= new FeeStructure();
+    FeeStructure feeStructure2= new FeeStructure();
+    FeeStructure feeStructure3= new FeeStructure();
+
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +79,80 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         others=findViewById(R.id.others);
         others2=findViewById(R.id.others2);
         others3=findViewById(R.id.others3);
+        group1=findViewById(R.id.group1);
+        group2=findViewById(R.id.group2);
+        group3=findViewById(R.id.group3);
+        columnClasses= findViewById(R.id.columnClasses);
+        columnClasses2=findViewById(R.id.columnClasses2);
+        columnClasses3=findViewById(R.id.columnClasses3);
+        statusFeeStructure=findViewById(R.id.statusFeeStructure);
 
+        //retrofit
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MainActivity.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        String eLevel = "";
+        if(AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Primary/Middle/Higher";
+        }else if(AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && !AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Primary/Middle";
+        }else if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Middle/Higher";
+        }else if(AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && !AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Primary/Higher";
+        }else if(AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && !AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && !AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Primary";
+        }else if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && !AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Middle";
+        }else if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()
+                && !AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()
+                && AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            eLevel="Higher";
+        }
+        statusFeeStructure.setText("EducationLevel is set to "+eLevel);
+        if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()){
+            columnClasses.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()){
+                if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+                    columnClasses.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                }
+            }
+        }
+        if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()){
+            columnClasses2.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()){
+                if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+                    columnClasses2.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                }
+            }
+        }
+        if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()){
+            columnClasses3.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()){
+                if(!AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()){
+                    columnClasses3.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                }
+            }
+        }
         if(AdminDashMainPage.yesSchoolData.getFeeStructure().size()==1){
             group1();
         }else if(AdminDashMainPage.yesSchoolData.getFeeStructure().size()==2) {
@@ -66,11 +165,7 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         }
     }
     private void group1(){
-//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getGroup().split("-"))
-//                .map(String::trim)
-//                .collect(Collectors.toList());
-//        From.setText(String.valueOf(splitStr.get(0)));
-//        To.setText(String.valueOf(splitStr.get(1)));
+        group1.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getGroup()));
         AddFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getAdmissionFee()));
         ExamFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getExamFee()));
         TutionFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getTutionFee()));
@@ -82,11 +177,7 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         totalAddFee.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(0).getTotalAdmissionFee()));
     }
     private void group2(){
-//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getGroup().split("-"))
-//                .map(String::trim)
-//                .collect(Collectors.toList());
-//        From2.setText(String.valueOf(splitStr.get(0)));
-//        To2.setText(String.valueOf(splitStr.get(1)));
+        group2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getGroup()));
         AddFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getAdmissionFee()));
         ExamFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getExamFee()));
         TutionFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getTutionFee()));
@@ -98,11 +189,7 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         totalAddFee2.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(1).getTotalAdmissionFee()));
     }
     private void group3(){
-//        List<String> splitStr =  Arrays.stream(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getGroup().split("-"))
-//                .map(String::trim)
-//                .collect(Collectors.toList());
-//        From3.setText(String.valueOf(splitStr.get(0)));
-//        To3.setText(String.valueOf(splitStr.get(1)));
+        group3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getGroup()));
         AddFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getAdmissionFee()));
         ExamFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getExamFee()));
         TutionFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getTutionFee()));
@@ -112,5 +199,75 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         others3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getOthersFee()));
         sports3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getSportsFee()));
         totalAddFee3.setText(String.valueOf(AdminDashMainPage.yesSchoolData.getFeeStructure().get(2).getTotalAdmissionFee()));
+    }
+
+    public void backEditEee(View view) {
+        onBackPressed();
+    }
+
+    public void updateFeeStructure(View view) {
+        if(AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()){
+            feeStructure.setGroup("primary");
+            feeStructure.setAdmissionFee(Integer.parseInt(AddFee.getText().toString()));
+            feeStructure.setExamFee(Integer.parseInt(ExamFee.getText().toString()));
+            feeStructure.setLabFee(Integer.parseInt(lab.getText().toString()));
+            feeStructure.setMonthlyFee(Integer.parseInt(monthlyFee.getText().toString()));
+            feeStructure.setLibraryFee(Integer.parseInt(library.getText().toString()));
+            feeStructure.setOthersFee(Integer.parseInt(others.getText().toString()));
+            feeStructure.setSportsFee(Integer.parseInt(sports.getText().toString()));
+            feeStructure.setTotalAdmissionFee(Integer.parseInt(totalAddFee.getText().toString()));
+            feeStructure.setTutionFee(Integer.parseInt(TutionFee.getText().toString()));
+            feeStructures.add(feeStructure);
+        }
+        if(AdminDashMainPage.yesSchoolData.getEducationLevel().getMiddle()){
+            feeStructure2.setGroup("middle");
+            feeStructure2.setAdmissionFee(Integer.parseInt(AddFee2.getText().toString()));
+            feeStructure2.setExamFee(Integer.parseInt(ExamFee2.getText().toString()));
+            feeStructure2.setLabFee(Integer.parseInt(lab2.getText().toString()));
+            feeStructure2.setMonthlyFee(Integer.parseInt(monthlyFee2.getText().toString()));
+            feeStructure2.setLibraryFee(Integer.parseInt(library2.getText().toString()));
+            feeStructure2.setOthersFee(Integer.parseInt(others2.getText().toString()));
+            feeStructure2.setSportsFee(Integer.parseInt(sports2.getText().toString()));
+            feeStructure2.setTotalAdmissionFee(Integer.parseInt(totalAddFee2.getText().toString()));
+            feeStructure2.setTutionFee(Integer.parseInt(TutionFee2.getText().toString()));
+            feeStructures.add(feeStructure2);
+        }
+        if(AdminDashMainPage.yesSchoolData.getEducationLevel().getHigher()) {
+            feeStructure3.setGroup("primary");
+            feeStructure3.setAdmissionFee(Integer.parseInt(AddFee3.getText().toString()));
+            feeStructure3.setExamFee(Integer.parseInt(ExamFee3.getText().toString()));
+            feeStructure3.setLabFee(Integer.parseInt(lab3.getText().toString()));
+            feeStructure3.setMonthlyFee(Integer.parseInt(monthlyFee3.getText().toString()));
+            feeStructure3.setLibraryFee(Integer.parseInt(library3.getText().toString()));
+            feeStructure3.setOthersFee(Integer.parseInt(others3.getText().toString()));
+            feeStructure3.setSportsFee(Integer.parseInt(sports3.getText().toString()));
+            feeStructure3.setTotalAdmissionFee(Integer.parseInt(totalAddFee3.getText().toString()));
+            feeStructure3.setTutionFee(Integer.parseInt(TutionFee3.getText().toString()));
+            feeStructures.add(feeStructure3);
+        }
+        new AlertDialog.Builder(this)
+                //.setTitle("Updating school information!")
+                .setMessage("Are you sure you want to update ?")
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<Void> call = retrofitInterface.editFeeStructure(AdminDashMainPage.yesSchoolData.get_id(),feeStructures);
+                        call.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if(response.isSuccessful()){
+                                    Toast.makeText(getApplicationContext(),"Fee Structure Updated", Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"Update Err: "+response.code(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(),"Error: "+t, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

@@ -62,12 +62,30 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         columnClasses3=findViewById(R.id.columnClasses3);
         if(!AddingSchool.EducationLevel.getPrimary()){
             columnClasses.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(!AddingSchool.EducationLevel.getMiddle()){
+                if(!AddingSchool.EducationLevel.getHigher()){
+                    columnClasses.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                }
+            }
         }
         if(!AddingSchool.EducationLevel.getMiddle()){
             columnClasses2.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(!AddingSchool.EducationLevel.getPrimary()){
+                if(!AddingSchool.EducationLevel.getHigher()){
+                    columnClasses2.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                }
+            }
         }
         if(!AddingSchool.EducationLevel.getHigher()){
             columnClasses3.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        }else{
+            if(!AddingSchool.EducationLevel.getPrimary()){
+                if(!AddingSchool.EducationLevel.getMiddle()){
+                    columnClasses3.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                }
+            }
         }
     }
 

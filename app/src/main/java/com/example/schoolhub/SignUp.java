@@ -103,6 +103,7 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(User user) {
                                     Log.d("createUser", user.toString());
+                                    Toast.makeText(SignUp.this,"Signed up successfully", Toast.LENGTH_LONG).show();
                                 }
 
                                 @Override
@@ -111,7 +112,7 @@ public class SignUp extends AppCompatActivity {
                                 }
                             });
 
-                            Toast.makeText(SignUp.this,"Signed up successfully", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(SignUp.this,"Signed up successfully", Toast.LENGTH_LONG).show();
                             Intent it = new Intent(SignUp.this, SignIn.class);
                             startActivity(it);
                         } else {

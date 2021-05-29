@@ -10,6 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.cometchat.pro.uikit.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -70,7 +72,7 @@ public class CometChatSnackBar {
         });
         layout.addView(dialogView);
         View view = snackbar.getView();
-        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
         params.gravity = Gravity.TOP;
         view.setLayoutParams(params);
         snackbar.show();

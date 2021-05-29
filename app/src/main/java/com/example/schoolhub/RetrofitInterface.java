@@ -1,6 +1,8 @@
 package com.example.schoolhub;
 
 import com.example.schoolhub.data.FacultyRequest;
+import com.example.schoolhub.data.Fee;
+import com.example.schoolhub.data.FeeStructure;
 import com.example.schoolhub.data.Following;
 import com.example.schoolhub.data.Image;
 import com.example.schoolhub.data.Likes;
@@ -124,4 +126,7 @@ public interface RetrofitInterface {
 
     @PATCH("/notification/addNotification/{id}")
     Call<Void> sendNotification(@Path("id") String id, @Body Notification notification);
+
+    @PATCH("/school/Edit_SchoolFee/{id}")
+    Call<Void> editFeeStructure(@Path("id") String id, @Body List<FeeStructure> feeStructures);
 }

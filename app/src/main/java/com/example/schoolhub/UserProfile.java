@@ -182,7 +182,6 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                 }
 //                HashMap<String,Following> maping = new HashMap<>();
 //                maping.put("following",following);
-
                 Call<Void> call =retrofitInterface.updateFollow(PreferenceData.getLoggedInUserData(UserProfile.this).get("userID"),following);
                 call.enqueue(new Callback<Void>() {
                     @Override
