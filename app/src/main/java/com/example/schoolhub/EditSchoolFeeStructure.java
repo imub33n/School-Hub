@@ -2,10 +2,12 @@ package com.example.schoolhub;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,6 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.content.ContentValues.TAG;
 
 public class EditSchoolFeeStructure extends AppCompatActivity {
     EditText AddFee,AddFee2,AddFee3,TutionFee,TutionFee2,TutionFee3,ExamFee,ExamFee2,ExamFee3,
@@ -35,10 +38,7 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
             totalAddFee3,monthlyFee,monthlyFee2,monthlyFee3,others,others2,others3;
     TextView group1,group2,group3,statusFeeStructure;
     LinearLayout columnClasses,columnClasses2,columnClasses3;
-    public static int iAddFee,iAddFee2,iAddFee3,iTutionFee,iTutionFee2,iTutionFee3,iExamFee,iExamFee2,iExamFee3,
-            isports,isports2,isports3,ilab,ilab2,ilab3,ilibrary,ilibrary2,ilibrary3,itotalAddFee,itotalAddFee2,
-            itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
-
+    Toolbar toolbarEditFee;
     List<FeeStructure> feeStructures = new ArrayList<>();
     FeeStructure feeStructure= new FeeStructure();
     FeeStructure feeStructure2= new FeeStructure();
@@ -86,7 +86,14 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
         columnClasses2=findViewById(R.id.columnClasses2);
         columnClasses3=findViewById(R.id.columnClasses3);
         statusFeeStructure=findViewById(R.id.statusFeeStructure);
-
+        toolbarEditFee= findViewById(R.id.toolbarEditFee);
+        toolbarEditFee.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -206,6 +213,7 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
     }
 
     public void updateFeeStructure(View view) {
+
         if(AdminDashMainPage.yesSchoolData.getEducationLevel().getPrimary()){
             feeStructure.setGroup("primary");
             feeStructure.setAdmissionFee(Integer.parseInt(AddFee.getText().toString()));
@@ -245,7 +253,8 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
             feeStructure3.setTutionFee(Integer.parseInt(TutionFee3.getText().toString()));
             feeStructures.add(feeStructure3);
         }
-        new AlertDialog.Builder(this)
+        Log.d(TAG, "updateFeeStructure:__s___ ");
+        new AlertDialog.Builder(EditSchoolFeeStructure.this)
                 //.setTitle("Updating school information!")
                 .setMessage("Are you sure you want to update ?")
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
@@ -255,14 +264,14 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if(response.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(),"Fee Structure Updated", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditSchoolFeeStructure.this,"Fee Structure Updated", Toast.LENGTH_LONG).show();
                                 }else{
-                                    Toast.makeText(getApplicationContext(),"Update Err: "+response.code(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditSchoolFeeStructure.this,"Update Err: "+response.code(), Toast.LENGTH_LONG).show();
                                 }
                             }
                             @Override
                             public void onFailure(Call<Void> call, Throwable t) {
-                                Toast.makeText(getApplicationContext(),"Error: "+t, Toast.LENGTH_LONG).show();
+                                Toast.makeText(EditSchoolFeeStructure.this,"Error: "+t, Toast.LENGTH_LONG).show();
                             }
                         });
                     }

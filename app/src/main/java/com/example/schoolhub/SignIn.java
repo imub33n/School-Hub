@@ -46,7 +46,7 @@ public class SignIn extends AppCompatActivity {
     List<SchoolData> schoolData;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-
+    String newToken="";
 //    public static String BASE_URL = "http://10.113.61.179:8080/";
 
     @Override
@@ -59,8 +59,19 @@ public class SignIn extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         sup = (TextView) findViewById(R.id.s_up);
-//        email.setText("mubeenafzal3@gmail.com");
-//        password.setText("12345");
+//request review data
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        newToken = task.getResult();
+                        Log.d(TAG,"__token__"+ newToken);
+                    }
+                });
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -100,7 +111,7 @@ public class SignIn extends AppCompatActivity {
             map.put("email", email.getText().toString());
             map.put("password", password.getText().toString());
             map.put("type",radioButton.getText().toString());
-            map.put("deviceToken",MainActivity.token);
+            map.put("deviceToken",newToken);
 
             Log.d(TAG, "allowingUserToLogin: _______"+map);
             try{

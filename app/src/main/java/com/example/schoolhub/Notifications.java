@@ -1,6 +1,7 @@
 package com.example.schoolhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,10 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.schoolhub.Adapters.NotificationAdapter;
-import com.example.schoolhub.Adapters.PostViewAdapter;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PreferenceData;
 
@@ -41,14 +40,14 @@ public class Notifications extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         status_notification=findViewById(R.id.status_notification);
         recycler_notification= findViewById(R.id.recycler_notification);
-//        navNoti= findViewById(R.id.navNoti);
-//        navNoti.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // back button pressed
-//                onBackPressed();
-//            }
-//        });
+        navNoti= findViewById(R.id.navNoti);
+        navNoti.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
         recycler_notification.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         //retrofit
         retrofit = new Retrofit.Builder()

@@ -108,6 +108,7 @@ public class LiveStreamCam extends AppCompatActivity {
         CometChat.addMessageListener(AdminDashMainPage.yesSchoolData.get_id(),new CometChat.MessageListener() {
             @Override
             public void onTextMessageReceived(TextMessage message) {
+                Log.d(TAG, "onTextMessageReceived: ______________"+message.getText());
                 CommentLiveStream commentLiveStream= new CommentLiveStream();
                 commentLiveStream.setText(message.getText());
                 commentLiveStream.setUsername(message.getSender().getName());

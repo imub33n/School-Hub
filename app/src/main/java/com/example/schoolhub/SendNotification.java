@@ -18,8 +18,9 @@ public class SendNotification {
     Notification notification= new Notification();
     String receiverID;
     public SendNotification(String title, String subTitle, String senderID, String receiverId){
-        this.notification.setText(title);
-        this.notification.setNotificationType(subTitle);
+
+        this.notification.setText(subTitle);
+        this.notification.setNotificationType(title);
         this.notification.setUserID(senderID);
         this.receiverID =receiverId;
         //retrofit

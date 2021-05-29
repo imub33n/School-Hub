@@ -40,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    public static String BASE_URL = "http://192.168.10.4:8090/";
+    public static String BASE_URL = "http://192.168.10.2:8080/";
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     List<SchoolData> schoolData;
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     public static String authKey = "6686381f7d6999ea04c5eb3feea375ae7d205b0f";
 //    public static String API_KEY = "3972dfed09f25aabc875f5e613e862b39db70fca";
     //data
-    public static String SuperAdminID="6091789f4cdfef00a2a0c19b";
-    public static String token="";
+    public static String SuperAdminID="60b211b8fd188e2ed4566acb";
+    //public static String token="";
     public static List<SchoolData> allSchools= new ArrayList<>();
     public static List<SchoolReviews> allSchoolReviews = new ArrayList<>();
 
@@ -67,20 +67,20 @@ public class MainActivity extends AppCompatActivity {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         //get data
-        //request review data
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-                        token = task.getResult();
-                        Log.d(TAG,"__token__"+ token);
-                    }
-                });
 
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+//                            return;
+//                        }
+//                        token = task.getResult();
+//                        Log.d(TAG,"__token__"+ token);
+//                    }
+//                });
+        //request review data
         Call<List<SchoolReviews>> call2er = retrofitInterface.getReviews();
         call2er.enqueue(new Callback<List<SchoolReviews>>() {
             @Override

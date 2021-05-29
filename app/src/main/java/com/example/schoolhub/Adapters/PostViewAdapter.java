@@ -247,13 +247,16 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
                         if(response.isSuccessful()){
                             if(Objects.equals(holder.likeTextPost.getText().toString(),"Like")){
                                 //notiStart
+                                Log.d(TAG, "noti sending here ");
                                 String title="Like";
                                 String subTitle=PreferenceData.getLoggedInUserData(context).get("username")+" liked your post";
                                 new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(context).get("userID"),postResult.getUserID());
                                 //notiEnd
+                                holder.totalLikesTextPost.setText("("+(postResult.getTotalLikes()+1)+" Likes) ");
                                 holder.likeTextPost.setText("Unlike");
                                 holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
                             } else if(Objects.equals(holder.likeTextPost.getText().toString(),"Unlike")){
+                                holder.totalLikesTextPost.setText("("+(postResult.getTotalLikes()-1)+" Likes) ");
                                 holder.likeTextPost.setText("Like");
                                 holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.likefalse));
                             }

@@ -7,7 +7,7 @@
     android:background="#EAEAEA"
     tools:context=".EditSchoolFeeStructure">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarEditSchool"
+        android:id="@+id/toolbarEditFee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/appDefault"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarEditSchool">
+        app:layout_constraintTop_toBottomOf="@id/toolbarEditFee">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -974,6 +974,7 @@
                         android:layout_margin="5dp"
                         android:backgroundTint="@color/appDefault"
                         android:text="Update"
+                        android:onClick="updateFeeStructure"
                         android:textColor="#fff"
                         />
                 </LinearLayout>
@@ -984,7 +985,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:onClick="updateFeeStructure"
                 android:text="Write classes number in To and From section and enter fee data.(i.e.1-5). Columns with To and From sections filled will be saved only. Put 0 for empty fields!"
                 android:textSize="12sp" />
         </LinearLayout>

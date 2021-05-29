@@ -84,7 +84,7 @@ public class SignUp extends AppCompatActivity {
                 map.put("username", userName.getText().toString());
                 map.put("email", email.getText().toString());
                 map.put("password", password.getText().toString());
-                map.put("phoneNumber", password.getText().toString());
+                map.put("phoneNumber", phoneNo.getText().toString());
                 //Toast.makeText(SignUp.this, "type chk: "+radioButton.getText().toString(), Toast.LENGTH_LONG).show();
                 map.put("type", radioButton.getText().toString());
 
