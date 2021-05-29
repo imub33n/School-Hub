@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-//refrences
+        //refrences
         postText= root.findViewById(R.id.postEditText);
         postButton= root.findViewById(R.id.postButton);
         uploadImageButton= root.findViewById(R.id.uploadImageButton);
@@ -99,8 +99,6 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         pullToRefresh = root.findViewById(R.id.pullToRefresh);
         pullToRefresh.setOnRefreshListener(this);
-
-
 
         //chat
         if (CometChat.getLoggedInUser() == null) {

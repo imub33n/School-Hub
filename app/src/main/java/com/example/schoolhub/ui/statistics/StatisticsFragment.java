@@ -1,9 +1,11 @@
 package com.example.schoolhub.ui.statistics;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -101,6 +104,9 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
         getLocation();
         v = getLayoutInflater().inflate(R.layout.fragment_filters, null, false);
+        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)){
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(v);
         recyclerViewCompare = (RecyclerView) root.findViewById(R.id.yesCompare);
@@ -183,6 +189,9 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
                 group1.clearCheck();
                 group2.clearCheck();
                 group3.clearCheck();
+                editTextMin.setText("");
+                editTextMax.setText("");
+                distanceMax.setText("");
                 fee=feeReset;
                 searchFilters=searchFiltersReset;
             }
@@ -326,5 +335,7 @@ public class StatisticsFragment extends Fragment implements LocationListener, On
 //        v.getParent().removeView();
 
     }
-
+    private boolean hasPermission(String permission) {
+        return ActivityCompat.checkSelfPermission(getContext(), permission) == PackageManager.PERMISSION_GRANTED;
+    }
 }

@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -74,21 +75,29 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Glide.with(context)
-                                        .load(uri)
-                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                        .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                        .error(R.drawable.ic_image_error)
-                                        .into(holder.userDpComment);
+                                try{
+                                    Glide.with(context)
+                                            .load(uri)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                            .error(R.drawable.ic_image_error)
+                                            .into(holder.userDpComment);
+                                }catch (Exception e){
+                                    Log.d(TAG, "comment photo not loaded: "+e);
+                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle any errors
-                                Glide.with(context)
-                                        .load(R.drawable.ic_image_error)
-                                        .fitCenter()
-                                        .into(holder.userDpComment);
+                                try{
+                                    Glide.with(context)
+                                            .load(R.drawable.ic_image_error)
+                                            .fitCenter()
+                                            .into(holder.userDpComment);
+                                }catch (Exception e){
+                                    Log.d(TAG, "comment photo not loaded: "+e);
+                                }
                             }
                         });
                     }

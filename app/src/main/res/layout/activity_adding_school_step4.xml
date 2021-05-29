@@ -97,7 +97,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
-        android:onClick="nextStep4"
         app:srcCompat="@drawable/done"
         android:contentDescription="Next Button"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -112,7 +111,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        android:onClick="backStep4"
         app:srcCompat="@drawable/back2"
         android:contentDescription="Back Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

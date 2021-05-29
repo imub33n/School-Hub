@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.schoolhub.R;
 import com.example.schoolhub.data.EducationLevel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchool extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class AddingSchool extends AppCompatActivity {
     RadioGroup radioGroupSkolType,radioGroupEducationType;
     RadioButton radioButtonSkolType,radioButtonEducationType;
     CheckBox checkBoxPrimary,checkBoxMiddle,checkBoxHigher;
+    FloatingActionButton floatingNextButton;
     public static String schoolNames,schoolEmails,schoolAddresss,schoolPhoneNos,schoolAbouts,SkolType,EducationType;
     public static EducationLevel EducationLevel= new EducationLevel();
     public static int schoolZipi;
@@ -41,70 +43,72 @@ public class AddingSchool extends AppCompatActivity {
         checkBoxPrimary = findViewById(R.id.checkBoxPrimary);
         checkBoxMiddle = findViewById(R.id.checkBoxMiddle);
         checkBoxHigher = findViewById(R.id.checkBoxHigher);
-
+        floatingNextButton= findViewById(R.id.floatingNextButton);
+        floatingNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radioGroupSkolType =  findViewById(R.id. radioGroupSkolType);
+                radioGroupEducationType = findViewById(R.id.radioGroupEducationType);
+                radioButtonSkolType = (RadioButton) findViewById(radioGroupSkolType.getCheckedRadioButtonId());
+                radioButtonEducationType = (RadioButton) findViewById(radioGroupEducationType.getCheckedRadioButtonId());
+                if(schoolName.getText().toString().isEmpty()&&
+                        schoolEmail.getText().toString().isEmpty()&&
+                        schoolPhoneNo.getText().toString().isEmpty()&&
+                        schoolZip.getText().toString().isEmpty()&&
+                        schoolAbout.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Fill all the fields to continue!", Toast.LENGTH_SHORT).show();
+                }else if(schoolName.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Write School Name", Toast.LENGTH_SHORT).show();
+                }else if(schoolPhoneNo.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Write a Contact Number for school", Toast.LENGTH_SHORT).show();
+                }else if(schoolEmail.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Write School Email", Toast.LENGTH_SHORT).show();
+                }else if(schoolAbout.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Fill About School section", Toast.LENGTH_SHORT).show();
+                }else if(schoolZip.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Write zip code for school", Toast.LENGTH_SHORT).show();
+                }else if(schoolAddress.getText().toString().isEmpty()){
+                    Toast.makeText(AddingSchool.this,"Write school address", Toast.LENGTH_SHORT).show();
+                }else if(radioGroupSkolType.getCheckedRadioButtonId()==-1){
+                    Toast.makeText(getApplicationContext(), "Select type of students enrolled", Toast.LENGTH_SHORT).show();
+                }else if(!(checkBoxPrimary.isChecked()||checkBoxMiddle.isChecked()||checkBoxHigher.isChecked())){
+                    Toast.makeText(AddingSchool.this,"Select education level", Toast.LENGTH_SHORT).show();
+                }else if(radioGroupEducationType.getCheckedRadioButtonId()==-1){
+                    Toast.makeText(getApplicationContext(), "Select field of education", Toast.LENGTH_SHORT).show();
+                }else{
+                    schoolNames=schoolName.getText().toString();
+                    schoolPhoneNos=schoolPhoneNo.getText().toString();
+                    schoolEmails=schoolEmail.getText().toString();
+                    schoolZipi=Integer.parseInt(schoolZip.getText().toString());
+                    schoolAbouts=schoolAbout.getText().toString();
+                    schoolAddresss=schoolAddress.getText().toString();
+                    SkolType =radioButtonSkolType.getText().toString();
+                    EducationType=radioButtonEducationType.getText().toString();
+                    if(checkBoxPrimary.isChecked()){
+                        EducationLevel.setPrimary(true);
+                        //EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
+                    }else{
+                        EducationLevel.setPrimary(false);
+                    }
+                    if(checkBoxMiddle.isChecked()){
+                        EducationLevel.setMiddle(true);
+                        //EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
+                    }else{
+                        EducationLevel.setMiddle(false);
+                    }
+                    if(checkBoxHigher.isChecked()){
+                        EducationLevel.setHigher(true);
+                        //EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
+                    }else{
+                        EducationLevel.setHigher(false);
+                    }
+                    onSaveInstanceState(savedInstanceState);
+                    Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
-    public void nextStep1(View view) {
-        radioGroupSkolType =  findViewById(R.id. radioGroupSkolType);
-        radioGroupEducationType = findViewById(R.id.radioGroupEducationType);
-        radioButtonSkolType = (RadioButton) findViewById(radioGroupSkolType.getCheckedRadioButtonId());
-        radioButtonEducationType = (RadioButton) findViewById(radioGroupEducationType.getCheckedRadioButtonId());
-        if(schoolName.getText().toString().isEmpty()&&
-                schoolEmail.getText().toString().isEmpty()&&
-                schoolPhoneNo.getText().toString().isEmpty()&&
-                schoolZip.getText().toString().isEmpty()&&
-                schoolAbout.getText().toString().isEmpty()){
-            Toast.makeText(this,"Fill all the fields to continue!", Toast.LENGTH_SHORT).show();
-        }else if(schoolName.getText().toString().isEmpty()){
-            Toast.makeText(this,"Write School Name", Toast.LENGTH_SHORT).show();
-        }else if(schoolPhoneNo.getText().toString().isEmpty()){
-            Toast.makeText(this,"Write a Contact Number for school", Toast.LENGTH_SHORT).show();
-        }else if(schoolEmail.getText().toString().isEmpty()){
-            Toast.makeText(this,"Write School Email", Toast.LENGTH_SHORT).show();
-        }else if(schoolAbout.getText().toString().isEmpty()){
-            Toast.makeText(this,"Fill About School section", Toast.LENGTH_SHORT).show();
-        }else if(schoolZip.getText().toString().isEmpty()){
-            Toast.makeText(this,"Write zip code for school", Toast.LENGTH_SHORT).show();
-        }else if(schoolAddress.getText().toString().isEmpty()){
-            Toast.makeText(this,"Write school address", Toast.LENGTH_SHORT).show();
-        }else if(radioGroupSkolType.getCheckedRadioButtonId()==-1){
-            Toast.makeText(getApplicationContext(), "Select type of students enrolled", Toast.LENGTH_SHORT).show();
-        }else if(!(checkBoxPrimary.isChecked()||checkBoxMiddle.isChecked()||checkBoxHigher.isChecked())){
-            Toast.makeText(this,"Select education level", Toast.LENGTH_SHORT).show();
-        }else if(radioGroupEducationType.getCheckedRadioButtonId()==-1){
-            Toast.makeText(getApplicationContext(), "Select field of education", Toast.LENGTH_SHORT).show();
-        }else{
-            schoolNames=schoolName.getText().toString();
-            schoolPhoneNos=schoolPhoneNo.getText().toString();
-            schoolEmails=schoolEmail.getText().toString();
-            schoolZipi=Integer.parseInt(schoolZip.getText().toString());
-            schoolAbouts=schoolAbout.getText().toString();
-            schoolAddresss=schoolAddress.getText().toString();
-            SkolType =radioButtonSkolType.getText().toString();
-            EducationType=radioButtonEducationType.getText().toString();
-            if(checkBoxPrimary.isChecked()){
-                EducationLevel.setPrimary(true);
-                //EducationLevel=EducationLevel.concat(" "+checkBoxPrimary.getText().toString());
-            }else{
-                EducationLevel.setPrimary(false);
-            }
-            if(checkBoxMiddle.isChecked()){
-                EducationLevel.setMiddle(true);
-                //EducationLevel=EducationLevel.concat(" "+checkBoxMiddle.getText().toString());
-            }else{
-                EducationLevel.setMiddle(false);
-            }
-            if(checkBoxHigher.isChecked()){
-                EducationLevel.setHigher(true);
-                //EducationLevel=EducationLevel.concat(" "+checkBoxHigher.getText().toString());
-            }else{
-                EducationLevel.setHigher(false);
-            }
-            Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-        }
-
-
-    }
 }

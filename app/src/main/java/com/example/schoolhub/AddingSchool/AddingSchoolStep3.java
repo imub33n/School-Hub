@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.schoolhub.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
 public class AddingSchoolStep3 extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class AddingSchoolStep3 extends AppCompatActivity {
             isports,isports2,isports3,ilab,ilab2,ilab3,ilibrary,ilibrary2,ilibrary3,itotalAddFee,itotalAddFee2,
             itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
 
+    FloatingActionButton floatingNextButton3,floatingBackButton3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,10 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         columnClasses= findViewById(R.id.columnClasses);
         columnClasses2=findViewById(R.id.columnClasses2);
         columnClasses3=findViewById(R.id.columnClasses3);
+
+        floatingNextButton3=findViewById(R.id.floatingNextButton3);
+        floatingBackButton3=findViewById(R.id.floatingBackButton3);
+
         if(!AddingSchool.EducationLevel.getPrimary()){
             columnClasses.setLayoutParams(new LinearLayout.LayoutParams(0,0));
         }else{
@@ -87,53 +93,58 @@ public class AddingSchoolStep3 extends AppCompatActivity {
                 }
             }
         }
+        floatingBackButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSaveInstanceState(savedInstanceState);
+                Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
+        floatingNextButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(AddingSchool.EducationLevel.getPrimary()){
+                    iAddFee=Integer.parseInt(AddFee.getText().toString());
+                    iExamFee=Integer.parseInt(ExamFee.getText().toString());
+                    ilab=Integer.parseInt(lab.getText().toString());
+                    ilibrary=Integer.parseInt(library.getText().toString());
+                    iTutionFee=Integer.parseInt(TutionFee.getText().toString());
+                    isports=Integer.parseInt(sports.getText().toString());
+                    itotalAddFee=Integer.parseInt(totalAddFee.getText().toString());
+                    iothers=Integer.parseInt(others.getText().toString());
+                    imonthlyFee=Integer.parseInt(monthlyFee.getText().toString());
+                }
+                if(AddingSchool.EducationLevel.getMiddle()){
+                    iAddFee2=Integer.parseInt(AddFee2.getText().toString());
+                    iExamFee2=Integer.parseInt(ExamFee2.getText().toString());
+                    ilab2=Integer.parseInt(lab2.getText().toString());
+                    ilibrary2=Integer.parseInt(library2.getText().toString());
+                    iTutionFee2=Integer.parseInt(TutionFee2.getText().toString());
+                    isports2=Integer.parseInt(sports2.getText().toString());
+                    itotalAddFee2=Integer.parseInt(totalAddFee2.getText().toString());
+                    iothers2=Integer.parseInt(others2.getText().toString());
+                    imonthlyFee2=Integer.parseInt(monthlyFee2.getText().toString());
+                }
+                if(AddingSchool.EducationLevel.getHigher()) {
+                    iAddFee3 = Integer.parseInt(AddFee3.getText().toString());
+                    iExamFee3 = Integer.parseInt(ExamFee3.getText().toString());
+                    ilab3 = Integer.parseInt(lab3.getText().toString());
+                    ilibrary3 = Integer.parseInt(library3.getText().toString());
+                    iTutionFee3 = Integer.parseInt(TutionFee3.getText().toString());
+                    isports3 = Integer.parseInt(sports3.getText().toString());
+                    itotalAddFee3 = Integer.parseInt(totalAddFee3.getText().toString());
+                    iothers3 = Integer.parseInt(others3.getText().toString());
+                    imonthlyFee3 = Integer.parseInt(monthlyFee3.getText().toString());
+                }
+                onSaveInstanceState(savedInstanceState);
+                Intent it = new Intent( getApplicationContext() , AddingSchoolStep4.class);
+                it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(it);
+
+            }
+        });
     }
-
-    public void backStep3(View view) {
-        Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-    }
-
-    public void nextStep3(View view) {
-        if(AddingSchool.EducationLevel.getPrimary()){
-            iAddFee=Integer.parseInt(AddFee.getText().toString());
-            iExamFee=Integer.parseInt(ExamFee.getText().toString());
-            ilab=Integer.parseInt(lab.getText().toString());
-            ilibrary=Integer.parseInt(library.getText().toString());
-            iTutionFee=Integer.parseInt(TutionFee.getText().toString());
-            isports=Integer.parseInt(sports.getText().toString());
-            itotalAddFee=Integer.parseInt(totalAddFee.getText().toString());
-            iothers=Integer.parseInt(others.getText().toString());
-            imonthlyFee=Integer.parseInt(monthlyFee.getText().toString());
-        }
-        if(AddingSchool.EducationLevel.getMiddle()){
-            iAddFee2=Integer.parseInt(AddFee2.getText().toString());
-            iExamFee2=Integer.parseInt(ExamFee2.getText().toString());
-            ilab2=Integer.parseInt(lab2.getText().toString());
-            ilibrary2=Integer.parseInt(library2.getText().toString());
-            iTutionFee2=Integer.parseInt(TutionFee2.getText().toString());
-            isports2=Integer.parseInt(sports2.getText().toString());
-            itotalAddFee2=Integer.parseInt(totalAddFee2.getText().toString());
-            iothers2=Integer.parseInt(others2.getText().toString());
-            imonthlyFee2=Integer.parseInt(monthlyFee2.getText().toString());
-        }
-        if(AddingSchool.EducationLevel.getHigher()) {
-            iAddFee3 = Integer.parseInt(AddFee3.getText().toString());
-            iExamFee3 = Integer.parseInt(ExamFee3.getText().toString());
-            ilab3 = Integer.parseInt(lab3.getText().toString());
-            ilibrary3 = Integer.parseInt(library3.getText().toString());
-            iTutionFee3 = Integer.parseInt(TutionFee3.getText().toString());
-            isports3 = Integer.parseInt(sports3.getText().toString());
-            itotalAddFee3 = Integer.parseInt(totalAddFee3.getText().toString());
-            iothers3 = Integer.parseInt(others3.getText().toString());
-            imonthlyFee3 = Integer.parseInt(monthlyFee3.getText().toString());
-        }
-
-        Intent it = new Intent( getApplicationContext() , AddingSchoolStep4.class);
-        it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(it);
-
-    }
-
 }

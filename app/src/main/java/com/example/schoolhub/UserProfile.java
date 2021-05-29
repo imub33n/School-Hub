@@ -208,50 +208,75 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                for(int i=0;i<listOfFriends.size();i++){
-
-                    if(getIntent().getStringExtra("EXTRA_USER_ID").equals(listOfFriends.get(i).getUid())){
-                        themFriends=true;
-                    }
-                    if(i==listOfFriends.size()-1){
-                        if(!themFriends){
-                            //add as friend
-                            Log.d(TAG, "onClick: __friends?_"+themFriends);
-                            HashMap<String, String> mapUsers = new HashMap<>();
-
-                            mapUsers.put( "userID", PreferenceData.getLoggedInUserData(UserProfile.this).get("userID") );
-                            mapUsers.put( "otherID", getIntent().getStringExtra("EXTRA_USER_ID") );
-                            //POST REQUEST
-                            Call<Void> call = retrofitInterface.addChatFriend(mapUsers);
-                            call.enqueue(new Callback<Void>() {
-                                @Override
-                                public void onResponse(Call<Void> call, Response<Void> response) {
-                                    if (response.isSuccessful()) {
-                                        Toast.makeText(UserProfile.this, "Yes", Toast.LENGTH_LONG).show();
-                                    }else{
-                                        Toast.makeText(UserProfile.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                                @Override
-                                public void onFailure(Call<Void> call, Throwable t) {
-                                    //Toast.makeText(UserProfile.this, "Connection Error: "+t.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            final Handler handler = new Handler(Looper.getMainLooper());
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
-                                }
-                            }, 1000);//timer set for 1 seconds
-                        }else{
-                            progressBar.setVisibility(View.INVISIBLE);
-                            openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
-                        }
-                    }
-                }//added as friend in chat if not already
+                //progressBar.setVisibility(View.VISIBLE);
+                openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
+//                if(listOfFriends.size()>0){
+//                    for(int i=0;i<listOfFriends.size();i++){
+//                        if(getIntent().getStringExtra("EXTRA_USER_ID").equals(listOfFriends.get(i).getUid())){
+//                            themFriends=true;
+//                        }
+//                        if(i==listOfFriends.size()-1){
+//                            if(!themFriends){
+//                                //add as friend
+//                                Log.d(TAG, "onClick: __friends?_"+themFriends);
+//                                HashMap<String, String> mapUsers = new HashMap<>();
+//
+//                                mapUsers.put( "userID", PreferenceData.getLoggedInUserData(UserProfile.this).get("userID") );
+//                                mapUsers.put( "otherID", getIntent().getStringExtra("EXTRA_USER_ID") );
+//                                //POST REQUEST
+//                                Call<Void> call = retrofitInterface.addChatFriend(mapUsers);
+//                                call.enqueue(new Callback<Void>() {
+//                                    @Override
+//                                    public void onResponse(Call<Void> call, Response<Void> response) {
+//                                        if (response.isSuccessful()) {
+//                                            Toast.makeText(UserProfile.this, "Yes", Toast.LENGTH_LONG).show();
+//                                        }else{
+//                                            Toast.makeText(UserProfile.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
+//                                        }
+//                                    }
+//                                    @Override
+//                                    public void onFailure(Call<Void> call, Throwable t) {
+//                                        //Toast.makeText(UserProfile.this, "Connection Error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+//                                    }
+//                                });
+//                                final Handler handler = new Handler(Looper.getMainLooper());
+//                                handler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        progressBar.setVisibility(View.INVISIBLE);
+//                                        openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
+//                                    }
+//                                }, 1000);//timer set for 1 seconds
+//                            }else{
+//                                progressBar.setVisibility(View.INVISIBLE);
+//                                openChat(UserProfile.this,getIntent().getStringExtra("EXTRA_USER_ID"));
+//                            }
+//                        }
+//                    }//added as friend in chat if not already
+//
+//                }else{
+//                    Log.d(TAG, "onClick: __friends?_"+themFriends);
+//                    HashMap<String, String> mapUsers = new HashMap<>();
+//
+//                    mapUsers.put( "userID", PreferenceData.getLoggedInUserData(UserProfile.this).get("userID") );
+//                    mapUsers.put( "otherID", getIntent().getStringExtra("EXTRA_USER_ID") );
+//                    //POST REQUEST
+//                    Call<Void> call = retrofitInterface.addChatFriend(mapUsers);
+//                    call.enqueue(new Callback<Void>() {
+//                        @Override
+//                        public void onResponse(Call<Void> call, Response<Void> response) {
+//                            if (response.isSuccessful()) {
+//                                Toast.makeText(UserProfile.this, "Yes", Toast.LENGTH_LONG).show();
+//                            }else{
+//                                Toast.makeText(UserProfile.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                        @Override
+//                        public void onFailure(Call<Void> call, Throwable t) {
+//                            //Toast.makeText(UserProfile.this, "Connection Error: "+t.getMessage(), Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                }
 
             }
         });
@@ -401,12 +426,16 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             if (response.code() == 200) {
                                                 Toast.makeText(getApplicationContext(), "Photo Updated", Toast.LENGTH_LONG).show();
-                                                Glide.with(getApplicationContext())
-                                                        .load(filePath)
-                                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                                        .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
-                                                        .error(R.drawable.ic_image_error)
-                                                        .into(profilePhoto);
+                                                try{
+                                                    Glide.with(getApplicationContext())
+                                                            .load(filePath)
+                                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                                            .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
+                                                            .error(R.drawable.ic_image_error)
+                                                            .into(profilePhoto);
+                                                }catch (Exception e){
+                                                    Log.d(TAG, "Profile Pic not loaded: "+e);
+                                                }
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "Server response code: "+response.code(), Toast.LENGTH_LONG).show();
                                             }

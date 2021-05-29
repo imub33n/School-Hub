@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,25 +10,39 @@
     android:layout_marginRight="5dp"
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp">
-    <TextView
-        android:id="@+id/titleNoti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Topic Notification"
-        android:textColor="#000"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="18dp"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:letterSpacing="0.05"/>
-    <TextView
-        android:id="@+id/subTitleNoti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notification Text Here"
-        android:textColor="#000"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginBottom="14dp"
-        android:letterSpacing="0.05"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/titleNoti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Topic Notification"
+            android:textColor="#000"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="18dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:letterSpacing="0.05"/>
+        <TextView
+            android:id="@+id/subTitleNoti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification Text Here"
+            android:textColor="#000"
+            android:layout_below="@id/titleNoti"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="14dp"
+            android:letterSpacing="0.05"/>
+        <ImageView
+            android:id="@+id/hideNotification"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/minimize"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            app:tint="#000"/>
+    </RelativeLayout>
 </LinearLayout>

@@ -66,7 +66,7 @@ public class ARModel extends AppCompatActivity {
         RenderableSource renderableSource = RenderableSource
                 .builder()
                 .setSource(this, Uri.parse(file.getPath()), RenderableSource.SourceType.GLB)
-                .setScale(0.5f)
+                .setScale(0.2f)
                 .setRecenterMode(RenderableSource.RecenterMode.ROOT)
                 .build();
 

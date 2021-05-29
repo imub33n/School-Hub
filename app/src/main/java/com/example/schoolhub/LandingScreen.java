@@ -272,6 +272,9 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
                 group1.clearCheck();
                 group2.clearCheck();
                 group3.clearCheck();
+                editTextMin.setText("");
+                editTextMax.setText("");
+                distanceMax.setText("");
                 fee=feeReset;
                 searchFilters=searchFiltersReset;
             }

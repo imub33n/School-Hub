@@ -194,6 +194,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
                         group1.clearCheck();
                         group2.clearCheck();
                         group3.clearCheck();
+                        editTextMin.setText("");
+                        editTextMax.setText("");
+                        distanceMax.setText("");
                         fee=feeReset;
                         searchFilters=searchFiltersReset;
                     }
@@ -357,6 +360,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
     @Override
     public void onStart() {
         super.onStart();
+        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)){
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         mMapView.onStart();
 
     }
@@ -403,5 +409,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Loca
 
         //to line 293
     }
-
+    private boolean hasPermission(String permission) {
+        return ActivityCompat.checkSelfPermission(getContext(), permission) == PackageManager.PERMISSION_GRANTED;
+    }
 }

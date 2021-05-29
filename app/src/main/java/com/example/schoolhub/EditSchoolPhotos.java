@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolhub.Adapters.EditPhotosViewAdapter;
@@ -51,6 +52,7 @@ public class EditSchoolPhotos extends AppCompatActivity {
     private RetrofitInterface retrofitInterface;
     List<Image> imaging=new ArrayList<>();
     public Toolbar toolbarEdit;
+    TextView requestARModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class EditSchoolPhotos extends AppCompatActivity {
         setContentView(R.layout.activity_edit_school_photos);
         toolbarEdit = (Toolbar) findViewById(R.id.toolbarEditSchool);
         schoolPhotosList = findViewById(R.id.schoolPhotosList);
+        requestARModel = findViewById(R.id.requestARModel);
 
         //retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -67,6 +70,16 @@ public class EditSchoolPhotos extends AppCompatActivity {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         //
+        requestARModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //notiStart
+                String title="AR Model Request";
+                String subTitle = InformationSchoolFragment.thisSchoolData.getSchoolName()+" requested for an AR Model";
+                new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(EditSchoolPhotos.this).get("userID"),MainActivity.SuperAdminID);
+                //notiEnd
+            }
+        });
         Call<List<SchoolData>> call = retrofitInterface.getSchoolData();
         call.enqueue(new Callback<List<SchoolData>>() {
             @Override

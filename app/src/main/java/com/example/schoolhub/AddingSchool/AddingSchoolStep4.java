@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -67,12 +68,15 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    FloatingActionButton floatingNextButton4,floatingBackButton2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_school_step4);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
+        floatingNextButton4=findViewById(R.id.floatingNextButton4);
+        floatingBackButton2=findViewById(R.id.floatingBackButton2);
         stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
         stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
         mMapView = findViewById(R.id.mapViewSchoolLocation);
@@ -88,12 +92,25 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-//        for(int i=0;i<AddingSchoolStep2.newAttachmentList.size();i++){
-//            Image image = new Image();
-//            image.setPath(AddingSchoolStep2.newAttachmentList.get(i).getImageID());
-//            images.add(i,image);
-//            //images.add(0,image.setPath(AddingSchoolStep2.newAttachmentList.get(0).getImageID()));
-//        }
+        floatingBackButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSaveInstanceState(savedInstanceState);
+                Intent it = new Intent( getApplicationContext() , AddingSchoolStep3.class);
+                it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(it);
+            }
+        });
+        floatingNextButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lat==null||lat.isEmpty()){
+                    Toast.makeText(AddingSchoolStep4.this,"Please select a location on map to continue", Toast.LENGTH_LONG).show();
+                }else {
+                    uploadImage();
+                }
+            }
+        });
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -143,11 +160,6 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         super.onLowMemory();
         mMapView.onLowMemory();
     }
-    public void backStep4(View view) {
-        Intent it = new Intent( getApplicationContext() , AddingSchoolStep3.class);
-        it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(it);
-    }
 
     @Override
     public void onMapClick(LatLng latLng) {
@@ -161,14 +173,6 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         schoolCoordinates.setLongitude(lng);
     }
 
-    public void nextStep4(View view) {
-        if(lat==null||lat.isEmpty()){
-            Toast.makeText(this,"Please select a location on map to continue", Toast.LENGTH_LONG).show();
-        }else {
-            //skol = new ArrayList<>();
-            uploadImage();
-        }
-    }
     private void uploadImage() {
         for(int i=0;i<AddingSchoolStep2.newAttachmentList.size();i++) {
 //            Image image = new Image();

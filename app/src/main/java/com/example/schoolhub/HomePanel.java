@@ -83,7 +83,6 @@ public class HomePanel extends AppCompatActivity {
     RecyclerView recyclerView;
     SearchUserAdapter searchUserAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +110,6 @@ public class HomePanel extends AppCompatActivity {
                 Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
             }
         });
-
-
 
         reviewAndFeedback= findViewById(R.id.reviewAndFeedback);
         //retrofit

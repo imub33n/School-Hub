@@ -976,7 +976,6 @@
         android:backgroundTint="#fff"
         android:clickable="true"
         android:contentDescription="Next Button"
-        android:onClick="nextStep3"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -997,6 +996,5 @@
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/back2"
-        android:onClick="backStep3"
         android:contentDescription="Back Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Notification {
+    @SerializedName("_id")
+    @Expose
+    private String notificationID;
     @SerializedName("userID")
     @Expose
     private String userID;
@@ -37,4 +40,9 @@ public class Notification {
     public void setText(String text) {
         this.text = text;
     }
+
+    public String getNotificationID() {
+        return notificationID;
+    }
+
 }
