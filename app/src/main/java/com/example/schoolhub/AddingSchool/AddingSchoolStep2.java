@@ -41,6 +41,7 @@ public class AddingSchoolStep2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle saveThis= new Bundle();
         setContentView(R.layout.activity_adding_school_step2);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
@@ -50,10 +51,8 @@ public class AddingSchoolStep2 extends AppCompatActivity {
         floatingBackButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSaveInstanceState(savedInstanceState);
-                Intent intent = new Intent(getApplicationContext(),AddingSchool.class );
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+                onSaveInstanceState(saveThis);
+                onBackPressed();
             }
         });
         floatingNextButton2.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +64,7 @@ public class AddingSchoolStep2 extends AppCompatActivity {
                     Toast.makeText(AddingSchoolStep2.this,"Please select at most 20 photos+video",Toast.LENGTH_LONG).show();
                 }
                 else{
-                    onSaveInstanceState(savedInstanceState);
+                    onSaveInstanceState(saveThis);
                     Intent intent = new Intent(getApplicationContext(),AddingSchoolStep3.class );
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);

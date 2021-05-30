@@ -62,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)){
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
+
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -188,8 +186,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 3000);//timer set for 3 seconds
         }
-    }
-    private boolean hasPermission(String permission) {
-        return ActivityCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_GRANTED;
     }
 }

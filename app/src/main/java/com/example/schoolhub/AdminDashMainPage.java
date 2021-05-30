@@ -43,7 +43,7 @@ public class AdminDashMainPage extends Fragment {
     Intent intent;
     CardView editGeneralCard,editPhotosCard,editFeeCard,editSettingsCard,editRequestCard;
     ProgressBar progressBar;
-
+    Boolean firstTime= true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -141,5 +141,17 @@ public class AdminDashMainPage extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(firstTime){
+            firstTime=false;
+        }else{
+            getActivity().finish();
+            startActivity(getActivity().getIntent());
+            firstTime=true;
+        }
     }
 }

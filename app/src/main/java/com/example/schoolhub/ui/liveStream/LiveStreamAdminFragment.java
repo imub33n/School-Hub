@@ -74,7 +74,7 @@ public class LiveStreamAdminFragment extends Fragment {
     static String adminId= "";
     String adminIdGet;
     ProgressBar progressBar;
-
+    Boolean firstTime= true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -183,14 +183,17 @@ public class LiveStreamAdminFragment extends Fragment {
                 Toast.makeText(getContext(), ""+t, Toast.LENGTH_LONG).show();
             }
         });
-
-//        startLiveStream.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), LiveStreamCam.class );
-//                startActivity(intent);
-//            }
-//        });
         return root;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(firstTime){
+            firstTime=false;
+        }else{
+            getActivity().finish();
+            startActivity(getActivity().getIntent());
+            firstTime=true;
+        }
     }
 }

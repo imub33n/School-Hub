@@ -43,6 +43,7 @@ import static com.cometchat.pro.uikit.ui_components.shared.cometchatReaction.fra
 
 public class LiveStreamFragment extends Fragment {
     Button viewLivestream;
+    TextView statusLS;
     RecyclerView recyclerViewLivestreams;
     LivestreamViewAdapter livestreamViewAdapter;
     List<LiveStreamRequests> liveStreams= new ArrayList<>();
@@ -57,7 +58,7 @@ public class LiveStreamFragment extends Fragment {
         recyclerViewLivestreams = root.findViewById(R.id.recyclerViewLivestreams);
         recyclerViewLivestreams.setLayoutManager(new LinearLayoutManager(getContext()));
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
-
+        statusLS = root.findViewById(R.id.statusLS);
         //Retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -75,17 +76,16 @@ public class LiveStreamFragment extends Fragment {
             @Override
             public void onResponse(Call<List<LiveStreamRequests>> call, Response<List<LiveStreamRequests>> response) {
                 if (response.code() == 200) {
-                    Log.d(TAG, "livestr: ______"+response.body().size());
                     for(int i=0;i<response.body().size();i++){
-                        Log.d(TAG, "livestr2: ______"+response.body().get(i).getTitle());
                         LocalDate dateStream = LocalDate.parse(response.body().get(i).getDate(), df);
                         if(dateStream.isAfter(dateCurrent) || dateStream.isEqual(dateCurrent)){
-                            Log.d(TAG, "livestr3: ______"+i);
                             liveStreams.add(response.body().get(i));
                         }
                     }
                     progressBar.setVisibility(View.INVISIBLE);
-
+                    if(liveStreams.size()==0){
+                        statusLS.setText("No Current Live Streams");
+                    }
                     livestreamViewAdapter = new LivestreamViewAdapter(liveStreams,getContext());
                     recyclerViewLivestreams.setAdapter(livestreamViewAdapter);
                 }else {

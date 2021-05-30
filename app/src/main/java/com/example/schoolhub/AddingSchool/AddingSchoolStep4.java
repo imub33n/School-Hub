@@ -72,6 +72,10 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle saveThis= new Bundle();
+        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         setContentView(R.layout.activity_adding_school_step4);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
@@ -95,10 +99,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
         floatingBackButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSaveInstanceState(savedInstanceState);
-                Intent it = new Intent( getApplicationContext() , AddingSchoolStep3.class);
-                it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(it);
+                onSaveInstanceState(saveThis);
+                onBackPressed();
             }
         });
         floatingNextButton4.setOnClickListener(new View.OnClickListener() {
@@ -300,5 +302,8 @@ public class AddingSchoolStep4 extends AppCompatActivity implements OnMapReadyCa
                         });
             }
         }
+    }
+    private boolean hasPermission(String permission) {
+        return ActivityCompat.checkSelfPermission(AddingSchoolStep4.this, permission) == PackageManager.PERMISSION_GRANTED;
     }
 }

@@ -2,14 +2,17 @@ package com.example.schoolhub;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
@@ -99,6 +102,9 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_screen);
+        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         getLocation();
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -390,5 +396,8 @@ public class LandingScreen extends AppCompatActivity implements LocationListener
         schoolCoordinates.setLongitude(String.valueOf(location.getLongitude()));
         schoolCoordinates.setLatitude(String.valueOf(location.getLatitude()));
         searchFilters.setSchoolCoordinates(schoolCoordinates);
+    }
+    private boolean hasPermission(String permission) {
+        return ActivityCompat.checkSelfPermission(LandingScreen.this, permission) == PackageManager.PERMISSION_GRANTED;
     }
 }

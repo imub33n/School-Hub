@@ -1,8 +1,11 @@
 package com.example.schoolhub.AddingSchool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -29,7 +32,11 @@ public class AddingSchool extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle saveThis= new Bundle();
         setContentView(R.layout.activity_adding_school);
+        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(descriptionData);
         stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
@@ -102,7 +109,8 @@ public class AddingSchool extends AppCompatActivity {
                     }else{
                         EducationLevel.setHigher(false);
                     }
-                    onSaveInstanceState(savedInstanceState);
+
+                    onSaveInstanceState(saveThis);
                     Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
@@ -110,5 +118,7 @@ public class AddingSchool extends AppCompatActivity {
             }
         });
     }
-
+    private boolean hasPermission(String permission) {
+        return ActivityCompat.checkSelfPermission(AddingSchool.this, permission) == PackageManager.PERMISSION_GRANTED;
+    }
 }

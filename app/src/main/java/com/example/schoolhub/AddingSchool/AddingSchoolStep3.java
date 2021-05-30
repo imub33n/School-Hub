@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolhub.R;
@@ -18,7 +21,7 @@ public class AddingSchoolStep3 extends AppCompatActivity {
             sports,sports2,sports3,lab,lab2,lab3,library,library2,library3,totalAddFee,totalAddFee2,
             totalAddFee3,monthlyFee,monthlyFee2,monthlyFee3,others,others2,others3;
     LinearLayout columnClasses,columnClasses2,columnClasses3;
-
+    TextView textView67;
     public static int iAddFee,iAddFee2,iAddFee3,iTutionFee,iTutionFee2,iTutionFee3,iExamFee,iExamFee2,iExamFee3,
             isports,isports2,isports3,ilab,ilab2,ilab3,ilibrary,ilibrary2,ilibrary3,itotalAddFee,itotalAddFee2,
             itotalAddFee3,imonthlyFee,imonthlyFee2,imonthlyFee3,iothers,iothers2,iothers3;
@@ -28,10 +31,11 @@ public class AddingSchoolStep3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle saveThis= new Bundle();
         setContentView(R.layout.activity_adding_school_step3);
         StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
         stateProgressBar.setStateDescriptionData(AddingSchool.descriptionData);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         AddFee=findViewById(R.id.AddFee);
         AddFee3=findViewById(R.id.AddFee3);
         AddFee2=findViewById(R.id.AddFee2);
@@ -62,6 +66,7 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         columnClasses= findViewById(R.id.columnClasses);
         columnClasses2=findViewById(R.id.columnClasses2);
         columnClasses3=findViewById(R.id.columnClasses3);
+        textView67=findViewById(R.id.textView67);
 
         floatingNextButton3=findViewById(R.id.floatingNextButton3);
         floatingBackButton3=findViewById(R.id.floatingBackButton3);
@@ -71,7 +76,9 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         }else{
             if(!AddingSchool.EducationLevel.getMiddle()){
                 if(!AddingSchool.EducationLevel.getHigher()){
-                    columnClasses.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                    columnClasses.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    textView67.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    textView67.setPadding(60,20,60,20);
                 }
             }
         }
@@ -80,7 +87,9 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         }else{
             if(!AddingSchool.EducationLevel.getPrimary()){
                 if(!AddingSchool.EducationLevel.getHigher()){
-                    columnClasses2.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                    columnClasses2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    textView67.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    textView67.setPadding(60,20,60,20);
                 }
             }
         }
@@ -89,17 +98,17 @@ public class AddingSchoolStep3 extends AppCompatActivity {
         }else{
             if(!AddingSchool.EducationLevel.getPrimary()){
                 if(!AddingSchool.EducationLevel.getMiddle()){
-                    columnClasses3.setLayoutParams(new LinearLayout.LayoutParams(300,0));
+                    columnClasses3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    textView67.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    textView67.setPadding(60,20,60,20);
                 }
             }
         }
         floatingBackButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSaveInstanceState(savedInstanceState);
-                Intent intent = new Intent(getApplicationContext(),AddingSchoolStep2.class );
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+                onSaveInstanceState(saveThis);
+                onBackPressed();
             }
         });
         floatingNextButton3.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +148,7 @@ public class AddingSchoolStep3 extends AppCompatActivity {
                     iothers3 = Integer.parseInt(others3.getText().toString());
                     imonthlyFee3 = Integer.parseInt(monthlyFee3.getText().toString());
                 }
-                onSaveInstanceState(savedInstanceState);
+                onSaveInstanceState(saveThis);
                 Intent it = new Intent( getApplicationContext() , AddingSchoolStep4.class);
                 it.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(it);

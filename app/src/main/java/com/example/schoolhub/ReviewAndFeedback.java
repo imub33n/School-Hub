@@ -117,6 +117,8 @@ public class ReviewAndFeedback extends AppCompatActivity {
                                 new SendNotification(title,subTitle, PreferenceData.getLoggedInUserData(ReviewAndFeedback.this).get("userID"),MainActivity.SuperAdminID);
                                 //notiEnd
                                 Toast.makeText(ReviewAndFeedback.this, "Review Posted!", Toast.LENGTH_LONG).show();
+                                finish();
+                                startActivity(getIntent());
                             }else{
                                 Toast.makeText(ReviewAndFeedback.this, "Error Code: "+response.code(), Toast.LENGTH_LONG).show();
                             }
