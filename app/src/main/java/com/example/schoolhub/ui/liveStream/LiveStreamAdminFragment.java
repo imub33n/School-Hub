@@ -185,15 +185,15 @@ public class LiveStreamAdminFragment extends Fragment {
         });
         return root;
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(firstTime){
-            firstTime=false;
-        }else{
-            getActivity().finish();
-            startActivity(getActivity().getIntent());
-            firstTime=true;
-        }
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if(firstTime){
+//            firstTime=false;
+//        }else{
+//            getActivity().finish();
+//            startActivity(getActivity().getIntent());
+//            firstTime=true;
+//        }
+//    }
 }

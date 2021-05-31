@@ -3,6 +3,7 @@ package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> {
     //int []images;
@@ -45,33 +48,40 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.ViewHolder> 
         //holder.imageView.setBackgroundResource(Integer.parseInt(images.get(position).getPath()));
             //Log.d(TAG, "onBindViewHolder:__________________"+position+"______________ "+images.get(position).getPath());
             if(images.get(position).getPath()!=null){
-                StorageReference storageRef = storage.getReferenceFromUrl(images.get(position).getPath());
-                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Glide.with(context)
-                                .load(uri)
-                                //.fitCenter()
-                                //.dontAnimate()
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                .error(R.drawable.ic_image_error)
-                                //.apply(new RequestOptions().override(1000, 500))
-                                .into(holder.imageView);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
-                        Glide.with(context)
-                                .load(R.drawable.ic_image_error)
-                                .fitCenter()
-                                .into(holder.imageView);
-                    }
-                });
+                try{
+                    StorageReference storageRef = storage.getReferenceFromUrl(images.get(position).getPath());
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            try{
+                                Glide.with(context)
+                                        .load(uri)
+                                        //.fitCenter()
+                                        //.dontAnimate()
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                        .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                        .error(R.drawable.ic_image_error)
+                                        //.apply(new RequestOptions().override(1000, 500))
+                                        .into(holder.imageView);
+                            }catch(Exception e){
+                                Log.d(TAG, "Photo loading failed : "+ e);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
+                            Glide.with(context)
+                                    .load(R.drawable.ic_image_error)
+                                    .fitCenter()
+                                    .into(holder.imageView);
+                        }
+                    });
+                }catch(Exception e){
+                    Log.d(TAG, "Photo loading failed : "+ e);
+                }
             }
-
     }
 
     @Override

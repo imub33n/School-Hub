@@ -46,8 +46,8 @@ public class LiveStreamRequest extends AppCompatActivity {
     public Toolbar toolbarEdit;
     Button btnDatePicker,btnTimePicker_end, btnTimePicker,sendRequestButton;
     EditText txtDate, txtTime, txtTime_end,titleStream,descriptionStream;
-    RadioGroup groupPrivacy;
-    RadioButton buttonPrivacy;
+//    RadioGroup groupPrivacy;
+//    RadioButton buttonPrivacy;
     private int mYear, mMonth, mDay, mHour, mMinute, mHour_end, mMinute_end;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     SimpleDateFormat formatter = new SimpleDateFormat("d/M/yyyy");
@@ -79,8 +79,8 @@ public class LiveStreamRequest extends AppCompatActivity {
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                groupPrivacy=findViewById(R.id.groupPrivacy);
-                buttonPrivacy=findViewById(groupPrivacy.getCheckedRadioButtonId());
+                //groupPrivacy=findViewById(R.id.groupPrivacy);
+                //buttonPrivacy=findViewById(groupPrivacy.getCheckedRadioButtonId());
                 LocalDateTime now = LocalDateTime.now();
                 String currentTime=dtf.format(now);
                 if(titleStream.getText().toString().isEmpty()){
@@ -93,9 +93,11 @@ public class LiveStreamRequest extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please select a stating time for Livestream", Toast.LENGTH_LONG).show();
                 }else if(txtTime_end.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(), "Please select a ending time for Livestream", Toast.LENGTH_LONG).show();
-                }else if(buttonPrivacy==null){
-                    Toast.makeText(getApplicationContext(), "Please select privacy type", Toast.LENGTH_LONG).show();
-                }else{
+                }
+//                else if(buttonPrivacy==null){
+//                    Toast.makeText(getApplicationContext(), "Please select privacy type", Toast.LENGTH_LONG).show();
+//                }
+                else{
                     HashMap<String, String> map = new HashMap<>();
 
                     map.put("schoolID", PreferenceData.getLoggedInUserData(getApplicationContext()).get("userID"));
@@ -106,7 +108,7 @@ public class LiveStreamRequest extends AppCompatActivity {
                     map.put("currentTime",currentTime);
                     map.put("title",titleStream.getText().toString());
                     map.put("description",descriptionStream.getText().toString());
-                    map.put("privacy",buttonPrivacy.getText().toString());
+                    map.put("privacy","Public");
 
                     Call<Void> call = retrofitInterface.postStreamRequest(map);
                     call.enqueue(new Callback<Void>() {

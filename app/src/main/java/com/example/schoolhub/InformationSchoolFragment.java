@@ -160,8 +160,8 @@ public class InformationSchoolFragment extends Fragment implements LocationListe
                             tAbout.setText(thisSchoolData.getAboutSchool());
                             tEmail.setText(thisSchoolData.getSchoolEmail());
                             tContact.setText(thisSchoolData.getContactNumber());
-                            tAddress.setText(thisSchoolData.getSchoolAddress());
-                            tZip.setText(thisSchoolData.getZipCode().toString());
+                            tAddress.setText("Address: "+thisSchoolData.getSchoolAddress());
+                            tZip.setText("Zip Code: "+thisSchoolData.getZipCode().toString());
 
 
 //                            tEducationLevel.setText(thisSchoolData.getEducationLevel());
@@ -260,7 +260,7 @@ public class InformationSchoolFragment extends Fragment implements LocationListe
                         Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLatitude()),
                         Double.parseDouble(thisSchoolData.getSchoolCoordinates().getLongitude()),
                         results);
-                String yes=adf.format(results[0]/1000)+" km Away";
+                String yes="Distance: "+adf.format(results[0]/1000)+" km Away";
                 tDistance.setText(yes);
             }
         }, 1000);//1 second delay

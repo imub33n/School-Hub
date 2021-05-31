@@ -301,6 +301,8 @@ public class EditSchool extends AppCompatActivity implements OnMapReadyCallback,
                             public void onResponse(Call<SchoolData> call, Response<SchoolData> response) {
                                 if (response.isSuccessful()) {
                                     Toast.makeText(EditSchool.this, "Updated", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(EditSchool.this,AdminDashboard.class );
+                                    startActivity(intent);
                                 }else{
                                     Toast.makeText(EditSchool.this, "Err Code: "+response.code(), Toast.LENGTH_LONG).show();
                                 }

@@ -3,6 +3,7 @@ package com.example.schoolhub.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import com.example.schoolhub.AdminDashMainPage;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.UserProfile;
+import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.Teachers;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -108,31 +111,87 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
         });
         holder.nameFaculty.setText(teachersList.get(position).getTeacherName());
         holder.eMailFaculty.setText(teachersList.get(position).getTeacherEmail());
-        if(teachersList.get(position).getTeacherProfilePic().isEmpty()){
+        //
+        holder.imageViewFaculty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callProfile(teachersList.get(position).getTeacherID());
+            }
+        });
+        Call<List<LoginResult>> call2 = retrofitInterface.userData(teachersList.get(position).getTeacherID());
+        call2.enqueue(new Callback<List<LoginResult>>() {
+            @Override
+            public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+                if (response.code() == 200) {
+                    if(response.body().get(0).getProfilePic()==null){
 
-        }else{
-            StorageReference storageRef = storage.getReferenceFromUrl(teachersList.get(position).getTeacherProfilePic());
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(context)
-                            .load(uri)
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                            .error(R.drawable.ic_image_error)
-                            .into(holder.imageViewFaculty);
+                    }else{
+                        try{
+                            StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                            storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    try{
+                                        Glide.with(context)
+                                                .load(uri)
+                                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                                .error(R.drawable.ic_image_error)
+                                                .into(holder.imageViewFaculty);
+                                    }catch(Exception e){
+                                        Log.d(TAG, "Photo loading failed : "+ e);
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                    Glide.with(context)
+                                            .load(R.drawable.ic_image_error)
+                                            .fitCenter()
+                                            .into(holder.imageViewFaculty);
+                                }
+                            });
+                        }catch (Exception e){
+                            Log.d(TAG, "Err loading reviewer pic: "+e);
+                        }
+                    }
+                }else {
+                    Toast.makeText(context, "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Glide.with(context)
-                            .load(R.drawable.ic_image_error)
-                            .fitCenter()
-                            .into(holder.imageViewFaculty);
-                }
-            });
-        }
+
+            }
+            @Override
+            public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+                Toast.makeText(context, ""+t, Toast.LENGTH_LONG).show();
+            }
+        });
+
+//        if(teachersList.get(position).getTeacherProfilePic().isEmpty()){
+//
+//        }else{
+//            StorageReference storageRef = storage.getReferenceFromUrl(teachersList.get(position).getTeacherProfilePic());
+//            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    Glide.with(context)
+//                            .load(uri)
+//                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+//                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+//                            .error(R.drawable.ic_image_error)
+//                            .into(holder.imageViewFaculty);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                    Glide.with(context)
+//                            .load(R.drawable.ic_image_error)
+//                            .fitCenter()
+//                            .into(holder.imageViewFaculty);
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -157,5 +216,10 @@ public class FacultyAdapter extends RecyclerView.Adapter<FacultyAdapter.ViewHold
 
             retrofitInterface = retrofit.create(RetrofitInterface.class);
         }
+    }
+    private void callProfile(String id){
+        Intent it = new Intent( context , UserProfile.class);
+        it.putExtra("EXTRA_USER_ID", id);
+        context.startActivity(it);
     }
 }

@@ -74,6 +74,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="#EAEAEA"/>
+
                 <TextView
                     android:id="@+id/tAbout"
                     android:layout_width="match_parent"
@@ -83,7 +84,7 @@
                     android:text="About the School"
                     android:textAlignment="viewStart"
                     android:textColor="@color/ic_launcher_background"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <Button
@@ -129,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="@drawable/bg_usage_rounded_corner"
+                        android:background="@drawable/bg_comment"
                         android:elevation="2dp"
                         android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="parent"

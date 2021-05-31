@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.example.schoolhub.Adapters.NotificationAdapter;
 import com.example.schoolhub.data.LoginResult;
+import com.example.schoolhub.data.Notification;
 import com.example.schoolhub.data.PreferenceData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,7 +32,7 @@ public class Notifications extends AppCompatActivity {
     RecyclerView recycler_notification;
     TextView status_notification;
     Toolbar navNoti;
-
+    List<Notification> newNotificationList= new ArrayList<>();
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
 
@@ -64,8 +66,18 @@ public class Notifications extends AppCompatActivity {
                 if (response.code() == 200) {
                     //setData
                     if(response.body().get(0).getNotification().size()>0){
-                        notificationAdapter = new NotificationAdapter(response.body().get(0).getNotification(),Notifications.this);
-                        recycler_notification.setAdapter(notificationAdapter);
+                        for(int i=0;i<response.body().get(0).getNotification().size();i++){
+                            if(response.body().get(0).getNotification().get(i).getText()==null || response.body().get(0).getNotification().get(i).getText().isEmpty()){
+                                Log.d(TAG, "onNotification empty: "+i);
+                            }else{
+                                newNotificationList.add(response.body().get(0).getNotification().get(i));
+                            }
+                            if(i==response.body().get(0).getNotification().size()-1){
+                                notificationAdapter = new NotificationAdapter(newNotificationList,Notifications.this);
+                                recycler_notification.setAdapter(notificationAdapter);
+                            }
+                        }
+
                     }else{
                         status_notification.setText("No New Notifications");
                     }

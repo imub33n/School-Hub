@@ -1,6 +1,7 @@
 package com.example.schoolhub.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.ReplyReview;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -58,6 +60,13 @@ public class ReplyReviewAdapter extends RecyclerView.Adapter<ReplyReviewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textReplyReview.setText(replyReviews.get(position).getText());
         holder.userNameReplyReview.setText(replyReviews.get(position).getUsername());
+        //
+        holder.userDpReplyReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callProfile(replyReviews.get(position).getUserID());
+            }
+        });
         //set dp of person who replied
         Call<List<LoginResult>> call2 = retrofitInterface.userData(replyReviews.get(position).getUserID());
         call2.enqueue(new Callback<List<LoginResult>>() {
@@ -68,27 +77,35 @@ public class ReplyReviewAdapter extends RecyclerView.Adapter<ReplyReviewAdapter.
 
                     }else{
                         try{
-                            StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
-                            storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Glide.with(context)
-                                            .load(uri)
-                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                            .error(R.drawable.ic_image_error)
-                                            .into(holder.userDpReplyReview);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    // Handle any errors
-                                    Glide.with(context)
-                                            .load(R.drawable.ic_image_error)
-                                            .fitCenter()
-                                            .into(holder.userDpReplyReview);
-                                }
-                            });
+                            try{
+                                StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                                storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        try{
+                                            Glide.with(context)
+                                                    .load(uri)
+                                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                                    .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                                    .error(R.drawable.ic_image_error)
+                                                    .into(holder.userDpReplyReview);
+                                        }catch(Exception e){
+                                            Log.d(TAG, "Photo loading failed : "+ e);
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle any errors
+                                        Glide.with(context)
+                                                .load(R.drawable.ic_image_error)
+                                                .fitCenter()
+                                                .into(holder.userDpReplyReview);
+                                    }
+                                });
+                            }catch(Exception e){
+                                Log.d(TAG, "Photo loading failed : "+ e);
+                            }
                         }catch (Exception e){
                             Log.d(TAG, "Err loading review replier pic: "+e);
                         }
@@ -125,5 +142,10 @@ public class ReplyReviewAdapter extends RecyclerView.Adapter<ReplyReviewAdapter.
 
             retrofitInterface = retrofit.create(RetrofitInterface.class);
         }
+    }
+    private void callProfile(String id){
+        Intent it = new Intent( context , UserProfile.class);
+        it.putExtra("EXTRA_USER_ID", id);
+        context.startActivity(it);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.schoolhub.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.Comment;
 import com.example.schoolhub.data.LoginResult;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,6 +64,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         Comment comments=resourceComment.get(position);
         holder.userNameComment.setText(comments.getUsername());
         holder.textComment.setText(comments.getText());
+        //
+        holder.userDpComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callProfile(comments.getUserID());
+            }
+        });
         //set dp of person who commented
         Call<List<LoginResult>> call2 = retrofitInterface.userData(comments.getUserID());
         call2.enqueue(new Callback<List<LoginResult>>() {
@@ -71,35 +80,40 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     if(response.body().get(0).getProfilePic()==null){
 
                     }else{
-                        StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
-                        storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                try{
-                                    Glide.with(context)
-                                            .load(uri)
-                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                            .error(R.drawable.ic_image_error)
-                                            .into(holder.userDpComment);
-                                }catch (Exception e){
-                                    Log.d(TAG, "comment photo not loaded: "+e);
+                        try{
+                            StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                            storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    try{
+                                        Glide.with(context)
+                                                .load(uri)
+                                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                                .error(R.drawable.ic_image_error)
+                                                .into(holder.userDpComment);
+                                    }catch (Exception e){
+                                        Log.d(TAG, "comment photo not loaded: "+e);
+                                    }
                                 }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
-                                try{
-                                    Glide.with(context)
-                                            .load(R.drawable.ic_image_error)
-                                            .fitCenter()
-                                            .into(holder.userDpComment);
-                                }catch (Exception e){
-                                    Log.d(TAG, "comment photo not loaded: "+e);
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                    try{
+                                        Glide.with(context)
+                                                .load(R.drawable.ic_image_error)
+                                                .fitCenter()
+                                                .into(holder.userDpComment);
+                                    }catch (Exception e){
+                                        Log.d(TAG, "comment photo not loaded: "+e);
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                        }catch(Exception e){
+                            Log.d(TAG, "Photo loading failed : "+ e);
+                        }
                     }
                 }else {
                     Toast.makeText(context, "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
@@ -142,5 +156,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             retrofitInterface = retrofit.create(RetrofitInterface.class);
         }
+    }
+    private void callProfile(String id){
+        Intent it = new Intent( context , UserProfile.class);
+        it.putExtra("EXTRA_USER_ID", id);
+        context.startActivity(it);
     }
 }

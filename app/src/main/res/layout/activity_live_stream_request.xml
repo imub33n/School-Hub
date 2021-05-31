@@ -246,46 +246,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="left"
-                android:letterSpacing="0.1"
-                android:textSize="16dp"
-                android:text="Privacy :"
-                android:textColor="#000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <RadioGroup
-                android:id="@+id/groupPrivacy"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/buttonPrivate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.1"
-                    android:textSize="14dp"
-                    android:text="Private"
-                    android:textColor="#000"/>
-                <RadioButton
-                    android:id="@+id/buttonPublic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0.1"
-                    android:textSize="14dp"
-                    android:text="Public"
-                    android:textColor="#000"/>
-            </RadioGroup>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

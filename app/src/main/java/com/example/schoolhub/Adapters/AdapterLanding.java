@@ -2,6 +2,7 @@ package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHolder>{
     private ArrayList<SchoolsLandingModel> models= new ArrayList<>();
@@ -53,21 +56,24 @@ public class AdapterLanding extends RecyclerView.Adapter<AdapterLanding.ViewHold
                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Glide.with(context)
-                                .load(uri)
-                                //.fitCenter()
-                                //.dontAnimate()
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                .error(R.drawable.ic_image_error)
-                                //.apply(new RequestOptions().override(1000, 500))
-                                .into(holder.imageView);
+                        try{
+                            Glide.with(context)
+                                    .load(uri)
+                                    //.fitCenter()
+                                    //.dontAnimate()
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                    .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                    .error(R.drawable.ic_image_error)
+                                    //.apply(new RequestOptions().override(1000, 500))
+                                    .into(holder.imageView);
+                        }catch(Exception e){
+                            Log.d(TAG, "Photo loading failed : "+ e);
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Handle any errors
-                        Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
                         Glide.with(context)
                                 .load(R.drawable.ic_image_error)
                                 .fitCenter()

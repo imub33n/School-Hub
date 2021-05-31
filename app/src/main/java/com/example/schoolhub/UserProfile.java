@@ -167,6 +167,9 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         if(!Objects.equals(getIntent().getStringExtra("EXTRA_USER_ID"),PreferenceData.getLoggedInUserData(this).get("userID"))){
             editDetails.setLayoutParams(new LinearLayout.LayoutParams(0,0));
             editDP.setLayoutParams(new FrameLayout.LayoutParams(0, 0));
+            if(PreferenceData.getLoggedInUserData(this).get("userType").equals("School")){
+                follow_chat_layout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            }
         }else{
             follow_chat_layout.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         }

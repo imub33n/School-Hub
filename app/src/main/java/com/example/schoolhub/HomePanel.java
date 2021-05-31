@@ -177,29 +177,38 @@ public class HomePanel extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         if (item != null) {
             //getting userData
-            StorageReference storageRef = storage.getReferenceFromUrl(Objects.requireNonNull(PreferenceData.getLoggedInUserData(HomePanel.this).get("userPic")));
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(getApplicationContext())
-                            .load(uri)
-                            .circleCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
-                            .error(R.drawable.ic_image_error)
-                            .into(new CustomTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                    item.setIcon(resource);
-                                }
+            try{
+                StorageReference storageRef = storage.getReferenceFromUrl(Objects.requireNonNull(PreferenceData.getLoggedInUserData(HomePanel.this).get("userPic")));
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        try{
+                            Glide.with(getApplicationContext())
+                                    .load(uri)
+                                    .circleCrop()
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                    .thumbnail(Glide.with(getApplicationContext()).load(R.drawable.ic_img_loading))
+                                    .error(R.drawable.ic_image_error)
+                                    .into(new CustomTarget<Drawable>() {
+                                        @Override
+                                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                            item.setIcon(resource);
+                                        }
 
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                        @Override
+                                        public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                                }
-                            });
-                }
-            });
+                                        }
+                                    });
+                        }catch(Exception e){
+                            Log.d(TAG, "Photo loading failed : "+ e);
+                        }
+                    }
+                });
+
+            }catch(Exception e){
+                Log.d(TAG, "Photo loading failed : "+ e);
+            }
         }
         return true;
     }

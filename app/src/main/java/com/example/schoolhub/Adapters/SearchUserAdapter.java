@@ -53,33 +53,37 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUserAdapter.Vi
         holder.userType.setText(loginResults.get(position).getType());
         if(loginResults.get(position).getProfilePic()!=null){
             if(!loginResults.get(position).getProfilePic().isEmpty()){
-                StorageReference storageRef2 = storage.getReferenceFromUrl(loginResults.get(position).getProfilePic());
-                storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        try {
-                            Glide.with(context)
-                                    .load(uri)
-                                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)         //ALL or NONE as your requirement
-                                    .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                    .error(R.drawable.ic_image_error)
-                                    .into(holder.pic_user);
-                            Log.d(TAG, "onSuccess: ____________________ex");
-                        }catch (Exception e){
-                            Log.d(TAG, "onFail: ____________________ex"+e);
-                        }
+                try{
+                    StorageReference storageRef2 = storage.getReferenceFromUrl(loginResults.get(position).getProfilePic());
+                    storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            try {
+                                Glide.with(context)
+                                        .load(uri)
+                                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)         //ALL or NONE as your requirement
+                                        .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                        .error(R.drawable.ic_image_error)
+                                        .into(holder.pic_user);
+                                Log.d(TAG, "onSuccess: ____________________ex");
+                            }catch (Exception e){
+                                Log.d(TAG, "onFail: ____________________ex"+e);
+                            }
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Glide.with(context)
-                                .load(R.drawable.ic_image_error)
-                                .fitCenter()
-                                .into(holder.pic_user);
-                    }
-                });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Glide.with(context)
+                                    .load(R.drawable.ic_image_error)
+                                    .fitCenter()
+                                    .into(holder.pic_user);
+                        }
+                    });
+                }catch(Exception e){
+                    Log.d(TAG, "Photo loading failed : "+ e);
+                }
             }
         }
 

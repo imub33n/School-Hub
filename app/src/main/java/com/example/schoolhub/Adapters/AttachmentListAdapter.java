@@ -1,6 +1,7 @@
 package com.example.schoolhub.Adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.example.schoolhub.data.AttachmentListData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAdapter.AttachmentListViewHolder> {
     public static ArrayList<AttachmentListData> newAttachmentList;
@@ -44,12 +47,16 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
         if (userImage.isEmpty()||userImage.equals(null)||userImage.equals("")) {
 
         } else {
-            Glide.with(mActivity)
-                    .load(userImage)
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                    .thumbnail(Glide.with(mActivity).load(R.drawable.ic_img_loading))
-                    .error(R.drawable.ic_image_error)
-                    .into(holder.attachedImageId);
+            try{
+                Glide.with(mActivity)
+                        .load(userImage)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                        .thumbnail(Glide.with(mActivity).load(R.drawable.ic_img_loading))
+                        .error(R.drawable.ic_image_error)
+                        .into(holder.attachedImageId);
+            }catch(Exception e){
+                Log.d(TAG, "Photo loading failed : "+ e);
+            }
         }
     }
 

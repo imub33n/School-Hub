@@ -146,28 +146,35 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             @Override
             public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
                 if (response.code() == 200) {
-
-                    StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
-                    storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Glide.with(context)
-                                    .load(uri)
-                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                    .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                    .error(R.drawable.ic_image_error)
-                                    .into(holder.userDpPost);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle any errors
-                            Glide.with(context)
-                                    .load(R.drawable.ic_image_error)
-                                    .fitCenter()
-                                    .into(holder.userDpPost);
-                        }
-                    });
+                    try{
+                        StorageReference storageRef2 = storage.getReferenceFromUrl(response.body().get(0).getProfilePic());
+                        storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                try{
+                                    Glide.with(context)
+                                            .load(uri)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                            .error(R.drawable.ic_image_error)
+                                            .into(holder.userDpPost);
+                                }catch(Exception e){
+                                    Log.d(TAG, "Photo loading failed : "+ e);
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                                Glide.with(context)
+                                        .load(R.drawable.ic_image_error)
+                                        .fitCenter()
+                                        .into(holder.userDpPost);
+                            }
+                        });
+                    }catch(Exception e){
+                        Log.d(TAG, "Photo loading failed : "+ e);
+                    }
 
                 }else {
                     Toast.makeText(context, "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
@@ -193,29 +200,37 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
             if(postResult.getImage().isEmpty()){
 
             }else{
-                StorageReference storageRef = storage.getReferenceFromUrl(postResult.getImage());
-                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Glide.with(context)
-                                .load(uri)
-                                //.fitCenter()
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                .error(R.drawable.a)
-                                .into(holder.imagePost);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
-                        Glide.with(context)
-                                .load(R.drawable.ic_image_error)
-                                .fitCenter()
-                                .into(holder.imagePost);
-                    }
-                });
+                try{
+                    StorageReference storageRef = storage.getReferenceFromUrl(postResult.getImage());
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            try{
+                                Glide.with(context)
+                                        .load(uri)
+                                        //.fitCenter()
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                        .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                        .error(R.drawable.a)
+                                        .into(holder.imagePost);
+                            }catch(Exception e){
+                                Log.d(TAG, "Photo loading failed : "+ e);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Toast.makeText(context, "ye nae load ho rhi", Toast.LENGTH_LONG).show();
+                            Glide.with(context)
+                                    .load(R.drawable.ic_image_error)
+                                    .fitCenter()
+                                    .into(holder.imagePost);
+                        }
+                    });
+                }catch(Exception e){
+                    Log.d(TAG, "Photo loading failed : "+ e);
+                }
             }
         }
         if(postResult.getComments().isEmpty()){

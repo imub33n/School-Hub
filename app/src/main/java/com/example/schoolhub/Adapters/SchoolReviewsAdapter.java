@@ -1,6 +1,7 @@
 package com.example.schoolhub.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
 import com.example.schoolhub.SendNotification;
+import com.example.schoolhub.UserProfile;
 import com.example.schoolhub.data.LiveStreamRequests;
 import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.PostResult;
@@ -87,7 +89,14 @@ public class SchoolReviewsAdapter extends RecyclerView.Adapter<SchoolReviewsAdap
         holder.textInReview.setText(schoolReviews.get(position).getReviewText());
         holder.ratingBarInReview.setRating(schoolReviews.get(position).getRating());
         //set pic of Reviewer
-        //set dp of person who commented
+        //
+        holder.picReviewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callProfile(schoolReviews.get(position).getUserID());
+            }
+        });
+
         Call<List<LoginResult>> call2 = retrofitInterface.userData(schoolReviews.get(position).getUserID());
         call2.enqueue(new Callback<List<LoginResult>>() {
             @Override
@@ -101,12 +110,16 @@ public class SchoolReviewsAdapter extends RecyclerView.Adapter<SchoolReviewsAdap
                             storageRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Glide.with(context)
-                                            .load(uri)
-                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                                            .error(R.drawable.ic_image_error)
-                                            .into(holder.picReviewer);
+                                    try{
+                                        Glide.with(context)
+                                                .load(uri)
+                                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                                .error(R.drawable.ic_image_error)
+                                                .into(holder.picReviewer);
+                                    }catch(Exception e){
+                                        Log.d(TAG, "Photo loading failed : "+ e);
+                                    }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -212,5 +225,10 @@ public class SchoolReviewsAdapter extends RecyclerView.Adapter<SchoolReviewsAdap
 
             retrofitInterface = retrofit.create(RetrofitInterface.class);
         }
+    }
+    private void callProfile(String id){
+        Intent it = new Intent( context , UserProfile.class);
+        it.putExtra("EXTRA_USER_ID", id);
+        context.startActivity(it);
     }
 }

@@ -2,6 +2,7 @@ package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.ContentValues.TAG;
+
 public class EditPhotosViewAdapter extends RecyclerView.Adapter<EditPhotosViewAdapter.ViewHolder>{
     List<Image> images= new ArrayList<>();
     Context context;
@@ -59,31 +62,38 @@ public class EditPhotosViewAdapter extends RecyclerView.Adapter<EditPhotosViewAd
     @Override
     public void onBindViewHolder(@NonNull EditPhotosViewAdapter.ViewHolder holder, int position) {
         if(images.get(position).getPath()!=null){
-            StorageReference storageRef = storage.getReferenceFromUrl(images.get(position).getPath());
-            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(context)
-                            .load(uri)
-                            //.fitCenter()
-                            //.dontAnimate()
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                            .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                            .error(R.drawable.ic_image_error)
-                            //.apply(new RequestOptions().override(1000, 500))
-                            .into(holder.image);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(context, "Ye nae load ho rhi", Toast.LENGTH_LONG).show();
-                    Glide.with(context)
-                            .load(R.drawable.ic_image_error)
-                            .fitCenter()
-                            .into(holder.image);
-                }
-            });
+            try{
+                StorageReference storageRef = storage.getReferenceFromUrl(images.get(position).getPath());
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        try{
+                            Glide.with(context)
+                                    .load(uri)
+                                    //.fitCenter()
+                                    //.dontAnimate()
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                    .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                    .error(R.drawable.ic_image_error)
+                                    //.apply(new RequestOptions().override(1000, 500))
+                                    .into(holder.image);
+                        }catch(Exception e){
+                            Log.d(TAG, "Photo loading failed : "+ e);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Glide.with(context)
+                                .load(R.drawable.ic_image_error)
+                                .fitCenter()
+                                .into(holder.image);
+                    }
+                });
+            }catch(Exception e){
+                Log.d(TAG, "Photo loading failed : "+ e);
+            }
         }
         holder.removeImage.setOnClickListener(new View.OnClickListener() {
             @Override

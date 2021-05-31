@@ -2,6 +2,7 @@ package com.example.schoolhub.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.ContentValues.TAG;
+
 public class RequestFacultyAdapter extends RecyclerView.Adapter<RequestFacultyAdapter.ViewHolder>{
     List<FacultyRequest> facultyRequests;
     Context context;
@@ -62,28 +65,36 @@ public class RequestFacultyAdapter extends RecyclerView.Adapter<RequestFacultyAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.nameFaculty.setText(facultyRequests.get(position).getTeacherName());
         holder.emailFaculity.setText(facultyRequests.get(position).getTeacherEmail());
+        try{
+            StorageReference storageRef = storage.getReferenceFromUrl(facultyRequests.get(position).getTeacherProfilePic());
+            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    try{
+                        Glide.with(context)
+                                .load(uri)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
+                                .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
+                                .error(R.drawable.ic_image_error)
+                                .into(holder.imageFaculty);
 
-        StorageReference storageRef = storage.getReferenceFromUrl(facultyRequests.get(position).getTeacherProfilePic());
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context)
-                        .load(uri)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
-                        .thumbnail(Glide.with(context).load(R.drawable.ic_img_loading))
-                        .error(R.drawable.ic_image_error)
-                        .into(holder.imageFaculty);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Glide.with(context)
-                        .load(R.drawable.ic_image_error)
-                        .fitCenter()
-                        .into(holder.imageFaculty);
-            }
-        });
+                    }catch(Exception e){
+                        Log.d(TAG, "Photo loading failed : "+ e);
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Glide.with(context)
+                            .load(R.drawable.ic_image_error)
+                            .fitCenter()
+                            .into(holder.imageFaculty);
+                }
+            });
+        }catch(Exception e){
+            Log.d(TAG, "Photo loading failed : "+ e);
+        }
         HashMap<String, String> mapRequestStatus = new HashMap<>();
         holder.acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -317,6 +317,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
                                             android:gravity="center"
+                                            android:textAllCaps="true"
                                             android:background="@color/table_color"
                                             android:text="Primary"
                                             android:textColor="#fff" />
@@ -531,6 +532,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
                                             android:gravity="center"
+                                            android:textAllCaps="true"
                                             android:background="@color/table_color"
                                             android:text="Middle"
                                             android:textColor="#fff" />
@@ -746,6 +748,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="50dp"
                                             android:gravity="center"
+                                            android:textAllCaps="true"
                                             android:background="@color/table_color"
                                             android:text="Higher"
                                             android:textColor="#fff" />

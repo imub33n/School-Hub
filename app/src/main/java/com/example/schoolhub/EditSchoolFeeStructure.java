@@ -265,6 +265,8 @@ public class EditSchoolFeeStructure extends AppCompatActivity {
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if(response.isSuccessful()){
                                     Toast.makeText(EditSchoolFeeStructure.this,"Fee Structure Updated", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(EditSchoolFeeStructure.this,AdminDashboard.class );
+                                    startActivity(intent);
                                 }else{
                                     Toast.makeText(EditSchoolFeeStructure.this,"Update Err: "+response.code(), Toast.LENGTH_LONG).show();
                                 }
