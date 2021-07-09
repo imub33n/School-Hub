@@ -125,7 +125,7 @@ public class UserProfile extends AppCompatActivity implements OnCommentClick {
         send_msg= findViewById(R.id.send_msg);
         follow_chat_layout= findViewById(R.id.follow_chat_layout);
         follow_button= findViewById(R.id.follow_button);
-        //logedin user
+        //logged in user for follow
         Call<List<LoginResult>> calld = retrofitInterface.userData(PreferenceData.getLoggedInUserData(this).get("userID"));
         calld.enqueue(new Callback<List<LoginResult>>() {
             @Override

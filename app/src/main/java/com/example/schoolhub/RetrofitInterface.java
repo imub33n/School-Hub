@@ -127,7 +127,7 @@ public interface RetrofitInterface {
     @PATCH("/notification/addNotification/{id}")
     Call<Void> sendNotification(@Path("id") String id, @Body Notification notification);
 
-    @PATCH("/notification/addNotification/{id}")
+    @PATCH("/notification/deleteNotification/{id}")
     Call<Void> deleteNoti(@Path("id") String id, @Body HashMap<String, String> map);
 
     @PATCH("/school/Edit_SchoolFee/{id}")

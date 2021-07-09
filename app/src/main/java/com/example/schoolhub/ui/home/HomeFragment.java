@@ -32,9 +32,11 @@ import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
 import com.example.schoolhub.Adapters.PostViewAdapter;
+import com.example.schoolhub.HomePanel;
 import com.example.schoolhub.MainActivity;
 import com.example.schoolhub.R;
 import com.example.schoolhub.RetrofitInterface;
+import com.example.schoolhub.data.LoginResult;
 import com.example.schoolhub.data.OnCommentClick;
 import com.example.schoolhub.data.PostResult;
 import com.example.schoolhub.data.PreferenceData;
@@ -47,8 +49,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -61,7 +65,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefreshLayout.OnRefreshListener {
-//recyclerView.getAdapter().notifyDataSetChanged();
+
     public String uploadedImageURL;
     public static String nameHomePhoto="";
     String userIDPost,userNamePost, textPost, timePost, imagePost;
@@ -78,12 +82,15 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
     //Firebase
     FirebaseStorage storage;
     StorageReference storageReference;
-    List<PostResult> resource;
+    List<PostResult> resource= new ArrayList<>();
     PostViewAdapter adapter;
     ProgressBar progressBar;
     OnCommentClick c=this;
     RecyclerView recyclerView;
     SwipeRefreshLayout pullToRefresh;
+
+    LoginResult currentUserData= new LoginResult();
+    Boolean firstTime= true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -142,6 +149,7 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
         //get shitpostings
         Call<List<PostResult>> call = retrofitInterface.doGetListResources();
         call.enqueue(new Callback<List<PostResult>>() {
@@ -196,11 +204,12 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
             @Override
             public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
                 if (response.code() == 200) {
-                    Log.d("TAG",response.code()+"");
+
                     resource =  response.body();
                     adapter = new PostViewAdapter(resource,getContext(),c);
                     adapter.setHasStableIds(true);
                     recyclerView.setAdapter(adapter);
+                    //resource =  response.body();
 //                    adapter.notifyDataSetChanged();
                 }else {
                     Toast.makeText(getContext(), "some response code", Toast.LENGTH_LONG).show();
@@ -215,6 +224,7 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
         });
     }
     private void chooseImage() {
+        firstTime=true;
         Uri uri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         Intent intentImages = new Intent();
         intentImages.setType("image/*");
@@ -261,17 +271,22 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
                 && data != null && data.getData() != null )
         {
             if (data.getData() != null) {
+                Log.d(TAG, "onActivityResult:_____ "+"yahan a rha");
                 filePath = data.getData();
                 Cursor returnCursor = getContext().getContentResolver().query(filePath, null, null, null, null);
                 int nameHomeIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                 returnCursor.moveToFirst();
                 nameHomePhoto=returnCursor.getString(nameHomeIndex);
                 imageNameHome.setText(nameHomePhoto);
+                Log.d(TAG, "onActivityResult:_____ "+nameHomePhoto);
+                Log.d(TAG, "onActivityResult:_____ "+filePath);
                 photoHomeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 String photoUri= String.valueOf(filePath);
                 if (photoUri.isEmpty()||photoUri.equals(null)||photoUri.equals("")) {
 
                 } else {
+
+                    Log.d(TAG, "onActivityResult:___2___ "+filePath);
                     Glide.with(this)
                             .load(filePath)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)         //ALL or NONE as your requirement
@@ -357,5 +372,17 @@ public class HomeFragment extends Fragment implements OnCommentClick, SwipeRefre
     public void onRefresh() {
         refreshPostData(); // your code
         pullToRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(firstTime){
+            firstTime=false;
+        }else{
+            getActivity().finish();
+            startActivity(getActivity().getIntent());
+            firstTime=true;
+        }
     }
 }

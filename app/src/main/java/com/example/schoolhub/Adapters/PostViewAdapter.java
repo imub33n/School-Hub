@@ -133,10 +133,12 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.timePost.setText(postResult.getTime());
         holder.totalLikesTextPost.setText("("+postResult.getTotalLikes()+" Likes) ");
         this.resourceLike=postResult.getLikes();
-        for(int i=0;i<postResult.getLikes().size();i++){
-            if(Objects.equals(resourceLike.get(i).getUserID(), PreferenceData.getLoggedInUserData(context).get("userID")) && resourceLike.get(i).getLike()){
-                holder.likeTextPost.setText("Unlike");
-                holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
+        if(resourceLike!=null){
+            for(int i=0;i<postResult.getLikes().size();i++){
+                if(Objects.equals(resourceLike.get(i).getUserID(), PreferenceData.getLoggedInUserData(context).get("userID")) && resourceLike.get(i).getLike()){
+                    holder.likeTextPost.setText("Unlike");
+                    holder.likeButtonPost.setImageDrawable(context.getResources().getDrawable(R.drawable.liketrue));
+                }
             }
         }
 
@@ -415,4 +417,5 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         it.putExtra("EXTRA_USER_ID", id);
         context.startActivity(it);
     }
+
 }

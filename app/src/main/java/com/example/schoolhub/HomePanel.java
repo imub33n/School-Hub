@@ -83,6 +83,8 @@ public class HomePanel extends AppCompatActivity {
     RecyclerView recyclerView;
     SearchUserAdapter searchUserAdapter;
 
+    //public static LoginResult currentUserData= new LoginResult();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,8 +112,6 @@ public class HomePanel extends AppCompatActivity {
                 Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
             }
         });
-
-        reviewAndFeedback= findViewById(R.id.reviewAndFeedback);
         //retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -119,6 +119,25 @@ public class HomePanel extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+//        //logged in user for follow
+//        Call<List<LoginResult>> calld = retrofitInterface.userData(PreferenceData.getLoggedInUserData(this).get("userID"));
+//        calld.enqueue(new Callback<List<LoginResult>>() {
+//            @Override
+//            public void onResponse(Call<List<LoginResult>> call, Response<List<LoginResult>> response) {
+//                if (response.code() == 200) {
+//                    currentUserData=response.body().get(0);
+//                }else {
+//                    Toast.makeText(getApplicationContext(), "Some response code: "+ response.code(), Toast.LENGTH_LONG).show();
+//                }
+//
+//            }
+//            @Override
+//            public void onFailure(Call<List<LoginResult>> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_LONG).show();
+//            }
+//        });
+        reviewAndFeedback= findViewById(R.id.reviewAndFeedback);
+
         reviewAndFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,7 +224,6 @@ public class HomePanel extends AppCompatActivity {
                         }
                     }
                 });
-
             }catch(Exception e){
                 Log.d(TAG, "Photo loading failed : "+ e);
             }
@@ -340,5 +358,10 @@ public class HomePanel extends AppCompatActivity {
     public void openNotifications(MenuItem item) {
         Intent it = new Intent( getApplicationContext() , Notifications.class);
         startActivity(it);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
